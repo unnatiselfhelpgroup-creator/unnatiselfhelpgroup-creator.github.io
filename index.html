@@ -6,22 +6,31 @@
     <title>उन्नति स्वयं सहायता समिति</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f7f9fa; color: #333; }
-        .header { background-color: #d9534f; color: white; text-align: center; padding: 35px 20px; }
-        .header h1 { margin: 0; font-size: 28px; }
-        .header p { margin: 10px 0 0 0; font-style: italic; font-size: 16px; }
+        .header { background-color: #d9534f; color: white; text-align: center; padding: 30px 20px; }
+        .logo-img { max-width: 120px; height: auto; border-radius: 50%; background: white; padding: 5px; margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .header h1 { margin: 5px 0 0 0; font-size: 28px; }
+        .header p { margin: 5px 0 0 0; font-style: italic; font-size: 15px; }
+        .niti-id { display: inline-block; background: #333; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-top: 10px; font-weight: bold; }
         .container { max-width: 800px; margin: 20px auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h2 { color: #d9534f; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; font-size: 22px; }
+        h2 { color: #d9534f; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; font-size: 22px; margin-top: 30px; }
         .campaign { background: #fffcfc; padding: 15px; margin-bottom: 15px; border-left: 5px solid #d9534f; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .campaign strong { color: #d9534f; display: block; margin-bottom: 5px; font-size: 17px; }
         
-        /* सोशल मीडिया और पेमेंट बटन की डिजाइन */
-        .btn-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; margin-bottom: 25px; }
-        .btn { display: inline-block; padding: 12px 20px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center; font-size: 15px; transition: background 0.2s; }
-        .btn-facebook { background-color: #3b5998; flex: 1; min-width: 140px; }
-        .btn-instagram { background-color: #e1306c; flex: 1; min-width: 140px; }
-        .btn-youtube { background-color: #ff0000; flex: 1; min-width: 140px; }
-        .btn-donate { background-color: #5cb85c; display: block; width: 100%; font-size: 18px; text-align: center; margin: 15px 0; box-sizing: border-box; }
-        .btn:hover { opacity: 0.9; }
+        /* क्यूआर कोड और डोनेशन बॉक्स */
+        .donation-box { background: #fdfefe; border: 2px dashed #5cb85c; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
+        .qr-img { max-width: 220px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: #fff; }
+        
+        /* बटन डिजाइन */
+        .btn-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .btn { display: inline-block; padding: 12px 20px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center; font-size: 15px; flex: 1; min-width: 140px; }
+        .btn-facebook { background-color: #3b5998; }
+        .btn-instagram { background-color: #e1306c; }
+        .btn-youtube { background-color: #ff0000; }
+        .btn-donate { background-color: #5cb85c; display: block; width: 100%; font-size: 18px; text-align: center; margin: 15px 0; box-sizing: border-box; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        
+        /* प्रोजेक्ट रिपोर्ट लिस्ट */
+        .report-list { padding-left: 20px; }
+        .report-list li { margin-bottom: 10px; font-size: 16px; }
         
         .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-weight: bold; color: #777; font-size: 18px; }
         .contact-info p { margin: 8px 0; font-size: 16px; }
@@ -30,35 +39,46 @@
 <body>
 
 <div class="header">
+    <img src="FB_IMG_1779017182552.jpg" alt="Unnati Samiti Logo" class="logo-img">
     <h1>उन्नति स्वयं सहायता समिति</h1>
     <p>"पशु कल्याण, जल संरक्षण और सामाजिक चेतना के माध्यम से समाज में सकारात्मक बदलाव।"</p>
+    <div class="niti-id">Unique ID NITI Aayog: UA/2016/0108273</div>
 </div>
 
 <div class="container">
     <h2>हमारे बारे में</h2>
-    <p>उन्नति स्वयं सहायता समिति एक पंजीकृत सामाजिक संस्था है, जो उत्तराखंड के हल्द्वानी और आस-पास के क्षेत्रों में निरंतर समाज सेवा और जन-जागरूकता के कार्यों में लगी हुई है। हमारा उद्देश्य समाज के हर वर्ग को आत्मनिर्भर बनाना, पर्यावरण व जल स्रोतों का संरक्षण करना और मूक पशुओं की सेवा करना है।</p>
+    <p>उन्नति स्वयं सहायता समिति एक पंजीकृत सामाजिक संस्था है, जो उत्तराखंड के हल्द्वानी और नैनीताल क्षेत्रों में निरंतर समाज सेवा, प्रशासनिक पारदर्शिता और जन-जागरूकता के कार्यों में समर्पित है। हमारा उद्देश्य समाज के हर वर्ग को सशक्त बनाना, पर्यावरण व जल स्रोतों का संरक्षण करना और मूक व निराश्रित पशुओं की सेवा करना है।</p>
 
     <h2>सहयोग और सुरक्षित दान (Donation)</h2>
-    <p>यदि आप मूक पशुओं के चारे, चिकित्सा या गर्मियों में निशुल्क जल वितरण अभियान में अपना आर्थिक योगदान देना चाहते हैं, तो आप नीचे दिए गए बटन पर क्लिक करके <strong>Razorpay</strong> के माध्यम से सुरक्षित रूप से सहयोग राशि भेज सकते हैं:</p>
+    <p>यदि आप असहाय परिवारों, मूक पशुओं के चारे-चिकित्सा या गर्मियों में निशुल्क जल वितरण अभियानों में योगदान देना चाहते हैं, तो आप नीचे दिए गए आधिकारिक क्यूआर कोड को अपने मोबाइल के किसी भी UPI ऐप (GPay, PhonePe, Paytm) से स्कैन करके सहयोग राशि भेज सकते हैं या ऑनलाइन पेमेंट लिंक का उपयोग कर सकते हैं:</p>
     
-    <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="btn btn-donate">👉 संस्था को सुरक्षित माध्यम (Razorpay) से दान करें</a>
+    <div class="donation-box">
+        <h3>संस्था का आधिकारिक UPI क्यूआर कोड</h3>
+        <img src="QrCode.jpeg.png" alt="UPI QR Code" class="qr-img">
+        <p><strong>स्कैन करें और किसी भी UPI ऐप से भुगतान करें</strong></p>
+        <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="btn btn-donate">👉 ऑनलाइन पेमेंट लिंक (Razorpay) द्वारा दान करें</a>
+    </div>
 
-    <h2>हमारे मुख्य अभियान और कार्य</h2>
+    <h2>30-पेज प्रोजेक्ट रिपोर्ट की मुख्य कार्य योजना</h2>
+    <p>संस्था द्वारा हल्द्वानी व उत्तराखंड के विकास और जनकल्याण के लिए तैयार की गई 30 पृष्ठों की विस्तृत प्रोजेक्ट रिपोर्ट के मुख्य लक्ष्य इस प्रकार हैं:</p>
+    <ul class="report-list">
+        <li><strong>असहाय व विधवा महिला सहायता कार्यक्रम:</strong> समाज के वंचित परिवारों और महिलाओं को आत्मनिर्भर बनाने के लिए प्रशिक्षण व आर्थिक संबल प्रदान करना।</li>
+        <li><strong>स्थायी जल संरक्षण व वितरण प्रोजेक्ट:</strong> हल्द्वानी के पानी की किल्लत वाले क्षेत्रों में गर्मियों के दौरान निशुल्क जल टैंकर उपलब्ध कराना और प्राकृतिक जल स्रोतों का जीर्णोद्धार।</li>
+        <li><strong>पशु चिकित्सा एवं गोवंश संरक्षण नीति:</strong> बीमार व दुर्घटनाग्रस्त मूक पशुओं के लिए त्वरित चिकित्सा, चारे और सुरक्षित आश्रय गृह (गौशाला) का दीर्घकालिक संचालन।</li>
+        <li><strong>प्रशासनिक जवाबदेही और पारदर्शिता:</strong> समाज हित में सूचना के अधिकार (RTI) और CPGRAMS जन-शिकायत प्रणालियों के माध्यम से जनसमस्याओं का स्थायी निवारण।</li>
+    </ul>
+
+    <h2>हमारे मुख्य अभियान और इतिहास</h2>
     <div class="campaign">
         <strong>1. गौ माता - राज्य माता आंदोलन</strong>
-        उत्तराखंड में गाय को 'राज्य माता' (State Mother) का संवैधानिक और कानूनी दर्जा दिलाने के लिए संस्था पूरी निष्ठा के साथ प्रयासरत है। इसके लिए विभिन्न स्तरों पर जनजागरण अभियान चलाए जा रहे हैं।
+        उत्तराखंड में गाय को 'राज्य माता' (State Mother) का संवैधानिक और कानूनी दर्जा दिलाने के लिए संस्था पूरी निष्ठा के साथ सरकार और नीति-निर्धारकों के साथ निरंतर प्रयासरत है।
     </div>
     <div class="campaign">
-        <strong>2. पशु कल्याण और जल वितरण</strong>
-        निराश्रित व बीमार गोवंश की चिकित्सा, चारे की व्यवस्था करना और गर्मियों के मौसम में पानी की भारी किल्लत से जूझ रहे क्षेत्रों में जल टैंकरों के माध्यम से निशुल्क जल वितरण करना हमारी प्राथमिकता है।
-    </div>
-    <div class="campaign">
-        <strong>3. ऐतिहासिक सहनशीलता यात्राएं</strong>
-        समाज को जगाने और अपनी मांगों को सरकार तक पहुँचाने के लिए संस्था द्वारा 37 दिनों की 140 किमी कठिन दंडवत यात्रा की गई है। साथ ही, देहरादून में 120 घंटे का ऐतिहासिक अन्न-जल त्याग पूर्ण व्रत भी किया गया है।
+        <strong>2. ऐतिहासिक सहनशीलता यात्राएं और व्रत</strong>
+        जन-चेतना जागृत करने के लिए संस्था प्रमुख द्वारा 37 दिनों की 140 किमी कठिन दंडवत यात्रा (लालकुआं से रामनगर व हरिद्वार से देहरादून) पूरी की गई है, तथा देहरादून में 120 घंटे का ऐतिहासिक अन्न-जल त्याग पूर्ण व्रत भी किया गया है।
     </div>
 
     <h2>हमसे सोशल मीडिया पर जुड़ें</h2>
-    <p>हमारे दैनिक कार्यों, अभियानों और समाज सेवा की लाइव अपडेट देखने के लिए नीचे दिए गए बटन पर क्लिक करके हमें फॉलो और सब्सक्राइब करें:</p>
     <div class="btn-container">
         <a href="https://www.facebook.com/share/17qdeEHsNg/" target="_blank" class="btn btn-facebook">Facebook Page</a>
         <a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" class="btn btn-instagram">Instagram</a>
@@ -78,3 +98,4 @@
 
 </body>
 </html>
+
