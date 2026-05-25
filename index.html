@@ -1,438 +1,269 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>उन्नति स्वयं सहायता समिति - गौ सेवा ही राष्ट्र सेवा है</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* ====================================
-       MODERN PREMIUM DESIGN (CSS STYLE)
-    ==================================== */
-    :root {
-      --primary: #ff6b00;
-      --primary2: #ffb347;
-      --dark: #1b2430;
-      --light: #ffffff;
-      --bg: #f2f5f9;
-      --text: #444;
-      --success: #1db954;
-      --radius: 22px;
-      --shadow: 0 10px 40px rgba(0,0,0,0.08);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति - गौ सेवा ही राष्ट्र सेवा है</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* -----------------------------------------
+           MODERN PREMIUM DESIGN (CSS STYLE)
+        -------------------------------------------- */
+        :root {
+            --primary: #ff8b00;
+            --primary2: #ffb347;
+            --dark: #1b2430;
+            --light: #ffffff;
+            --bg: #f2f5f9;
+            --text: #444;
+            --success: #1db954;
+            --radius: 22px;
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(to bottom right, #f7f9fc, #eef3f8);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.7;
-    }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f7f9fc, #eef3f8);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
 
-    /* HEADER */
-    .header {
-      background: linear-gradient(135deg, rgba(255,120,0,0.95), rgba(255,170,0,0.92));
-      color: white;
-      text-align: center;
-      padding: 70px 20px 90px;
-      position: relative;
-      overflow: hidden;
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-      box-shadow: 0 12px 35px rgba(255,120,0,0.25);
-    }
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, rgba(255,120,0,0.95), rgba(255,170,0,0.92));
+            color: white;
+            text-align: center;
+            padding: 80px 20px 100px;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 12px 35px rgba(255,120,0,0.25);
+        }
 
-    .header::before {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-      top: -180px;
-      left: -120px;
-    }
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            top: -100px;
+            left: -120px;
+        }
 
-    .header::after {
-      content: '';
-      position: absolute;
-      width: 350px;
-      height: 350px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 50%;
-      bottom: -150px;
-      right: -100px;
-    }
+        .header::after {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -100px;
+        }
 
-    .logo-container {
-      position: relative;
-      z-index: 2;
-    }
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 15px;
+        }
 
-    .logo-img {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-      background: #fff;
-      transition: 0.4s;
-    }
+        .logo-container i {
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
 
-    .logo-img:hover {
-      transform: scale(1.06) rotate(3deg);
-    }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    .header h1 {
-      position: relative;
-      z-index: 2;
-      margin-top: 18px;
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-shadow: 0 4px 15px rgba(0,0,0,0.25);
-    }
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
 
-    .header p {
-      position: relative;
-      z-index: 2;
-      margin-top: 15px;
-      display: inline-block;
-      padding: 10px 24px;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      font-size: 18px;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+        /* MAIN CONTENT CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
+        }
 
-    /* CONTAINER */
-    .container {
-      max-width: 950px;
-      margin: -40px auto 50px;
-      padding: 0 20px;
-      position: relative;
-      z-index: 10;
-    }
+        /* CARD STYLE */
+        .card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,139,0,0.1);
+        }
 
-    /* CARD */
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      border-radius: var(--radius);
-      padding: 35px;
-      margin-bottom: 30px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      transition: 0.35s ease;
-    }
+        .card h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
-    }
+        .card h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
 
-    /* TITLES */
-    h2 {
-      font-size: 24px;
-      color: var(--dark);
-      margin-bottom: 22px;
-      font-weight: 800;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .motto-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
 
-    h2::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -8px;
-      width: 60px;
-      height: 5px;
-      border-radius: 20px;
-      background: linear-gradient(to right, #ff8800, #ffb347);
-    }
+        /* DONATION BUTTON */
+        .donation-section {
+            margin: 35px 0;
+        }
 
-    /* DESCRIPTION */
-    .section-desc {
-      font-size: 15px;
-      color: #666;
-      margin-bottom: 25px;
-      line-height: 1.8;
-    }
+        .donate-btn {
+            background: linear-gradient(135deg, #ff8b00, #ffb347);
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 7px 25px rgba(255, 139, 0, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
 
-    /* BUTTONS */
-    .btn-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 18px;
-    }
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 139, 0, 0.6);
+        }
 
-    .btn {
-      padding: 16px;
-      border-radius: 18px;
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-size: 16px;
-      transition: 0.35s;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
-    }
+        .donate-btn i {
+            margin-right: 12px;
+            animation: pulse 1.5s infinite;
+        }
 
-    .btn::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.15);
-      left: -100%;
-      top: 0;
-      transition: 0.4s;
-    }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
 
-    .btn:hover::before {
-      left: 0;
-    }
+        /* QR CODE SECTION */
+        .qr-section {
+            background: #f9fbfd;
+            border: 2px dashed rgba(255,139,0,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+        }
 
-    .btn:hover {
-      transform: translateY(-4px) scale(1.03);
-    }
+        .qr-section h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
 
-    .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
-    .btn-facebook { background: linear-gradient(135deg, #1877F2, #0d5ed7); }
-    .btn-instagram { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); }
-    .btn-youtube { background: linear-gradient(135deg, #ff0000, #c30000); }
+        .payment-icons {
+            font-size: 1.8rem;
+            color: #444;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
 
-    /* GALLERY */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 22px;
-    }
+        .payment-icons span {
+            font-size: 1rem;
+            font-weight: bold;
+            background: #eee;
+            padding: 5px 12px;
+            border-radius: 5px;
+            color: #333;
+        }
 
-    .gallery-card {
-      border-radius: 18px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: 0.4s;
-      border: 1px solid #eee;
-    }
-
-    .gallery-card img {
-      width: 100%;
-      display: block;
-      transition: 0.5s;
-    }
-
-    .gallery-card:hover img {
-      transform: scale(1.06);
-    }
-
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-
-    /* DONATION */
-    .donation-box {
-      background: linear-gradient(135deg, #fff8e8, #fff1d2);
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 10px 30px rgba(255,170,0,0.1);
-    }
-
-    .donation-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 14px 0;
-      border-bottom: 1px dashed #e4c89f;
-      font-size: 16px;
-    }
-
-    .donation-row:last-child {
-      border-bottom: none;
-    }
-
-    .donation-row strong {
-      color: #555;
-    }
-
-    .donation-row span {
-      color: #222;
-      font-weight: 700;
-      text-align: right;
-    }
-
-    /* CONTACT */
-    .contact-badge {
-      background: linear-gradient(135deg, #f9fbfd, #f1f5fa);
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
-    }
-
-    .contact-item {
-      margin-bottom: 14px;
-      font-size: 17px;
-    }
-
-    .contact-item i {
-      color: #ff7b00;
-      margin-right: 12px;
-      width: 20px;
-    }
-
-    /* CALL BUTTON */
-    .call-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-      background: linear-gradient(135deg, #ff7b00, #ffae00);
-      color: white;
-      text-decoration: none;
-      padding: 16px 34px;
-      border-radius: 50px;
-      font-size: 16px;
-      font-weight: 700;
-      box-shadow: 0 10px 25px rgba(255,140,0,0.25);
-      transition: 0.35s;
-    }
-
-    .call-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 35px rgba(255,140,0,0.35);
-    }
-
-    /* FOOTER */
-    .footer {
-      background: linear-gradient(135deg, #111827, #1f2937);
-      color: #d1d5db;
-      text-align: center;
-      padding: 50px 20px;
-      border-top-left-radius: 40px;
-      border-top-right-radius: 40px;
-      margin-top: 40px;
-    }
-
-    .footer-quote {
-      color: #ffb347;
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    /* MOBILE */
-    @media(max-width:768px){
-      .header { padding: 60px 15px 80px; }
-      .header h1 { font-size: 28px; }
-      .header p { font-size: 15px; }
-      .card { padding: 25px 20px; }
-      h2 { font-size: 20px; }
-      .btn { font-size: 15px; }
-      .logo-img { width: 110px; height: 110px; }
-    }
-  </style>
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #888;
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="logo-container">
-      <img src="FB_IMG_1779017182552.jpg" alt="Unnati Samiti Logo" class="logo-img">
-    </div>
-    <h1>उन्नति स्वयं सहायता समिति</h1>
-    <p><i class="fa-solid fa-heart" style="color: #fff; margin-right: 5px;"></i> गौ सेवा ही राष्ट्र सेवा है</p>
-  </div>
-
-  <div class="container">
-    
-    <div class="card">
-      <h2><i class="fa-solid fa-share-nodes" style="color: #ff6b00;"></i> हमसे सोशल मीडिया पर जुड़ें</h2>
-      <p class="section-desc">हमारे दैनिक कार्यों की लाइव अपडेट देखने या हमसे सीधे बातचीत करने के लिए नीचे दिए गए बटन का उपयोग करें:</p>
-      <div class="btn-container">
-        <a href="https://wa.me/919410332400" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-        <a href="https://www.facebook.com/share/17qdeEHsNg/" target="_blank" class="btn btn-facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-        <a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4antkZnA=" target="_blank" class="btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
-        <a href="Https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=0mL9c-A6TiLKTOZI" target="_blank" class="btn btn-youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2><i class="fa-solid fa-newspaper" style="color: #ff6b00;"></i> आंदोलन और यात्रा की मुख्य झलकियाँ</h2>
-      <p class="section-desc">गौ माता को 'राज्य माता' का दर्जा दिलाने के लिए किए गए संघर्ष और ऐतिहासिक दंडवत यात्रा की मुख्य झलकियाँ:</p>
-      <div class="gallery-grid">
-        <div class="gallery-card"><img src="FB_IMG_1770717640353.jpg" alt="Photo 1"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720188819.jpg" alt="Photo 2"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720202695.jpg" alt="Photo 3"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720205789.jpg" alt="Photo 4"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720211704.jpg" alt="Photo 5"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720216052.jpg" alt="Photo 6"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720218999.jpg" alt="Photo 7"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720235485.jpg" alt="Photo 8"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720242579.jpg" alt="Photo 9"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720245764.jpg" alt="Photo 10"></div>
-        <div class="gallery-card"><img src="FB_IMG_1770720256390.jpg" alt="Photo 11"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2><i class="fa-solid fa-hand-holding-heart" style="color: #ff6b00;"></i> गौ सेवा हेतु सहयोग एवं दान</h2>
-      <p class="section-desc">संस्था द्वारा संचालित गौ सेवा, बीमार व असहाय गायों के उपचार और अनवरत कार्यों में सहयोग के लिए आप अपनी स्वेच्छा से दान राशि नीचे दिए गए बैंक खाते में भेज सकते हैं:</p>
-      <div class="donation-box">
-        <div class="donation-row">
-          <strong>संस्था का नाम:</strong>
-          <span>उन्नति स्वयं सहायता समिति</span>
+    <header class="header">
+        <div class="logo-container">
+            <i class="fas fa-hand-holding-heart"></i>
         </div>
-        <div class="donation-row">
-          <strong>बैंक का नाम:</strong>
-          <span>एक्सिस बैंक (Axis Bank)</span>
+        <h1>उन्नति स्वयं सहायता समिति</h1>
+        <p>गउ सेवा ही राष्ट्र सेवा है</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>मानव और जीव सेवा का संकल्प</h2>
+            
+            <p class="motto-text">
+                "हम असहाय, निराश्रित जनों, विधवा महिलाओं की सहायता एवं गौ-माता की सेवा और संरक्षण के लिए निरंतर समर्पित हैं।"
+            </p>
+
+            <div class="donation-section">
+                <p style="margin-bottom: 20px; font-weight: 600; color: #333; font-size: 1.1rem;">संस्था के सेवा कार्यों में अपना बहुमूल्य योगदान देने के लिए नीचे बटन पर क्लिक करें:</p>
+                
+                <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="donate-btn">
+                    <i class="fas fa-heart"></i> आर्थिक सहयोग करें (Donate Now)
+                </a>
+            </div>
+
+            <div class="qr-section">
+                <h3>सुरक्षित ऑनलाइन भुगतान</h3>
+                <p style="font-size: 0.95rem; color: #666; margin-bottom: 10px;">आप ऊपर दिए गए बटन पर क्लिक करके किसी भी UPI ऐप (GPay, PhonePe, Paytm) या कार्ड/नेटबैंकिंग से सुरक्षित भुगतान कर सकते हैं।</p>
+                <div class="payment-icons">
+                    <span>UPI</span>
+                    <span>GPay</span>
+                    <span>PhonePe</span>
+                    <span>Paytm</span>
+                </div>
+            </div>
         </div>
-        <div class="donation-row">
-          <strong>स्थान:</strong>
-          <span>हल्द्वानी, उत्तराखंड</span>
-        </div>
-        <p style="color: #8a6d3b; font-size: 14px; margin-top: 15px; font-style: italic; text-align: center;">
-          * दान या सहयोग करने के बाद ऊपर दिए गए व्हाट्सएप बटन पर क्लिक करके हमें सूचित अवश्य करें।
-        </p>
-      </div>
     </div>
 
-    <div class="card">
-      <h2><i class="fa-solid fa-address-book" style="color: #ff6b00;"></i> संपर्क करें</h2>
-      <div class="contact-badge">
-        <div class="contact-item"><i class="fa-solid fa-location-dot"></i> <strong>स्थान:</strong> हल्द्वानी, जिला - नैनीताल, उत्तराखंड</div>
-        <div class="contact-item"><i class="fa-solid fa-user"></i> <strong>संस्था प्रमुख:</strong> विनोद चंद्र भट्ट</div>
-        <div style="text-align: center;">
-          <a href="tel:+919410332400" class="call-btn"><i class="fa-solid fa-phone-flip"></i> सीधे कॉल करें</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    <div class="footer-quote">"गो सेवा ही राष्ट्र सेवा है।"</div>
-    <p>© 2026 उन्नति स्वयं सहायता समिति. सभी अधिकार सुरक्षित हैं।</p>
-  </div>
+    <footer class="footer">
+        <p>&copy; 2026 उन्नति स्वयं सहायता समिति | हल्द्वानी, उत्तराखंड</p>
+    </footer>
 
 </body>
 </html>
+
