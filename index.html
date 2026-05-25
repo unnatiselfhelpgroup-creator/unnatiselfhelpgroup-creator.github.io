@@ -1,110 +1,582 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>उन्नति स्वयं सहायता समिति</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f7f9fa; color: #333; }
-        .header { background-color: #d9534f; color: white; text-align: center; padding: 30px 20px; }
-        .logo-img { max-width: 120px; height: auto; border-radius: 50%; background: white; padding: 5px; margin-bottom: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .header h1 { margin: 5px 0 0 0; font-size: 28px; }
-        .header p { margin: 5px 0 0 0; font-style: italic; font-size: 15px; }
-        .niti-id { display: inline-block; background: #333; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-top: 10px; font-weight: bold; }
-        .container { max-width: 800px; margin: 20px auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h2 { color: #d9534f; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; font-size: 22px; margin-top: 30px; }
-        .campaign { background: #fffcfc; padding: 15px; margin-bottom: 15px; border-left: 5px solid #d9534f; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .campaign strong { color: #d9534f; display: block; margin-bottom: 5px; font-size: 17px; }
-        
-        /* क्यूआर कोड और डोनेशन बॉक्स */
-        .donation-box { background: #fdfefe; border: 2px dashed #5cb85c; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
-        .qr-img { max-width: 220px; height: auto; margin: 15px auto; display: block; border: 1px solid #ddd; padding: 5px; background: #fff; }
-        
-        /* बटन डिजाइन */
-        .btn-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .btn { display: inline-block; padding: 12px 20px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center; font-size: 15px; flex: 1; min-width: 140px; }
-        .btn-facebook { background-color: #3b5998; }
-        .btn-instagram { background-color: #e1306c; }
-        .btn-youtube { background-color: #ff0000; }
-        .btn-whatsapp { background-color: #25D366; }
-        .btn-donate { background-color: #5cb85c; display: block; width: 100%; font-size: 18px; text-align: center; margin: 15px 0; box-sizing: border-box; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        
-        /* रिपोर्ट डाउनलोड बटन का विशेष डिजाइन */
-        .btn-pdf { background-color: #007bff; display: block; width: 100%; font-size: 16px; text-align: center; margin: 20px 0; box-sizing: border-box; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
-        
-        /* प्रोजेक्ट रिपोर्ट लिस्ट */
-        .report-list { padding-left: 20px; }
-        .report-list li { margin-bottom: 10px; font-size: 16px; }
-        
-        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-weight: bold; color: #777; font-size: 18px; }
-        .contact-info p { margin: 8px 0; font-size: 16px; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>उन्नति स्वयं सहायता समिति | गौ सेवा ही राष्ट्र सेवा है</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:#f5f5f5;
+color:#222;
+line-height:1.7;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+.hero{
+background:
+linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url('cow-banner.jpg');
+background-size:cover;
+background-position:center;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+color:#fff;
+}
+
+.hero-content{
+max-width:850px;
+animation:fadeIn 2s ease;
+}
+
+.hero h1{
+font-size:55px;
+margin-bottom:15px;
+font-weight:700;
+color:#ffcc33;
+text-shadow:2px 2px 10px rgba(0,0,0,0.5);
+}
+
+.hero p{
+font-size:22px;
+margin-bottom:25px;
+}
+
+.hero-btns{
+display:flex;
+gap:15px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.hero-btns a{
+padding:14px 28px;
+border-radius:40px;
+text-decoration:none;
+font-weight:600;
+transition:0.4s;
+font-size:16px;
+}
+
+.btn-main{
+background:#ff9933;
+color:white;
+}
+
+.btn-main:hover{
+background:#e67e00;
+transform:translateY(-3px);
+}
+
+.btn-outline{
+border:2px solid white;
+color:white;
+}
+
+.btn-outline:hover{
+background:white;
+color:#222;
+}
+
+/* SECTION */
+
+section{
+padding:80px 8%;
+background:white;
+margin-bottom:15px;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:50px;
+}
+
+.section-title h2{
+font-size:36px;
+color:#ff7b00;
+margin-bottom:10px;
+}
+
+.section-title p{
+color:#666;
+font-size:16px;
+}
+
+/* ABOUT */
+
+.about-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:40px;
+align-items:center;
+}
+
+.about-img img{
+width:100%;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.about-text h3{
+font-size:28px;
+margin-bottom:20px;
+color:#28a745;
+}
+
+.about-text p{
+margin-bottom:15px;
+font-size:16px;
+}
+
+/* SOCIAL */
+
+.social-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.social-card{
+padding:25px;
+border-radius:15px;
+text-align:center;
+color:white;
+transition:0.4s;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.social-card:hover{
+transform:translateY(-8px);
+}
+
+.social-card a{
+color:white;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+display:block;
+margin-top:10px;
+}
+
+.whatsapp{background:#25D366;}
+.facebook{background:#1877F2;}
+.instagram{
+background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+}
+.youtube{background:#FF0000;}
+
+/* GALLERY */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.gallery img{
+width:100%;
+height:280px;
+object-fit:cover;
+border-radius:15px;
+transition:0.4s;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.gallery img:hover{
+transform:scale(1.04);
+}
+
+/* DONATION */
+
+.donation{
+background:linear-gradient(135deg,#fff3cd,#ffe08a);
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.donation h3{
+font-size:32px;
+margin-bottom:20px;
+color:#d35400;
+}
+
+.donation p{
+margin:10px 0;
+font-size:17px;
+}
+
+.donation-btn{
+display:inline-block;
+margin-top:25px;
+padding:15px 35px;
+background:#28a745;
+color:white;
+text-decoration:none;
+border-radius:40px;
+font-weight:600;
+transition:0.4s;
+}
+
+.donation-btn:hover{
+background:#1e7e34;
+transform:translateY(-4px);
+}
+
+/* CONTACT */
+
+.contact-box{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.contact-card{
+background:#fafafa;
+padding:30px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.contact-card h3{
+margin-bottom:15px;
+color:#ff7b00;
+}
+
+.call-btn{
+display:inline-block;
+margin-top:15px;
+padding:14px 30px;
+background:#007bff;
+color:white;
+text-decoration:none;
+border-radius:40px;
+font-weight:600;
+transition:0.4s;
+}
+
+.call-btn:hover{
+background:#0056b3;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:#ddd;
+text-align:center;
+padding:40px 20px;
+}
+
+footer h3{
+color:#ffcc33;
+margin-bottom:15px;
+font-size:26px;
+}
+
+footer p{
+margin:8px 0;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.section-title h2{
+font-size:28px;
+}
+
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="header">
-    <img src="FB_IMG_1779017182552.jpg" alt="Unnati Samiti Logo" class="logo-img">
-    <h1>उन्नति स्वयं सहायता समिति</h1>
-    <p>"पशु कल्याण, जल संरक्षण और सामाजिक चेतना के माध्यम से समाज में सकारात्मक बदलाव।"</p>
-    <div class="niti-id">Unique ID NITI Aayog: UA/2016/0108273</div>
+<!-- HERO SECTION -->
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>उन्नति स्वयं सहायता समिति</h1>
+
+<p>
+"गौ सेवा ही राष्ट्र सेवा है"
+<br>
+गौ रक्षा • समाज सेवा • सनातन जागरण
+</p>
+
+<div class="hero-btns">
+
+<a href="https://wa.me/919141033240" class="btn-main" target="_blank">
+WhatsApp जुड़ें
+</a>
+
+<a href="#donation" class="btn-outline">
+सहयोग करें
+</a>
+
 </div>
 
-<div class="container">
-    <h2>हमारे बारे में</h2>
-    <p>उन्नति स्वयं सहायता समिति एक पंजीकृत सामाजिक संस्था है, जो उत्तराखंड के हल्द्वानी और नैनीताल क्षेत्रों में निरंतर समाज सेवा, प्रशासनिक पारदर्शिता और जन-जागरूकता के कार्यों में समर्पित है। हमारा उद्देश्य समाज के हर वर्ग को सशक्त बनाना, पर्यावरण व जल स्रोतों का संरक्षण करना und मूक व निराश्रित पशुओं की सेवा करना है।</p>
-
-    <h2>सहयोग और सुरक्षित दान (Donation)</h2>
-    <p>यदि आप असहाय परिवारों, मूक पशुओं के चारे-चिकित्सा या गर्मियों में निशुल्क जल वितरण अभियानों में योगदान देना चाहते हैं, तो आप नीचे दिए गए आधिकारिक क्यूआर कोड को अपने मोबाइल के किसी भी UPI ऐप से स्कैन करके सहयोग राशि भेज सकते हैं या ऑनलाइन पेमेंट लिंक का उपयोग कर सकते हैं:</p>
-    
-    <div class="donation-box">
-        <h3>संस्था का आधिकारिक UPI क्यूआर कोड</h3>
-        <img src="QrCode.jpeg.png" alt="UPI QR Code" class="qr-img">
-        <p><strong>स्कैन करें और किसी भी UPI ऐप से भुगतान करें</strong></p>
-        <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="btn btn-donate">👉 ऑनलाइन पेमेंट लिंक (Razorpay) द्वारा दान करें</a>
-    </div>
-
-    <h2>30-पेज प्रोजेक्ट रिपोर्ट की मुख्य कार्य योजना</h2>
-    <p>संस्था द्वारा हल्द्वानी व उत्तराखंड के विकास और जनकल्याण के लिए तैयार की गई 30 पृष्ठों की विस्तृत प्रोजेक्ट रिपोर्ट के मुख्य लक्ष्य इस प्रकार हैं:</p>
-    <ul class="report-list">
-        <li><strong>असहाय व विधवा महिला सहायता कार्यक्रम:</strong> समाज के वंचित परिवारों और महिलाओं को आत्मनिर्भर बनाने के लिए प्रशिक्षण व आर्थिक संबल प्रदान करना।</li>
-        <li><strong>स्थायी जल संरक्षण व वितरण प्रोजेक्ट:</strong> हल्द्वानी के पानी की किल्लत वाले क्षेत्रों में गर्मियों के दौरान निशुल्क जल टैंकर उपलब्ध कराना और प्राकृतिक जल स्रोतों का जीर्णोद्धार।</li>
-        <li><strong>पशु चिकित्सा एवं गोवंश संरक्षण नीति:</strong> बीमार व दुर्घटनाग्रस्त मूक पशुओं के लिए त्वरित चिकित्सा, चारे और सुरक्षित आश्रय गृह (गौशाला) का दीर्घकालिक संचालन।</li>
-        <li><strong>प्रशासनिक जवाबदेही और पारदर्शिता:</strong> समाज हित में सूचना के अधिकार (RTI) और CPGRAMS जन-शिकायत प्रणालियों के माध्यम से जन समस्याओं का स्थायी निवारण।</li>
-    </ul>
-
-    <a href="unnati_samiti_30_page_report_v2.zip" download class="btn btn-pdf">📥 पूरी 30-पेज प्रोजेक्ट रिपोर्ट (ZIP फ़ाइल) डाउनलोड करें</a>
-
-    <h2>हमारे मुख्य अभियान और इतिहास</h2>
-    <div class="campaign">
-        <strong>1. गौ माता - राज्य माता आंदोलन</strong>
-        उत्तराखंड में गाय को 'राज्य माता' (State Mother) का संवैधानिक और कानूनी दर्जा दिलाने के लिए संस्था पूरी निष्ठा के साथ सरकार और नीति-निर्धारकों के साथ निरंतर प्रयासरत है।
-    </div>
-    <div class="campaign">
-        <strong>2. ऐतिहासिक सहनशीलता यात्राएं और व्रत</strong>
-        जन-चेतना जागृत करने के लिए संस्था प्रमुख द्वारा 37 दिनों की 140 किमी कठिन दंडवत यात्रा (लालकुआं से रामनगर व हरिद्वार से देहरादून) पूरी की गई है, तथा देहरादून में 120 घंटे का ऐतिहासिक अन्न-जल त्याग पूर्ण व्रत भी किया गया है।
-    </div>
-
-    <h2>हमसे सोशल मीडिया और व्हाट्सएप पर जुड़ें</h2>
-    <p>हमारे दैनिक कार्यों की लाइव अपडेट देखने या हमसे सीधे बातचीत करने के लिए नीचे दिए गए बटन का उपयोग करें:</p>
-    <div class="btn-container">
-        <a href="https://wa.me/919410332400" target="_blank" class="btn btn-whatsapp">WhatsApp Chat</a>
-        <a href="https://www.facebook.com/share/17qdeEHsNg/" target="_blank" class="btn btn-facebook">Facebook Page</a>
-        <a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" class="btn btn-instagram">Instagram</a>
-        <a href="Https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=0mL9c-A6TiLKTOZI" target="_blank" class="btn btn-youtube">YouTube Channel</a>
-        >YouTube Channel</a>
-    </div>
-
-    <h2>संपर्क करें</h2>
-    <div class="contact-info">
-        <p><strong>स्थान:</strong> हल्द्वानी, जिला - नैनीताल, उत्तराखंड</p>
-        <p><strong>संस्था प्रमुख:</strong> विनोद चंद्र भट्ट</p>
-    </div>
-    
-    <div class="footer">
-        "गौ सेवा ही राष्ट्र सेवा है।"
-    </div>
 </div>
+
+</div>
+
+<!-- ABOUT -->
+
+<section>
+
+<div class="section-title">
+<h2>हमारे बारे में</h2>
+<p>
+गौ सेवा, समाज सेवा और सनातन संस्कृति के संरक्षण हेतु समर्पित संस्था
+</p>
+</div>
+
+<div class="about-grid">
+
+<div class="about-img">
+<img src="cow-service.jpg" alt="गौ सेवा">
+</div>
+
+<div class="about-text">
+
+<h3>गौ माता की सेवा हमारा संकल्प</h3>
+
+<p>
+उन्नति स्वयं सहायता समिति निरंतर गौ माता की सेवा, घायल एवं असहाय गायों के उपचार,
+सनातन जागरण और समाज सेवा के कार्यों में सक्रिय रूप से कार्य कर रही है।
+</p>
+
+<p>
+हमारा उद्देश्य केवल गौ रक्षा नहीं बल्कि समाज में जागरूकता फैलाकर
+एक सशक्त और संस्कारित राष्ट्र का निर्माण करना है।
+</p>
+
+<p>
+संस्था द्वारा गौ माता को "राज्य माता" का दर्जा दिलाने हेतु आंदोलन,
+दंडवत यात्रा और जनजागरण अभियान भी चलाए गए हैं।
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SOCIAL -->
+
+<section>
+
+<div class="section-title">
+<h2>हमसे जुड़ें</h2>
+<p>
+हमारी दैनिक गतिविधियों और अभियानों की जानकारी प्राप्त करें
+</p>
+</div>
+
+<div class="social-grid">
+
+<div class="social-card whatsapp">
+<h3>WhatsApp</h3>
+<a href="https://wa.me/919141033240" target="_blank">
+सीधे चैट करें
+</a>
+</div>
+
+<div class="social-card facebook">
+<h3>Facebook</h3>
+<a href="https://www.facebook.com/share/17qdeEHsNg/" target="_blank">
+हमारा पेज देखें
+</a>
+</div>
+
+<div class="social-card instagram">
+<h3>Instagram</h3>
+<a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4antkZnA=" target="_blank">
+फॉलो करें
+</a>
+</div>
+
+<div class="social-card youtube">
+<h3>YouTube</h3>
+<a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=0mL9c-A6TiLKTOZI" target="_blank">
+वीडियो देखें
+</a>
+</div>
+
+</div>
+
+</section>
+
+<!-- GALLERY -->
+
+<section>
+
+<div class="section-title">
+<h2>आंदोलन और यात्रा की झलकियाँ</h2>
+<p>
+समाचार पत्रों और अभियानों की विशेष तस्वीरें
+</p>
+</div>
+
+<div class="gallery">
+
+<img src="1000444208.jpg" alt="">
+<img src="1000444168.jpg" alt="">
+<img src="1000444209.jpg" alt="">
+<img src="1000444211.jpg" alt="">
+<img src="1000444212.jpg" alt="">
+<img src="1000444213.jpg" alt="">
+<img src="1000444210.jpg" alt="">
+<img src="1000444218.jpg" alt="">
+
+</div>
+
+</section>
+
+<!-- DONATION -->
+
+<section id="donation">
+
+<div class="donation">
+
+<h3>गौ सेवा हेतु सहयोग करें</h3>
+
+<p>
+आपका छोटा सा सहयोग भी गौ माता की सेवा में अमूल्य योगदान बन सकता है।
+</p>
+
+<p><strong>संस्था का नाम:</strong> उन्नति स्वयं सहायता समिति</p>
+
+<p><strong>बैंक:</strong> बैंक ऑफ बड़ौदा</p>
+
+<p><strong>स्थान:</strong> हल्द्वानी, उत्तराखंड</p>
+
+<p style="margin-top:20px;color:#7a5c00;">
+दान करने के बाद कृपया हमें WhatsApp पर सूचित अवश्य करें।
+</p>
+
+<a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom"
+target="_blank"
+class="donation-btn">
+ऑनलाइन दान करें
+</a>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section>
+
+<div class="section-title">
+<h2>संपर्क करें</h2>
+<p>
+हमसे जुड़ें और गौ सेवा अभियान का हिस्सा बनें
+</p>
+</div>
+
+<div class="contact-box">
+
+<div class="contact-card">
+
+<h3>संस्था प्रमुख</h3>
+
+<p><strong>नाम:</strong> विनोद चंद्र भट्ट</p>
+
+<p><strong>स्थान:</strong> हल्द्वानी, नैनीताल, उत्तराखंड</p>
+
+<p><strong>मोबाइल:</strong> +91 9141033240</p>
+
+<a href="tel:+919141033240" class="call-btn">
+📞 सीधे कॉल करें
+</a>
+
+</div>
+
+<div class="contact-card">
+
+<h3>हमारा उद्देश्य</h3>
+
+<p>
+✔ गौ माता की रक्षा
+</p>
+
+<p>
+✔ घायल गायों का उपचार
+</p>
+
+<p>
+✔ समाज सेवा अभियान
+</p>
+
+<p>
+✔ सनातन संस्कृति जागरण
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<h3>उन्नति स्वयं सहायता समिति</h3>
+
+<p>"गौ सेवा ही राष्ट्र सेवा है"</p>
+
+<p>
+© 2026 सभी अधिकार सुरक्षित
+</p>
+
+</footer>
 
 </body>
 </html>
-
