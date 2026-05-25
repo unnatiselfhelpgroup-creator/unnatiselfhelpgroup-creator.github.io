@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति - गौ माता ही राष्ट्र माता है</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff8b00;
+            --primary2: #ffb347;
+            --dark: #1b2430;
+            --light: #ffffff;
+            --bg: #f4f7fa;
+            --text: #444;
+            --radius: 16px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #ff8b00, #ffb347);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255,139,0,0.15);
+        }
+
+        .logo-badge-container {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .logo-badge-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1rem;
+            background: rgba(0,0,0,0.15);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 700px;
+            margin: 20px auto 40px;
+            padding: 0 15px;
+        }
+
+        /* CARD STYLE */
+        .card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* QR CODE STYLING */
+        .qr-container {
+            max-width: 200px;
+            margin: 15px auto;
+            padding: 10px;
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .qr-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* PHOTO GALLERY STYLING */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            aspect-ratio: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-badge-container">
+            <img src="https://raw.githubusercontent.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/main/Logo.jpg" alt="उन्नति संस्था लोगो">
+        </div>
+        <h1>उन्नति स्वयं सहायता समिति</h1>
+        <p><i class="fa-solid fa-cow"></i> गौ माता ही राष्ट्र माता है</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2><i class="fa-solid fa-images" style="color: var(--primary);"></i> फोटो गैलरी</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://raw.githubusercontent.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/main/photo1.jpg" alt="फोटो 1" onerror="this.style.display='none'"></div>
+                <div class="gallery-item"><img src="https://raw.githubusercontent.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/main/photo2.jpg" alt="फोटो 2" onerror="this.style.display='none'"></div>
+                <div class="gallery-item"><img src="https://raw.githubusercontent.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/main/photo3.jpg" alt="फोटो 3" onerror="this.style.display='none'"></div>
+                <div class="gallery-item"><img src="https://raw.githubusercontent.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/main/photo4.jpg" alt="फोटो 4" onerror="this.style.display='none'"></div>
+            </div>
+            <p style="font-size: 0.85rem; color: #777; margin-top: 10px;">(गैलरी की तस्वीरें अपलोड होते ही यहाँ दिखने लगेंगी)</p>
+        </div>
+
+        <div class="card">
+            <h2><i class="fa-solid fa-qrcode" style="color: var(--primary);"></i> सहयोग हेतु क्यूआर कोड</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">संस्था के कार्यों में सहयोग करने के लिए स्कैन करें</p>
+            <div class="qr-container">
+                <img src="https://raw.githubusercontent.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/main/Qrcode.jpg" alt="संस्था का क्यूआर कोड">
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
 
