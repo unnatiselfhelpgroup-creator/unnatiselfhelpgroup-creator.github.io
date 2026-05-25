@@ -1,1 +1,269 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति - गौ सेवा ही राष्ट्र सेवा है</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* -----------------------------------------
+           MODERN PREMIUM DESIGN (CSS STYLE)
+        -------------------------------------------- */
+        :root {
+            --primary: #ff8b00;
+            --primary2: #ffb347;
+            --dark: #1b2430;
+            --light: #ffffff;
+            --bg: #f2f5f9;
+            --text: #444;
+            --success: #1db954;
+            --radius: 22px;
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f7f9fc, #eef3f8);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, rgba(255,120,0,0.95), rgba(255,170,0,0.92));
+            color: white;
+            text-align: center;
+            padding: 80px 20px 100px;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 12px 35px rgba(255,120,0,0.25);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            top: -100px;
+            left: -120px;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -100px;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 15px;
+        }
+
+        .logo-container i {
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* MAIN CONTENT CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* CARD STYLE */
+        .card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,139,0,0.1);
+        }
+
+        .card h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .card h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .motto-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* DONATION BUTTON */
+        .donation-section {
+            margin: 35px 0;
+        }
+
+        .donate-btn {
+            background: linear-gradient(135deg, #ff8b00, #ffb347);
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 7px 25px rgba(255, 139, 0, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 139, 0, 0.6);
+        }
+
+        .donate-btn i {
+            margin-right: 12px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* QR CODE SECTION */
+        .qr-section {
+            background: #f9fbfd;
+            border: 2px dashed rgba(255,139,0,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        .qr-section h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .payment-icons {
+            font-size: 1.8rem;
+            color: #444;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .payment-icons span {
+            font-size: 1rem;
+            font-weight: bold;
+            background: #eee;
+            padding: 5px 12px;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #888;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <i class="fas fa-hand-holding-heart"></i>
+        </div>
+        <h1>उन्नति स्वयं सहायता समिति</h1>
+        <p>गौ सेवा ही राष्ट्र सेवा है</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>मानव और जीव सेवा का संकल्प</h2>
+            
+            <p class="motto-text">
+                "हम असहाय, निराश्रित जनों, विधवा महिलाओं की सहायता एवं गौ-माता की सेवा और संरक्षण के लिए निरंतर समर्पित हैं।"
+            </p>
+
+            <div class="donation-section">
+                <p style="margin-bottom: 20px; font-weight: 600; color: #333; font-size: 1.1rem;">संस्था के सेवा कार्यों में अपना बहुमूल्य योगदान देने के लिए नीचे बटन पर क्लिक करें:</p>
+                
+                <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="donate-btn">
+                    <i class="fas fa-heart"></i> आर्थिक सहयोग करें (Donate Now)
+                </a>
+            </div>
+
+            <div class="qr-section">
+                <h3>सुरक्षित ऑनलाइन भुगतान</h3>
+                <p style="font-size: 0.95rem; color: #666; margin-bottom: 10px;">आप ऊपर दिए गए बटन पर क्लिक करके किसी भी UPI ऐप (GPay, PhonePe, Paytm) या कार्ड/नेटबैंकिंग से सुरक्षित भुगतान कर सकते हैं।</p>
+                <div class="payment-icons">
+                    <span>UPI</span>
+                    <span>GPay</span>
+                    <span>PhonePe</span>
+                    <span>Paytm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 उन्नति स्वयं सहायता समिति | हल्द्वानी, उत्तराखंड</p>
+    </footer>
+
+</body>
+</html>
 
