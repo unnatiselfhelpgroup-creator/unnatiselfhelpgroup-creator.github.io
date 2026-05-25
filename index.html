@@ -1,1 +1,450 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति - गौ सेवा ही राष्ट्र सेवा है</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff8b00;
+            --primary2: #ffb347;
+            --dark: #1b2430;
+            --light: #ffffff;
+            --bg: #f4f7fa;
+            --text: #444;
+            --radius: 16px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* HEADER & DIGITAL LOGO DESIGN */
+        .header {
+            background: linear-gradient(135deg, #ff8b00, #ffb347);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255,139,0,0.15);
+        }
+
+        .digital-logo {
+            background: white;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            color: #0099ff;
+            position: relative;
+            border: 3px solid #0099ff;
+        }
+
+        .digital-logo .sun-icon {
+            color: #ffaa00;
+            font-size: 1.2rem;
+            position: absolute;
+            top: 12px;
+        }
+
+        .digital-logo .mountain-icon {
+            font-size: 2.8rem;
+            margin-top: 5px;
+        }
+
+        .digital-logo .logo-text {
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #0055ff;
+            margin-top: -2px;
+            letter-spacing: 0.5px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1rem;
+            background: rgba(0,0,0,0.15);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 700px;
+            margin: 20px auto 40px;
+            padding: 0 15px;
+        }
+
+        /* CARD STYLE */
+        .card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 8px;
+        }
+
+        .card h2 i {
+            color: var(--primary);
+        }
+
+        .sub-text {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* WORK BULLETS */
+        .work-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .work-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #444;
+            text-align: justify;
+        }
+
+        .work-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #0cc243;
+            font-size: 0.9rem;
+        }
+
+        /* LINKS GRID */
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .gov-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .gov-link:hover {
+            background: #ffe8cc;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        /* SOCIAL BUTTONS */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: transform 0.2s;
+        }
+
+        .social-btn:hover { transform: scale(1.02); }
+        .btn-whatsapp { background-color: #0cc243; }
+        .btn-facebook { background-color: #1877f2; }
+        .btn-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .btn-youtube { background-color: #ff0000; }
+
+        /* TIMELINE DISPLAY FOR MOVEMENTS */
+        .news-card {
+            background: #fdfdfd;
+            border: 1px solid #eaeaea;
+            border-left: 4px solid #ff8b00;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .news-card h4 {
+            color: var(--dark);
+            font-size: 1rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .news-card p {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: justify;
+        }
+
+        /* TABLE STYLE */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fffdf9;
+            border: 1px solid #ffe8cc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ffe8cc;
+            font-size: 0.95rem;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            color: #666;
+            width: 35%;
+        }
+
+        /* BIG DONATE BUTTON */
+        .donate-action-box {
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+
+        .donate-btn {
+            background: linear-gradient(135deg, #ff8b00, #ffb347);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 6px 20px rgba(255, 139, 0, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 139, 0, 0.5);
+        }
+
+        .donate-btn i {
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* QR SECURE BOX DESIGN */
+        .secure-pay-box {
+            text-align: center;
+            padding: 25px;
+            background: #f9fbfd;
+            border: 2px dashed rgba(255,139,0,0.2);
+            border-radius: 12px;
+        }
+
+        .qr-icon-circle {
+            background: white;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: #1877f2;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="digital-logo">
+            <i class="fas fa-sun sun-icon"></i>
+            <i class="fas fa-mountain mountain-icon"></i>
+            <div class="logo-text">UNNATI NGO</div>
+        </div>
+        <h1>उन्नति स्वयं सहायता समिति</h1>
+        <p><i class="fas fa-heart"></i> गौ सेवा ही राष्ट्र सेवा है</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2><i class="fas fa-info-circle"></i> हमारे बारे में (परिचय)</h2>
+            <p class="sub-text">
+                <strong>उन्नति स्वयं सहायता समिति</strong> की स्थापना <strong>2 जनवरी 2016</strong> को हुई थी। स्थापना के समय से ही हमारी संस्था उत्तराखंड के हल्द्वानी और आसपास के क्षेत्रों में धरातल पर निरंतर सामाजिक और जीव-सेवा के कार्यों में सक्रिय है। हमारी संस्था का मुख्य उद्देश्य असहाय, निराश्रित जनों, विधवा महिलाओं को संबल प्रदान करना तथा बेसहारा गौ-वंश की सेवा और उनका पूर्ण संरक्षण करना है।
+            </p>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-hands-helping"></i> धरातल पर किए जा रहे कार्य</h2>
+            <p class="sub-text">2016 से लेकर आज तक संस्था द्वारा समाज के हित में कई महत्वपूर्ण कार्य किए गए हैं:</p>
+            <ul class="work-list">
+                <li><strong>गौ-सेवा और संरक्षण:</strong> बीमार, दुर्घटनाग्रस्त और असहाय गायों का निःशुल्क उपचार, चारा-पानी की व्यवस्था तथा गौ माता को 'राज्य माता' का दर्जा दिलाने हेतु लगातार जन-आंदोलन और यात्राएं।</li>
+                <li><strong>महिला सशक्तिकरण:</strong> ग्रामीण एवं शहरी क्षेत्रों की विधवा और निराश्रित महिलाओं को आत्मनिर्भर बनाने के लिए स्वयं सहायता समूहों के माध्यम से रोज़गारपरक सहायता।</li>
+                <li><strong>कोविड-19 (कोरोना काल) में सेवा:</strong> महामारी के उस कठिन दौर में समिति के कार्यकर्ताओं द्वारा धरातल पर उतरकर ज़रूरतमंद परिवारों को राशन किट, मास्क, सैनिटाइज़र और आवश्यक दवाइयों का वितरण किया गया। साथ ही लॉकडाउन के दौरान सड़कों पर भूखे घूम रहे मवेशियों और गौ-वंश के लिए निरंतर चारे और भोजन की व्यवस्था सुनिश्चित की गई।</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-external-link-alt"></i> महत्वपूर्ण लिंक्स (Government & NGO Links)</h2>
+            <p class="sub-text">हमारी संस्था की पारदर्शिता और आधिकारिक विवरण देखने के लिए आप नीचे दिए गए पोर्टल्स पर जा सकते हैं:</p>
+            <div class="links-grid">
+                <a href="https://ngodarpan.gov.in/" target="_blank" class="gov-link">
+                    <span><i class="fas fa-university"></i> नीति आयोग दर्पण ID: UA/2016/0108273</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="https://share.google/PKUpVheTUHjKXP9Ya" target="_blank" class="gov-link">
+                    <span><i class="fas fa-file-contract"></i> समिति पंजीकरण एवं प्रमाण पत्र (Registration Certificate)</span>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-share-alt"></i> हमसे सोशल मीडिया पर जुड़ें</h2>
+            <p class="sub-text">हमारे दैनिक कार्यों की लाइव अपडेट देखने या हमसे सीधे बातचीत करने के लिए नीचे दिए गए बटन का उपयोग करें।</p>
+            <div class="social-grid">
+                <a href="#" class="social-btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="#" class="social-btn btn-facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#" class="social-btn btn-instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#" class="social-btn btn-youtube"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-newspaper"></i> आंदोलन और यात्रा की मुख्य झलकियाँ</h2>
+            <p class="sub-text">गौ माता को राज्य माता का दर्जा दिलाने हेतु समाचार पत्रों में प्रकाशित संस्था के ऐतिहासिक संघर्ष और कार्य:</p>
+            
+            <div class="news-card">
+                <h4><i class="fas fa-bullhorn" style="color: #ff8b00;"></i> गौ माता राष्ट्रीय चेतना आंदोलन</h4>
+                <p>गौवंश को संवैधानिक राष्ट्रमाता का दर्जा दिलाने और उनके संरक्षण के लिए उत्तराखंड स्तर पर विशाल जन-अभियान, रैलियां एवं शासन को प्रस्ताव सौंपने का कार्य।</p>
+            </div>
+
+            <div class="news-card">
+                <h4><i class="fas fa-walking" style="color: #ff8b00;"></i> ऐतिहासिक दंडवत संकल्प यात्रा</h4>
+                <p>सैकड़ों किलोमीटर की कठिन पैदल एवं भूमि पर दंडवत प्रणाम करते हुए संकल्प यात्राएँ, जिसके माध्यम से जन-जन को गौ-सेवा के पावन संकल्प से जोड़ा गया।</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-hand-holding-heart"></i> गौ सेवा हेतु सहयोग एवं दान</h2>
+            <p class="sub-text">गौ सेवा, बीमार व असहाय गायों के उपचार हेतु आप स्वेच्छा से सहयोग कर सकते हैं।</p>
+            
+            <table class="info-table">
+                <tr>
+                    <td>संस्था का नाम:</td>
+                    <td><strong>उन्नति स्वयं सहायता समिति</strong></td>
+                </tr>
+                <tr>
+                    <td>बैंक का नाम:</td>
+                    <td>एक्सिस बैंक (Axis Bank)</td>
+                </tr>
+                <tr>
+                    <td>मुख्य स्थान:</td>
+                    <td>हल्द्वानी, उत्तराखंड</td>
+                </tr>
+            </table>
+
+            <div class="donate-action-box">
+                <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="donate-btn">
+                    <i class="fas fa-heart"></i> ऑनलाइन सहयोग करें (Donate Now)
+                </a>
+                <p style="font-size: 0.85rem; color: #666; margin-top: 8px;">(इस बटन पर क्लिक करके सीधे सुरक्षित भुगतान करें)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-qrcode"></i> सहयोग हेतु डिजिटल भुगतान माध्यम</h2>
+            <p class="sub-text">Website पर सीधे भुगतान करने के लिए आप ऊपर दिए गए 'ऑनलाइन सहयोग करें' बटन का उपयोग कर सकते हैं।</p>
+            <div class="secure-pay-box">
+                <div class="qr-icon-circle">
+                    <i class="fas fa-shield-alt fa-2.5x"></i>
+                </div>
+                <p style="font-size: 1.05rem; font-weight: bold; color: #333;">Razorpay गेटवे द्वारा 100% सुरक्षित भुगतान</p>
+                <p style="font-size: 0.88rem; color: #666; margin-top: 6px;">सभी मुख्य UPI ऐप्स (Google Pay, PhonePe, Paytm, BHIM) एवं डेबिट/क्रेडिट कार्ड स्वीकार्य हैं।</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 उन्नति स्वयं सहायता समिति | हल्द्वानी, उत्तराखंड</p>
+    </footer>
+
+</body>
+</html>
 
