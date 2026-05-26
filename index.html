@@ -1,1 +1,345 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yatra+One&family=Rozha+One&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #050a12 linear-gradient(180deg, #071220 0%, #03060b 100%) !important;
+            color: #e6f1ff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
+
+        /* 100% सटीक 3D मोबाइल कंटेनर */
+        .app-wrapper {
+            max-width: 420px;
+            width: 100%;
+            background: #060b13;
+            border: 2px solid #bda06d;
+            border-radius: 35px;
+            padding: 35px 18px 25px 18px;
+            box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.9), inset 0px 0px 20px rgba(189, 160, 109, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        /* संस्था का लोगो */
+        .app-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #bda06d;
+            margin: 0 auto 8px auto;
+            display: block;
+            box-shadow: 0px 0px 15px rgba(189, 160, 109, 0.5);
+        }
+
+        .gaumata-badge {
+            color: #bda06d;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .app-title {
+            font-family: 'Yatra One', serif;
+            font-size: 26px;
+            background: linear-gradient(135deg, #ffe0a3 0%, #bda06d 50%, #f1c40f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        /* नीति आयोग यूनिक आईडी */
+        .niti-id-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0d1722;
+            border: 1px solid rgba(189, 160, 109, 0.5);
+            color: #aeb9cc;
+            font-size: 11.5px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .niti-number {
+            color: #bda06d;
+        }
+
+        /* प्रीमियम कंटेंट कार्ड्स */
+        .content-card {
+            background: rgba(10, 19, 31, 0.85);
+            border: 1px solid rgba(189, 160, 109, 0.3);
+            border-radius: 16px;
+            padding: 22px 16px;
+            margin-bottom: 22px;
+            text-align: left;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid rgba(189, 160, 109, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .gem-icon-box {
+            font-size: 18px;
+            color: #ffcc66;
+        }
+
+        .card-heading-text {
+            font-family: 'Rozha One', serif;
+            font-size: 19px;
+            color: #ffcc66;
+        }
+
+        .card-paragraph {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #b8c7dc;
+            text-align: justify;
+        }
+
+        .location-bar {
+            margin-top: 14px;
+            font-size: 12.5px;
+            color: #00ffcc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* एक्टिव संपर्क बटन (कॉल करने के लिए) */
+        .contact-btn-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(180deg, #ecdca5 0%, #bda06d 40%, #765a2d 100%);
+            color: #050b13;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px;
+            border-radius: 25px;
+            margin-top: 15px;
+            width: 100%;
+            box-shadow: 0px 5px 15px rgba(189, 160, 109, 0.4);
+            border: 1px solid #765a2d;
+        }
+
+        /* 3D डाउनलोड बटन (प्रोजेक्ट रिपोर्ट के लिए) */
+        .download-button-3d {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(180deg, #ecdca5 0%, #bda06d 40%, #765a2d 100%);
+            color: #050b13;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13.5px;
+            padding: 11px 24px;
+            border-radius: 25px;
+            margin: 15px auto 5px auto;
+            box-shadow: 0px 5px 15px rgba(189, 160, 109, 0.4);
+            border: 1px solid #765a2d;
+        }
+
+        /* टाइमलाइन (वार्षिक गतिविधियाँ) */
+        .timeline-list {
+            list-style: none;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            left: 35px;
+            top: 15px;
+            bottom: 15px;
+            width: 2px;
+            background: rgba(189, 160, 109, 0.4);
+        }
+
+        .timeline-row {
+            display: flex;
+            margin-bottom: 18px;
+            align-items: flex-start;
+        }
+
+        .timeline-year-badge {
+            background: #0f1d2d;
+            border: 1px solid #bda06d;
+            color: #ffcc66;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-width: 52px;
+            text-align: center;
+            margin-right: 15px;
+            z-index: 2;
+        }
+
+        .timeline-desc {
+            font-size: 12.5px;
+            color: #b8c7dc;
+            line-height: 1.5;
+        }
+
+        /* 100% हूबहू स्क्रीनशॉट जैसी 3D सोशल मीडिया बटन्स रॉ */
+        .social-row-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            padding: 0 5px;
+        }
+
+        .social-link-btn {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.2);
+            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-link-btn:hover {
+            transform: translateY(-4px);
+        }
+
+        /* स्क्रीनशॉट के अनुसार 3D बटन कलर्स */
+        .whatsapp-btn { background: linear-gradient(135deg, #2dfc72 0%, #128c7e 100%); color: white; }
+        .facebook-btn { background: linear-gradient(135deg, #4f86f7 0%, #1847a8 100%); color: white; }
+        .instagram-btn { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; }
+        .youtube-btn { background: linear-gradient(135deg, #ff4b4b 0%, #990000 100%); color: white; }
+        .drive-btn { background: linear-gradient(135deg, #34a853 0%, #0f9d58 100%); color: white; font-size: 18px; font-weight: bold;}
+    </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+
+    <img src="logo.png" alt="उन्नति स्वयं सहायता समिति" class="app-logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
+    
+    <div class="gaumata-badge">GAUMATA HI RASHTRA MATA HAI</div>
+    <h1 class="app-title">उन्नति स्वयं सहायता समिति</h1>
+    
+    <div class="niti-id-badge">
+        <i class="fa-solid fa-building-columns" style="color: #bda06d;"></i>
+        <span>Niti Aayog Unique ID: <span class="niti-number">UA-2016/0108273</span></span>
+    </div>
+
+    <div class="content-card">
+        <div class="card-header">
+            <i class="fa-solid fa-gem gem-icon-box"></i>
+            <h2 class="card-heading-text">संस्था का परिचय</h2>
+        </div>
+        <p class="card-paragraph">
+            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितकारी संगठन है, जिसकी स्थापना समाज सेवा, गौ संरक्षण, गरीब सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को आगे बढ़ाने के लिए की गई है। संस्था का मुख्य उद्देश्य गौ माता को 'राष्ट्र माता' का दर्जा दिलाना है।
+        </p>
+        <div class="location-bar">
+            <i class="fa-solid fa-location-dot"></i>
+            <span><strong>पता:</strong> हल्द्वानी, जनपद - नैनीताल, उत्तराखंड।</span>
+        </div>
+        
+        <a href="tel:+919410332400" class="contact-btn-3d">
+            <i class="fa-solid fa-phone"></i> संपर्क करें: 9410332400
+        </a>
+    </div>
+
+    <div class="content-card">
+        <div class="card-header">
+            <i class="fa-solid fa-file-pdf gem-icon-box" style="color: #ff5252;"></i>
+            <h2 class="card-heading-text">प्रोजेक्ट रिपोर्ट</h2>
+        </div>
+        <p class="card-paragraph">संस्था के कार्यों, उद्देश्यों एवं भविष्य की संपूर्ण 30 पेज की प्रोजेक्ट रिपोर्ट सीधे डाउनलोड करें।</p>
+        
+        <a href="https://github.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/raw/main/report.pdf" class="download-button-3d" download>
+            <i class="fa-solid fa-download"></i> डाउनलोड रिपोर्ट (PDF)
+        </a>
+    </div>
+
+    <div class="content-card">
+        <div class="card-header">
+            <i class="fa-solid fa-calendar-days gem-icon-box" style="color: #4f86f7;"></i>
+            <h2 class="card-heading-text">वार्षिक गतिविधियाँ</h2>
+        </div>
+        
+        <ul class="timeline-list">
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2016</div>
+                <div class="timeline-desc">संस्था स्थापना, स्थानीय स्तर पर गौ सेवा अभियान प्रारंभ व गरीब सहायता कार्य।</div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2017</div>
+                <div class="timeline-desc">कस्बों में स्वच्छता जागरूकता अभियान, पौधारोपण व बच्चों को शिक्षा सामग्री वितरण।</div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2020</div>
+                <div class="timeline-desc">गौ माता संरक्षण जनजागरूकता हेतु धार्मिक यात्राओं एवं जनसंपर्क अभियानों का आयोजन।</div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2025</div>
+                <div class="timeline-desc">महिला सशक्तिकरण, विभिन्न राज्यों में नियुक्तियां व संगठन को राष्ट्रीय स्तर तक पहुँचाने का लक्ष्य।</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="social-row-container">
+        <a href="https://wa.me/919410332400" target="_blank" class="social-link-btn whatsapp-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://facebook.com" target="_blank" class="social-link-btn facebook-btn">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-link-btn instagram-btn">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="http://googleusercontent.com/youtube.com/2" target="_blank" class="social-link-btn youtube-btn">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://github.com/unnatiselfhelpgroup-creator/unnatiselfhelpgroup-creator.github.io/raw/main/report.pdf" target="_blank" class="social-link-btn drive-btn">
+            <i class="fa-solid fa-file-pdf"></i>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
 
