@@ -1,1 +1,222 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Yatra+One&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #0d1b2a 0%, #050b14 100%);
+            color: #e0e1dd;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* मोबाइल रेस्पॉन्सिव कंटेनर (जैसा स्क्रीनशॉट में है) */
+        .wrapper {
+            max-width: 450px;
+            width: 100%;
+            background: #060d1a;
+            border: 2px solid #bd9a5f;
+            border-radius: 20px;
+            padding: 25px 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        /* मुख्य हेडिंग (गोल्डन लुक) */
+        .main-title {
+            font-family: 'Yatra One', serif;
+            font-size: 26px;
+            background: linear-gradient(135deg, #ffe0a3 0%, #bd9a5f 50%, #f1c40f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* नीति आयोग आईडी टैग */
+        .niti-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #bd9a5f, #7a5c29);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 5px;
+            border: 1px solid #ffe0a3;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        /* प्रीमियम कार्ड स्टाइल */
+        .card {
+            background: rgba(13, 27, 42, 0.8);
+            border: 1px solid rgba(189, 154, 95, 0.4);
+            border-radius: 12px;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            box-shadow: inset 0 0 10px rgba(189, 154, 95, 0.1);
+        }
+
+        .card-title {
+            font-family: 'Rozha One', serif;
+            font-size: 18px;
+            color: #ffcc66;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(189, 154, 95, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .card-p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            text-align: justify;
+        }
+
+        /* लोकेशन टैग */
+        .location {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #2ec4b6;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* डाउनलोड बटन */
+        .download-btn {
+            display: block;
+            background: linear-gradient(135deg, #bd9a5f 0%, #fee180 50%, #a37f3d 100%);
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(189, 154, 95, 0.4);
+            transition: 0.3s;
+        }
+
+        /* गतिविधियाँ (TimeLine) */
+        .timeline {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+
+        .year {
+            background: #1e293b;
+            border: 1px solid #bd9a5f;
+            color: #ffcc66;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            min-width: 50px;
+            text-align: center;
+            margin-right: 15px;
+            margin-top: 2px;
+        }
+
+        .timeline-text {
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* सोशल मीडिया आइकन्स */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            background: #101f33;
+            border: 1px solid #bd9a5f;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h1 class="main-title">उन्नति स्वयं सहायता समिति</h1>
+    <div class="niti-tag">🏛️ Niti Aayog Unique ID: UA-2016/0108273</div>
+
+    <div class="card">
+        <h2 class="card-title">💎 संस्था का परिचय</h2>
+        <p class="card-p">
+            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितकारी संगठन है, समाज सेवा, गौ संरक्षण, गरीब सहायता, पर्यावरण संरक्षण एवं राष्ट्र कार्यों को आगे बढ़ाने की नींव है। संस्था का मुख्य उद्देश्य 'गौ माता' को राष्ट्र माता का दर्जा दिलाना है।
+        </p>
+        <div class="location">📍 पता: हल्द्वानी, जनपद - नैनीताल, उत्तराखंड।</div>
+    </div>
+
+    <div class="card">
+        <h2 class="card-title">⚜️ प्रोजेक्ट रिपोर्ट</h2>
+        <p class="card-p">संस्था के कार्यों, उद्देश्यों एवं भविष्य की संपूर्ण 30 पेज की प्रोजेक्ट रिपोर्ट करके सीधे डाउनलोड करें।</p>
+        <a href="#" class="download-btn">📥 डाउनलोड रिपोर्ट (PDF)</a>
+    </div>
+
+    <div class="card">
+        <h2 class="card-title">📅 वार्षिक गतिविधियाँ</h2>
+        <ul class="timeline">
+            <li class="timeline-item">
+                <div class="year">2016</div>
+                <div class="timeline-text">संस्था स्थापना, स्थानीय स्तर पर गौ सेवा अभियान प्रारंभ पर गरीब सहायता कार्य।</div>
+            </li>
+            <li class="timeline-item">
+                <div class="year">2017</div>
+                <div class="timeline-text">कचरे के स्वच्छता जागरूकता अभियान, पौधारोपण एवं बच्चों को शिक्षा सामग्री वितरण।</div>
+            </li>
+            <li class="timeline-item">
+                <div class="year">2020</div>
+                <div class="timeline-text">गौ माता संरक्षण जनजागरूकता हेतु धार्मिक यात्राओं एवं जनसंपर्क अभियानों के आयोजन।</div>
+            </li>
+            <li class="timeline-item">
+                <div class="year">2022</div>
+                <div class="timeline-text">महिला सशक्तिकरण, विभिन्न राज्यों में संगठन का विस्तार एवं राष्ट्रीय स्तर पर पहचान का लक्ष्य।</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="social-icons">
+        <div class="icon" style="color: #25D366;">W</div> <div class="icon" style="color: #1877F2;">F</div> <div class="icon" style="color: #E1306C;">I</div> <div class="icon" style="color: #FF0000;">Y</div> </div>
+</div>
+
+</body>
+</html>
 
