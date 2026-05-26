@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0a1118 0%, #121e2b 100%);
+            --card-bg: rgba(25, 38, 53, 0.85);
+            --gold-primary: #dfb76c;
+            --gold-secondary: #f3e5ab;
+            --text-light: #ffffff;
+            --text-muted: #cddee8;
+            --border-gold: 1px solid rgba(223, 183, 108, 0.4);
+            --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: #0a1118 !important; color: var(--text-light); line-height: 1.6; padding: 20px 10px 40px 10px; display: block; }
+        .header { text-align: center; padding: 30px 10px 20px 10px; background: #0a1118 !important; }
+        .logo-box { width: 110px; height: 110px; background: radial-gradient(circle, #253a52 0%, #0f1b29 100%); border-radius: 50%; margin: 0 auto 15px; overflow: hidden; border: 3px solid var(--gold-primary); box-shadow: 0 0 20px rgba(223, 183, 108, 0.4); display: flex; align-items: center; justify-content: center; }
+        .logo-box img { width: 85%; height: 85%; object-fit: contain; }
+        .tagline-badge { background: linear-gradient(135deg, #8a662d 0%, #dfb76c 50%, #8a662d 100%); color: #101924; font-weight: 700; padding: 5px 15px; border-radius: 50px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(223, 183, 108, 0.3); margin-bottom: 15px; }
+        h1 { font-family: 'Yatra One', serif; font-size: 1.9rem; color: var(--gold-secondary); text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(223, 183, 108, 0.3); margin-bottom: 10px; }
+        .niti-badge { background: rgba(25, 38, 53, 0.9); border: var(--border-gold); color: var(--gold-secondary); font-size: 0.75rem; padding: 5px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
+        .container { max-width: 500px; margin: 20px auto 0 auto; }
+        .card { background: var(--card-bg) !important; border-radius: 16px; padding: 20px; margin-bottom: 20px; border: var(--border-gold) !important; box-shadow: var(--shadow-premium); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .card-title { font-size: 1.2rem; color: var(--gold-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(223, 183, 108, 0.2); padding-bottom: 8px; font-weight: 600; }
+        .card-text { color: var(--text-muted); font-size: 0.9rem; text-align: justify; margin-bottom: 15px; }
+        .info-item { display: flex; align-items: flex-start; gap: 8px; color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px; }
+        .info-item i { color: var(--gold-primary); margin-top: 4px; }
+        .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .btn-call { background: linear-gradient(135deg, #1f354d 0%, #0d1b2a 100%); color: var(--gold-secondary); border: var(--border-gold); }
+        .btn-report { background: linear-gradient(135deg, #8a662d 0%, #dfb76c 100%); color: #0b1219; }
+        .btn-donate { background: linear-gradient(135deg, #b22222 0%, #8b0000 100%); color: white; border: none; margin-bottom: 15px; }
+        .qr-section { text-align: center; margin: 15px 0 5px 0; }
+        .qr-box { max-width: 150px; background: white; padding: 8px; border-radius: 12px; margin: 0 auto 8px; }
+        .qr-box img { width: 100%; display: block; }
+        .qr-text { font-size: 0.8rem; color: var(--text-muted); }
+        .timeline { position: relative; padding-left: 25px; }
+        .timeline::before { content: ""; position: absolute; left: 6px; top: 5px; width: 2px; height: 95%; background: linear-gradient(to bottom, var(--gold-primary), rgba(223, 183, 108, 0.1)); }
+        .timeline-item { position: relative; margin-bottom: 15px; }
+        .timeline-item::before { content: ""; position: absolute; left: -25px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #121e2b; border: 2px solid var(--gold-primary); z-index: 1; }
+        .year-tag { background: rgba(223, 183, 108, 0.15); color: var(--gold-secondary); font-size: 0.75rem; font-weight: 700; padding: 1px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px; border: 1px solid rgba(223, 183, 108, 0.3); }
+        .timeline-text { color: var(--text-muted); font-size: 0.85rem; }
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .social-link { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 5px; border-radius: 10px; text-decoration: none; color: white; font-size: 0.75rem; font-weight: 600; gap: 4px; }
+        .social-link i { font-size: 1.3rem; }
+        .whatsapp { background: linear-gradient(135deg, #128C7E 0%, #075E54 100%); }
+        .facebook { background: linear-gradient(135deg, #3b5998 0%, #2d4373 100%); }
+        .instagram { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .youtube { background: linear-gradient(135deg, #ff0000 0%, #c40000 100%); }
+        .drive { background: linear-gradient(135deg, #1da1f2 0%, #0c85d0 100%); }
+        .footer-text { text-align: center; font-size: 0.7rem; color: rgba(205, 222, 232, 0.3); margin-top: 25px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-box"><img src="FB_IMG_1770717640353.jpg" alt="लोगो"></div>
+        <div><div class="tagline-badge"><i class="fa-solid fa-cow"></i> गौ माता ही राष्ट्र माता है</div></div>
+        <h1>उन्नति स्वयं सहायता समिति</h1>
+        <div class="niti-badge"><i class="fa-solid fa-id-card"></i> नीति आयोग Unique ID: UA-2016/0108273</div>
+    </header>
+    <main class="container">
+        <section class="card">
+            <h2 class="card-title"><i class="fa-solid fa-circle-info"></i>  संस्था का परिचय</h2>
+            <p class="card-text"><strong>उन्नति स्वयं सहायता समिति</strong> एक सामाजिक, धार्मिक एवं जनहितकारी संगठन है, जिसकी स्थापना समाज सेवा, गौ संरक्षण, गरीब सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को आगे बढ़ाने के उद्देश्य से की गई है। संस्था का मुख्य उद्देश्य गौ माता को 'राष्ट्र माता' का दर्जा दिलाना है।</p>
+            <div class="info-item"><i class="fa-solid fa-location-dot"></i><span><strong>पता:</strong> हल्द्वानी, जनपद - नैनीताल, उत्तराखंड।</span></div>
+            <a href="tel:+919410332400" class="btn btn-call"><i class="fa-solid fa-phone"></i> संपर्क करें: 9410332400</a>
+        </section>
+        <section class="card">
+            <h2 class="card-title"><i class="fa-solid fa-file-invoice"></i>  संस्था की प्रोजेक्ट रिपोर्ट</h2>
+            <p class="card-text">संस्था के कार्यों, उद्देश्यों और भविष्य की योजनाओं की संपूर्ण 30 पेज की प्रोजेक्ट रिपोर्ट यहाँ क्लिक करके सीधे डाउनलोड करें।</p>
+            <a href="https://share.google.com/xE3C9ZIS285UvsEU8" class="btn btn-report" target="_blank"><i class="fa-solid fa-file-pdf"></i> प्रोजेक्ट रिपोर्ट देखें (PDF)</a>
+        </section>
+        <section class="card" style="text-align: center;">
+            <h2 class="card-title" style="justify-content: center;"><i class="fa-solid fa-heart" style="color: #ff4757;"></i>  सहयोग एवं योगदान</h2>
+            <p class="card-text">संस्था के गौ सेवा एवं सामाजिक कार्यों को गति देने के लिए अपना सहयोग दें।</p>
+            <a href="https://wa.me/919410332400" class="btn btn-donate" target="_blank"><i class="fa-solid fa-hand-holding-heart"></i> अभी डोनेट करें (Razorpay)</a>
+            <div class="qr-section">
+                <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=9410332400@barodampay" alt="QR Code"></div>
+                <p class="qr-text">या क्यूआर कोड स्कैन करें</p>
+            </div>
+        </section>
+        <section class="card">
+            <h2 class="card-title"><i class="fa-solid fa-calendar-days"></i>  वार्षिक गतिविधियाँ (2016 - 2025)</h2>
+            <div class="timeline">
+                <div class="timeline-item"><span class="year-tag">2016</span><p class="timeline-text">संस्था स्थापना, स्थानीय स्तर पर गौ सेवा अभियान प्रारंभ और गरीब सहायता कार्य.</p></div>
+                <div class="timeline-item"><span class="year-tag">2017</span><p class="timeline-text">कस्बों में स्वच्छता जागरूकता अभियान, पौधारोपण और बच्चों को शिक्षा सामग्री वितरण.</p></div>
+                <div class="timeline-item"><span class="year-tag">2018</span><p class="timeline-text">गौ माता संरक्षण जनजागरूकता हेतु धार्मिक यात्राओं एवं जनसंपर्क अभियानों का आयोजन.</p></div>
+                <div class="timeline-item"><span class="year-tag">2019</span><p class="timeline-text">गौ माता एवं धर्म रक्षा हेतु ऐतिहासिक दंडवत यात्रा और समाज में नशा मुक्ति संदेश.</p></div>
+                <div class="timeline-item"><span class="year-tag">2020</span><p class="timeline-text">कोविड लॉकडाउन के दौरान जरूरतमंद परिवारों को भोजन, सूखा राशन, और मास्क वितरण.</p></div>
+                <div class="timeline-item"><span class="year-tag">2021</span><p class="timeline-text">रक्तदान शिविर, निर्धन कन्याओं के विवाह में सहयोग और संगठन का ग्रामीण अंचलों में विस्तार.</p></div>
+                <div class="timeline-item"><span class="year-tag">2022</span><p class="timeline-text">गौ माता को "राज्य माता" घोषित करने हेतु व्यापक जनआंदोलन एवं जनसंपर्क यात्राएँ.</p></div>
+                <div class="timeline-item"><span class="year-tag">2023</span><p class="timeline-text">गौ संरक्षण और जनहित मुद्दों को लेकर अनशन कार्यक्रम तथा प्रशासन को ज्ञापन सौंपना.</p></div>
+                <div class="timeline-item"><span class="year-tag">2024</span><p class="timeline-text">राष्ट्रीय स्तर पर सदस्यता अभियान की शुरुआत और सोशल मीडिया प्रचार अभियान.</p></div>
+                <div class="timeline-item"><span class="year-tag">2025</span><p class="timeline-text">महिला सशक्तिकरण, विभिन्न राज्यों में नियुक्तियां और संगठन को राष्ट्रीय स्तर तक पहुँचाने का लक्ष्य.</p></div>
+            </div>
+        </section>
+        <section class="card">
+            <h2 class="card-title"><i class="fa-solid fa-share-nodes"></i>  हमसे जुड़ें</h2>
+            <div class="social-grid">
+                <a href="https://wa.me/919410332400" class="social-link whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i><span>व्हाट्सएप</span></a>
+                <a href="https://www.facebook.com/unnatiselfhelpgroup" class="social-link facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i><span>फेसबुक</span></a>
+                <a href="https://www.instagram.com/unnatiselfhelpgroup" class="social-link instagram" target="_blank"><i class="fa-brands fa-instagram"></i><span>इंस्टाग्राम</span></a>
+                <a href="#" class="social-link youtube" target="_blank"><i class="fa-brands fa-youtube"></i><span>यूट्यूब</span></a>
+                <a href="https://share.google.com/xE3C9ZIS285UvsEU8" class="social-link drive" target="_blank"><i class="fa-solid fa-file-pdf"></i><span>रिपोर्ट</span></a>
+            </div>
+        </section>
+        <p class="footer-text">© उन्नति स्वयं सहायता समिति. सर्वाधिकार सुरक्षित.</p>
+    </main>
+</body>
+</html>
 
