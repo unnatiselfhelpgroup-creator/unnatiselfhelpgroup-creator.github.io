@@ -1,56 +1,73 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>उन्नति स्वयं सहायता समिति</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { background: #030712; color: #fff; font-family: sans-serif; padding: 10px; }
-        .wrapper { max-width: 500px; margin: auto; }
-        h1 { text-align: center; color: #d4af37; margin: 15px 0; }
-        .btn { display: block; padding: 15px; margin: 10px 0; border-radius: 10px; text-align: center; font-weight: bold; color: #000; background: #d4af37; text-decoration: none; }
-        .card { background: #0c1524; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #d4af37; }
-        /* यह है आपकी 14 पॉइंट्स की स्लाइडिंग गैलरी */
-        .slider { display: flex; overflow-x: auto; gap: 10px; padding: 10px 0; }
-        .item { min-width: 250px; padding: 15px; background: #1a273e; border-radius: 10px; border-left: 4px solid #d4af37; font-size: 14px; }
-        .social { display: flex; justify-content: center; gap: 20px; font-size: 30px; margin-top: 20px; }
-        .social a { color: #d4af37; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>उन्नति स्वयं सहायता समिति</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+<style>
+    *{margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth;}
+    body{font-family:'Poppins',sans-serif; background:linear-gradient(180deg,#030712,#071b34,#0a2342); color:#fff; overflow-x:hidden;}
+    a{text-decoration:none;}
+    .container{width:100%; max-width:1200px; margin:auto; padding:15px;}
+    .topbar{display:flex; justify-content:space-between; align-items:center; padding:10px; margin-bottom:15px; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.08); border-radius:15px;}
+    .logo-area{display:flex; align-items:center; gap:10px;}
+    .logo{width:75px; height:75px; border-radius:50%; background:#fff; padding:4px; border:3px solid #d4af37;}
+    .site-title{font-family:'Yatra One',serif; font-size:20px; color:#ffd56a;}
+    .hero{background:linear-gradient(135deg,rgba(212,175,55,.25),rgba(0,0,0,.1)); border:1px solid rgba(255,255,255,.1); padding:25px; border-radius:25px; text-align:center; margin-bottom:20px;}
+    .hero h1{font-family:'Yatra One',serif; font-size:32px; color:#ffd56a; margin-bottom:12px;}
+    .btn{display:block; padding:14px; margin:10px 0; border-radius:12px; font-weight:700; text-align:center; background:linear-gradient(135deg,#ffd700,#d4af37); color:#000;}
+    .card{background:rgba(255,255,255,.05); backdrop-filter:blur(15px); border:1px solid rgba(255,255,255,.08); padding:20px; border-radius:20px; margin-bottom:20px;}
+    .section-title{font-size:20px; color:#ffd56a; margin-bottom:15px; font-weight:700;}
+    /* नई स्लाइडिंग गैलरी */
+    .slider-box{display:flex; overflow-x:auto; gap:15px; padding-bottom:10px; scroll-snap-type: x mandatory;}
+    .slider-item{min-width:250px; background:rgba(212,175,55,0.1); padding:15px; border-radius:15px; border-left:4px solid #d4af37; scroll-snap-align:center;}
+    .social{display:flex; justify-content:center; gap:20px; font-size:30px; margin-top:20px;}
+</style>
 </head>
 <body>
-<div class="wrapper">
-    <h1>उन्नति स्वयं सहायता समिति</h1>
-    <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" class="btn">💰 राष्ट्रहित दान करें</a>
-    <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" class="btn">🪪 सदस्य बनें</a>
+<div class="container">
+    <div class="topbar">
+        <div class="logo-area">
+            <img src="logo.png" class="logo" alt="Logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
+            <div class="site-title">उन्नति स्वयं सहायता समिति</div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>उन्नति स्वयं सहायता समिति</h1>
+        <p>2016 से निरंतर सेवा में समर्पित।</p>
+        <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" class="btn">💰 राष्ट्रहित दान करें</a>
+    </section>
 
     <div class="card">
-        <h3>🚩 ऐतिहासिक सेवा यात्रा</h3>
-        <div class="slider">
-            <div class="item">1. 2016-17: स्वच्छ भारत अभियान</div>
-            <div class="item">2. 2017-18: शीतकालीन अलाव सेवा</div>
-            <div class="item">3. 2020-21: कोरोना जनसेवा</div>
-            <div class="item">4. गरीब, विधवा व असहाय निर्बल सेवा</div>
-            <div class="item">5. गर्मी में पशु-पक्षियों हेतु जल-दाना</div>
-            <div class="item">6. हरिद्वार-देहरादून 15 दिवसीय दंडवत यात्रा</div>
-            <div class="item">7. लालकुआं-रामनगर 22 दिवसीय दंडवत यात्रा</div>
-            <div class="item">8. रामनगर-अल्मोड़ा 170 किमी पदयात्रा</div>
-            <div class="item">9. 960 किमी मौन पदयात्रा: बागेश्वर धाम</div>
-            <div class="item">10. 700 किमी पदयात्रा: अयोध्या-बागेश्वर धाम</div>
-            <div class="item">11. 250 किमी नंगे पैर पदयात्रा</div>
-            <div class="item">12. 4 माह जन जागरूकता अभियान</div>
-            <div class="item">13. सुशीला तिवारी हॉस्पिटल में रक्तदान</div>
-            <div class="item">14. 36+ विधायकों से समर्थन पत्र</div>
+        <div class="section-title">🚩 ऐतिहासिक सेवा यात्रा (14 प्रमुख पड़ाव)</div>
+        <div class="slider-box">
+            <div class="slider-item"><strong>2016-17:</strong> स्वच्छ भारत अभियान</div>
+            <div class="slider-item"><strong>2017-18:</strong> अलाव सेवा</div>
+            <div class="slider-item"><strong>2020-21:</strong> कोरोना जनसेवा</div>
+            <div class="slider-item"><strong>मानवीय सेवा:</strong> असहाय व विधवा सहायता</div>
+            <div class="slider-item"><strong>पर्यावरण:</strong> पक्षी दाना-पानी</div>
+            <div class="slider-item"><strong>दंडवत 1:</strong> हरिद्वार-देहरादून 15 दिन</div>
+            <div class="slider-item"><strong>दंडवत 2:</strong> लालकुआं-रामनगर 22 दिन</div>
+            <div class="slider-item"><strong>पदयात्रा:</strong> रामनगर-अल्मोड़ा 170 किमी</div>
+            <div class="slider-item"><strong>मौन पदयात्रा:</strong> 960 किमी बागेश्वर धाम</div>
+            <div class="slider-item"><strong>पदयात्रा:</strong> 700 किमी अयोध्या-बागेश्वर धाम</div>
+            <div class="slider-item"><strong>नंगे पैर:</strong> 250 किमी हरिद्वार-मोटेश्वर</div>
+            <div class="slider-item"><strong>आध्यात्मिक:</strong> 4 माह जन जागरण</div>
+            <div class="slider-item"><strong>चिकित्सा:</strong> सुशीला तिवारी रक्तदान</div>
+            <div class="slider-item"><strong>नीतिगत:</strong> 36+ विधायकों का समर्थन</div>
         </div>
     </div>
 
     <div class="social">
-        <a href="https://wa.me/919410332400"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/share/18jstSivcM/"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/unnatiselfhelpgroup1"><i class="fab fa-instagram"></i></a>
-        <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
+        <a href="https://wa.me/919410332400" style="color:#25D366;"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/18jstSivcM/" style="color:#1877F2;"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/unnatiselfhelpgroup1" style="color:#E4405F;"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg" style="color:#FF0000;"><i class="fab fa-youtube"></i></a>
+        <a href="https://share.google/4cXWkSP2Qqy6gW1N7" style="color:#4285F4;"><i class="fab fa-google"></i></a>
     </div>
 </div>
 </body>
 </html>
-
