@@ -9,45 +9,47 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #050a12; color: #fff; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; padding: 15px; min-height: 100vh; }
-        .wrapper { max-width: 400px; width: 100%; background: #040914; border: 2px solid #bda06d; border-radius: 25px; padding: 20px; }
-        .logo { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #bda06d; margin: 0 auto 10px; display: block; }
-        .btn-badge { color: #ffcc66; font-size: 11px; border: 1px solid #bda06d; padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 10px; }
-        h1 { font-family: 'Yatra One', serif; font-size: 22px; color: #ffcc66; margin-bottom: 10px; }
-        .card { background: #0c1524; border: 1px solid #bda06d; border-radius: 15px; padding: 15px; margin-bottom: 15px; }
-        .text { font-size: 13px; line-height: 1.6; color: #d1dbe5; text-align: justify; }
-        .btn { display: block; background: #bda06d; color: #000; padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; text-align: center; font-size: 13px; }
-        .btn-blue { background: #52a0ff; color: #fff; }
-        .btn-green { background: #66bb6a; color: #fff; }
-        .slider { display: flex; overflow-x: auto; gap: 10px; scroll-snap-type: x mandatory; padding: 5px; }
-        .node { flex: 0 0 80%; scroll-snap-align: center; background: #1a273e; padding: 15px; border-radius: 12px; font-size: 12px; border-left: 4px solid #ffcc66; }
-        .social { display: flex; justify-content: center; gap: 15px; margin-top: 15px; font-size: 20px; }
-        .social a { color: #ffcc66; }
+        .wrapper { max-width: 400px; width: 100%; background: #040914; border: 2px solid #bda06d; border-radius: 20px; padding: 20px; }
+        .logo { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #bda06d; margin: 0 auto 10px; display: block; }
+        h1 { font-family: 'Yatra One', serif; font-size: 20px; color: #ffcc66; text-align: center; margin-bottom: 10px; }
+        .card { background: #0c1524; border: 1px solid #bda06d; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        .btn { display: block; background: #bda06d; color: #000; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 8px; text-align: center; font-size: 13px; }
+        .slider { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
+        .node { flex: 0 0 85%; background: #1a273e; padding: 12px; border-radius: 10px; font-size: 12px; border-left: 3px solid #ffcc66; }
+        .social { display: flex; justify-content: center; gap: 10px; margin-top: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <div id="google_translate_element" style="text-align:right; margin-bottom:10px;"></div>
+    <div id="google_translate_element" style="text-align:right;"></div>
     <img src="logo.png" class="logo" alt="Logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
-    <div class="btn-badge">गौमाता ही राष्ट्रमाता हैं 🐾</div>
     <h1>उन्नति स्वयं सहायता समिति</h1>
     
     <div class="card">
         <h2 style="font-size:14px; color:#ffcc66; margin-bottom:5px;">🔱 संस्था परिचय</h2>
-        <p class="text">उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितकारी संगठन है। हमारा पावन उद्देश्य गौ माता को 'राष्ट्र माता' व 'राज्य माता' का संवैधानिक गौरव दिलाना है।</p>
+        <p style="font-size: 12px; text-align: justify; color: #d1dbe5;">उन्नति स्वयं सहायता समिति हल्द्वानी का एक पंजीकृत संगठन है। हम गौ संरक्षण, निर्धन सहायता एवं पर्यावरण के लिए कार्य करते हैं। हमारा मुख्य उद्देश्य गौ माता को 'राष्ट्र माता' व 'राज्य माता' का संवैधानिक गौरव दिलाना है।</p>
     </div>
 
     <div class="card">
         <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" class="btn">गौ-सेवा हेतु राष्ट्रहित दान 🐾</a>
-        <a href="unnati_samiti_30_page_report_v2.zip" class="btn btn-blue">पीडीएफ रिपोर्ट डाउनलोड 📂</a>
-        <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" class="btn btn-green">सदस्य बनें (ID कार्ड) 🪪</a>
+        <a href="unnati_samiti_30_page_report_v2.zip" class="btn" style="background:#52a0ff; color:#fff;">पीडीएफ रिपोर्ट डाउनलोड 📂</a>
+        <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" class="btn" style="background:#66bb6a; color:#fff;">सदस्य बनें (ID कार्ड) 🪪</a>
     </div>
 
     <div class="card">
         <h2 style="font-size:14px; color:#ffcc66; margin-bottom:10px;">🚩 ऐतिहासिक गतिविधियां</h2>
         <div class="slider">
-            <div class="node"><strong>2016:</strong> संस्था स्थापना व पंजीकरण।</div>
-            <div class="node"><strong>2020:</strong> गौ माता राष्ट्रमाता आंदोलन की शुरुआत।</div>
-            <div class="node"><strong>2026:</strong> 37 दिन की दंडवत यात्रा व 120 घंटे का ऐतिहासिक अनशन।</div>
+            <div class="node"><strong>2016:</strong> संस्था स्थापना व पंजीकरण। गौ सेवा का संकल्प।</div>
+            <div class="node"><strong>2017:</strong> स्वच्छता व पर्यावरण पौधारोपण अभियान।</div>
+            <div class="node"><strong>2018:</strong> गौवंश के लिए विशेष चिकित्सा शिविर।</div>
+            <div class="node"><strong>2019:</strong> गौशालाओं हेतु आत्मनिर्भर चारा बैंक की स्थापना।</div>
+            <div class="node"><strong>2020:</strong> गौ माता को 'राष्ट्र माता' का दर्जा दिलाने हेतु आंदोलन।</div>
+            <div class="node"><strong>2021:</strong> कोविड काल में गौवंश व बेसहारा पशुओं हेतु हरा चारा व जल सेवा।</div>
+            <div class="node"><strong>2022:</strong> पक्षियों व पशुओं हेतु जल-पात्र वितरण।</div>
+            <div class="node"><strong>2023:</strong> पंचगव्य एवं प्राकृतिक खाद कार्यशालाएं।</div>
+            <div class="node"><strong>2024:</strong> गौ सेवा आयोग के साथ नीतिगत संवाद।</div>
+            <div class="node"><strong>2025:</strong> महिला आत्मनिर्भरता समूहों का गठन।</div>
+            <div class="node"><strong>2026:</strong> 37 दिन की ऐतिहासिक दंडवत यात्रा व 120 घंटे का अन्न-जल त्याग अनशन।</div>
         </div>
     </div>
 
@@ -60,12 +62,7 @@
         <a href="cow_glory.html"><i class="fa-solid fa-gopuram"></i></a>
     </div>
 </div>
-
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'hi', includedLanguages: 'hi,en,pa,bn,ta,te,ml,kn,mr,gu', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript">function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'hi',includedLanguages:'hi,en,pa,bn,ta,te,ml,kn,mr,gu',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}</script>
 </body>
 </html>
