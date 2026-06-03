@@ -25,7 +25,7 @@
             min-height: 100vh;
         }
 
-        /* 3D मोबाइल फ्रेम - अति आधुनिक लुक */
+        /* 3D मोबाइल फ्रेम */
         .app-wrapper {
             max-width: 410px;
             width: 100%;
@@ -77,7 +77,7 @@
             box-shadow: 0 6px 15px rgba(189, 160, 109, 0.35);
         }
 
-        /* मुख्य टाइटल - अत्यंत प्रोफेशनल */
+        /* मुख्य टाइटल */
         .app-title {
             font-family: 'Yatra One', serif;
             font-size: 24px;
@@ -164,7 +164,7 @@
             padding-top: 12px;
         }
 
-        /* रेज़रपे स्क्रिप्ट बटन के लिए फुल-विड्थ 3D बॉक्स */
+        /* रेज़रपे स्क्रिप्ट बटन के लिए बॉक्स */
         .razorpay-custom-container {
             width: 100%;
             margin: 10px auto 18px auto;
@@ -175,17 +175,6 @@
         
         .razorpay-custom-container form {
             width: 100%;
-        }
-        
-        /* रेज़रपे के ओरिजिनल बटन को बड़ा और सुंदर बनाने का CSS */
-        .razorpay-custom-container .razorpay-embed-btn {
-            width: 100% !important;
-            height: 48px !important;
-            font-size: 15px !important;
-            font-weight: 700 !important;
-            border-radius: 25px !important;
-            box-shadow: 0px 6px 20px rgba(0, 92, 191, 0.5) !important;
-            transition: all 0.2s ease !important;
         }
 
         /* 3D गोल्ड कैप्सूल रिपोर्ट डाउनलोड बटन */
@@ -268,7 +257,7 @@
             box-shadow: 0px 5px 12px rgba(46, 125, 50, 0.35) !important;
         }
 
-        /* नीला बैकअप बटन */
+        /* नीला पुराना रेज़रपे बटन */
         .razorpay-btn {
             background: linear-gradient(180deg, #52a0ff 0%, #005cbf 100%) !important;
             color: white !important;
@@ -283,7 +272,7 @@
             border-radius: 12px;
             padding: 12px;
             text-align: center;
-            margin-top: 18px;
+            margin-top: 20px;
         }
 
         .qr-image-frame {
@@ -360,55 +349,58 @@
             font-size: 12.5px;
         }
 
-        /* प्रीमियम 3D सोशल बटन्स की बिल्कुल सटीक संरेखित डिज़ाइन */
+        /* 🌟 सभी 6 बटन्स का फिक्स रो (Row) ढांचा */
         .social-row-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 25px auto 5px auto;
             padding: 0;
-            flex-wrap: wrap;
-            gap: 15px;
+            flex-direction: row !important; /* हर हाल में एक ही लाइन में लॉक रखेगा */
+            flex-wrap: nowrap !important;   /* नीचे टूटने या लंबे होने से रोकेगा */
+            gap: 8px; /* सभी 6 बटन्स मोबाइल स्क्रीन में फिट आ सकें इसलिए दूरी को सटीक किया है */
             width: 100%;
         }
 
+        /* 🌟 सभी 6 बटन्स की सुंदर 3D डिज़ाइन */
         .social-link-btn {
-            width: 48px;
-            height: 48px;
+            width: 44px !important;  /* चौड़ाई बिल्कुल फिक्स */
+            height: 44px !important; /* लंबाई बिल्कुल फिक्स */
             border-radius: 12px;
             background: linear-gradient(180deg, #1f2d3d 0%, #0a1017 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
+            font-size: 18px;
             text-decoration: none;
             position: relative;
             border: 1.5px solid #bda06d;
-            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.7), inset 0px 1px 2px rgba(255, 255, 255, 0.15);
+            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.85), inset 0px 1px 2px rgba(255, 255, 255, 0.2);
             transition: all 0.2s ease-in-out;
+            flex-shrink: 0; /* सिस्टम को बटन्स का आकार खींचने से रोकेगा */
         }
 
         .social-link-btn:hover {
-            transform: translateY(-4px) scale(1.05);
+            transform: translateY(-3px);
             border-color: #ffcc66;
-            box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.85);
+            box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.95);
         }
 
-        /* सोशल मीडिया आइकन्स के विशेष रंग और निऑन ग्लो */
+        /* सोशल मीडिया व अन्य आइकन्स के विशेष रंग और निऑन ग्लो */
         .whatsapp-btn i { color: #25D366 !important; text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
         .facebook-btn i { color: #1877F2 !important; text-shadow: 0 0 10px rgba(24, 119, 242, 0.5); }
         .instagram-btn i { color: #fccc63 !important; text-shadow: 0 0 10px rgba(252, 204, 99, 0.5); }
         .youtube-btn i { color: #FF0000 !important; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+        .google-btn i { color: #4285F4 !important; text-shadow: 0 0 10px rgba(66, 133, 244, 0.5); }
+        .idcard-btn i { color: #00ffcc !important; text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); }
     </style>
 </head>
 <body>
 
 <div class="app-wrapper">
 
-    <!-- संस्था का लोगो -->
     <img src="logo.png" alt="उन्नति स्वयं सहायता समिति" class="app-logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
    
-    <!-- गौमाता राष्ट्रीय नारा -->
     <a href="cow_glory.html" class="gaumata-badge-link">
         <div class="gaumata-badge-btn">
             <i class="fa-solid fa-gopuram" style="color: #ffcc66; margin-right: 5px;"></i>
@@ -416,20 +408,17 @@
         </div>
     </a>
    
-    <!-- मुख्य शीर्षक -->
     <h1 class="app-title">उन्नति स्वयं सहायता समिति</h1>
    
-    <!-- नीति आयोग यूनिक आईडी -->
     <a href="https://ngodarpan.gov.in/" target="_blank" class="niti-id-badge">
         <span class="niti-title-text">Niti Aayog Unique ID</span>
         <span class="niti-number">UA-2016/0108273</span>
     </a>
 
-    <!-- परिचय बॉक्स -->
     <div class="content-card">
         <h2 class="card-heading-text">Introduction</h2>
         <p class="card-paragraph">
-            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितকারী संगठन है, समाज सेवा, गौ संरक्षण, गरीब सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को आगे बढ़ाने की नींव है। संस्था का मुख्य उद्देश्य गौ माता को 'राष्ट्र माता' का दर्जा दिलाना है.
+            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितকারী संगठन है, समाज सेवा, गौ संरक्षण, गरीब सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को आगे बढ़ाने की नींव है। संस्था का मुख्य उद्देश्य गौ माता को 'राष्ट्र माता' का दर्जा दिलाना है।
         </p>
         <div class="location-bar">
             <i class="fa-solid fa-location-dot"></i>
@@ -437,19 +426,16 @@
         </div>
     </div>
 
-    <!-- प्रोजेक्ट रिपोर्ट, डोनेशन और सदस्यता बॉक्स -->
     <div class="content-card">
         <h2 class="card-heading-text">प्रोजेक्ट रिपोर्ट & सदस्यता</h2>
         <p class="card-paragraph">संस्था के कार्यों की पीडीएफ रिपोर्ट डाउनलोड करें, ऑनलाइन सदस्य बनकर तुरंत ऑटोमैटिक आईडी कार्ड प्राप्त करें अथवा सुरक्षित सहयोग राशि प्रदान करें।</p>
        
-        <!-- रेज़रपे का "राष्ट्रहित दान" बटन (जो अब सबसे ऊपर फुल विड्थ में परफेक्ट दिखेगा) -->
         <div class="razorpay-custom-container">
             <form>
                 <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SxANdLwwQ2bNoz" async></script>
             </form>
         </div>
 
-        <!-- पीडीएफ डाउनलोड बटन -->
         <a href="unnati_samiti_30_page_report_v2.zip" class="pdf-capsule-btn" download>
             <div class="pdf-icon-circle">
                 <i class="fa-solid fa-file-pdf"></i>
@@ -458,17 +444,14 @@
             डाउनलोड 30 पेज पीडीएफ रिपोर्ट
         </a>
 
-        <!-- सदस्यता फॉर्म बटन -->
         <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" target="_blank" class="btn-3d member-btn">
             <i class="fa-solid fa-id-card"></i> सदस्य बनें (ऑटोमेटिक ID कार्ड पाएं)
         </a>
 
-        <!-- पुराना रेज़रपे डायरेक्ट लिंक बटन -->
         <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" target="_blank" class="btn-3d razorpay-btn">
             <i class="fa-solid fa-credit-card"></i> रेज़रपे सुरक्षित डोनेशन (रसीद पाएं)
         </a>
        
-        <!-- क्यूआर कोड सेक्शन -->
         <div class="qr-section-box">
             <div class="qr-image-frame">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://razorpay.me/@wwwunnatiselfhelpgroupcom" alt="Razorpay QR Code">
@@ -476,7 +459,6 @@
         </div>
     </div>
 
-    <!-- ऐतिहासिक गतिविधियां और टाइमलाइन बॉक्स -->
     <div class="content-card">
         <h2 class="card-heading-text">Annual Activities</h2>
         <p class="card-paragraph" style="text-align: center; margin-bottom: 20px;">संस्था के स्थापना वर्ष से लेकर आज तक की ऐतिहासिक उपलब्धियां एवं संकल्प यात्राएं:</p>
@@ -486,7 +468,7 @@
                 <div class="timeline-year-badge">2016</div>
                 <div class="timeline-desc">
                     <strong>संस्था स्थापना एवं पंजीकरण</strong>
-                    नीति आयोग दर्पण पोर्टल के अंतर्गत पंजीकरण। स्थानीय स्तर पर विशाल गौ सेवा अभियान प्रारंभ व गरीब असहाय परिवारों की सेवा。
+                    नीति आयोग दर्पण पोर्टल के अंतर्गत पंजीकरण। स्थानीय स्तर पर विशाल गौ सेवा अभियान प्रारंभ व गरीब असहाय परिवारों की सेवा।
                 </div>
             </li>
             <li class="timeline-row">
@@ -500,7 +482,7 @@
                 <div class="timeline-year-badge">2018</div>
                 <div class="timeline-desc">
                     <strong>गौवंश चिकित्सा एवं सेवा शिविर</strong>
-                    घायल और बीमार गौवंश के लिए विशेष चिकित्सा शिविरों का आयोजन और मुफ़्त दवाओं का प्रबंध।
+                    घायल and बीमार गौवंश के लिए विशेष चिकित्सा शिविरों का आयोजन और मुफ़्त दवाओं का प्रबंध।
                 </div>
             </li>
             <li class="timeline-row">
@@ -514,21 +496,21 @@
                 <div class="timeline-year-badge">2020</div>
                 <div class="timeline-desc">
                     <strong>गौ माता राष्ट्रमाता आंदोलन शुरुआत</strong>
-                    गौ माता को 'राष्ट्र माता' का संवैधानिक दर्जा दिलाने हेतु राज्यव्यापी जनजागरूकता और जनसंपर्क अभियानों की शुरुआत。
+                    गौ माता को 'राष्ट्र माता' का संवैधानिक दर्जा दिलाने हेतु राज्यव्यापी जनजागरूकता और जनसंपर्क अभियानों की शुरुआत।
                 </div>
             </li>
             <li class="timeline-row">
                 <div class="timeline-year-badge">2021</div>
                 <div class="timeline-desc">
                     <strong>कोविड काल में अनवरत सेवा</strong>
-                    लॉकडाउन में बेसहारा पशुओं और गौवंश के लिए हरा चारा, भोजन और पानी की विशेष व्यवस्था का संचालन。
+                    लॉकडाउन में बेसहारा पशुओं और गौवंश के लिए हरा चारा, भोजन और पानी की विशेष व्यवस्था का संचालन।
                 </div>
             </li>
             <li class="timeline-row">
                 <div class="timeline-year-badge">2022</div>
                 <div class="timeline-desc">
                     <strong>जीव-जंतु एवं पक्षी कल्याण अभियान</strong>
-                    गर्मियों में पक्षियों व बेसहारा पशुओं हेतु पानी के बर्तनों (सकोरे) का वितरण। टैंकरों द्वारा जल वितरण अभियानों का आयोजन。
+                    गर्मियों में पक्षियों व बेसहारा पशुओं हेतु पानी के बर्तनों (सकोरे) का वितरण। टैंकरों द्वारा जल वितरण अभियानों का आयोजन।
                 </div>
             </li>
             <li class="timeline-row">
@@ -542,13 +524,53 @@
                 <div class="timeline-year-badge">2024</div>
                 <div class="timeline-desc">
                     <strong>राज्यव्यापी गौ सेवा जनसंवाद</strong>
-                    उत्तराखंड के पहाड़ी और मैदानी क्षेत्रों में गौ संरक्षण नीतियों के सुदृढ़ीकरण हेतु गौ सेवा आयोग के साथ नीतिगत संवाद。
+                    उत्तराखंड के पहाड़ी और मैदानी क्षेत्रों में गौ संरक्षण नीतियों के सुदृढ़ीकरण हेतु गौ सेवा आयोग के साथ नीतिगत संवाद।
                 </div>
             </li>
             <li class="timeline-row">
                 <div class="timeline-year-badge">2025</div>
                 <div class="timeline-desc">
                     <strong>महिला सशक्तिकरण व राज्य विस्तार</strong>
-                    महिला आत्मनिर्भरता समूहों का गठन, विभिन्न राज्यों में संगठन का तेज़ी से विस्तार एवं राष्ट्रीय पहचान का लक्ष्य。
+                    महिला आत्मनिर्भरता समूहों का गठन, विभिन्न राज्यों में संगठन का तेज़ी से विस्तार एवं राष्ट्रीय पहचान का लक्ष्य।
                 </div>
             </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2026</div>
+                <div class="timeline-desc">
+                    <strong>कठिन दंडवत यात्रा एवं ऐतिहासिक अनशन</strong>
+                    हरिद्वार से देहरादून-रामनगर तक 37 दिनों की कठिन 'दंडवत संकल्प यात्रा' का समापन। देहरादून के दीनदयाल पार्क में अन्न-जल का पूर्ण त्याग कर 120 घंटे का ऐतिहासिक अनशन एवं सरकार को ज्ञापन।
+                </div>
+            </li>
+        </ul>
+
+        <a href="tel:+919410332400" class="btn-3d">
+            <i class="fa-solid fa-phone"></i> संपर्क करें: 9410332400
+        </a>
+    </div>
+
+    <div class="social-row-container">
+        <a href="https://wa.me/919410332400" target="_blank" class="social-link-btn whatsapp-btn" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/18jstSivcM/" target="_blank" class="social-link-btn facebook-btn" title="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" class="social-link-btn instagram-btn" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@bhatta_ji?si=VpCPlGkYcZ8335u0" target="_blank" class="social-link-btn youtube-btn" title="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://www.google.com" target="_blank" class="social-link-btn google-btn" title="Google">
+            <i class="fa-brands fa-google"></i>
+        </a>
+        <a href="#" class="social-link-btn idcard-btn" title="ID Card">
+            <i class="fa-solid fa-address-card"></i>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
+
