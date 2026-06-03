@@ -5,83 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>उन्नति स्वयं सहायता समिति</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Yatra+One&display=swap" rel="stylesheet">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
-        body { font-family:'Poppins',sans-serif; background:linear-gradient(180deg,#030712,#071b34,#0a2342); color:#fff; overflow-x:hidden; }
-        a { text-decoration:none; }
-        .container { width:100%; max-width:1200px; margin:auto; padding:15px; }
-        .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px; margin-bottom:15px; background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.08); border-radius:15px; }
-        .logo-area { display:flex; align-items:center; gap:10px; }
-        .logo { width:75px; height:75px; border-radius:50%; background:#fff; padding:4px; border:3px solid #d4af37; }
-        .site-title { font-family:'Yatra One',serif; font-size:20px; color:#ffd56a; line-height:1.3; }
-        .hero { background:linear-gradient(135deg,rgba(212,175,55,.25),rgba(0,0,0,.1)); border:1px solid rgba(255,255,255,.1); padding:25px; border-radius:25px; backdrop-filter:blur(15px); box-shadow:0 0 30px rgba(212,175,55,.25); text-align:center; margin-bottom:20px; }
-        .hero h1 { font-family:'Yatra One',serif; font-size:32px; color:#ffd56a; margin-bottom:12px; }
-        .hero p { font-size:15px; line-height:1.8; color:#e6e6e6; }
-        .badge { display:inline-block; background:#d4af37; color:#000; padding:8px 15px; border-radius:30px; font-weight:700; margin-bottom:15px; }
-        .button-grid { display:grid; grid-template-columns:1fr; gap:12px; margin-top:20px; }
-        .btn { display:block; padding:14px; border-radius:12px; font-weight:700; text-align:center; transition:.3s; }
-        .btn:hover { transform:translateY(-3px); }
-        .btn-donate { background:linear-gradient(135deg,#ffd700,#d4af37); color:#000; }
-        .btn-member { background:linear-gradient(135deg,#00c853,#2e7d32); color:#fff; }
-        .btn-report { background:linear-gradient(135deg,#2196f3,#0d47a1); color:#fff; }
-        .card { background:rgba(255,255,255,.05); backdrop-filter:blur(15px); border:1px solid rgba(255,255,255,.08); padding:20px; border-radius:20px; margin-bottom:20px; }
-        .section-title { font-size:20px; color:#ffd56a; margin-bottom:12px; font-weight:700; }
-        .card p { font-size:14px; line-height:1.9; color:#e4e4e4; text-align:justify; }
-        .highlight-box { margin-top:15px; padding:15px; border-radius:15px; background:rgba(212,175,55,.12); border-left:4px solid #ffd56a; }
-        .highlight-box li { margin-bottom:8px; line-height:1.6; list-style:none; }
-        .counter-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:20px; }
-        .counter-card { background:rgba(255,255,255,.05); padding:18px; border-radius:15px; text-align:center; border:1px solid rgba(255,255,255,.08); }
-        .service-slider { display:flex; overflow-x:auto; gap:15px; padding-bottom:10px; scroll-snap-type: x mandatory; }
-        .service-item { min-width: 250px; scroll-snap-align: center; background: rgba(255,255,255,0.08); padding: 15px; border-radius: 15px; border-left: 4px solid #d4af37; }
+        body { background: #030712; color: #fff; font-family: 'Poppins', sans-serif; padding: 15px; }
+        .wrapper { max-width: 500px; margin: auto; background: #040914; padding: 20px; border-radius: 20px; border: 1px solid #d4af37; }
+        .logo { width: 80px; display: block; margin: auto; border-radius: 50%; border: 2px solid #d4af37; }
+        h1 { text-align: center; color: #d4af37; font-family: 'Yatra One', serif; margin: 15px 0; }
+        .card { background: #0c1524; padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #d4af37; }
+        .btn { display: block; padding: 12px; margin: 10px 0; border-radius: 10px; text-align: center; font-weight: bold; text-decoration: none; color: #000; background: #d4af37; }
+        .slider { display: flex; overflow-x: auto; gap: 10px; scroll-snap-type: x mandatory; }
+        .item { min-width: 200px; padding: 10px; background: #1a273e; border-radius: 10px; border-left: 3px solid #d4af37; }
+        .social { display: flex; justify-content: center; gap: 20px; font-size: 25px; margin-top: 20px; }
+        .social a { color: #d4af37; }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="topbar">
-        <div class="logo-area">
-            <img src="logo.png" class="logo" alt="Logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
-            <div class="site-title">उन्नति स्वयं सहायता समिति</div>
-        </div>
-        <div id="google_translate_element"></div>
-    </div>
-
-    <section class="hero">
-        <div class="badge">🐄 गौ माता - राष्ट्रमाता अभियान</div>
-        <h1>उन्नति स्वयं सहायता समिति</h1>
-        <p>2016 से निरंतर गौ संरक्षण, निराश्रित गोवंश सहायता, घायल पशुओं के उपचार एवं सामाजिक सेवा में समर्पित।</p>
-        <div class="button-grid">
-            <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" class="btn btn-donate">💰 राष्ट्रहित दान करें</a>
-            <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" class="btn btn-member">🪪 सदस्य बनें</a>
-            <a href="unnati_samiti_30_page_report_v2.zip" class="btn btn-report">📂 रिपोर्ट डाउनलोड</a>
-        </div>
-    </section>
+<div class="wrapper">
+    <img src="logo.png" class="logo" alt="Logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
+    <h1>उन्नति स्वयं सहायता समिति</h1>
+    
+    <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" class="btn">💰 राष्ट्रहित दान करें</a>
+    <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" class="btn">🪪 सदस्य बनें</a>
+    <a href="unnati_samiti_30_page_report_v2.zip" class="btn">📂 रिपोर्ट डाउनलोड</a>
 
     <div class="card">
-        <div class="section-title">🚩 ऐतिहासिक सेवा यात्रा (2016–2026)</div>
-        <div class="service-slider">
-            <div class="service-item"><strong>2016-17:</strong> स्वच्छ भारत अभियान का संचालन।</div>
-            <div class="service-item"><strong>2017-18:</strong> शीतकालीन अलाव व बेसहारा सेवा।</div>
-            <div class="service-item"><strong>2020-21:</strong> कोरोना काल जनसेवा (राशन, मास्क, सैनिटाइजर)।</div>
-            <div class="service-item"><strong>सेवा कार्य:</strong> गरीब, विधवा व असहाय निर्बल वर्ग की सहायता।</div>
-            <div class="service-item"><strong>पर्यावरण:</strong> भीषण गर्मी में पशु-पक्षियों हेतु जल-दाना।</div>
-            <div class="service-item"><strong>दंडवत 1:</strong> हरिद्वार-देहरादून 15 दिवसीय कठोर दंडवत यात्रा।</div>
-            <div class="service-item"><strong>दंडवत 2:</strong> लालकुआं से रामनगर 22 दिवसीय दंडवत यात्रा।</div>
-            <div class="service-item"><strong>पदयात्रा:</strong> रामनगर-अल्मोड़ा 170 किमी पदयात्रा व ध्वज अर्पण।</div>
-            <div class="service-item"><strong>पदयात्रा:</strong> 960 किमी मौन पदयात्रा - हरिद्वार से बागेश्वर धाम।</div>
-            <div class="service-item"><strong>पदयात्रा:</strong> 700 किमी पदयात्रा - अयोध्या से बागेश्वर धाम।</div>
-            <div class="service-item"><strong>पदयात्रा:</strong> 250 किमी नंगे पैर पदयात्रा - हरिद्वार से मोटेश्वर महादेव।</div>
-            <div class="service-item"><strong>आध्यात्मिक:</strong> 4 माह का जन-जागरूकता अभियान (अखंड ज्योति के साथ)।</div>
-            <div class="service-item"><strong>चिकित्सा:</strong> सुशीला तिवारी हॉस्पिटल में रक्तदान व घायल गोवंश सेवा।</div>
-            <div class="service-item"><strong>नीतिगत:</strong> 36+ विधायकों से राज्य माता हेतु समर्थन पत्र।</div>
+        <h3>🚩 ऐतिहासिक सेवा यात्रा</h3>
+        <div class="slider">
+            <div class="item">2016-17: स्वच्छ भारत अभियान</div>
+            <div class="item">2017-18: शीतकालीन अलाव सेवा</div>
+            <div class="item">2020-21: कोरोना जनसेवा</div>
+            <div class="item">15 दिन दंडवत यात्रा: हरिद्वार-देहरादून</div>
+            <div class="item">22 दिन दंडवत यात्रा: लालकुआं-रामनगर</div>
+            <div class="item">960 किमी मौन पदयात्रा: हरिद्वार-बागेश्वर धाम</div>
+            <div class="item">700 किमी पदयात्रा: अयोध्या-बागेश्वर धाम</div>
+            <div class="item">250 किमी नंगे पैर यात्रा: हरिद्वार-मोटेश्वर महादेव</div>
+            <div class="item">4 माह जन जागरूकता: अखंड ज्योति के साथ</div>
+            <div class="item">36+ विधायकों से समर्थन पत्र</div>
         </div>
     </div>
 
-    <!-- बाकी पुराना कार्ड और फुटर यहाँ जारी रखें... -->
-    <div class="card"><div class="section-title">📞 संपर्क करें</div><a href="tel:+919410332400" class="btn btn-donate">📱 +91 9410332400</a></div>
+    <div class="card">
+        <h3>📞 संपर्क</h3>
+        <p>📱 +91 9410332400</p>
+        <p>✉️ unnatiselfhelpgroup@gmail.com</p>
+    </div>
+
+    <div class="social">
+        <a href="https://wa.me/919410332400"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/18jstSivcM/"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/unnatiselfhelpgroup1"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg"><i class="fab fa-youtube"></i></a>
+        <a href="https://share.google/4cXWkSP2Qqy6gW1N7"><i class="fab fa-google"></i></a>
+    </div>
 </div>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'hi',includedLanguages:'hi,en,pa,bn,ta,te,ml,kn,mr,gu',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}</script>
 </body>
 </html>
-
