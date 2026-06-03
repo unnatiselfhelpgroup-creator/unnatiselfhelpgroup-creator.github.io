@@ -347,11 +347,14 @@
                         inset 0px -3px 6px rgba(0,0,0,0.6);
             transition: transform 0.2s;
         }
-
-        
-        
-
-       
+        .social-link-btn::after {
+            content: '';
+            position: absolute;
+            top: 3px; left: 3px; right: 3px; bottom: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 11px;
+            pointer-events: none;
+        }
         .whatsapp-btn i { color: #25D366 !important; text-shadow: 0 0 12px rgba(37, 211, 102, 0.8); }
         .facebook-btn i { color: #1877F2 !important; text-shadow: 0 0 12px rgba(24, 119, 242, 0.8); }
         .instagram-btn i { color: #fccc63 !important; text-shadow: 0 0 12px rgba(252, 204, 99, 0.8); }
