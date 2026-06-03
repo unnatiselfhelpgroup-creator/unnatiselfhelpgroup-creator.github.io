@@ -1,1 +1,509 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Yatra+One&family=Rozha+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #050a12 linear-gradient(180deg, #071220 0%, #03060b 100%) !important;
+            color: #e6f1ff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 15px;
+            min-height: 100vh;
+        }
+        .app-wrapper {
+            max-width: 410px;
+            width: 100%;
+            background: #040914;
+            border: 2px solid #bda06d;
+            border-radius: 30px;
+            padding: 30px 20px 25px 20px;
+            box-shadow: 0px 25px 55px rgba(0, 0, 0, 0.95), inset 0px 0px 25px rgba(189, 160, 109, 0.15);
+            text-align: center;
+            position: relative;
+        }
+        .app-logo {
+            width: 95px;
+            height: 95px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #bda06d;
+            margin: 0 auto 12px auto;
+            display: block;
+            box-shadow: 0px 0px 20px rgba(189, 160, 109, 0.5);
+            background: #fff;
+        }
+        .gaumata-badge-link {
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .gaumata-badge-btn {
+            color: #ffcc66;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            border: 1px solid #bda06d;
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0d1b2d 0%, #071220 100%);
+            box-shadow: 0 4px 12px rgba(189, 160, 109, 0.2);
+            transition: all 0.3s ease;
+        }
+        .gaumata-badge-link:hover .gaumata-badge-btn {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(189, 160, 109, 0.35);
+        }
+        .app-title {
+            font-family: 'Yatra One', serif;
+            font-size: 24px;
+            background: linear-gradient(135deg, #ffe0a3 0%, #bda06d 50%, #f1c40f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.3;
+        }
+        .niti-id-badge {
+            display: block;
+            background: rgba(13, 23, 34, 0.7);
+            border: 1px solid rgba(189, 160, 109, 0.6);
+            color: #ffcc66;
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-decoration: none;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        .niti-id-badge:hover {
+            border-color: #ffcc66;
+            background: rgba(18, 32, 47, 0.8);
+        }
+        .niti-title-text {
+            display: block;
+            font-size: 13px;
+            color: #ffdca3;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .niti-number {
+            display: block;
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+        .content-card {
+            background: rgba(7, 14, 24, 0.95);
+            border: 1px solid rgba(189, 160, 109, 0.4);
+            border-radius: 16px;
+            padding: 20px 16px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.75);
+        }
+        .card-heading-text {
+            font-family: 'Rozha One', serif;
+            font-size: 19px;
+            color: #ffcc66;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .card-paragraph {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #e1ecf7;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+        .location-bar {
+            margin-top: 15px;
+            font-size: 12.5px;
+            color: #00ffcc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-top: 1px solid rgba(189, 160, 109, 0.15);
+            padding-top: 12px;
+        }
+        .pdf-capsule-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(180deg, #fbf0cd 0%, #dfba6b 30%, #b58d3d 70%, #634716 100%);
+            color: #0d1722;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            margin: 5px auto 12px auto;
+            border: 1px solid #ffffff;
+            width: 100%;
+            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.5), inset 0px 1px 3px rgba(255, 255, 255, 0.5);
+            transition: transform 0.2s;
+        }
+        .pdf-capsule-btn:hover {
+            transform: scale(1.02);
+        }
+        .pdf-icon-circle {
+            width: 24px;
+            height: 24px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #b58d3d;
+        }
+        .pdf-icon-circle i {
+            color: #e53935;
+            font-size: 11px;
+            margin-bottom: -2px;
+        }
+        .pdf-icon-circle span {
+            color: #0d1722;
+            font-size: 6px;
+            font-weight: 900;
+        }
+        .btn-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(180deg, #ecdca5 0%, #bda06d 40%, #765a2d 100%);
+            color: #050b13;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13.5px;
+            padding: 12px;
+            border-radius: 25px;
+            margin-top: 12px;
+            width: 100%;
+            box-shadow: 0px 6px 14px rgba(189, 160, 109, 0.45), inset 0px 1px 2px rgba(255, 255, 255, 0.2);
+            border: 1px solid #765a2d;
+            transition: all 0.2s ease;
+        }
+        .btn-3d:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 8px 18px rgba(189, 160, 109, 0.6);
+        }
+        .member-btn {
+            background: linear-gradient(180deg, #66bb6a 0%, #2e7d32 100%) !important;
+            color: white !important;
+            border: 1px solid #1b5e20 !important;
+            box-shadow: 0px 6px 14px rgba(46, 125, 50, 0.45), inset 0px 1px 2px rgba(255, 255, 255, 0.2) !important;
+        }
+        .razorpay-btn {
+            background: linear-gradient(180deg, #52a0ff 0%, #005cbf 100%) !important;
+            color: white !important;
+            border: 1px solid #003f8c !important;
+            box-shadow: 0px 6px 14px rgba(0, 92, 191, 0.45), inset 0px 1px 2px rgba(255, 255, 255, 0.2) !important;
+            margin-top: 5px;
+            margin-bottom: 12px;
+        }
+        .qr-section-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(189, 160, 109, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .qr-image-frame {
+            width: 135px;
+            height: 135px;
+            background: #fff;
+            padding: 5px;
+            border-radius: 8px;
+            margin: 0 auto;
+            border: 1px solid #bda06d;
+        }
+        .qr-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .timeline-list {
+            list-style: none;
+            position: relative;
+            text-align: left;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            left: 26px;
+            top: 15px;
+            bottom: 15px;
+            width: 2px;
+            background: linear-gradient(180deg, #bda06d 0%, rgba(189,160,109,0.1) 100%);
+        }
+        .timeline-row {
+            display: flex;
+            margin-bottom: 18px;
+            align-items: flex-start;
+            position: relative;
+        }
+        .timeline-year-badge {
+            background: linear-gradient(135deg, #15253e 0%, #091322 100%);
+            border: 1px solid #bda06d;
+            color: #ffcc66;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-radius: 5px;
+            min-width: 52px;
+            text-align: center;
+            margin-right: 15px;
+            z-index: 2;
+            box-shadow: 0px 3px 6px rgba(0,0,0,0.5);
+        }
+        .timeline-desc {
+            font-size: 12.5px;
+            color: #f0f5fa;
+            line-height: 1.6;
+            flex: 1;
+            background: rgba(13, 23, 34, 0.5);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(189, 160, 109, 0.12);
+        }
+        .timeline-desc strong {
+            color: #ffcc66;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+        .social-row-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto 5px auto;
+            padding: 0;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            gap: 8px;
+            width: 100%;
+        }
+        .social-link-btn {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #1f2d3d 0%, #0a1017 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            text-decoration: none;
+            position: relative;
+            border: 1.5px solid #bda06d;
+            box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.85), inset 0px 1px 2px rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease-in-out;
+            flex-shrink: 0;
+        }
+        .social-link-btn:hover {
+            transform: translateY(-3px);
+            border-color: #ffcc66;
+            box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.95);
+        }
+        .whatsapp-btn i { color: #25D366 !important; text-shadow: 0 0 10px rgba(37, 211, 102, 0.5); }
+        .facebook-btn i { color: #1877F2 !important; text-shadow: 0 0 10px rgba(24, 119, 242, 0.5); }
+        .instagram-btn i { color: #fccc63 !important; text-shadow: 0 0 10px rgba(252, 204, 99, 0.5); }
+        .youtube-btn i { color: #FF0000 !important; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+        .google-btn i { color: #4285F4 !important; text-shadow: 0 0 10px rgba(66, 133, 244, 0.5); }
+        .cow-glory-btn i { color: #ffcc66 !important; text-shadow: 0 0 10px rgba(255, 204, 102, 0.5); }
+        .privacy-box {
+            margin-top: 15px;
+            font-size: 11px;
+            color: rgba(189, 160, 109, 0.7);
+        }
+        .privacy-box a {
+            color: #ffcc66;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="app-wrapper">
+    <img src="logo.png" alt="उन्नति स्वयं सहायता समिति" class="app-logo" onerror="this.src='https://i.imgur.com/WbZdfbX.png'">
+    <a href="cow_glory.html" class="gaumata-badge-link">
+        <div class="gaumata-badge-btn">
+            <i class="fa-solid fa-gopuram" style="color: #ffcc66; margin-right: 5px;"></i>
+            गौमाता ही राष्ट्रमाता हैं 🐾
+        </div>
+    </a>
+    <h1 class="app-title">उन्नति स्वयं सहायता समिति</h1>
+    <a href="https://ngodarpan.gov.in/" target="_blank" class="niti-id-badge">
+        <span class="niti-title-text">नीति आयोग पंजीकरण संख्या 📜</span>
+        <span class="niti-number">UA-2016/0108273</span>
+    </a>
+    <div class="content-card">
+        <h2 class="card-heading-text">🔱 संस्था परिचय 🔱</h2>
+        <p class="card-paragraph">
+            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितকারী पंजीकृत संगठन है [cite: Unnati Sawaye Sahayata Samiti NGO.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]。यह समाज सेवा, गौ संरक्षण, निर्धन सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को निरंतर आगे बढ़ाने की एक मजबूत नींव है [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water for animals. Date: 2022-04-19 to 2025-09-24.]। हमारी संस्था का मुख्य और पावन उद्देश्य सनातन संस्कृति की रक्षक गौ माता को 'राष्ट्र माता' व 'राज्य माता' का संवैधानिक गौरव दिलाना है [cite: Gau Mata - Rajya Mata movement.  Source: Gemini Chat. Evidence: The user engaged in the creation of banners, letters to the Chief Minister, and social media campaigns for the Gau Mata - Rajya Mata movement. Date: 2026-03 to 2026-05.]।
+        </p>
+        <div class="location-bar">
+            <i class="fa-solid fa-location-dot"></i>
+            <span><strong>पता:</strong> हल्द्वानी, जनपद - नैनीताल, उत्तराखंड [cite: Vinod Chandra Bhatt, a resident of Haldwani, Uttarakhand.  Source: Gemini Chat. Evidence: The user self-identified as a resident of Haldwani in drafts for public letters and campaign materials. Date: 2026-03.]。</span>
+        </div>
+    </div>
+    <div class="content-card">
+        <h2 class="card-heading-text">🎨 प्रोजेक्ट रिपोर्ट & सदस्यता 🎨</h2>
+        <p class="card-paragraph">संस्था के कार्यों की पीडीएफ रिपोर्ट डाउनलोड करें, ऑनलाइन सदस्य बनकर तुरंत ऑटोमैटिक आईडी कार्ड प्राप्त करें अथवा सुरक्षित सहयोग राशि प्रदान करें।</p>
+        <a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view" target="_blank" class="btn-3d razorpay-btn">
+            <i class="fa-solid fa-heart" style="color: #ffcc66;"></i> गौ-सेवा हेतु राष्ट्रहित दान 🐾
+        </a>
+        <a href="unnati_samiti_30_page_report_v2.zip" class="pdf-capsule-btn" download>
+            <div class="pdf-icon-circle">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>PDF</span>
+            </div>
+            डाउनलोड 30 पेज पीडीएफ रिपोर्ट 📂
+        </a>
+        <a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview" target="_blank" class="btn-3d member-btn">
+            <i class="fa-solid fa-id-card"></i> सदस्य बनें (ऑटोमेटिक ID कार्ड पाएं) 🪪
+        </a>
+        <div class="qr-section-box">
+            <div class="qr-image-frame">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://razorpay.me/@wwwunnatiselfhelpgroupcom" alt="Razorpay QR Code">
+            </div>
+        </div>
+    </div>
+    <div class="content-card">
+        <h2 class="card-heading-text">🚩 ऐतिहासिक गतिविधियां 🚩</h2>
+        <p class="card-paragraph" style="text-align: center; margin-bottom: 20px;">संस्था के स्थापना वर्ष से लेकर आज तक की ऐतिहासिक उपलब्धियां एवं संकल्प यात्राएं:</p>
+        <ul class="timeline-list">
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2016</div>
+                <div class="timeline-desc">
+                    <strong>संस्था स्थापना एवं पंजीकरण 📜</strong>
+                    नीति आयोग दर्पण पोर्टल के अंतर्गत पंजीकरण [cite: Unnati Sawaye Sahayata Samiti NGO.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]। स्थानीय स्तर पर विशाल गौ सेवा अभियान प्रारंभ व गरीब असहाय परिवारों की सेवा [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water water for animals. Date: 2022-04-19 to 2025-09-24.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2017</div>
+                <div class="timeline-desc">
+                    <strong>स्वच्छता व पर्यावरण संरक्षण 🌱</strong>
+                    विभिन्न कस्बों में स्वच्छता जागरूकता अभियान, व्यापक स्तर पर पौधारोपण एवं मुफ़्त शिक्षा वितरण।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2018</div>
+                <div class="timeline-desc">
+                    <strong>गौवंश चिकित्सा एवं सेवा शिविर 🏥</strong>
+                    घायल और बीमार गौवंश के लिए विशेष चिकित्सा शिविरों का आयोजन और मुफ़्त दवाओं का प्रबंध [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water water for animals. Date: 2022-04-19 to 2025-09-24.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2019</div>
+                <div class="timeline-desc">
+                    <strong>गौशाला सुदृढ़ीकरण अभियान 🌾</strong>
+                    स्थानीय गौशालाओं को आत्मनिर्भर बनाने हेतु चारा बैंक की स्थापना और आवश्यक बुनियादी ढांचे का विकास [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water water for animals. Date: 2022-04-19 to 2025-09-24.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2020</div>
+                <div class="timeline-desc">
+                    <strong>गौ माता राष्ट्रमाता आंदोलन शुरुआत 🐾</strong>
+                    गौ माता को 'राष्ट्र माता' का संवैधानिक दर्जा दिलाने हेतु राज्यव्यापी जनजागरूकता और जनसंपर्क अभियानों की शुरुआत [cite: Gau Mata - Rajya Mata movement.  Source: Gemini Chat. Evidence: The user engaged in the creation of banners, letters to the Chief Minister, and social media campaigns for the Gau Mata - Rajya Mata movement. Date: 2026-03 to 2026-05.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2021</div>
+                <div class="timeline-desc">
+                    <strong>कोविड काल में अनवरत सेवा 😷</strong>
+                    लॉकडाउन में बेसहारा पशुओं और गौवंश के लिए हरा चारा, भोजन और पानी की विशेष व्यवस्था का संचालन [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water water for animals. Date: 2022-04-19 to 2025-09-24.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2022</div>
+                <div class="timeline-desc">
+                    <strong>जीव-जंतु एवं पक्षी कल्याण अभियान 🐦</strong>
+                    गर्मियों में पक्षियों व बेसहारा पशुओं हेतु पानी के बर्तनों (सकोरे) का वितरण। टैंकरों द्वारा जल वितरण अभियानों का आयोजन [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water water for animals. Date: 2022-04-19 to 2025-09-24.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2023</div>
+                <div class="timeline-desc">
+                    <strong>पंचगव्य एवं जैविक कृषि प्रसार 🚜</strong>
+                    गोबर और गोमूत्र से औषधियां व प्राकृतिक खाद बनाने की कार्यशालाएं आयोजित कर किसानों को जागरूक करना।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2024</div>
+                <div class="timeline-desc">
+                    <strong>राज्यव्यापी गौ सेवा जनसंवाद 🗣️</strong>
+                    उत्तराखंड के पहाड़ी और मैदानी क्षेत्रों में गौ संरक्षण नीतियों के सुदृढ़ीकरण हेतु गौ सेवा आयोग के साथ नीतिगत संवाद [cite: Gau Mata - Rajya Mata movement.  Source: Gmail. Evidence: The user submitted petitions and memorandums seeking State Mother status for cows to the Uttarakhand Vidhan Sabha and the Uttarakhand Gau Seva Ayog. Date: 2026.]।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2025</div>
+                <div class="timeline-desc">
+                    <strong>महिला सशक्तिकरण व राज्य विस्तार 🤝</strong>
+                    महिला आत्मनिर्भरता समूहों का गठन, विभिन्न राज्यों में संगठन का तेज़ी से विस्तार एवं राष्ट्रीय पहचान का लक्ष्य।
+                </div>
+            </li>
+            <li class="timeline-row">
+                <div class="timeline-year-badge">2026</div>
+                <div class="timeline-desc">
+                    <strong>कठิน दंडवत यात्रा एवं ऐतिहासिक अनशन 🔱</strong>
+                    हरिद्वार से देहरादून-रामनगर तक 37 दिनों की कठिन 'दंडवत संकल्प यात्रा' का समापन। देहरादून के दीनदयाल पार्क में अन्न-जल का पूर्ण त्याग कर 120 घंटे का ऐतिहासिक अनशन एवं सरकार को ज्ञापन.
+                </div>
+            </li>
+        </ul>
+        <a href="tel:+919410332400" class="btn-3d">
+            <i class="fa-solid fa-phone"></i> संपर्क करें: 9410332400 📞
+        </a>
+    </div>
+    <div class="social-row-container">
+        <a href="https://wa.me/919410332400" target="_blank" class="social-link-btn whatsapp-btn" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/18jstSivcM/" target="_blank" class="social-link-btn facebook-btn" title="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" class="social-link-btn instagram-btn" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=ey69tXtsf8b9xTm3" target="_blank" class="social-link-btn youtube-btn" title="YouTube Channel">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://share.google/4cXWkSP2Qqy6gW1N7" target="_blank" class="social-link-btn google-btn" title="Google Link">
+            <i class="fa-brands fa-google"></i>
+        </a>
+        <a href="cow_glory.html" class="social-link-btn cow-glory-btn" title="गौ-महिमा">
+            <i class="fa-solid fa-gopuram"></i>
+        </a>
+    </div>
+    <div class="privacy-box">
+        &copy; 2026 उन्नति स्वयं सहायता समिति | <a href="#privacy-policy-section">Privacy Policy</a>
+    </div>
+</div>
+<div id="privacy-policy-section" style="max-width: 410px; width:100%; margin: 20px auto; background: rgba(7, 14, 24, 0.9); border: 1px solid rgba(189, 160, 109, 0.3); border-radius: 15px; padding: 15px; font-size: 11px; text-align: left; line-height: 1.5; color: #bda06d;">
+    <h3 style="color: #ffcc66; margin-bottom: 8px; text-align: center;">Privacy Policy</h3>
+    <p>उन्नति स्वयं सहायता समिति अपने दाताओं और सदस्यों की गोपनीयता का पूरा सम्मान करती है [cite: Unnati Sawaye Sahayata Samiti NGO.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]। हमारे सुरक्षित रेज़रपे पेमेंट गेटवे के माध्यम से लिया गया आपका डेटा पूरी तरह से गोपनीय रहता है। इसका उपयोग केवल दान की रसीद और प्रमाणपत्र भेजने के लिए किया जाता है। हम किसी भी परिस्थिति में किसी तीसरे पक्ष के साथ कोई डेटा साझा नहीं करते हैं।</p>
+</div>
+</body>
+</html>
 
