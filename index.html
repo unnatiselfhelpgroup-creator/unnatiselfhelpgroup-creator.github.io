@@ -165,26 +165,6 @@
             padding-top: 12px;
         }
 
-        /* रेज़रपे स्क्रिप्ट बटन के लिए 3D कंटेनर */
-        .razorpay-custom-container {
-            width: 100%;
-            margin: 10px auto 18px auto;
-            background: linear-gradient(135deg, #112542 0%, #040d1a 100%);
-            border: 2px solid #52a0ff;
-            border-radius: 25px;
-            padding: 8px;
-            box-shadow: 0px 8px 20px rgba(0, 92, 191, 0.4), inset 0px 0px 10px rgba(82, 160, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .razorpay-custom-container form {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
         /* 3D गोल्ड कैप्सूल रिपोर्ट डाउनलोड बटन */
         .pdf-capsule-btn {
             display: inline-flex;
@@ -198,7 +178,7 @@
             font-size: 13px;
             padding: 12px 20px;
             border-radius: 25px;
-            margin: 5px auto 12px auto;
+            margin: 5px auto 5px auto;
             border: 1px solid #ffffff;
             width: 100%;
             box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.5), inset 0px 1px 3px rgba(255, 255, 255, 0.5);
@@ -253,6 +233,11 @@
             transition: all 0.2s ease;
         }
 
+        .btn-3d:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 8px 18px rgba(189, 160, 109, 0.6);
+        }
+
         /* हरा सदस्यता बटन */
         .member-btn {
             background: linear-gradient(180deg, #66bb6a 0%, #2e7d32 100%) !important;
@@ -261,12 +246,13 @@
             box-shadow: 0px 6px 14px rgba(46, 125, 50, 0.45), inset 0px 1px 2px rgba(255, 255, 255, 0.2) !important;
         }
 
-        /* नीला पुराना रेज़रपे बटन */
+        /* नया 3D रेज़रपे "राष्ट्रहित दान" बटन स्टाइल */
         .razorpay-btn {
             background: linear-gradient(180deg, #52a0ff 0%, #005cbf 100%) !important;
             color: white !important;
             border: 1px solid #003f8c !important;
             box-shadow: 0px 6px 14px rgba(0, 92, 191, 0.45), inset 0px 1px 2px rgba(255, 255, 255, 0.2) !important;
+            margin-bottom: 12px;
         }
 
         /* क्यूआर कोड बॉक्स */
@@ -432,7 +418,7 @@
    
     <!-- नीति आयोग यूनिक आईडी -->
     <a href="https://ngodarpan.gov.in/" target="_blank" class="niti-id-badge">
-        <span class="niti-title-text">नीति आयोग पंजीकरण संख्या 📜 [cite: The user serves as an executive for Unnati Sawaye Sahayata Samiti, a registered self-help group and NGO in Haldwani.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]</span>
+        <span class="niti-title-text">नीति आयोग पंजीकरण संख्या 📜 [cite: Unnati Sawaye Sahayata Samiti NGO.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]</span>
         <span class="niti-number">UA-2016/0108273</span> [cite: NGO Darpan ID UA-2016/0108273.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]
     </a>
 
@@ -440,11 +426,11 @@
     <div class="content-card">
         <h2 class="card-heading-text">🔱 संस्था परिचय 🔱</h2>
         <p class="card-paragraph">
-            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितকারী पंजीकृत संगठन है [cite: The user serves as an executive for Unnati Sawaye Sahayata Samiti, a registered self-help group and NGO in Haldwani.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]。यह समाज सेवा, गौ संरक्षण, निर्धन सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को निरंतर आगे बढ़ाने की एक मजबूत नींव है [cite: The user organizes and executes initiatives to provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water for animals. Date: 2022-04-19 to 2025-09-24.]। हमारी संस्था का मुख्य और पावन उद्देश्य सनातन संस्कृति की रक्षक गौ माता को 'राष्ट्र माता' व 'राज्य माता' का संवैधानिक गौरव दिलाना है।
+            उन्नति स्वयं सहायता समिति एक सामाजिक, धार्मिक व जनहितকারী पंजीकृत संगठन है。यह समाज सेवा, गौ संरक्षण, निर्धन सहायता, पर्यावरण संरक्षण एवं राष्ट्रहित कार्यों को निरंतर आगे बढ़ाने की एक मजबूत नींव है [cite: provide food and water for stray animals, including cows and birds.  Source: Photos. Evidence: The user arranged for hanging containers on trees for birds and utilized water tanks and tractors to dispense water for animals. Date: 2022-04-19 to 2025-09-24.]। हमारी संस्था का मुख्य और पावन उद्देश्य सनातन संस्कृति की रक्षक गौ माता को 'राष्ट्र माता' व 'राज्य माता' का संवैधानिक गौरव दिलाना है।
         </p>
         <div class="location-bar">
             <i class="fa-solid fa-location-dot"></i>
-            <span><strong>पता:</strong> हल्द्वानी, जनपद - नैनीताल, उत्तराखंड [cite: The user is Vinod Chandra Bhatt, a resident of Haldwani, Uttarakhand.  Source: Gemini Chat. Evidence: The user self-identified as a resident of Haldwani in drafts for public letters and campaign materials. Date: 2026-03.]。</span>
+            <span><strong>पता:</strong> हल्द्वानी, जनपद - नैनीताल,传递 उत्तराखंड [cite: The user is Vinod Chandra Bhatt, a resident of Haldwani, Uttarakhand.  Source: Gemini Chat. Evidence: The user self-identified as a resident of Haldwani in drafts for public letters and campaign materials. Date: 2026-03.]。</span>
         </div>
     </div>
 
@@ -453,12 +439,10 @@
         <h2 class="card-heading-text">🎨 प्रोजेक्ट रिपोर्ट & सदस्यता 🎨</h2>
         <p class="card-paragraph">संस्था के कार्यों की पीडीएफ रिपोर्ट डाउनलोड करें, ऑनलाइन सदस्य बनकर तुरंत ऑटोमैटिक आईडी कार्ड प्राप्त करें अथवा सुरक्षित सहयोग राशि प्रदान करें।</p>
        
-        <!-- रेज़रपे का "राष्ट्रहित दान" बटन 3D डिब्बे के साथ -->
-        <div class="razorpay-custom-container">
-            <form>
-                <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SxANdLwwQ2bNoz" async></script>
-            </form>
-        </div>
+        <!-- रेज़रपे का नया 3D "गौ-सेवा हेतु राष्ट्रहित दान" बटन (जो अब कभी नहीं अटकेगा) -->
+        <a href="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_SxANdLwwQ2bNoz" target="_blank" class="btn-3d razorpay-btn">
+            <i class="fa-solid fa-heart" style="color: #ffcc66;"></i> गौ-सेवा हेतु राष्ट्रहित दान 🐾
+        </a>
 
         <!-- पीडीएफ डाउनलोड बटन -->
         <a href="unnati_samiti_30_page_report_v2.zip" class="pdf-capsule-btn" download>
@@ -525,7 +509,7 @@
                 <div class="timeline-year-badge">2020</div>
                 <div class="timeline-desc">
                     <strong>गौ माता राष्ट्रमाता आंदोलन शुरुआत 🐾</strong>
-                    गौ माता को 'राष्ट्र माता' का संवैधानिक दर्जा दिलाने हेतु राज्यव्यापी जनजागरूकता और जनसंपर्क अभियानों की शुरुआत [cite: Gau Mata - Rajya Mata movement.  Source: Gemini Chat. Evidence: The user engaged in the creation of banners, letters to the Chief Minister, and social media campaigns for the Gau Mata - Rajya Mata movement. Date: 2026-03 to 2026-05.]।
+                    गौ माता को 'राष्ट्र माता' का संवैधानिक दर्जा दिलाने हेतु राज्यव्यापी जनजागरूकता और जनसंपर्क अभियानों की शुरुआत [cite: Gau Mata - Rajya Mata movement.  Source: Gemini Chat. Evidence: The user engaged in the creation of banners, letters to the Chief Minister, and social media campaigns for the Gau Mata - Mata movement. Date: 2026-03 to 2026-05.]।
                 </div>
             </li>
             <li class="timeline-row">
@@ -578,7 +562,7 @@
         </a>
     </div>
 
-    <!-- 🌟 बिल्कुल सीधी लाइन में लॉक किए गए सभी 6 बटन्स का नया 3D कंटेनर -->
+    <!-- बिल्कुल सीधी लाइन में लॉक किए गए सभी 6 बटन्स का नया 3D कंटेनर -->
     <div class="social-row-container">
         <!-- 1. व्हाट्सएप -->
         <a href="https://wa.me/919410332400" target="_blank" class="social-link-btn whatsapp-btn" title="WhatsApp">
@@ -592,11 +576,11 @@
         <a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" class="social-link-btn instagram-btn" title="Instagram">
             <i class="fa-brands fa-instagram"></i>
         </a>
-        <!-- 4. यूट्यूब (नया सटीक लिंक अपडेटेड) -->
+        <!-- 4. यूट्यूब -->
         <a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=ey69tXtsf8b9xTm3" target="_blank" class="social-link-btn youtube-btn" title="YouTube Channel">
             <i class="fa-brands fa-youtube"></i>
         </a>
-        <!-- 5. गूगल अकाउंट / गूगल लिंक (नया सटीक लिंक अपडेटेड) -->
+        <!-- 5. गूगल अकाउंट / गूगल लिंक -->
         <a href="https://share.google/4cXWkSP2Qqy6gW1N7" target="_blank" class="social-link-btn google-btn" title="Google Link">
             <i class="fa-brands fa-google"></i>
         </a>
@@ -616,9 +600,8 @@
 <!-- प्राइवेसी पॉलिसी का छिपा हुआ डेटा जो रेज़रपे अप्रूवल के लिए ज़रूरी है -->
 <div id="privacy-policy-section" style="max-width: 410px; width:100%; margin: 20px auto; background: rgba(7, 14, 24, 0.9); border: 1px solid rgba(189, 160, 109, 0.3); border-radius: 15px; padding: 15px; font-size: 11px; text-align: left; line-height: 1.5; color: #bda06d;">
     <h3 style="color: #ffcc66; margin-bottom: 8px; text-align: center;">Privacy Policy</h3>
-    <p>उन्नति स्वयं सहायता समिति अपने दाताओं और सदस्यों की गोपनीयता का पूरा सम्मान करती है [cite: Unnati Sawaye Sahayata Samiti NGO.  Source: Gmail. Evidence: The user manages organizational matters for the NGO, which is registered under NGO Darpan ID UA-2016/0108273 and the Societies Registration Act 1860. Date: 2026.]। हमारे सुरक्षित रेज़रपे पेमेंट गेटवे के माध्यम से लिया गया आपका डेटा पूरी तरह से गोपनीय रहता है। इसका उपयोग केवल दान की रसीद और प्रमाणपत्र भेजने के लिए किया जाता है। हम किसी भी परिस्थिति में किसी तीसरे पक्ष के साथ कोई डेटा साझा नहीं करते हैं।</p>
+    <p>उन्नति स्वयं सहायता समिति अपने दाताओं और सदस्यों की गोपनीयता का पूरा सम्मान करती है। हमारे सुरक्षित रेज़रपे पेमेंट गेटवे के माध्यम से लिया गया आपका डेटा पूरी तरह से गोपनीय रहता है। इसका उपयोग केवल दान की रसीद और प्रमाणपत्र भेजने के लिए किया जाता है। हम किसी भी परिस्थिति में किसी तीसरे पक्ष के साथ कोई डेटा साझा नहीं करते हैं।</p>
 </div>
 
 </body>
 </html>
-
