@@ -395,29 +395,55 @@ class="btn btn-report">
 🐄 घायल गोवंश सहायता  
 </a>  </div>  </div>  <div class="card">  <div class="section-title">  
   <div style="margin-top:20px;text-align:center;">
+<!-- दण्डवत यात्रा 2026 -->
+<div class="card">
+    <div class="section-title">
+        🙏 अंग समर्पण दण्डवत यात्रा 2026
+    </div>
+
+    <p>
+        गौ माता को राष्ट्रमाता एवं राज्य माता का सम्मान दिलाने हेतु
+        उन्नति स्वयं सहायता समिति द्वारा 37 दिवसीय ऐतिहासिक
+        अंग समर्पण दण्डवत यात्रा तथा 120 घंटे का अनशन आयोजित किया गया।
+    </p>
 
     <button onclick="showDandvatVideo()"
     style="
-    width:100%;
-    padding:18px;
-    border:none;
-    border-radius:18px;
-    font-size:22px;
-    font-weight:bold;
-    color:#000;
-    background:linear-gradient(135deg,#ffd700,#ffec8b,#d4af37);
-    box-shadow:0 0 20px rgba(255,215,0,.7);
-    cursor:pointer;">
-    ✨ अंग समर्पण दण्डवत यात्रा 2026 ✨
+        width:100%;
+        margin-top:15px;
+        padding:18px;
+        border:none;
+        border-radius:15px;
+        font-size:20px;
+        font-weight:bold;
+        cursor:pointer;
+        background:linear-gradient(135deg,#ffd700,#d4af37);
+        color:#000;
+        box-shadow:0 0 20px rgba(255,215,0,.5);
+    ">
+        🎥 दण्डवत यात्रा वीडियो देखें
     </button>
 
-    <div id="dandvatVideoBox" style="display:none;margin-top:15px;">
+    <div id="dandvatVideoBox" style="display:none;margin-top:20px;">
         <video width="100%" controls>
-            <source src="./DandvatYatra7.mp4" type="video/mp4">
+            <source src="DandvatYatra7.mp4" type="video/mp4">
+            आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।
         </video>
     </div>
+</div>
 
-  </div>
+<script>
+function showDandvatVideo(){
+    var videoBox = document.getElementById("dandvatVideoBox");
+
+    if(videoBox.style.display === "none"){
+        videoBox.style.display = "block";
+    }else{
+        videoBox.style.display = "none";
+    }
+}
+</script>
+
 🚩 राष्ट्रमाता जनजागरण यात्राएँ  
 </div>  <p>  गौ माता को राष्ट्रमाता एवं राज्य माता का सम्मान दिलाने हेतु
 संस्था द्वारा विभिन्न राज्यों में पदयात्राएँ, जनजागरण अभियान,
