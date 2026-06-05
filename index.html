@@ -104,6 +104,70 @@ video{border-radius:12px}
 <div class="section-title">🚩 सेवा यात्रा 2016–2026</div>
 <p>संस्था की 10 वर्षों की सेवा यात्रा निरंतर जनसेवा को समर्पित है।</p>
 </div>
+<!DOCTYPE html>
+<html>
+<head>
+<title>ID Card</title>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<style>
+body{
+font-family:Arial;
+background:#eee;
+display:flex;
+justify-content:center;
+padding:30px;
+}
+
+.card{
+width:320px;
+background:white;
+padding:20px;
+border-radius:15px;
+text-align:center;
+border:2px solid #d4af37;
+}
+
+h2{color:#b8860b}
+
+.qr{
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>🐄 गौ रक्षक सदस्य</h2>
+
+<p><b>नाम:</b> <span id="name"></span></p>
+<p><b>ID:</b> <span id="mid"></span></p>
+<p><b>राज्य:</b> <span id="state"></span></p>
+
+<div id="qrcode"></div>
+</div>
+
+<script>
+
+const data = {
+name:"Demo Member",
+id:"GRC-12345",
+state:"UP"
+};
+
+document.getElementById("name").innerText = data.name;
+document.getElementById("mid").innerText = data.id;
+document.getElementById("state").innerText = data.state;
+
+// QR GENERATE
+QRCode.toCanvas(document.getElementById("qrcode"), 
+"ID:"+data.id, function (error) {
+if (error) console.error(error);
+});
+
+</script>
 
 <!-- MISSION -->
 <div class="card">
