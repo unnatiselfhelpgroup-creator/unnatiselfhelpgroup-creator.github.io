@@ -3,131 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>उन्नति स्वयं सहायता समिति</title>
+<title>राष्ट्रीय गौ रक्षा अभियान | भारत</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
 body{
-font-family:'Poppins',sans-serif;
-background:linear-gradient(180deg,#030712,#071b34,#0a2342);
+margin:0;
+font-family:Arial;
+background:#050b18;
 color:#fff;
-overflow-x:hidden;
 }
 
-.container{max-width:1200px;margin:auto;padding:15px}
-
-/* TOP */
-.topbar{
-display:flex;justify-content:space-between;align-items:center;
-flex-wrap:wrap;margin-bottom:15px
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 15px;
+background:#0c1428;
+position:sticky;
+top:0;
+z-index:1000;
+border-bottom:1px solid #222;
 }
 
-.logo{width:70px;height:70px;border-radius:50%}
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:45px;
+height:45px;
+border-radius:50%;
+border:2px solid gold;
+}
+
+.logo h1{
+font-size:16px;
+color:#ffd56a;
+margin:0;
+}
+
+/* TRANSLATE */
+#google_translate_element{
+font-size:12px;
+}
 
 /* HERO */
 .hero{
-text-align:center;
 padding:25px;
-background:rgba(255,255,255,0.05);
-border-radius:20px;
-margin-bottom:20px
+text-align:center;
+background:linear-gradient(135deg,#111a33,#050b18);
 }
 
-.hero h1{font-family:'Yatra One';color:#ffd56a}
+.badge{
+display:inline-block;
+padding:6px 12px;
+background:gold;
+color:#000;
+border-radius:20px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.hero h2{
+font-size:28px;
+color:#ffd56a;
+margin:10px 0;
+}
+
+.hero p{
+color:#ccc;
+line-height:1.6;
+}
 
 /* BUTTONS */
-.button-grid{display:grid;gap:12px;margin-top:15px}
-.btn{
-padding:14px;border-radius:12px;
-text-align:center;font-weight:700;display:block
+.btn-group{
+display:grid;
+gap:12px;
+margin-top:20px;
 }
-.donate{background:#ffd700;color:#000}
-.member{background:#00c853;color:#000}
-.report{background:#2196f3;color:#fff}
+
+.btn{
+padding:14px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+text-align:center;
+display:block;
+}
+
+.donate{
+background:linear-gradient(135deg,#ffd700,#ffb300);
+color:#000;
+}
+
+.join{
+background:linear-gradient(135deg,#00c853,#1b5e20);
+color:#fff;
+}
+
+.report{
+background:linear-gradient(135deg,#2196f3,#0d47a1);
+color:#fff;
+}
+
+/* SOCIAL */
+.social{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:20px;
+font-size:22px;
+}
+
+.social a{
+color:#fff;
+}
 
 /* CARD */
 .card{
-background:rgba(255,255,255,0.05);
-padding:18px;
-border-radius:15px;
-margin-bottom:15px
+background:#0c1428;
+margin:15px;
+padding:15px;
+border-radius:12px;
+border:1px solid #222;
 }
 
-.section-title{color:#ffd56a;margin-bottom:10px}
+.highlight{
+color:#ffd56a;
+}
 
-/* SOCIAL */
-.social{display:flex;gap:15px;font-size:24px;justify-content:center}
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+color:#888;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<!-- TOP -->
-<div class="topbar">
-<img src="logo.png" class="logo">
-<h2>उन्नति स्वयं सहायता समिति</h2>
-<div id="google_translate_element"></div>
+<!-- HEADER -->
+<header>
+<div class="logo">
+<img src="logo.png">
+<h1>गौ रक्षा अभियान भारत</h1>
 </div>
+
+<div id="google_translate_element"></div>
+</header>
 
 <!-- HERO -->
-<div class="hero">
-<h1>🐄 गौ माता राष्ट्रमाता अभियान</h1>
-<p>2016 से गौ संरक्षण एवं सेवा कार्य</p>
+<section class="hero">
 
-<div class="button-grid">
-<a class="btn donate" href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view">💰 दान करें</a>
-<a class="btn member" href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview">🪪 सदस्य बनें</a>
-</div>
-</div>
+<div class="badge">🐄 80G / 12A मान्यता प्राप्त अभियान</div>
 
-<!-- INTRO -->
-<div class="card">
-<div class="section-title">🔱 संस्था परिचय</div>
-<p>हम गौ सेवा, पर्यावरण और जनसेवा में कार्यरत हैं।</p>
-</div>
+<h2>राष्ट्रीय गौ माता संरक्षण जनआंदोलन</h2>
 
-<!-- VIDEOS -->
-<div class="card">
-<div class="section-title">🎥 वीडियो</div>
-<video width="100%" controls>
-<source src="DandvatYatra7.mp4">
-</video>
-</div>
+<p>
+दंडवत यात्रा • पैदल गौ सेवा यात्रा • राष्ट्रव्यापी गौ रक्षा अभियान  
+भारत के हर राज्य से जुड़ें और इस जनआंदोलन का हिस्सा बनें।
+</p>
 
-<!-- GALLERY LINKS -->
-<div class="card">
-<div class="section-title">📸 गैलरी</div>
-<div class="button-grid">
-<a class="btn report" href="https://photos.app.goo.gl/5xhMbSBfYNbgPBYP8">स्वच्छ भारत</a>
-<a class="btn report" href="https://photos.app.goo.gl/5qddTeUkCjq6aNqh9">अलाव सेवा</a>
-<a class="btn report" href="https://photos.app.goo.gl/XhcJnjtSB5bhZ3Pk7">कोविड सेवा</a>
-</div>
+<div class="btn-group">
+
+<a href="#" class="btn donate">
+💛 गौ सेवा हेतु दान करें
+</a>
+
+<a href="#" class="btn join">
+🚩 राष्ट्रीय गौ रक्षा अभियान से जुड़ें
+</a>
+
+<a href="#" class="btn report">
+📂 अभियान रिपोर्ट देखें
+</a>
+
 </div>
 
 <!-- SOCIAL -->
-<div class="card">
-<div class="section-title">🌐 सोशल मीडिया</div>
 <div class="social">
-<a href="https://wa.me/919410332400"><i class="fab fa-whatsapp"></i></a>
-<a href="https://www.facebook.com/share/18jstSivcM/"><i class="fab fa-facebook"></i></a>
-<a href="https://www.instagram.com/unnatiselfhelpgroup1"><i class="fab fa-instagram"></i></a>
-<a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg"><i class="fab fa-youtube"></i></a>
-</div>
-</div>
-
+<a href="#"><i class="fab fa-whatsapp"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
 </div>
 
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</section>
+
+<!-- INFO -->
+<section class="card">
+<h3 class="highlight">🐄 हमारा उद्देश्य</h3>
+<p>
+गौ माता संरक्षण, निराश्रित गोवंश सेवा, दंडवत यात्रा और भारत को 
+एक राष्ट्रीय गौ संरक्षण नेटवर्क में जोड़ना।
+</p>
+</section>
+
+<section class="card">
+<h3 class="highlight">🪪 सदस्यता सुविधा</h3>
+<p>
+ऑनलाइन सदस्यता → ID कार्ड → डिजिटल प्रमाण पत्र → राष्ट्रीय नेटवर्क जुड़ाव
+</p>
+</section>
+
+<section class="card">
+<h3 class="highlight">💰 80G / 12A लाभ</h3>
+<p>
+दान करने वालों को नियमानुसार कर छूट एवं डिजिटल रसीद उपलब्ध कराई जाएगी।
+</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+© 2026 राष्ट्रीय गौ रक्षा अभियान | भारत
+</footer>
+
+<!-- GOOGLE TRANSLATE SCRIPT -->
 <script>
 function googleTranslateElementInit(){
-new google.translate.TranslateElement({pageLanguage:'hi'},'google_translate_element');
+new google.translate.TranslateElement(
+{pageLanguage:'hi',
+includedLanguages:'hi,en,pa,bn,ta,te,kn,mr,gu,ml,ur,or,as,ne'},
+'google_translate_element'
+);
 }
 </script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
