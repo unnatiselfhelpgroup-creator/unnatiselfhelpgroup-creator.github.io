@@ -226,6 +226,157 @@ new google.translate.TranslateElement(
 );
 }
 </script>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>NGO Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+body{
+font-family:Arial;
+background:#0b1220;
+color:#fff;
+margin:0;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:#ffd56a;
+margin-bottom:20px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+.card{
+background:#111a2e;
+padding:15px;
+margin-bottom:15px;
+border-radius:12px;
+border:1px solid #1f2a44;
+}
+
+.member, .donation{
+padding:10px;
+border-bottom:1px solid #222;
+}
+
+button{
+padding:6px 10px;
+margin:5px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.approve{background:#00c853;color:#000}
+.reject{background:#ff3d00;color:#fff}
+.refresh{background:#2196f3;color:#fff;width:100%}
+
+.small{
+color:#aaa;
+font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚙️ NGO ADMIN CONTROL PANEL</h1>
+
+<!-- MEMBERS -->
+<div class="card">
+<h2>👤 Members</h2>
+<button class="refresh" onclick="loadMembers()">Refresh Members</button>
+<div id="members">Loading...</div>
+</div>
+
+<!-- DONATIONS -->
+<div class="card">
+<h2>💰 Donations</h2>
+<button class="refresh" onclick="loadDonations()">Refresh Donations</button>
+<div id="donations">Loading...</div>
+</div>
+
+</div>
+
+<script>
+
+const API = "http://localhost:5000/api/admin";
+
+// ---------------- MEMBERS ----------------
+async function loadMembers(){
+try{
+let res = await fetch(API + "/members");
+let data = await res.json();
+
+document.getElementById("members").innerHTML =
+data.map(m => `
+<div class="member">
+<b>नाम:</b> ${m.name}<br>
+<b>फोन:</b> ${m.phone}<br>
+<b>राज्य:</b> ${m.state}<br>
+<b>ID:</b> ${m.memberId}<br>
+<b>स्थिति:</b> ${m.status}<br>
+
+<button class="approve" onclick="approveMember('${m._id}')">Approve</button>
+<button class="reject" onclick="rejectMember('${m._id}')">Reject</button>
+
+</div>
+`).join("");
+
+}catch(err){
+document.getElementById("members").innerHTML = "Error loading members";
+}
+}
+
+// Approve
+async function approveMember(id){
+await fetch(API + "/approve/" + id, { method:"PUT" });
+loadMembers();
+}
+
+// Reject
+async function rejectMember(id){
+await fetch(API + "/reject/" + id, { method:"DELETE" });
+loadMembers();
+}
+
+// ---------------- DONATIONS ----------------
+async function loadDonations(){
+try{
+let res = await fetch(API + "/donations");
+let data = await res.json();
+
+document.getElementById("donations").innerHTML =
+data.map(d => `
+<div class="donation">
+<b>नाम:</b> ${d.name}<br>
+<b>राशि:</b> ₹${d.amount}<br>
+<div class="small">${new Date(d.date).toLocaleString()}</div>
+</div>
+`).join("");
+
+}catch(err){
+document.getElementById("donations").innerHTML = "Error loading donations";
+}
+}
+
+// INIT LOAD
+loadMembers();
+loadDonations();
+
+</script>
+
+</body>
+</html>
 </body>
 </html>
