@@ -1,240 +1,77 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>राष्ट्रीय गौ रक्षा अभियान | भारत</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>राष्ट्रीय गौ रक्षक अभियान - उन्नति स्वयं सहायता समिति</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: #1a1a1a; color: #fff; text-align: center; padding: 20px; }
+        .logo { width: 180px; margin-bottom: 10px; }
+        
+        /* Google Translate Container */
+        #google_translate_element { margin-bottom: 20px; }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        /* 3D गोल्डन बटन */
+        .btn-container { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 500px; margin: 0 auto; }
+        .btn {
+            width: 90%;
+            background: linear-gradient(145deg, #ffd700, #b8860b);
+            color: #000;
+            padding: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-radius: 12px;
+            box-shadow: 0 8px #996515;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        .btn:active { box-shadow: 0 4px #996515; transform: translateY(4px); }
+        .btn:hover { background: #ffdf00; }
 
-<style>
-body{
-margin:0;
-font-family:Arial;
-background:#050b18;
-color:#fff;
-}
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 15px;
-background:#0c1428;
-position:sticky;
-top:0;
-z-index:1000;
-border-bottom:1px solid #222;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.logo img{
-width:45px;
-height:45px;
-border-radius:50%;
-border:2px solid gold;
-}
-
-.logo h1{
-font-size:16px;
-color:#ffd56a;
-margin:0;
-}
-
-/* TRANSLATE */
-#google_translate_element{
-font-size:12px;
-}
-
-/* HERO */
-.hero{
-padding:25px;
-text-align:center;
-background:linear-gradient(135deg,#111a33,#050b18);
-}
-
-.badge{
-display:inline-block;
-padding:6px 12px;
-background:gold;
-color:#000;
-border-radius:20px;
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.hero h2{
-font-size:28px;
-color:#ffd56a;
-margin:10px 0;
-}
-
-.hero p{
-color:#ccc;
-line-height:1.6;
-}
-
-/* BUTTONS */
-.btn-group{
-display:grid;
-gap:12px;
-margin-top:20px;
-}
-
-.btn{
-padding:14px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-text-align:center;
-display:block;
-}
-
-.donate{
-background:linear-gradient(135deg,#ffd700,#ffb300);
-color:#000;
-}
-
-.join{
-background:linear-gradient(135deg,#00c853,#1b5e20);
-color:#fff;
-}
-
-.report{
-background:linear-gradient(135deg,#2196f3,#0d47a1);
-color:#fff;
-}
-
-/* SOCIAL */
-.social{
-display:flex;
-justify-content:center;
-gap:15px;
-margin-top:20px;
-font-size:22px;
-}
-
-.social a{
-color:#fff;
-}
-
-/* CARD */
-.card{
-background:#0c1428;
-margin:15px;
-padding:15px;
-border-radius:12px;
-border:1px solid #222;
-}
-
-.highlight{
-color:#ffd56a;
-}
-
-/* FOOTER */
-footer{
-text-align:center;
-padding:20px;
-color:#888;
-}
-</style>
+        .footer { margin-top: 50px; padding: 30px; border-top: 1px solid #444; }
+        .signature { width: 200px; margin: 20px 0; }
+        .social-links a { margin: 0 10px; color: #ffd700; text-decoration: none; font-size: 1.2em; }
+    </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header>
-<div class="logo">
-<img src="logo.png">
-<h1>गौ रक्षा अभियान भारत</h1>
-</div>
+    <!-- Language Translator -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'hi'}, 'google_translate_element');
+        }
+    </script>
 
-<div id="google_translate_element"></div>
-</header>
+    <!-- Header -->
+    <img src="Logo.png" alt="Logo" class="logo">
+    <h1>राष्ट्रीय गौ रक्षक अभियान</h1>
 
-<!-- HERO -->
-<section class="hero">
+    <!-- 3D Buttons -->
+    <div class="btn-container">
+        <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" class="btn">💛 गोसेवा हेतु दान करें</a>
+        <a href="https://wa.me/message/DXARYWGMEIGCC1" class="btn">🚩 राष्ट्रीय गौ रक्षक अभियान से जुड़ें</a>
+        <a href="#" class="btn">✅ ऑनलाइन सदस्यता</a>
+        <a href="#" class="btn">🪪 डिजिटल ID कार्ड</a>
+        <a href="#" class="btn">📄 नियुक्ति पत्र</a>
+        <a href="#" class="btn">📍 राज्यवार गौ संरक्षण</a>
+    </div>
 
-<div class="badge">🐄 80G / 12A मान्यता प्राप्त अभियान</div>
-
-<h2>राष्ट्रीय गौ माता संरक्षण जनआंदोलन</h2>
-
-<p>
-दंडवत यात्रा • पैदल गौ सेवा यात्रा • राष्ट्रव्यापी गौ रक्षा अभियान  
-भारत के हर राज्य से जुड़ें और इस जनआंदोलन का हिस्सा बनें।
-</p>
-
-<div class="btn-group">
-
-<a href="#" class="btn donate">
-💛 गौ सेवा हेतु दान करें
-</a>
-
-<a href="#" class="btn join">
-🚩 राष्ट्रीय गौ रक्षा अभियान से जुड़ें
-</a>
-
-<a href="#" class="btn report">
-📂 अभियान रिपोर्ट देखें
-</a>
-
-</div>
-
-<!-- SOCIAL -->
-<div class="social">
-<a href="#"><i class="fab fa-whatsapp"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
-</div>
-
-</section>
-
-<!-- INFO -->
-<section class="card">
-<h3 class="highlight">🐄 हमारा उद्देश्य</h3>
-<p>
-गौ माता संरक्षण, निराश्रित गोवंश सेवा, दंडवत यात्रा और भारत को 
-एक राष्ट्रीय गौ संरक्षण नेटवर्क में जोड़ना।
-</p>
-</section>
-
-<section class="card">
-<h3 class="highlight">🪪 सदस्यता सुविधा</h3>
-<p>
-ऑनलाइन सदस्यता → ID कार्ड → डिजिटल प्रमाण पत्र → राष्ट्रीय नेटवर्क जुड़ाव
-</p>
-</section>
-
-<section class="card">
-<h3 class="highlight">💰 80G / 12A लाभ</h3>
-<p>
-दान करने वालों को नियमानुसार कर छूट एवं डिजिटल रसीद उपलब्ध कराई जाएगी।
-</p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-© 2026 राष्ट्रीय गौ रक्षा अभियान | भारत
-</footer>
-
-<!-- GOOGLE TRANSLATE SCRIPT -->
-<script>
-function googleTranslateElementInit(){
-new google.translate.TranslateElement(
-{pageLanguage:'hi',
-includedLanguages:'hi,en,pa,bn,ta,te,kn,mr,gu,ml,ur,or,as,ne'},
-'google_translate_element'
-);
-}
-</script>
-
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Footer & Socials -->
+    <div class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/14fYZJ6ioYB/">Facebook</a> |
+            <a href="https://www.instagram.com/unnatiselfhelpgroup1">Instagram</a> |
+            <a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg">YouTube</a> |
+            <a href="https://share.google/PO2pwcz3yXrGN6RZU">Google</a> |
+            <a href="https://wa.me/message/DXARYWGMEIGCC1">WhatsApp</a> |
+            <a href="https://www.unnatiselfhelpgroup.com">Website</a>
+        </div>
+        <img src="signature.png" alt="Signature" class="signature">
+        <p>&copy; 2026 उन्नति स्वयं सहायता समिति | <a href="#" style="color:white;">प्राइवेसी पॉलिसी</a></p>
+    </div>
 
 </body>
 </html>
