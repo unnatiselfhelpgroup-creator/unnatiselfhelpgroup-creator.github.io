@@ -6,111 +6,64 @@
 <title>उन्नति स्वयं सहायता समिति</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Yatra+One&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 font-family:Poppins;
-background:linear-gradient(180deg,#020617,#0b2a4a);
+background:linear-gradient(180deg,#050816,#071b34,#0a2342);
 color:#fff;
 }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:15px;
-}
+a{text-decoration:none;color:inherit;}
+
+.container{max-width:1200px;margin:auto;padding:15px;}
 
 .topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px;
-background:rgba(255,255,255,0.05);
-border-radius:15px;
-}
-
-.logo{width:60px;border-radius:50%;border:2px solid gold;}
-
-.hero{
-text-align:center;
-padding:25px;
-background:rgba(255,215,0,0.08);
-border-radius:20px;
-margin-top:15px;
-}
-
-.hero h1{
-font-family:Yatra One;
-color:#ffd54f;
-}
-
-.btn{
-display:block;
-padding:14px;
-margin:10px 0;
+display:flex;justify-content:space-between;align-items:center;
+padding:10px;background:rgba(255,255,255,0.05);
 border-radius:12px;
-text-align:center;
-font-weight:700;
-text-decoration:none;
 }
 
-.donate{background:linear-gradient(45deg,#ffd700,#ffb300);color:#000;}
-.member{background:linear-gradient(45deg,#00c853,#2e7d32);}
-.report{background:linear-gradient(45deg,#2196f3,#0d47a1);}
+.logo{width:60px;height:60px;border-radius:50%;border:2px solid gold;}
+
+.title{font-family:Yatra One;color:#ffd56a;font-size:18px;}
 
 .card{
 background:rgba(255,255,255,0.05);
-padding:15px;
-margin-top:15px;
-border-radius:15px;
+padding:18px;border-radius:15px;margin-top:15px;
 }
 
-.section-title{
-color:#ffd54f;
-font-weight:700;
-margin-bottom:10px;
+.btn{
+display:block;padding:14px;border-radius:10px;
+text-align:center;font-weight:700;margin-top:10px;
 }
 
-/* Slider */
-.slider{
-position:relative;
-overflow:hidden;
-border-radius:15px;
+.gold{background:linear-gradient(135deg,#ffd700,#d4af37);color:#000;}
+.green{background:linear-gradient(135deg,#00c853,#2e7d32);}
+.blue{background:linear-gradient(135deg,#2196f3,#0d47a1);}
+
+.grid{display:grid;gap:10px;}
+
+.slider img{
+width:100%;border-radius:12px;margin-top:10px;
 }
 
-.slide{
-display:none;
-width:100%;
-border-radius:15px;
+.video-box{display:none;margin-top:10px;}
+video{width:100%;border-radius:12px;}
+
+.icon-grid{
+display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
 }
 
-.slide img{
-width:100%;
-border-radius:15px;
-}
-
-.active{
-display:block;
-}
-
-.social{
-display:flex;
-gap:10px;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-.social a{
+.icon-grid a{
+width:55px;height:55px;
+display:flex;align-items:center;justify-content:center;
+border-radius:12px;
+background:#111;border:1px solid gold;
 font-size:22px;
-color:#fff;
-padding:10px;
-border-radius:10px;
-border:1px solid gold;
 }
-
 </style>
 </head>
 
@@ -118,110 +71,135 @@ border:1px solid gold;
 
 <div class="container">
 
-<!-- TOP BAR -->
+<!-- TOP -->
 <div class="topbar">
 <img src="logo.png" class="logo">
-<div><b>उन्नति स्वयं सहायता समिति</b></div>
+<div class="title">उन्नति स्वयं सहायता समिति</div>
+<div id="google_translate_element"></div>
 </div>
 
 <!-- HERO -->
-<div class="hero">
-<h1>🐄 गौ माता राष्ट्रमाता अभियान</h1>
-<p>गौ सेवा • पशु सहायता • पर्यावरण • जनसेवा</p>
-
-<a class="btn donate" href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view">
-💰 राष्ट्रहित दान करें (80G योग्य)
-</a>
-
-<a class="btn member" href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview">
-🪪 सदस्य बनें
-</a>
-
-<a class="btn report" href="unnati_samiti_30_page_report_v2.zip">
-📂 रिपोर्ट डाउनलोड
-</a>
-</div>
-
-<!-- ABOUT -->
 <div class="card">
-<div class="section-title">🔱 संस्था परिचय</div>
+<h2 style="color:#ffd56a;">🐄 गौ माता – राष्ट्रमाता अभियान</h2>
 <p>
-2016 से गौ संरक्षण, घायल गोवंश सहायता, पक्षियों हेतु दाना-पानी,
-कोविड सहायता, विधवा/गरीब सहायता एवं राष्ट्रमाता अभियान में सक्रिय संस्था।
+गौ संरक्षण, दंडवत यात्रा, सामाजिक सेवा, पशु-पक्षी सहायता और राष्ट्रव्यापी जनजागरण अभियान।
 </p>
+
+<a class="btn gold" href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view">
+💰 दान करें (80G / CSR उपलब्ध)
+</a>
+
+<a class="btn green" href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/preview">
+🪪 सदस्य / कार्यकर्ता बनें
+</a>
 </div>
 
-<!-- VIDEO SLIDER -->
+<!-- CAMPAIGN -->
 <div class="card">
-<div class="section-title">🎥 वीडियो गैलरी (4042+ रिकॉर्ड)</div>
+<h3>🚩 गौ माता राज्य माता अभियान</h3>
+<p>
+गौ माता को राज्य माता का दर्जा दिलाने हेतु राष्ट्रव्यापी आंदोलन।
+दंडवत यात्रा, जनजागरण, और प्रशासनिक संवाद शामिल है।
+</p>
+
+<a class="btn blue" href="#">
+🚩 राज्य माता अभियान में जुड़ें
+</a>
+</div>
+
+<!-- VIDEO -->
+<div class="card">
+<h3>🎥 दंडवत यात्रा वीडियो</h3>
+
+<button class="btn gold" onclick="toggleVideo()">
+वीडियो देखें
+</button>
+
+<div class="video-box" id="videoBox">
+<video controls>
+<source src="DandvatYatra7.mp4">
+</video>
+</div>
+</div>
+
+<!-- SLIDER GALLERY -->
+<div class="card">
+<h3>📸 प्रमुख गतिविधियाँ</h3>
 
 <div class="slider">
-
-<img class="slide active" src="https://photos.app.goo.gl/F5UqkZQhQzNUJNEB8">
-<img class="slide" src="https://photos.app.goo.gl/vZ2NGBhysyHpfC756">
-<img class="slide" src="https://photos.app.goo.gl/yiuPoeiW93KXBTJHA">
-
+<img src="https://photos.app.goo.gl/F5UqkZQhQzNUJNEB8">
+<img src="https://photos.app.goo.gl/vZ2NGBhysyHpfC756">
+<img src="https://photos.app.goo.gl/yiuPoeiW93KXBTJHA">
 </div>
 </div>
 
-<!-- IMPACT -->
+<!-- SERVICES -->
 <div class="card">
-<div class="section-title">🚩 सेवा क्षेत्र</div>
+<h3>🤝 प्रमुख सेवाएं</h3>
 <ul>
-<li>🐄 गौ संरक्षण एवं बचाव</li>
-<li>🚑 घायल पशु चिकित्सा सहायता</li>
-<li>😷 कोविड / आपदा राहत</li>
-<li>🤝 गरीब एवं विधवा सहायता</li>
+<li>🐄 गौ संरक्षण एवं सहायता</li>
+<li>🚑 घायल पशु उपचार</li>
+<li>😷 कोविड एवं आपदा सहायता</li>
 <li>🐦 पक्षी दाना-पानी अभियान</li>
-<li>🌳 वृक्षारोपण मिशन</li>
+<li>🌳 वृक्षारोपण</li>
+<li>🤝 विधवा एवं गरीब सहायता</li>
 </ul>
 </div>
 
-<!-- DONATION INFO -->
+<!-- MEMBERSHIP INFO -->
 <div class="card">
-<div class="section-title">💰 दान एवं टैक्स लाभ</div>
+<h3>🪪 सदस्यता लाभ</h3>
 <p>
-✔ 80G प्रमाण पत्र उपलब्ध<br>
-✔ 12A एवं CSR पंजीकरण उपलब्ध<br>
-✔ दान की रसीद ईमेल पर स्वतः भेजी जाती है<br>
-✔ सामाजिक सेवा में उपयोग किया जाता है
+✔ ID Card<br>
+✔ Appointment Letter<br>
+✔ Digital Certificate<br>
+✔ Email Receipt<br>
+✔ 80G / CSR Tax Benefit
 </p>
 </div>
 
 <!-- SOCIAL -->
 <div class="card">
-<div class="section-title">🌐 सोशल मीडिया</div>
+<h3>🌐 सोशल नेटवर्क</h3>
 
-<div class="social">
+<div class="icon-grid">
 <a href="https://wa.me/919410332400"><i class="fab fa-whatsapp"></i></a>
-<a href="https://www.facebook.com/share/18jstSivcM/"><i class="fab fa-facebook"></i></a>
-<a href="https://www.instagram.com/unnatiselfhelpgroup1"><i class="fab fa-instagram"></i></a>
-<a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg"><i class="fab fa-youtube"></i></a>
+<a href="https://facebook.com"><i class="fab fa-facebook"></i></a>
+<a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+<a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
 </div>
-
 </div>
 
 <!-- CONTACT -->
 <div class="card">
-<div class="section-title">📞 संपर्क</div>
+<h3>📞 संपर्क</h3>
 <p>
 📱 +91 9410332400<br>
 ✉️ unnatiselfhelpgroup@gmail.com<br>
-🏛 NGO ID: UA-2016/0108273
+🏛️ NGO ID: UA-2016/0108273<br>
+📜 12A / 80G / CSR Registered
 </p>
 </div>
 
 </div>
 
 <script>
-let index = 0;
-const slides = document.querySelectorAll(".slide");
+function toggleVideo(){
+let v=document.getElementById("videoBox");
+v.style.display = (v.style.display==="block") ? "none" : "block";
+}
+</script>
 
-setInterval(()=>{
-slides[index].classList.remove("active");
-index = (index+1) % slides.length;
-slides[index].classList.add("active");
-},3000);
+<!-- GOOGLE TRANSLATE -->
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+function googleTranslateElementInit(){
+new google.translate.TranslateElement({
+pageLanguage:'hi',
+includedLanguages:'hi,en',
+layout:google.translate.TranslateElement.InlineLayout.SIMPLE
+},'google_translate_element');
+}
 </script>
 
 </body>
