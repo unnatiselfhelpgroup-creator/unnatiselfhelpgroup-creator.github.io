@@ -1,185 +1,57 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>राष्ट्रीय गौ रक्षक अभियान</title>
-
-<style>
-
-/* ===== BACKGROUND DEPTH SYSTEM ===== */
-body{
-    margin:0;
-    font-family:Arial;
-    color:white;
-    background: radial-gradient(circle at top, #1b1f2a, #0b0f14 60%);
-}
-
-/* ===== TOP BAR ===== */
-.top-bar{
-    position:sticky;
-    top:0;
-    z-index:999;
-    background:rgba(17,24,39,0.95);
-    backdrop-filter: blur(10px);
-    padding:8px;
-    border-bottom:1px solid gold;
-}
-
-/* ===== CONTAINER ===== */
-.main-container{
-    max-width:900px;
-    margin:auto;
-    padding:15px;
-}
-
-/* ===== TITLE GLOW ===== */
-.title{
-    text-align:center;
-    color:gold;
-    margin:20px 0;
-    font-size:clamp(18px,3vw,30px);
-    text-shadow:0 0 10px rgba(255,215,0,0.3);
-}
-
-/* ===== 3D GOLD BUTTON (REAL DEPTH) ===== */
-.btn-gold{
-    display:block;
-    background:linear-gradient(145deg,#ffe066,#b8860b,#ffd700);
-    color:#111;
-    font-weight:bold;
-    padding:16px;
-    border-radius:16px;
-    text-align:center;
-    margin-bottom:14px;
-    text-decoration:none;
-
-    box-shadow:
-        0 10px 0 #6b4f00,
-        0 18px 25px rgba(0,0,0,0.6);
-
-    transition:0.2s;
-    transform:translateY(0);
-}
-
-.btn-gold:hover{
-    transform:translateY(-2px);
-    box-shadow:
-        0 12px 0 #6b4f00,
-        0 22px 30px rgba(0,0,0,0.7);
-}
-
-.btn-gold:active{
-    transform:translateY(5px);
-    box-shadow:0 5px 0 #6b4f00;
-}
-
-/* ===== GRID ===== */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:12px;
-}
-
-/* ===== CARD (NOW PREMIUM) ===== */
-.card-btn{
-    background:linear-gradient(145deg,#141a2a,#0f1520);
-    border:1px solid rgba(255,215,0,0.15);
-    color:white;
-    padding:16px;
-    border-radius:14px;
-    text-align:center;
-    text-decoration:none;
-
-    box-shadow:0 10px 20px rgba(0,0,0,0.4);
-
-    transition:0.2s;
-}
-
-.card-btn:hover{
-    border-color:gold;
-    transform:translateY(-3px);
-    box-shadow:0 15px 25px rgba(0,0,0,0.6);
-}
-
-/* ===== IFRAME ===== */
-iframe{
-    width:100%;
-    height:750px;
-    border:none;
-    border-radius:14px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    background:white;
-}
-
-/* ===== FOOTER ===== */
-.footer{
-    text-align:center;
-    padding:30px 10px;
-    border-top:1px solid rgba(255,215,0,0.2);
-    margin-top:40px;
-}
-
-.signature{
-    width:140px;
-    margin:10px 0;
-    filter:drop-shadow(0 0 10px rgba(255,215,0,0.2));
-}
-
-/* ===== MOBILE FIX ===== */
-@media(max-width:600px){
-    .btn-gold{ font-size:14px; }
-    .card-btn{ font-size:13px; }
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>राष्ट्रीय गौ रक्षक अभियान</title>
+    <style>
+        body { background: #0b0f14; color: white; font-family: sans-serif; margin: 0; padding: 10px; }
+        .top-bar { background: #111827; padding: 10px; text-align: center; border-bottom: 2px solid gold; position: sticky; top: 0; z-index: 999; }
+        .main-container { max-width: 900px; margin: auto; padding: 10px; }
+        .title { color: gold; text-align: center; margin: 20px 0; font-size: 24px; }
+        .btn-gold { 
+            display: block; background: linear-gradient(to bottom, #ffd700, #b8860b); 
+            color: black; padding: 18px; margin-bottom: 12px; text-align: center; 
+            text-decoration: none; font-weight: bold; border-radius: 12px; 
+        }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .card-btn { background: #1a2234; padding: 15px; text-align: center; text-decoration: none; color: white; border-radius: 10px; }
+        iframe { width: 100%; height: 600px; border-radius: 10px; }
+        .footer { text-align: center; padding: 20px; }
+    </style>
 </head>
-
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-    <div id="google_translate_element"></div>
-</div>
+    <div class="top-bar">
+        <div id="google_translate_element"></div>
+    </div>
 
-<div class="main-container">
+    <div class="main-container">
+        <h1 class="title">🐄 राष्ट्रीय गौ रक्षक अभियान</h1>
 
-<h1 class="title">🐄 राष्ट्रीय गौ रक्षक अभियान</h1>
+        <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" class="btn-gold">💛 गोसेवा हेतु दान करें</a>
+        <a href="https://wa.me/message/DXARYWGMEIGCC1" class="btn-gold">🚩 अभियान से जुड़ें</a>
+        <a href="#register" class="btn-gold">🪪 सदस्यता पंजीकरण</a>
 
-<!-- ACTIONS -->
-<a class="btn-gold" href="#">💛 गोसेवा हेतु दान करें</a>
-<a class="btn-gold" href="#">🚩 अभियान से जुड़ें</a>
-<a class="btn-gold" href="#register">🪪 सदस्यता पंजीकरण</a>
+        <h2 class="title">🚩 गतिविधियाँ</h2>
+        <div class="grid">
+            <a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg" class="card-btn">▶ वीडियो संग्रह</a>
+            <a href="https://photos.app.goo.gl/F5UqkZQhQzNUJNEB8" class="card-btn">📸 दंडवत यात्रा</a>
+        </div>
 
-<h2 class="title">🚩 गतिविधियाँ और यात्रा</h2>
+        <h2 class="title">🪪 सदस्यता पंजीकरण</h2>
+        <iframe src="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/viewform?embedded=true"></iframe>
 
-<div class="grid">
-    <a class="card-btn" href="#">▶ वीडियो संग्रह</a>
-    <a class="card-btn" href="#">📸 दंडवत यात्रा</a>
-    <a class="card-btn" href="#">गौ सेवा फोटो 1</a>
-    <a class="card-btn" href="#">गौ सेवा फोटो 2</a>
-</div>
+        <div class="footer">
+            <p>© 2026 उन्नति स्वयं सहायता समिति</p>
+        </div>
+    </div>
 
-<h2 class="title">🌐 सोशल मीडिया</h2>
-
-<div class="grid">
-    <a class="card-btn" href="#">Facebook</a>
-    <a class="card-btn" href="#">Instagram</a>
-    <a class="card-btn" href="#">Google</a>
-    <a class="card-btn" href="#">Website</a>
-</div>
-
-<section id="register">
-<h2 class="title">🪪 सदस्यता पंजीकरण</h2>
-<iframe src="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/viewform?embedded=true"></iframe>
-</section>
-
-<div class="footer">
-    <img src="signature.png" class="signature">
-    <p>© 2026 उन्नति स्वयं सहायता समिति</p>
-</div>
-
-</div>
-
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'hi'}, 'google_translate_element');
+        }
+    </script>
 </body>
 </html>
