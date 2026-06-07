@@ -1,1 +1,718 @@
 
+<!DOCTYPE html><html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>उन्नति स्वयं सहायता समिति</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Yatra+One&display=swap" rel="stylesheet"><style>
+
+:root{
+--gold:#d4af37;
+--gold2:#ffd700;
+--dark:#020817;
+--blue:#071b34;
+--blue2:#0a2342;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:
+radial-gradient(circle at top,
+#16345f,
+#071b34 35%,
+#04111f 70%,
+#000814 100%);
+color:#fff;
+overflow-x:hidden;
+}
+
+body:before{
+content:'';
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle,
+rgba(212,175,55,.05),
+transparent 70%);
+pointer-events:none;
+z-index:-1;
+}
+
+a{
+text-decoration:none;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:15px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+border-radius:18px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+margin-bottom:20px;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo{
+width:80px;
+height:80px;
+border-radius:50%;
+background:#fff;
+padding:4px;
+border:3px solid var(--gold);
+box-shadow:0 0 25px rgba(212,175,55,.5);
+}
+
+.site-title{
+font-family:'Yatra One',serif;
+font-size:22px;
+color:#ffd56a;
+}
+
+.hero{
+padding:30px;
+border-radius:25px;
+text-align:center;
+background:
+linear-gradient(
+135deg,
+rgba(212,175,55,.20),
+rgba(255,255,255,.03)
+);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 0 35px rgba(212,175,55,.25);
+margin-bottom:20px;
+}
+
+.badge{
+display:inline-block;
+padding:10px 18px;
+border-radius:30px;
+font-weight:700;
+background:linear-gradient(135deg,#ffd700,#d4af37);
+color:#000;
+margin-bottom:15px;
+}
+
+.hero h1{
+font-family:'Yatra One',serif;
+font-size:38px;
+color:#ffd56a;
+margin-bottom:10px;
+}
+
+.hero p{
+line-height:1.9;
+color:#f2f2f2;
+}
+
+.button-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:14px;
+margin-top:20px;
+}
+
+.btn{
+display:block;
+padding:18px;
+border-radius:18px;
+font-weight:700;
+text-align:center;
+transition:.4s;
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 8px 18px rgba(0,0,0,.45),
+0 2px 5px rgba(255,255,255,.15) inset;
+}
+
+.btn:hover{
+transform:translateY(-5px);
+}
+
+.btn-donate{
+background:
+linear-gradient(135deg,#ffd700,#d4af37);
+color:#000;
+}
+
+.btn-member{
+background:
+linear-gradient(135deg,#00c853,#2e7d32);
+color:#fff;
+}
+
+.btn-report{
+background:
+linear-gradient(135deg,#2196f3,#0d47a1);
+color:#fff;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+border-radius:22px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.section-title{
+font-size:22px;
+font-weight:700;
+color:#ffd56a;
+margin-bottom:15px;
+}
+
+.highlight-box{
+background:rgba(212,175,55,.10);
+border-left:4px solid #ffd56a;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+}
+
+.highlight-box li{
+margin-bottom:8px;
+}
+
+.counter-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:20px;
+}
+
+.counter-card{
+background:rgba(255,255,255,.05);
+padding:18px;
+border-radius:15px;
+text-align:center;
+}
+
+.counter-card i{
+font-size:28px;
+color:#ffd56a;
+margin-bottom:10px;
+}
+
+@media(min-width:768px){
+
+.button-grid{
+grid-template-columns:repeat(3,1fr);
+}
+
+.counter-grid{
+grid-template-columns:repeat(4,1fr);
+}
+
+.hero h1{
+font-size:48px;
+}
+
+}
+.gold-contact{
+display:block;
+padding:16px;
+border-radius:15px;
+text-align:center;
+font-weight:bold;
+background:linear-gradient(145deg,#d4af37,#ffd700);
+color:#000;
+margin-bottom:12px;
+
+box-shadow:
+0 8px 20px rgba(212,175,55,.35),
+0 2px 5px rgba(255,255,255,.3) inset;
+
+transition:.3s;
+}
+
+.gold-contact:hover{
+transform:translateY(-3px);
+box-shadow:
+0 12px 25px rgba(212,175,55,.5),
+0 2px 5px rgba(255,255,255,.3) inset;
+}
+</style></head><body><div class="container"><div class="topbar"><div class="logo-area"><img src="logo.png"
+class="logo"
+alt="Logo">
+
+<div class="site-title">
+उन्नति स्वयं सहायता समिति
+</div></div><div id="google_translate_element"></div></div><section class="hero"><div class="badge">
+🐄 गौ माता राष्ट्रमाता अभियान
+</div><h1>
+उन्नति स्वयं सहायता समिति
+</h1><p>
+वर्ष 2016 से गौ संरक्षण, निराश्रित गोवंश सहायता,
+घायल पशुओं के उपचार, पक्षियों हेतु दाना-पानी,
+वृक्षारोपण, जनसेवा एवं राष्ट्रमाता जनजागरण अभियान में समर्पित।
+</p><div class="button-grid"><a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view"
+class="btn btn-donate">
+
+🐄 गौ सेवा हेतु दान करें
+
+<br><br>
+
+(80G रसीद • आयकर छूट उपलब्ध)
+
+</a><a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/viewform"
+class="btn btn-member">
+
+🇮🇳 राष्ट्रीय गौ रक्षक बनें
+
+<br><br>
+
+🪪 ID कार्ड • नियुक्ति पत्र
+
+</a><a href="unnati_samiti_30_page_report_v2.zip"
+class="btn btn-report">
+
+📂 संस्था रिपोर्ट
+
+</a></div></section><div class="card"><div class="section-title">
+🏛 संस्था परिचय
+</div><p>उन्नति स्वयं सहायता समिति हल्द्वानी उत्तराखण्ड स्थित
+एक पंजीकृत सामाजिक संस्था है।
+
+संस्था 2016 से गौ संरक्षण, पशु सेवा,
+पर्यावरण संरक्षण, महिला सशक्तिकरण,
+जनजागरण एवं मानवीय सहायता कार्यों में सक्रिय है।
+
+</p><div class="highlight-box"><ul><li>🐄 गौ संरक्षण अभियान</li>
+<li>🚑 घायल गोवंश सहायता</li>
+<li>🐦 पशु-पक्षी दाना पानी</li>
+<li>🌳 वृक्षारोपण अभियान</li>
+<li>🤝 सामाजिक सेवा</li>
+<li>🇮🇳 राष्ट्रीय सदस्यता अभियान</li></ul></div></div><div class="card"><div class="section-title">
+📜 संस्था की मान्यताएँ
+</div><p>✔ NITI Aayog Unique ID : UA/2016/0108273
+
+<br><br>
+
+✔ 12A प्रमाणित
+
+<br><br>
+
+✔ 80G प्रमाणित
+
+<br><br>
+
+✔ CSR पात्र संस्था
+
+<br><br>
+
+✔ 11 वर्ष पुरानी पंजीकृत संस्था
+
+</p></div><div class="counter-grid"><div class="counter-card">
+<i class="fas fa-cow"></i>
+<h3>2016+</h3>
+<p>सेवा यात्रा</p>
+</div><div class="counter-card">
+<i class="fas fa-users"></i>
+<h3>भारत</h3>
+<p>राष्ट्रीय सदस्यता</p>
+</div><div class="counter-card">
+<i class="fas fa-tree"></i>
+<h3>हरित</h3>
+<p>वृक्षारोपण</p>
+</div><div class="counter-card">
+<i class="fas fa-dove"></i>
+<h3>सेवा</h3>
+<p>पशु-पक्षी सहायता</p>
+</div></div>
+<!-- PART 1 END -->
+<!-- ========================= -->
+<!-- PART 2 START -->
+<!-- ========================= -->
+
+<div class="card">
+
+<div class="section-title">
+🙏 ऐतिहासिक दण्डवत यात्रा एवं राष्ट्रमाता अभियान
+</div>
+
+<p>
+
+गौ माता को राष्ट्रमाता एवं राज्य माता का सम्मान दिलाने हेतु
+उन्नति स्वयं सहायता समिति द्वारा ऐतिहासिक दण्डवत यात्रा,
+120 घंटे का अनशन तथा जनजागरण अभियान संचालित किया गया।
+
+</p>
+
+<div class="button-grid">
+
+<a href="https://www.facebook.com/share/1HAhNo35Fb/"
+class="btn btn-donate">
+
+🎥 दण्डवत यात्रा विशेष वीडियो
+
+</a>
+
+<a href="https://photos.app.goo.gl/KnkoYmknBZmdtkrNA"
+class="btn btn-report">
+
+📸 यात्रा दृश्य 1
+
+</a>
+
+<a href="https://photos.app.goo.gl/pHJZLyTfVuMDdvsJ9"
+class="btn btn-report">
+
+📸 यात्रा दृश्य 2
+
+</a>
+
+<a href="https://photos.app.goo.gl/RRVSLxZwyEqVpW7j8"
+class="btn btn-report">
+
+📸 यात्रा दृश्य 3
+
+</a>
+
+<a href="https://photos.app.goo.gl/9q7Pu5JK984k8hG67"
+class="btn btn-report">
+
+📸 यात्रा दृश्य 4
+
+</a>
+
+<a href="https://photos.app.goo.gl/h7E5DLJokdjhXEty9"
+class="btn btn-report">
+
+📸 यात्रा दृश्य 5
+
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="section-title">
+🇮🇳 राष्ट्रीय गौ रक्षक सदस्यता अभियान
+</div>
+
+<p>
+
+भारत के प्रत्येक राज्य, जिला एवं ग्राम स्तर पर
+गौ संरक्षण, गौ सेवा, राष्ट्रमाता अभियान एवं
+सड़क दुर्घटनाओं से गोवंश संरक्षण हेतु
+स्वयंसेवकों को जोड़ा जा रहा है।
+
+</p>
+
+<a href="https://docs.google.com/forms/d/1WySZVCnLZkRCR5CaIFVDU-xpXvKDBTBKzgfaBYI85so/viewform"
+class="btn btn-member">
+
+🪪 सदस्य बनें • ID Card प्राप्त करें
+
+</a>
+
+</div>
+<div class="card">
+
+<div class="section-title">
+🎓 छात्र स्वयंसेवक एवं अनुभव प्रमाणपत्र कार्यक्रम
+</div>
+
+<p>
+महाविद्यालयों, विश्वविद्यालयों एवं शैक्षणिक संस्थानों के
+विद्यार्थियों हेतु गौ संरक्षण, सामाजिक सेवा, पर्यावरण संरक्षण,
+पशु-पक्षी सेवा एवं जनजागरण कार्यक्रमों में स्वयंसेवा का अवसर।
+<br><br>
+निर्धारित अवधि पूर्ण होने एवं कार्य सत्यापन के उपरांत
+निर्धारित स्वयंसेवा अवधि पूर्ण करने, दैनिक रिपोर्ट जमा करने तथा पंजीकरण प्रक्रिया पूर्ण करने वाले प्रतिभागियों को संस्था द्वारा आधिकारिक अनुभव प्रमाणपत्र (Experience Certificate) प्रदान किया जाएगा।
+</p>
+
+<div class="button-grid">
+<a href="https://docs.google.com/forms/d/1FmUk_O_RscXYVxUuK5eQsKCQygpPwsRYdfPco1aGlSc/viewform" class="btn btn-member">
+🎓 Student Volunteer Program
+<br><br>
+📜 Experience Certificate हेतु पंजीकरण
+</a>
+
+<a href="https://docs.google.com/forms/d/1Py9zOACuR1c3jUdGB3MnGIv9PWgbMC3OjqR2iz0XJ8E/viewform" class="btn btn-report">
+📸 Daily Volunteer Report
+<br><br>
+📝 आज की सेवा रिपोर्ट जमा करें
+</a>
+</div>
+<div class="highlight-box"><b>🎓 छात्र स्वयंसेवक पंजीकरण एवं अनुभव प्रमाणपत्र योजना</b>
+
+<br><br>
+
+📌 महाविद्यालयों, विश्वविद्यालयों एवं अन्य शैक्षणिक संस्थानों के विद्यार्थियों को सामाजिक सेवा, गौ संरक्षण, पर्यावरण संरक्षण, पशु-पक्षी सेवा एवं जनजागरण कार्यक्रमों में स्वयंसेवा का अवसर प्रदान किया जाता है।
+
+<br><br>
+💰 Student Volunteer Registration Fee : ₹700
+(अनुभव प्रमाणपत्र सहित)
+
+ <br><br>
+
+📸 स्वयंसेवक को निर्धारित अवधि के दौरान अपनी दैनिक सेवा रिपोर्ट ऑनलाइन जमा करनी होगी।
+
+<br><br>
+
+✅ निर्धारित अवधि पूर्ण करने, दैनिक रिपोर्ट जमा करने एवं पंजीकरण प्रक्रिया पूर्ण करने वाले प्रतिभागियों को संस्था द्वारा आधिकारिक अनुभव प्रमाणपत्र प्रदान किया जाएगा।
+
+<br><br>
+
+🎓 पंजीकरण शुल्क जमा करने, निर्धारित स्वयंसेवा अवधि पूर्ण करने तथा दैनिक सेवा रिपोर्ट प्रस्तुत करने वाले प्रतिभागियों को संस्था द्वारा डिजिटल हस्ताक्षरयुक्त आधिकारिक अनुभव प्रमाणपत्र (Experience Certificate) प्रदान किया जाएगा।
+
+📜 यह प्रमाणपत्र सामाजिक सेवा एवं स्वयंसेवा गतिविधियों में आपके योगदान का आधिकारिक दस्तावेज होगा।
+</div><a href="https://pages.razorpay.com/pl_Nb4oYGfyV0tJKO/view"
+class="btn btn-donate">
+
+💳 स्वयंसेवक शुल्क जमा करें
+
+<br><br>
+
+Volunteer Registration & Certificate Fee
+
+</a>
+<div class="highlight-box">
+
+<b>📌 प्रमाणपत्र हेतु आवश्यक शर्तें</b>
+
+<ul>
+<li>✅ Student Volunteer Registration Form भरना अनिवार्य</li>
+<li>✅ निर्धारित शुल्क जमा करना अनिवार्य</li>
+<li>✅ दैनिक सेवा रिपोर्ट ऑनलाइन जमा करना अनिवार्य</li>
+<li>✅ न्यूनतम 15 दिन की स्वयंसेवा अवधि पूर्ण करना अनिवार्य</li>
+<li>✅ प्रमाणपत्र संस्था के डिजिटल हस्ताक्षर सहित जारी किया जाएगा</li>
+</ul>
+
+</div>
+<div class="highlight-box">
+<b>विशेष सूचना:</b>
+<ul>
+<li>✅ 15 दिन, 30 दिन, 60 दिन एवं 90 दिन स्वयंसेवा अवसर</li>
+<li>✅ गौ संरक्षण एवं सामाजिक सेवा परियोजनाएँ</li>
+<li>✅ दैनिक कार्य रिपोर्ट ऑनलाइन जमा करें</li>
+<li>✅ सत्यापन उपरांत अनुभव प्रमाणपत्र जारी किया जा सकता है</li>
+<li>✅ पूरे भारत के विद्यार्थी आवेदन कर सकते हैं</li>
+</ul>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="section-title">
+📞 संपर्क करें
+</div>
+
+<a href="tel:+919410332400"
+class="gold-contact">
+
+📱 +91 9410332400
+
+</a>
+
+<a href="mailto:unnatiselfhelpgroup@gmail.com"
+class="gold-contact">
+
+✉️ unnatiselfhelpgroup@gmail.com
+
+</a>
+
+</div>
+
+<div class="card">
+
+<div class="section-title">
+🌐 सोशल मीडिया नेटवर्क
+</div>
+
+<div style="
+display:flex;
+justify-content:center;
+gap:18px;
+flex-wrap:wrap;
+">
+
+<a href="https://wa.me/919410332400"
+style="font-size:32px;color:#25D366;">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<a href="https://www.facebook.com/share/1HAhNo35Fb/"
+style="font-size:32px;color:#1877F2;">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://www.instagram.com/unnatiselfhelpgroup1"
+style="font-size:32px;color:#E4405F;">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg"
+style="font-size:32px;color:#FF0000;">
+<i class="fab fa-youtube"></i>
+</a>
+
+<a href="https://www.google.com/search?q=unnati+swayam+sahayata+samiti"
+style="font-size:32px;color:#4285F4;">
+<i class="fab fa-google"></i>
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="section-title">
+🔒 गोपनीयता नीति
+</div>
+
+<p>
+
+सदस्यता फॉर्म में प्राप्त जानकारी केवल संस्था के
+आधिकारिक कार्यों, पहचान पत्र, नियुक्ति पत्र,
+सदस्यता रिकॉर्ड एवं संगठनात्मक संपर्क हेतु उपयोग
+की जाती है।
+
+</p>
+
+</div>
+
+<div class="card" style="text-align:center;">
+
+<div class="section-title">
+✍️ अधिकृत हस्ताक्षर
+</div>
+
+<img src="signature.png"
+alt="Signature"
+style="
+max-width:250px;
+width:100%;
+filter:drop-shadow(0 0 12px rgba(212,175,55,.6));
+">
+
+<p style="margin-top:15px;">
+
+राष्ट्रीय सचिव
+
+<br>
+
+उन्नति स्वयं सहायता समिति
+
+</p>
+
+</div>
+
+<footer style="
+margin-top:30px;
+padding:35px 20px;
+text-align:center;
+background:rgba(255,255,255,.04);
+border-top:2px solid #d4af37;
+border-radius:25px 25px 0 0;
+">
+
+<img
+src="logo.png"
+style="
+width:100px;
+height:100px;
+border-radius:50%;
+border:3px solid #d4af37;
+background:#fff;
+padding:4px;
+">
+
+<h2 style="
+margin-top:15px;
+color:#ffd56a;
+font-family:'Yatra One',serif;
+">
+
+उन्नति स्वयं सहायता समिति
+
+</h2>
+
+<p style="margin-top:15px;">
+
+NITI Aayog Unique ID
+
+<br>
+
+UA/2016/0108273
+
+</p>
+
+<p style="margin-top:10px;">
+
+12A • 80G • CSR
+
+</p>
+
+<p style="
+margin-top:15px;
+color:#aaa;
+">
+
+© 2026 All Rights Reserved
+
+</p>
+
+</footer>
+
+</div>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+
+function googleTranslateElementInit(){
+
+new google.translate.TranslateElement({
+
+pageLanguage:'hi',
+
+includedLanguages:'hi,en,bn,gu,mr,pa,ta,te,ml,kn',
+
+layout:google.translate.TranslateElement.InlineLayout.SIMPLE
+
+},
+
+'google_translate_element');
+
+}
+
+</script>
+
+</body>
+</html>
+
+<!-- ========================= -->
+<!-- PART 2 END -->
+<!-- ========================= -->
+
