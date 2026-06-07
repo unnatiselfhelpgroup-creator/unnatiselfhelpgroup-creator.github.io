@@ -707,7 +707,114 @@ layout:google.translate.TranslateElement.InlineLayout.SIMPLE
 }
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getFirestore, setDoc, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+// 🔥 Firebase Config
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_SENDER",
+  appId: "YOUR_APP"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 🧾 Generate ID
+function genID(){
+  return "UNNATI-" + Math.floor(100000 + Math.random()*900000);
+}
+
+// 🧑 CREATE CERTIFICATE
+window.createCertificate = async function(){
+
+let name = document.getElementById("name")?.value || "Volunteer";
+let days = document.getElementById("days")?.value || "0";
+
+let id = genID();
+
+// Save Firebase
+await setDoc(doc(db, "certificates", id), {
+  name, id, days,
+  createdAt: new Date()
+});
+
+// QR
+let qrBox = document.createElement("div");
+document.body.appendChild(qrBox);
+
+new QRCode(qrBox, {
+  text: window.location.href + "?id=" + id,
+  width: 120,
+  height: 120
+});
+
+alert("Certificate Created: " + id);
+};
+
+// 🔐 VERIFY
+window.verifyCertificate = async function(){
+
+let id = document.getElementById("vid")?.value;
+
+let snap = await getDoc(doc(db, "certificates", id));
+
+if(!snap.exists()){
+  alert("❌ INVALID CERTIFICATE");
+  return;
+}
+
+let d = snap.data();
+
+alert(
+"VALID CERTIFICATE\n\n" +
+"Name: " + d.name + "\n" +
+"ID: " + d.id + "\n" +
+"Days: " + d.days
+);
+};
+
+// 📄 PDF DOWNLOAD
+window.downloadPDF = function(name,id,days){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF("p","mm","a4");
+
+doc.setFontSize(18);
+doc.text("उन्नति स्वयं सहायता समिति",105,25,null,null,"center");
+
+doc.setFontSize(14);
+doc.text("VOLUNTEER CERTIFICATE",105,35,null,null,"center");
+
+doc.setFontSize(12);
+doc.text("Name: "+name,20,70);
+doc.text("ID: "+id,20,80);
+doc.text("Days: "+days,20,90);
+
+doc.text("Authorized Signatory",20,140);
+
+doc.save(id+".pdf");
+};
+</script>
+ <input id="name" placeholder="Name">
+<input id="days" placeholder="Days">
+
+<button onclick="createCertificate()">Create Certificate</button>
+
+<input id="vid" placeholder="Verify ID">
+<button onclick="verifyCertificate()">Verify</button>
+
+<button onclick="downloadPDF('Rahul','UNNATI-101','30')">
+Download PDF
+</button>
 </body>
 </html>
 
