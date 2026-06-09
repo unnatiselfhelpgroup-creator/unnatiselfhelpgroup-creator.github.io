@@ -165,36 +165,62 @@ Logo
 
 🌐 सोशल मीडिया नेटवर्क
 
-<div style="
+<style>
+.social-grid{
 display:flex;
 justify-content:center;
-gap:18px;
+gap:20px;
 flex-wrap:wrap;
-margin-top:15px;
-">
+margin-top:18px;
+}
 
-<a href="https://wa.me/919410332400"
-style="font-size:32px;color:#25D366;">
+.social-grid a{
+width:55px;
+height:55px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+transition:0.3s ease;
+text-decoration:none;
+font-size:26px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.social-grid a:hover{
+transform:translateY(-6px) scale(1.1);
+box-shadow:0 0 20px rgba(212,175,55,0.6);
+}
+
+.whatsapp{color:#25D366;}
+.facebook{color:#1877F2;}
+.instagram{color:#E4405F;}
+.youtube{color:#FF0000;}
+.google{color:#4285F4;}
+</style>
+
+<div class="social-grid">
+
+<a href="https://wa.me/919410332400" class="whatsapp">
 <i class="fab fa-whatsapp"></i>
 </a>
 
-<a href="https://www.facebook.com/share/1HAhNo35Fb/"
-style="font-size:32px;color:#1877F2;">
+<a href="https://www.facebook.com/share/1HAhNo35Fb/" class="facebook">
 <i class="fab fa-facebook"></i>
 </a>
 
-<a href="https://www.instagram.com/unnatiselfhelpgroup1"
-style="font-size:32px;color:#E4405F;">
+<a href="https://www.instagram.com/unnatiselfhelpgroup1" class="instagram">
 <i class="fab fa-instagram"></i>
 </a>
 
-<a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg"
-style="font-size:32px;color:#FF0000;">
+<a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg" class="youtube">
 <i class="fab fa-youtube"></i>
 </a>
 
-<a href="https://www.google.com/search?q=unnati+swayam+sahayata+samiti"
-style="font-size:32px;color:#4285F4;">
+<a href="https://www.google.com/search?q=unnati+swayam+sahayata+samiti" class="google">
 <i class="fab fa-google"></i>
 </a>
 
