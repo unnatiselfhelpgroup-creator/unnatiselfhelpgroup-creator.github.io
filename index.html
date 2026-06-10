@@ -124,6 +124,88 @@ body{ font-family:Poppins,sans-serif; background:linear-gradient(180deg,#04101f,
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
 function googleTranslateElementInit(){ new google.translate.TranslateElement({pageLanguage:'hi'}, 'google_translate_element'); }
+<section class="card">
+    <h2>🔍 सदस्य / स्वयंसेवक सत्यापन</h2>
+    <p style="color:#ccc;text-align:center;">Volunteer ID दर्ज करें</p>
+    <input id="searchId" placeholder="Enter ID Number" style="width:100%; padding:12px; border-radius:10px; border:2px solid gold; margin-bottom:10px; background:#000; color:#fff;">
+    <button class="btn" onclick="verifyVolunteer()">🔍 Verify Now</button>
+    <div id="verifyResult" style="text-align:center; margin-top:10px; font-weight:bold;"></div>
+</section>
+
+<section class="card" id="idCardSection" style="display:none;">
+    <h2>🪪 Volunteer ID Card</h2>
+    <div style="background:#111; padding:20px; border-radius:12px; border:2px solid gold;">
+        <img src="logo.png" style="width:80px; display:block; margin:auto;">
+        <h3 id="idName" style="text-align:center;"></h3>
+        <p><b>ID:</b> <span id="idNumber"></span></p>
+        <p><b>State:</b> <span id="idState"></span></p>
+        <p><b>Status:</b> Active Volunteer</p>
+    </div>
+</section>
+
+<section class="card" id="certificateSection" style="display:none;">
+    <h2>🏆 Volunteer Certificate</h2>
+    <div style="background:#fff; color:#000; padding:20px; border-radius:12px;">
+        <h3 style="text-align:center;">उन्नति स्वयं सहायता समिति</h3>
+        <p style="text-align:center;">यह प्रमाणित किया जाता है कि</p>
+        <h2 id="certName" style="text-align:center;"></h2>
+        <p>Certificate ID: <span id="certId"></span></p>
+        <img src="signature.png" style="width:150px; display:block; margin:auto;">
+    </div>
+</section>
+
+<section class="card" id="printSection" style="display:none;">
+    <button class="btn" onclick="window.print()">📄 Download / Print</button>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+        authDomain: "ngo-certificate-system.firebaseapp.com",
+        projectId: "ngo-certificate-system",
+        storageBucket: "ngo-certificate-system.firebasestorage.app",
+        messagingSenderId: "664351169113",
+        appId: "1:664351169113:web:3c476e199d369615c6ef48"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    window.verifyVolunteer = async function() {
+        let id = document.getElementById("searchId").value.trim();
+        if(!id) { alert("ID दर्ज करें"); return; }
+
+        try {
+            // आपके डेटाबेस में कलेक्शन का नाम 'Volunteers' है
+            const docSnap = await db.collection("Volunteers").doc(id).get();
+
+            if(docSnap.exists) {
+                const data = docSnap.data();
+                document.getElementById("verifyResult").innerHTML = "✅ Verified";
+                document.getElementById("idCardSection").style.display = "block";
+                document.getElementById("certificateSection").style.display = "block";
+                document.getElementById("printSection").style.display = "block";
+
+                // डेटा मैपिंग: '26' फील्ड में नाम है
+                document.getElementById("idName").innerText = data["26"] || "N/A";
+                document.getElementById("idNumber").innerText = id;
+                document.getElementById("idState").innerText = data.state || "Uttarakhand";
+                document.getElementById("certName").innerText = data["26"] || "N/A";
+                document.getElementById("certId").innerText = id;
+            } else {
+                document.getElementById("verifyResult").innerHTML = "❌ Record Not Found";
+            }
+        } catch(e) {
+            document.getElementById("verifyResult").innerHTML = "⚠️ Error";
+            console.error(e);
+        }
+    }
+</script>
+    
 </script>
 </body>
 </html>
