@@ -1372,90 +1372,43 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.verifyMember = async function(){
-
+  
     let id = document.getElementById("memberId").value.trim();
-
     if(id === ""){
         alert("कृपया Member ID दर्ज करें");
         return;
     }
-
     try {
-
         const docRef = doc(db, "Volunteers", id);
         const docSnap = await getDoc(docRef);
-
         if(docSnap.exists()){
-
             const data = docSnap.data();
-
             document.getElementById("verifyResult").innerHTML = `
-            <div style="
-            padding:15px;
-            border:2px solid #00ff66;
-            border-radius:12px;
-            background:rgba(0,255,100,.1);
-            color:white;
-            text-align:left;
-            ">
-
-            <h3 style="color:#00ff66;">
-            ✅ सदस्य सत्यापित
-            </h3>
-
-            <p><b>नाम:</b> ${data.name || "N/A"}</p>
-
-            <p><b>आईडी:</b> ${id}</p>
-
-            <p><b>पद:</b> ${data.designation || "Volunteer"}</p>
-
-            <p><b>जिला:</b> ${data.district || "N/A"}</p>
-
-            <p><b>राज्य:</b> ${data.state || "N/A"}</p>
-
-            <p style="color:#00ff66;">
-            ✔ Active Volunteer
-            </p>
-
-            </div>
-            `;
-
+            <div style="padding:15px; border:2px solid #00ff66; border-radius:12px; background:rgba(0,255,100,.1); color:white; text-align:left;">
+                <h3 style="color:#00ff66;">✅ सदस्य सत्यापित</h3>
+                <p><b>नाम:</b> ${data.name || "N/A"}</p>
+                <p><b>आईडी:</b> ${id}</p>
+                <p><b>पद:</b> ${data.designation || "Volunteer"}</p>
+                <p><b>जिला:</b> ${data.district || "N/A"}</p>
+                <p><b>राज्य:</b> ${data.state || "N/A"}</p>
+                <p style="color:#00ff66;">✔ Active Volunteer</p>
+            </div>`;
         } else {
-
             document.getElementById("verifyResult").innerHTML = `
-            <div style="
-            padding:15px;
-            border:2px solid red;
-            border-radius:12px;
-            background:rgba(255,0,0,.1);
-            color:white;
-            ">
-            ❌ Member ID नहीं मिला
-            </div>
-            `;
-
+            <div style="padding:15px; border:2px solid red; border-radius:12px; background:rgba(255,0,0,.1); color:white;">
+                ❌ Member ID नहीं मिला
+            </div>`;
         }
-
-    } catch(error){
-
+    } catch(error) {
         console.error(error);
-
         document.getElementById("verifyResult").innerHTML = `
-        <div style="
-        padding:15px;
-        border:2px solid orange;
-        border-radius:12px;
-        background:rgba(255,165,0,.1);
-        color:white;
-        ">
-        ⚠ सर्वर त्रुटि हुई। कृपया बाद में पुनः प्रयास करें।
-        </div>
-        `;
-
+        <div style="padding:15px; border:2px solid orange; border-radius:12px; background:rgba(255,165,0,.1); color:white;">
+            ⚠ सर्वर त्रुटि हुई।
+        </div>`;
     }
-
-  }
-<a class="btn green"
+}
+  
+  <a class="btn green"
 href="certificate-verification.html"
 target="_blank">
 
