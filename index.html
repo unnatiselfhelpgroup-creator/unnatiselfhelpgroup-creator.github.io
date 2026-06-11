@@ -1364,7 +1364,36 @@ target="_blank">
 <!-- ================================= -->
 
 <script type="module">
+document.getElementById("verifyResult").innerHTML = `
+<div style="
+padding:15px;
+border:2px solid #00ff66;
+border-radius:12px;
+background:rgba(0,255,100,.1);
+color:white;
+text-align:left;
+">
 
+<h3 style="color:#00ff66;">
+✅ सदस्य सत्यापित
+</h3>
+
+<p><b>नाम:</b> ${data.name}</p>
+
+<p><b>आईडी:</b> ${id}</p>
+
+<p><b>पद:</b> ${data.designation}</p>
+
+<p><b>जिला:</b> ${data.district}</p>
+
+<p><b>राज्य:</b> ${data.state}</p>
+
+<p style="color:#00ff66;">
+✔ Active Volunteer
+</p>
+
+</div>
+`;
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
