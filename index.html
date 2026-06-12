@@ -1788,3 +1788,421 @@ PART 4 CSS
     0 0 40px gold;
 
 }
+<!-- =========================================
+PART - 5
+FIREBASE SMART SYSTEM
+========================================= -->
+
+<section class="smart-system">
+
+    <div class="system-header">
+
+        <h2>🚀 स्मार्ट स्वयंसेवक पोर्टल</h2>
+
+        <p>
+            Firebase आधारित Volunteer Registration,
+            Certificate Verification,
+            ID Verification एवं Database System
+        </p>
+
+    </div>
+
+    <div class="smart-grid">
+
+        <!-- Volunteer -->
+
+        <div class="smart-card">
+
+            <i class="fas fa-user-plus"></i>
+
+            <h3>स्वयंसेवक पंजीकरण</h3>
+
+            <form id="volunteerForm">
+
+                <input type="text"
+                id="name"
+                placeholder="पूरा नाम"
+                required>
+
+                <input type="email"
+                id="email"
+                placeholder="ईमेल">
+
+                <input type="tel"
+                id="mobile"
+                placeholder="मोबाइल नंबर"
+                required>
+
+                <button type="submit">
+                    पंजीकरण करें
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Certificate -->
+
+        <div class="smart-card">
+
+            <i class="fas fa-certificate"></i>
+
+            <h3>Certificate Verification</h3>
+
+            <input type="text"
+            id="certificateNumber"
+            placeholder="Certificate Number">
+
+            <button onclick="verifyCertificate()">
+                Verify
+            </button>
+
+            <div id="certificateResult"></div>
+
+        </div>
+
+
+        <!-- ID -->
+
+        <div class="smart-card">
+
+            <i class="fas fa-id-card"></i>
+
+            <h3>ID Verification</h3>
+
+            <input type="text"
+            id="volunteerId"
+            placeholder="Volunteer ID">
+
+            <button onclick="verifyVolunteer()">
+                Verify
+            </button>
+
+            <div id="idResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+/* ===================================
+PART 5
+=================================== */
+
+.smart-system{
+
+padding:120px 20px;
+
+background:
+linear-gradient(
+135deg,
+#031428,
+#0b2d57,
+#16457c
+);
+
+}
+
+.system-header{
+
+text-align:center;
+margin-bottom:70px;
+
+}
+
+.system-header h2{
+
+font-size:3rem;
+
+color:white;
+
+text-shadow:
+0 0 20px gold,
+0 0 40px gold;
+
+}
+
+.system-header p{
+
+color:#ddd;
+
+}
+
+.smart-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(350px,1fr));
+
+gap:35px;
+
+max-width:1400px;
+margin:auto;
+
+}
+
+.smart-card{
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:35px;
+
+padding:35px;
+
+text-align:center;
+
+border:
+1px solid rgba(255,255,255,.15);
+
+transition:.5s;
+
+}
+
+.smart-card:hover{
+
+transform:
+translateY(-12px)
+scale(1.03);
+
+box-shadow:
+0 0 40px gold;
+
+}
+
+.smart-card i{
+
+font-size:60px;
+
+color:gold;
+
+margin-bottom:20px;
+
+}
+
+.smart-card h3{
+
+color:white;
+
+margin-bottom:25px;
+
+}
+
+.smart-card input{
+
+width:100%;
+
+padding:15px;
+
+margin-bottom:15px;
+
+border:none;
+
+border-radius:15px;
+
+}
+
+.smart-card button{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:50px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+background:
+linear-gradient(
+145deg,
+#ffd700,
+#fff3a0
+);
+
+}
+
+.smart-card button:hover{
+
+transform:scale(1.05);
+
+}
+
+#certificateResult,
+#idResult{
+
+margin-top:20px;
+
+color:white;
+
+}
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+
+authDomain: "ngo-certificate-system.firebaseapp.com",
+
+projectId: "ngo-certificate-system",
+
+storageBucket: "ngo-certificate-system.firebasestorage.app",
+
+messagingSenderId: "664351169113",
+
+appId: "1:664351169113:web:3c476e199d369615c6ef48",
+
+measurementId: "G-9R3TGZ7R8S"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* Volunteer Registration */
+
+document
+.getElementById("volunteerForm")
+.addEventListener("submit",
+
+async(e)=>{
+
+e.preventDefault();
+
+await addDoc(
+collection(db,"volunteers"),
+{
+
+name:
+document.getElementById("name").value,
+
+email:
+document.getElementById("email").value,
+
+mobile:
+document.getElementById("mobile").value,
+
+createdAt:
+new Date()
+
+});
+
+alert("Registration Successful");
+
+});
+
+
+window.verifyCertificate =
+async()=>{
+
+const certNo =
+document.getElementById(
+"certificateNumber"
+).value;
+
+const snap =
+await getDocs(
+collection(db,"certificates")
+);
+
+let found=false;
+
+snap.forEach(doc=>{
+
+const data=doc.data();
+
+if(data.certificate===certNo){
+
+found=true;
+
+document.getElementById(
+"certificateResult"
+).innerHTML=
+
+"✅ प्रमाणपत्र मान्य है";
+
+}
+
+});
+
+if(!found){
+
+document.getElementById(
+"certificateResult"
+).innerHTML=
+
+"❌ प्रमाणपत्र नहीं मिला";
+
+}
+
+};
+
+
+
+window.verifyVolunteer =
+async()=>{
+
+const id=
+document.getElementById(
+"volunteerId"
+).value;
+
+const snap=
+await getDocs(
+collection(db,"volunteers")
+);
+
+let found=false;
+
+snap.forEach(doc=>{
+
+const data=doc.data();
+
+if(data.id===id){
+
+found=true;
+
+document.getElementById(
+"idResult"
+).innerHTML=
+
+"✅ स्वयंसेवक सक्रिय है";
+
+}
+
+});
+
+if(!found){
+
+document.getElementById(
+"idResult"
+).innerHTML=
+
+"❌ ID नहीं मिली";
+
+}
+
+};
+
+</script>
+
