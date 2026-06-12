@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { margin:0; background:#071b34; color:white; font-family: sans-serif; text-align:center; }
-        .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:radial-gradient(circle, #1f4f91, #071b34); padding:20px; }
-        .diamond-card { background:rgba(255,255,255,0.05); padding:40px; border-radius:50px; backdrop-filter:blur(20px); border:2px solid gold; box-shadow:0 0 50px gold; width:100%; max-width:600px; }
-        .btn-shine { display:block; margin:15px; padding:20px; background:linear-gradient(145deg, #ffd700, #fff); color:black; font-weight:bold; text-decoration:none; border-radius:50px; box-shadow:0 10px 30px rgba(255,215,0,0.5); transition:0.4s; }
-        .btn-shine:hover { transform:scale(1.05); box-shadow:0 0 50px white; }
+        .hero { padding: 50px 20px; background: radial-gradient(circle, #1f4f91, #071b34); }
+        .diamond-card { background:rgba(255,255,255,0.05); padding:30px; border-radius:40px; backdrop-filter:blur(20px); border:2px solid gold; box-shadow:0 0 40px gold; margin:20px; }
+        .btn-3d { display:block; margin:15px; padding:20px; background:linear-gradient(145deg, #ffd700, #fff); color:black; font-weight:bold; text-decoration:none; border-radius:50px; box-shadow:0 10px 20px rgba(0,0,0,0.5); transition:0.4s; }
+        .btn-3d:hover { transform:scale(1.05); box-shadow:0 0 50px white; }
     </style>
 </head>
 <body>
@@ -17,39 +17,29 @@
         <div class="diamond-card">
             <img src="ngologo.png" width="120" alt="Logo">
             <h1>उन्नति स्वयं सहायता समिति</h1>
-            <p>राष्ट्र माता अभियान | राष्ट्र निर्माण</p>
-
-            <a href="volunteer-list.html" class="btn-shine"><i class="fas fa-users"></i> सदस्यता सूची</a>
-            <a href="certificate-verification.html" class="btn-shine"><i class="fas fa-certificate"></i> सर्टिफिकेट सत्यापन</a>
-            <a href="idverification.html" class="btn-shine"><i class="fas fa-id-card"></i> ID सत्यापन</a>
-            <a href="donation.html" class="btn-shine"><i class="fas fa-heart"></i> सहयोग करें</a>
             
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px;">
-                <a href="https://www.facebook.com/share/1BSqLkAPbY/" class="btn-shine" style="background:#4267B2; color:white;">Facebook</a>
-                <a href="https://wa.me/919410332400" class="btn-shine" style="background:#25D366; color:white;">WhatsApp</a>
+            <a href="volunteer-list.html" class="btn-3d">🎓 सदस्यता सूची</a>
+            <a href="certificate-verification.html" class="btn-3d">📜 सर्टिफिकेट सत्यापन</a>
+            <a href="idverification.html" class="btn-3d">🪪 ID सत्यापन</a>
+            <a href="donation.html" class="btn-3d">❤️ सहयोग (Donate)</a>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:30px;">
+                <a href="https://www.facebook.com/share/1BSqLkAPbY/" class="btn-3d" style="background:#4267B2;">Facebook</a>
+                <a href="https://wa.me/919410332400" class="btn-3d" style="background:#25D366;">WhatsApp</a>
             </div>
 
-            <div style="margin-top:20px; font-size:12px;">
-                <a href="privacy.html" style="color:gold;">Privacy</a> | 
-                <a href="terms.html" style="color:gold;">Terms</a> | 
-                <a href="refund.html" style="color:gold;">Refund</a>
+            <div style="margin-top:30px;">
+                <a href="privacy.html" style="color:gold;">Privacy</a> | <a href="terms.html" style="color:gold;">Terms</a>
             </div>
             
-            <p style="margin-top:30px;">© 2026 उन्नति स्वयं सहायता समिति | <br> संस्थापक: विनोद चन्द्र भट्ट</p>
+            <div style="margin-top:40px; border-top:1px solid gold; padding-top:20px;">
+                <p>सादर,</p><h3>विनोद चन्द्र भट्ट</h3><p>संस्थापक, उन्नति स्वयं सहायता समिति</p>
+            </div>
         </div>
     </section>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
-            authDomain: "ngo-certificate-system.firebaseapp.com",
-            projectId: "ngo-certificate-system",
-            storageBucket: "ngo-certificate-system.firebasestorage.app",
-            messagingSenderId: "664351169113",
-            appId: "1:664351169113:web:3c476e199d369615c6ef48"
-        };
-        initializeApp(firebaseConfig);
-    </script>
+    <div id="google_translate_element"></div>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage: 'hi'}, 'google_translate_element');}</script>
 </body>
 </html>
