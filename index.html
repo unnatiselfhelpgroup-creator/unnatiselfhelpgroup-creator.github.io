@@ -1340,39 +1340,9 @@ text-align:left;
 </p>
 
 </div>
-`;
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-import {
-getFirestore,
-doc,
-getDoc
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
-
-authDomain: "ngo-certificate-system.firebaseapp.com",
-
-projectId: "ngo-certificate-system",
-
-storageBucket: "ngo-certificate-system.appspot.com",
-
-messagingSenderId: "95166258079",
-
-appId: "1:95166258079:web:9349887167a57c13d8d3f1"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
+// Verification Function
 window.verifyMember = async function(){
-  
     let id = document.getElementById("memberId").value.trim();
     if(id === ""){
         alert("कृपया Member ID दर्ज करें");
@@ -1407,6 +1377,7 @@ window.verifyMember = async function(){
         </div>`;
     }
 }
+
   </script>ki
   <a class="btn green"
 href="certificate-verification.html"
