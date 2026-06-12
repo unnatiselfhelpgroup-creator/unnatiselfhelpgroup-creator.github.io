@@ -548,38 +548,6 @@ PART 5 : राष्ट्रीय गौ संरक्षण मिशन
     .grand-join-box { text-align: center; padding: 50px 20px; background: linear-gradient(135deg, #071b34, #102a52); border-radius: 30px; border: 2px solid #d4af37; }
     .join-btn { display: inline-block; margin-top: 20px; padding: 15px 35px; background: linear-gradient(135deg, #d4af37, #ffd700); color: #000; font-weight: bold; border-radius: 50px; text-decoration: none; }
 </script>
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    // अपने Firebase Console से क्रेडेंशियल्स यहाँ डालें
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_PROJECT.appspot.com",
-        messagingSenderId: "YOUR_ID",
-        appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // फॉर्म सबमिशन का कोड यहाँ आएगा
-    const membershipForm = document.getElementById("membershipForm");
-    if(membershipForm) {
-        membershipForm.addEventListener("submit", async(e) => {
-            e.preventDefault();
-            await addDoc(collection(db, "Volunteers"), {
-                name: e.target[0].value,
-                phone: e.target[3].value,
-                timestamp: new Date().toISOString()
-            });
-            alert("आपका आवेदन सफलतापूर्वक प्राप्त हो गया है!");
-            e.target.reset();
-        });
-    }
-</script>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
