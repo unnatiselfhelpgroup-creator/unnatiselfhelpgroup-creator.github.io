@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>उन्नति स्वयं सहायता समिति</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+        body { margin:0; padding:0; font-family: 'Poppins', sans-serif; background:#071b34; color:white; }
+        .diamond-hero { position:relative; min-height:100vh; display:flex; justify-content:center; align-items:center; background:linear-gradient(135deg, #071b34, #1f4f91); overflow:hidden; }
+        .hero-content { position:relative; text-align:center; max-width:900px; padding:50px; border-radius:40px; background:rgba(255,255,255,.08); backdrop-filter:blur(25px); border:1px solid rgba(255,255,255,.2); box-shadow:0 0 30px rgba(255,215,0,.3); }
+        .diamond-btn { padding:15px 35px; border-radius:50px; background:linear-gradient(145deg, #ffd700, #fff6b0); color:#111; font-weight:bold; text-decoration:none; display:inline-block; transition:.4s; box-shadow: 0 5px 15px rgba(0,0,0,.2); }
+        .diamond-btn:hover { transform:translateY(-10px) scale(1.05); box-shadow:0 0 40px gold; }
+        .section { padding:80px 20px; }
+        .smart-card { background:rgba(255,255,255,.08); padding:30px; border-radius:30px; border:1px solid rgba(255,255,255,.1); text-align:center; }
+        .smart-card input { width:100%; padding:15px; margin:10px 0; border-radius:15px; border:none; }
+        .smart-card button { width:100%; padding:15px; border-radius:50px; border:none; background:gold; font-weight:bold; cursor:pointer; }
+    </style>
+</head>
+<body>
+      <section class="diamond-hero">
+        <div class="hero-content">
+            <h1>उन्नति स्वयं सहायता समिति</h1>
+            <p>गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • सामाजिक जागरूकता</p>
+            <a href="#volunteer" class="diamond-btn">स्वयंसेवक बनें</a>
+        </div>
+    </section>
 
+    <section class="section" id="volunteer">
+        <div class="smart-card">
+            <h2>🎓 स्वयंसेवक पोर्टल</h2>
+            <form id="volunteerForm">
+                <input type="text" id="name" placeholder="पूरा नाम" required>
+                <input type="text" id="father" placeholder="पिता का नाम" required>
+                <input type="text" id="district" placeholder="जिला" required>
+                <input type="tel" id="mobile" placeholder="मोबाइल नंबर" required>
+                <input type="email" id="email" placeholder="ईमेल">
+                <button type="submit">पंजीकरण करें</button>
+            </form>
+        </div>
+    </section>
+  <!-- Legal Pages & Signatures -->
+<section class="section" id="legal" style="text-align:center; padding:40px;">
+    <h2>📑 हमारी नीतियां</h2>
+    <div class="legal-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+        <a href="privacy.html" class="diamond-btn">Privacy Policy</a>
+        <a href="terms.html" class="diamond-btn">Terms & Conditions</a>
+        <a href="refund.html" class="diamond-btn">Refund Policy</a>
+        <a href="donation.html" class="diamond-btn">Donation Policy</a>
+    </div>
+
+    <div class="signature" style="margin-top:50px;">
+        <p>सादर,</p>
+        <h3>विनोद चन्द्र भट्ट</h3>
+        <p>संस्थापक, उन्नति स्वयं सहायता समिति</p>
+        <p>Haldwani, Uttarakhand</p>
+    </div>
+</section>
+
+        <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+            authDomain: "ngo-certificate-system.firebaseapp.com",
+            projectId: "ngo-certificate-system",
+            storageBucket: "ngo-certificate-system.firebasestorage.app",
+            messagingSenderId: "664351169113",
+            appId: "1:664351169113:web:3c476e199d369615c6ef48",
+            measurementId: "G-9R3TGZ7R8S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("volunteerForm").addEventListener("submit", async(e) => {
+            e.preventDefault();
+            await addDoc(collection(db, "volunteers"), {
+                name: document.getElementById("name").value,
+                father: document.getElementById("father").value,
+                district: document.getElementById("district").value,
+                mobile: document.getElementById("mobile").value,
+                email: document.getElementById("email").value,
+                timestamp: new Date().toISOString()
+            });
+            alert("पंजीकरण सफल रहा!");
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
