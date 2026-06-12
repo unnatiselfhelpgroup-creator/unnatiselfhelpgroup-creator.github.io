@@ -580,11 +580,11 @@ PART 5 : राष्ट्रीय गौ संरक्षण मिशन
         });
     }
 </script>
- <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // अपने Firebase Console से क्रेडेंशियल्स यहाँ डालें
+    // Firebase कॉन्फ़िगरेशन (यहाँ अपनी असली Keys डालें)
     const firebaseConfig = {
         apiKey: "YOUR_API_KEY",
         authDomain: "YOUR_PROJECT.firebaseapp.com",
@@ -597,21 +597,26 @@ PART 5 : राष्ट्रीय गौ संरक्षण मिशन
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // फॉर्म सबमिशन का कोड यहाँ आएगा
+    // फॉर्म सबमिशन
     const membershipForm = document.getElementById("membershipForm");
     if(membershipForm) {
         membershipForm.addEventListener("submit", async(e) => {
             e.preventDefault();
-            await addDoc(collection(db, "Volunteers"), {
-                name: e.target[0].value,
-                phone: e.target[3].value,
-                timestamp: new Date().toISOString()
-            });
-            alert("आपका आवेदन सफलतापूर्वक प्राप्त हो गया है!");
-            e.target.reset();
+            try {
+                await addDoc(collection(db, "Volunteers"), {
+                    name: e.target[0].value,
+                    phone: e.target[3].value,
+                    timestamp: new Date().toISOString()
+                });
+                alert("आपका आवेदन सफलतापूर्वक जमा हो गया है!");
+                e.target.reset();
+            } catch (err) {
+                alert("त्रुटि: " + err.message);
+            }
         });
     }
 </script>
-
 </body>
 </html>
+
+  
