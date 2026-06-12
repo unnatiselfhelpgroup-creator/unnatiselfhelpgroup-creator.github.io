@@ -1309,8 +1309,7 @@ target="_blank">
 <!-- ================================= -->
 <!-- FIRESTORE MEMBER VERIFY -->
 <!-- ================================= -->
-
-<script type="module">
+  
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -1334,7 +1333,7 @@ window.verifyMember = async function(){
         return;
     }
     try {
-        const docRef = doc(db, "Volunteers", id);
+        const docRef = doc(db, "volunteer", id);
         const docSnap = await getDoc(docRef);
         if(docSnap.exists()){
             const data = docSnap.data();
@@ -1343,10 +1342,10 @@ window.verifyMember = async function(){
                 <h3 style="color:#00ff66;">✅ सदस्य सत्यापित</h3>
                 <p><b>नाम:</b> ${data.name || "N/A"}</p>
                 <p><b>आईडी:</b> ${id}</p>
-                <p><b>पद:</b> ${data.designation || "Volunteer"}</p>
+                <p><b>पद:</b> ${data.designation || "volunteer"}</p>
                 <p><b>जिला:</b> ${data.district || "N/A"}</p>
                 <p><b>राज्य:</b> ${data.state || "N/A"}</p>
-                <p style="color:#00ff66;">✔ Active Volunteer</p>
+                <p style="color:#00ff66;">✔ active volunteer</p>
             </div>`;
         } else {
             document.getElementById("verifyResult").innerHTML = `
