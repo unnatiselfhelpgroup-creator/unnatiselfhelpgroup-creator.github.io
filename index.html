@@ -822,3 +822,201 @@ loadVolunteers();
 
   <div id="volunteerBox" class="counter-grid" style="margin-top:15px;"></div>
 </div>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>उन्नति स्वयं सहायता समिति</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* ================= BASE ================= */
+body{
+margin:0;
+font-family:Arial;
+background:#071b34;
+color:white;
+}
+
+/* ================= HERO ================= */
+.diamond-hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#071b34,#0d2f5f,#1f4f91);
+text-align:center;
+padding:20px;
+}
+
+.hero-content{
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:30px;
+backdrop-filter:blur(20px);
+}
+
+.hero-logo{
+width:140px;
+}
+
+.hero-buttons a{
+display:inline-block;
+margin:10px;
+padding:12px 25px;
+background:gold;
+color:black;
+text-decoration:none;
+border-radius:30px;
+font-weight:bold;
+}
+
+/* ================= SECTIONS ================= */
+section{
+padding:80px 20px;
+}
+
+/* ================= CARDS ================= */
+.card{
+background:rgba(255,255,255,0.08);
+padding:25px;
+border-radius:20px;
+margin:10px;
+}
+
+/* ================= FOOTER ================= */
+footer{
+background:#061a33;
+padding:50px 20px;
+text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= HERO ================= -->
+<section class="diamond-hero">
+<div class="hero-content">
+
+<img src="ngologo.png" class="hero-logo">
+
+<h1>उन्नति स्वयं सहायता समिति</h1>
+
+<p>गौ सेवा • मानव सेवा • पर्यावरण संरक्षण</p>
+
+<div class="hero-buttons">
+<a href="#volunteer">Volunteer</a>
+<a href="#donate">Donate</a>
+<a href="#certificate">Verify</a>
+</div>
+
+</div>
+</section>
+
+<!-- ================= INTRO ================= -->
+<section>
+<h2>संस्था परिचय</h2>
+<div class="card">
+हमारी संस्था सामाजिक सेवा के लिए कार्यरत है।
+</div>
+</section>
+
+<!-- ================= FIREBASE ================= -->
+<section id="volunteer">
+<h2>Volunteer Registration</h2>
+
+<div class="card">
+<form id="volunteerForm">
+<input type="text" id="name" placeholder="नाम" required><br><br>
+<input type="email" id="email" placeholder="ईमेल"><br><br>
+<input type="tel" id="mobile" placeholder="मोबाइल"><br><br>
+<button type="submit">Register</button>
+</form>
+</div>
+</section>
+
+<section id="certificate">
+<h2>Certificate Verify</h2>
+
+<div class="card">
+<input type="text" id="certificateNumber" placeholder="Certificate No">
+<button onclick="verifyCertificate()">Check</button>
+<p id="certificateResult"></p>
+</div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+
+<p>© 2026 उन्नति स्वयं सहायता समिति</p>
+
+</footer>
+
+<!-- ================= FIREBASE SCRIPT ================= -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+authDomain: "ngo-certificate-system.firebaseapp.com",
+projectId: "ngo-certificate-system",
+storageBucket: "ngo-certificate-system.firebasestorage.app",
+messagingSenderId: "664351169113",
+appId: "1:664351169113:web:3c476e199d369615c6ef48"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* REGISTER */
+document.getElementById("volunteerForm").addEventListener("submit", async(e)=>{
+e.preventDefault();
+
+await addDoc(collection(db,"volunteers"),{
+name: document.getElementById("name").value,
+email: document.getElementById("email").value,
+mobile: document.getElementById("mobile").value,
+
+// FIXED ID
+id: "VOL-" + Math.floor(Math.random()*100000),
+
+createdAt: new Date()
+});
+
+alert("Registered Successfully");
+});
+
+/* CERTIFICATE VERIFY */
+window.verifyCertificate = async()=>{
+
+const certNo = document.getElementById("certificateNumber").value;
+const snap = await getDocs(collection(db,"certificates"));
+
+let found=false;
+
+snap.forEach(doc=>{
+if(doc.data().certificate === certNo){
+found=true;
+document.getElementById("certificateResult").innerText =
+"✅ Valid Certificate";
+}
+});
+
+if(!found){
+document.getElementById("certificateResult").innerText =
+"❌ Not Found";
+}
+};
+
+</script>
+
+</body>
+</html>
