@@ -1,51 +1,112 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>प्रमाणपत्र सत्यापन | उन्नति स्वयं सहायता समिति</title>
-    <style>
-        body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; text-align: center; padding: 20px; }
-        .box { max-width: 500px; margin: auto; background: rgba(255,255,255,.05); padding: 30px; border-radius: 20px; border: 1px solid #d4af37; }
-        input { width: 90%; padding: 12px; border-radius: 10px; border: none; margin-bottom: 15px; text-align: center; }
-        button { padding: 12px 30px; background: #d4af37; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; color: #000; }
-        .result { margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; display: none; text-align: left; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>
+प्रमाणपत्र सत्यापन |
+उन्नति स्वयं सहायता समिति
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Poppins,sans-serif;
+background:#071b34;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.box{
+max-width:600px;
+margin:auto;
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:20px;
+border:1px solid #d4af37;
+}
+
+h2{
+color:#ffd56a;
+}
+
+input{
+width:90%;
+padding:12px;
+margin-top:20px;
+border:none;
+border-radius:10px;
+font-size:16px;
+text-align:center;
+}
+
+button{
+margin-top:20px;
+padding:12px 30px;
+background:#d4af37;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+padding:20px;
+background:rgba(255,255,255,.08);
+border-radius:15px;
+display:none;
+text-align:left;
+}
+
+a{
+color:#ffd56a;
+text-decoration:none;
+}
+
+</style>
+
 </head>
+
 <body>
-    <div class="box">
-        <h2>📜 प्रमाणपत्र सत्यापन</h2>
-        <input type="text" id="certInput" placeholder="सर्टिफिकेट नंबर दर्ज करें">
-        <button onclick="checkCert()">सत्यापित करें</button>
-        <div id="resultBox" class="result"></div>
-        <br><a href="index.html" style="color:#d4af37;">⬅ वापस जाएँ</a>
-    </div>
 
-    <script>
-        // यहाँ आप अपना डेटा जोड़ते रहें
-        const database = {
-            "USS-CERT-2026-0001": { name: "Rahul Kumar", id: "USS-2026-0001", days: "30 Days", date: "08 June 2026" },
-            "USS-CERT-2026-0002": { name: "Amit Sharma", id: "USS-2026-0002", days: "15 Days", date: "08 June 2026" }
-        };
+<div class="box">
 
-        function checkCert() {
-            let input = document.getElementById("certInput").value.trim();
-            let res = document.getElementById("resultBox");
-            
-            if(database[input]) {
-                let d = database[input];
-                res.style.display = "block";
-                res.innerHTML = `✅ <b>प्रमाणपत्र मान्य है</b><br><br>
-                <b>नाम:</b> ${d.name}<br>
-                <b>वॉलंटियर ID:</b> ${d.id}<br>
-                <b>अवधि:</b> ${d.days}<br>
-                <b>जारी तिथि:</b> ${d.date}`;
-            } else {
-                res.style.display = "block";
-                res.innerHTML = "❌ प्रमाणपत्र संख्या नहीं मिली।";
-            }
-        }
-    </script>
+<h2>
+📜 प्रमाणपत्र सत्यापन
+</h2>
+
+<input
+type="text"
+id="certInput"
+placeholder="सर्टिफिकेट नंबर दर्ज करें">
+
+<br>
+
+<button onclick="checkCert()">
+सत्यापित करें
+</button>
+
+<div
+id="resultBox"
+class="result">
+</div>
+
+<br><br>
+
+<a href="index.html">
+⬅ मुख्य पृष्ठ
+</a>
+
+</div>
+
+<script type="module"
+src="certificate-check.js">
+</script>
+
 </body>
 </html>
-
