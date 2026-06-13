@@ -1,6 +1,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  Timestamp
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
   authDomain: "ngo-certificate-system.firebaseapp.com",
@@ -10,19 +16,48 @@ const firebaseConfig = {
   appId: "1:664351169113:web:3c476e199d369615c6ef48"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-document.querySelector('form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
-  data.status = "pending"; 
-  data.createdAt = new Date();
+// Common Function
+async function saveData(formId, collectionName) {
+  const form = document.getElementById(formId);
 
-  try {
-    await addDoc(collection(db, "Submissions"), data);
-    alert("आवेदन जमा हो गया! वेरिफिकेशन के बाद संपर्क किया जाएगा।");
-    e.target.reset();
-  } catch (e) { alert("Error: " + e.message); }
-});
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    data.status = "pending";
+    data.createdAt = Timestamp.now();
+
+    try {
+      await addDoc(collection(db, collectionName), data);
+
+      alert("✅ आवेदन सफलतापूर्वक जमा हो गया।");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      alert("❌ Error : " + error.message);
+    }
+  });
+}
+
+// Appointment Form
+saveData("appointmentForm", "Appointments");
+
+// Experience Certificate Request
+saveData("certRequestForm", "CertificateRequests");
+
+// ID Card Form
+saveData("idCardForm", "IDCards");
+
+// Student Registration
+saveData("studentRegForm", "Students");
+
+// Daily Report
+saveData("dailyReportForm", "DailyReports");
