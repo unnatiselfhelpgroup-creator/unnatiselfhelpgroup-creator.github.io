@@ -1,13 +1,13 @@
-<!-- सर्टिफिकेट रिक्वेस्ट -->
 <div class="certificate-req">
     <h2>अनुभव प्रमाण पत्र (Experience Certificate) अनुरोध</h2>
     <form id="certRequestForm">
-        <input type="text" placeholder="अपना नाम" required>
-        <input type="text" placeholder="अपना वॉलंटियर आईडी" required>
-        <p>क्या आप अनुभव प्रमाण पत्र चाहते हैं? हाँ/नहीं</p>
+        <input type="text" name="name" placeholder="अपना नाम" required>
+        <input type="text" name="volunteer_id" placeholder="अपना वॉलंटियर आईडी" required>
+        <p>क्या आप अनुभव प्रमाण पत्र चाहते हैं?</p>
         <input type="radio" name="choice" value="yes"> हाँ 
         <input type="radio" name="choice" value="no"> नहीं
         <br><br>
         <button type="submit">सर्टिफिकेट हेतु आवेदन करें</button>
     </form>
 </div>
+<script type="module" src="firebase-script.js"></script>
