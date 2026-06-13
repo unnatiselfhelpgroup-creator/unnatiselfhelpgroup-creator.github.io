@@ -1,16 +1,17 @@
-<!-- छात्र पंजीकरण -->
 <div class="student-reg">
     <h2>स्टूडेंट वॉलंटियर एवं एक्सपीरियंस सर्टिफिकेट प्रोग्राम</h2>
     <form id="studentRegForm">
-        <input type="text" placeholder="पूरा नाम" required>
-        <input type="email" placeholder="ईमेल आईडी" required>
-        <input type="text" placeholder="कॉलेज/विश्वविद्यालय का नाम" required>
-        <select>
-            <option>15 दिन</option>
-            <option>30 दिन</option>
-            <option>60 दिन</option>
-            <option>90 दिन</option>
+        <input type="text" name="name" placeholder="पूरा नाम" required>
+        <input type="email" name="email" placeholder="ईमेल आईडी" required>
+        <input type="text" name="college" placeholder="कॉलेज/विश्वविद्यालय का नाम" required>
+        <select name="duration">
+            <option value="15">15 दिन</option>
+            <option value="30">30 दिन</option>
+            <option value="60">60 दिन</option>
+            <option value="90">90 दिन</option>
         </select>
         <button type="submit">पंजीकरण करें</button>
     </form>
 </div>
+<script type="module" src="firebase-script.js"></script>
+
