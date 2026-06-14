@@ -36,7 +36,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
+window.db = db;
 
 // EmailJS Initialize
 emailjs.init("AvD_f76bB4qjYnGb0");
