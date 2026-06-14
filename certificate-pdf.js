@@ -1,95 +1,108 @@
-window.generateCertificatePDF = function(data){
+<div class="certificate-req"><h2>सामाजिक सेवा एवं अनुभव प्रमाण पत्र हेतु आवेदन</h2><p>
+"युवा सामाजिक सारथी - गौ-सेवा एवं राष्ट्र निर्माण इंटर्नशिप"
+<br>
+राष्ट्र सेवा, आपका अनुभव, हमारा प्रमाण पत्र।
+</p><p>
+सामाजिक सेवा कार्यक्रम के सफलतापूर्वक पूर्ण होने पर संस्था द्वारा
+प्रमाण पत्र जारी किया जाएगा।
+</p><form id="certRequestForm"><input
+type="text"
+name="name"
+placeholder="अपना पूरा नाम"
+required
 
-const { jsPDF } = window.jspdf;
+«»
 
-const doc = new jsPDF("landscape");
+<input
+type="text"
+name="father_name"
+placeholder="पिता/पति का नाम"
+required
 
-doc.setFontSize(24);
-doc.text(
-"उन्नति स्वयं सहायता समिति",
-148,
-25,
-{align:"center"}
-);
+«»
 
-doc.setFontSize(18);
-doc.text(
-"प्रमाण पत्र : सामाजिक सेवा एवं योगदान",
-148,
-40,
-{align:"center"}
-);
+<input
+type="text"
+name="volunteer_id"
+placeholder="वॉलंटियर आईडी"
+required
 
-doc.setFontSize(12);
+«»
 
-doc.text(
-"प्रमाण पत्र संख्या : CERT-${Date.now()}",
-20,
-60
-);
+<input
+type="email"
+name="email"
+placeholder="ईमेल आईडी"
+required
 
-doc.text(
-"दिनांक : ${new Date().toLocaleDateString("hi-IN")}",
-230,
-60
-);
+«»
 
-doc.text(
-"यह प्रमाणित किया जाता है कि श्री/सुश्री : ${data.name}",
-20,
-85
-);
+<input
+type="text"
+name="mobile"
+placeholder="मोबाइल नंबर"
+required
 
-doc.text(
-"पुत्र/पुत्री : ${data.father_name}",
-20,
-100
-);
+«»
 
-doc.text(
-"वॉलंटियर आईडी : ${data.volunteer_id}",
-20,
-115
-);
+<textarea
+name="work_details"
+placeholder="आपने किए गए सामाजिक कार्य का विवरण लिखें"
+required
+></textarea><label>
+सेवा अवधि चुनें:
+</label><select
+name="duration"
+required
 
-doc.text(
-"सेवा अवधि : ${data.duration}",
-20,
-130
-);
+«»
 
-doc.text(
-"सामाजिक कार्य : ${data.work_details}",
-20,
-145
-);
+<option value="">
+सेवा अवधि चुनें
+</option><option value="15 दिन">
+15 दिन
+</option><option value="30 दिन">
+30 दिन
+</option><option value="60 दिन">
+60 दिन
+</option><option value="90 दिन">
+90 दिन
+</option></select><br><br>
 
-doc.text(
-"अभ्यर्थी ने सामाजिक सेवा कार्यक्रम में सक्रिय योगदान दिया है।",
-20,
-165
-);
+<h3>
+प्रशासनिक सहयोग राशि
+</h3><p>
+₹700 (एकमुश्त)
+<br>
+यह राशि आईडी कार्ड,
+प्रशिक्षण सामग्री,
+डिजिटल डैशबोर्ड रखरखाव
+एवं प्रमाण पत्र की
+डिजिटल प्रोसेसिंग हेतु देय है।
+</p><p>
+<strong>
+यह राशि Non-Refundable है।
+</strong>
+</p><h3>
+महत्वपूर्ण घोषणा
+</h3><label><input
+type="checkbox"
+name="agree"
+required
 
-doc.text(
-"NITI Aayog Unique ID : US-2016 / 0108273",
-20,
-185
-);
+«»
 
-doc.text(
-"संस्था की आधिकारिक मुहर",
-40,
-205
-);
+मैं संस्था की
+नियम एवं शर्तों,
+शुल्क नीति,
+गोपनीयता नीति,
+रिफंड नीति,
+अस्वीकरण तथा
+सामाजिक सेवा प्रमाण पत्र नीति
+से पूर्णतः सहमत हूँ।
 
-doc.text(
-"अधिकृत हस्ताक्षर",
-220,
-205
-);
+</label><br><br>
 
-doc.save(
-"${data.name}-Certificate.pdf"
-);
-
-};
+<button type="submit">
+सर्टिफिकेट हेतु आवेदन करें
+</button></form></div><script src="certificate-pdf.js"></script><script type="module" src="firebase-script.js"></script>
