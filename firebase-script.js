@@ -4,8 +4,12 @@ import {
   getFirestore,
   collection,
   addDoc,
-  Timestamp
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+  Timestamp,
+  doc,
+  updateDoc,
+  deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 import {
   getStorage,
