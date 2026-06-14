@@ -140,7 +140,7 @@ window.generateCertificatePDF = function (data) {
   doc.setFontSize(12);
 
   doc.text(
-    "NITI Aayog Unique ID : US-2016/0108273",
+    "NITI Aayog Unique ID : UA-2016/0108273",
     20,
     205
   );
