@@ -4,8 +4,8 @@ function login() {
 
   // अपना Admin Email और Password यहाँ डालें
   if (
-    email === "admin@gmail.com" &&
-    password === "123456"
+    email === "unnatiselfhelpgroup@gmail.com" &&
+    password === "Vinod@1981"
   ) {
     window.location.href = "admin-dashboard.html";
   } else {
