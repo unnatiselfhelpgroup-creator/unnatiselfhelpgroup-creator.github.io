@@ -229,39 +229,44 @@ async function sendMail(
 
 window.verifyApplication =
 async function(
-  collectionName,
-  docId,
-  name,
-  email
-  data
+collectionName,
+docId,
+name,
+email,
+data
 ){
 
-  try{
+try{
 
-    await updateDoc(
-      doc(db,collectionName,docId),
-      {
-        status:"verified"
-      }
-    );
-
-    await sendMail(
-      name,
-      email,
-      "आवेदन सत्यापित",
-      "आपका आवेदन सफलतापूर्वक Verified कर दिया गया है।"
-    );
-
-    alert("✅ Application Verified");
-
-    location.reload();
-
+await updateDoc(
+  doc(db,collectionName,docId),
+  {
+    status:"verified"
   }
-  catch(error){
+);
 
-    console.log(error);
+// PDF Generate
+if(window.generateAppointmentPDF){
+  window.generateAppointmentPDF(data);
+}
 
-  }
+await sendMail(
+  name,
+  email,
+  "आवेदन सत्यापित",
+  "आपका आवेदन सफलतापूर्वक Verified कर दिया गया है।"
+);
+
+alert("✅ Application Verified");
+
+location.reload();
+
+}
+catch(error){
+
+console.log(error);
+
+}
 
 };
 
