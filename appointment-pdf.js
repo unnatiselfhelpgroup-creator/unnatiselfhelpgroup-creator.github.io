@@ -6,7 +6,7 @@ const doc = new jsPDF();
 
 doc.setFontSize(18);
 doc.text(
-"UNNATI SWAYAM SAHAYATA SAMITI",
+"UNNATI SAWAYE SAHAYATA SAMITI",
 20,
 20
 );
