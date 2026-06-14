@@ -193,3 +193,131 @@ saveData(
   "donationForm",
   "Donations"
 );
+// =========================
+// VERIFY / REJECT / DELETE
+// =========================
+
+async function sendMail(
+  name,
+  email,
+  subject,
+  message
+){
+
+  try{
+
+    await emailjs.send(
+      "service_63pefgf",
+      "template_6cetpmr",
+      {
+        name:name,
+        email:email,
+        subject:subject,
+        message:message
+      }
+    );
+
+  }
+  catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+window.verifyApplication =
+async function(
+  collectionName,
+  docId,
+  name,
+  email
+){
+
+  try{
+
+    await updateDoc(
+      doc(db,collectionName,docId),
+      {
+        status:"verified"
+      }
+    );
+
+    await sendMail(
+      name,
+      email,
+      "आवेदन सत्यापित",
+      "आपका आवेदन सफलतापूर्वक Verified कर दिया गया है।"
+    );
+
+    alert("✅ Application Verified");
+
+    location.reload();
+
+  }
+  catch(error){
+
+    console.log(error);
+
+  }
+
+};
+
+window.rejectApplication =
+async function(
+  collectionName,
+  docId,
+  name,
+  email
+){
+
+  try{
+
+    await updateDoc(
+      doc(db,collectionName,docId),
+      {
+        status:"rejected"
+      }
+    );
+
+    await sendMail(
+      name,
+      email,
+      "आवेदन अस्वीकृत",
+      "आपका आवेदन Rejected कर दिया गया है।"
+    );
+
+    alert("❌ Application Rejected");
+
+    location.reload();
+
+  }
+  catch(error){
+
+    console.log(error);
+
+  }
+
+};
+
+window.deleteApplication =
+async function(
+  collectionName,
+  docId
+){
+
+  if(
+    confirm("क्या आप आवेदन हटाना चाहते हैं?")
+  ){
+
+    await deleteDoc(
+      doc(db,collectionName,docId)
+    );
+
+    alert("🗑️ Application Deleted");
+
+    location.reload();
+
+  }
+
+};
