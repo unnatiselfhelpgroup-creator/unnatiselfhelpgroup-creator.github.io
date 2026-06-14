@@ -1,8 +1,7 @@
 function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  // अपना Admin Email और Password यहाँ डालें
   if (
     email === "unnatiselfhelpgroup@gmail.com" &&
     password === "Vinod@1981"
