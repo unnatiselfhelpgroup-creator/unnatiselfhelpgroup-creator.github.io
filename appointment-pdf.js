@@ -1,56 +1,56 @@
-const PDFDocument =
-require("pdfkit");
+window.generateAppointmentPDF = function(data){
 
-module.exports=
-function createPDF(data){
+const { jsPDF } = window.jspdf;
 
-const doc=
-new PDFDocument();
+const doc = new jsPDF();
 
-doc.fontSize(20)
-.text(
-"उन्नति स्वयं सहायता समिति",
-{
-align:"center"
-}
+doc.setFontSize(18);
+doc.text(
+"UNNATI SWAYAM SAHAYATA SAMITI",
+20,
+20
 );
 
-doc.moveDown();
+doc.setFontSize(12);
 
-doc.fontSize(14)
-.text(
-`नाम :
-${data.name}`
+doc.text(
+`Name : ${data.name}`,
+20,
+45
 );
 
 doc.text(
-`पिता :
-${data.father_name}`
+`Father Name : ${data.father_name}`,
+20,
+60
 );
 
 doc.text(
-`पता :
-${data.address}`
+`Address : ${data.address}`,
+20,
+75
 );
 
 doc.text(
-`मोबाइल :
-${data.mobile}`
+`Mobile : ${data.mobile}`,
+20,
+90
 );
 
 doc.text(
-`Volunteer ID :
-${data.volunteer_id}`
+`Email : ${data.email}`,
+20,
+105
 );
-
-doc.moveDown();
 
 doc.text(
-"आपको संस्था में नियुक्त किया जाता है।"
+"Your Appointment Application has been Verified.",
+20,
+130
 );
 
-doc.end();
-
-return doc;
+doc.save(
+`${data.name}-Appointment.pdf`
+);
 
 };
