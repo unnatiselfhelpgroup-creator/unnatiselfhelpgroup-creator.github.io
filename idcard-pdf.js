@@ -47,7 +47,7 @@ window.generateIDCardPDF = async function (data) {
 
     doc.setFontSize(6);
     doc.text(
-        "UNNATI SWAYAM SAHAYATA SAMITI",
+        "UNNATI SAWAYE SAHAYATA SAMITI",
         42.5,
         9,
         { align: "center" }
@@ -63,7 +63,7 @@ window.generateIDCardPDF = async function (data) {
     );
 
     doc.text(
-        "NITI Aayog Unique ID : US-2016/0108273",
+        "NITI Aayog Unique ID : UA-2016/0108273",
         42.5,
         15,
         { align: "center" }
