@@ -233,6 +233,7 @@ async function(
   docId,
   name,
   email
+  data
 ){
 
   try{
