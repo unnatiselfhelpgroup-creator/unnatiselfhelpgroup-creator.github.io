@@ -1,28 +1,45 @@
+import { db } from "./firebase-config.js";
+
+import {
+doc,
+updateDoc,
+deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// =========================
+// EMAILJS INIT
+// =========================
+
+emailjs.init("YOUR_PUBLIC_KEY");
+
+// =========================
+// EMAIL FUNCTION
+// =========================
+
 async function sendMail(
 name,
 email,
 subject,
 message
-){
+) {
 
-try{
+try {
 
 await emailjs.send(
   "service_63pefgf",
   "template_6cetpmr",
   {
-    name:name,
-    email:email,
-    subject:subject,
-    message:message
+    name: name,
+    email: email,
+    subject: subject,
+    message: message
   }
 );
 
-}
-catch(error){
+} catch (error) {
 
 console.log(error);
-alert(error.message);
+alert("Email Error : " + error.message);
 
 }
 
@@ -33,47 +50,59 @@ alert(error.message);
 // =========================
 
 window.verifyApplication =
-async function(
+async function (
 collectionName,
 docId,
 name,
 email,
 data
-){
+) {
 
-try{
+try {
 
 await updateDoc(
-doc(db,collectionName,docId),
-{
-status:"verified"
-}
+  doc(
+    db,
+    collectionName,
+    docId
+  ),
+  {
+    status: "verified",
+    verifiedAt:
+    new Date().toISOString()
+  }
 );
 
 // PDF Generate
-if(
-window.generateAppointmentPDF &&
-data
-){
-window.generateAppointmentPDF(data);
+if (
+  window.generateAppointmentPDF &&
+  data
+) {
+  window.generateAppointmentPDF(
+    data
+  );
 }
 
 await sendMail(
-name,
-email,
-"आवेदन सत्यापित",
-"आपका आवेदन सफलतापूर्वक Verified कर दिया गया है।"
+  name,
+  email,
+  "आवेदन सत्यापित",
+  "आपका आवेदन सफलतापूर्वक Verified कर दिया गया है।"
 );
 
-alert("✅ Application Verified");
+alert(
+  "✅ Application Verified"
+);
 
 location.reload();
 
-}
-catch(error){
+} catch (error) {
 
 console.log(error);
-alert(error.message);
+alert(
+  "Verify Error : " +
+  error.message
+);
 
 }
 
@@ -84,19 +113,25 @@ alert(error.message);
 // =========================
 
 window.rejectApplication =
-async function(
+async function (
 collectionName,
 docId,
 name,
 email
-){
+) {
 
-try{
+try {
 
 await updateDoc(
-  doc(db,collectionName,docId),
+  doc(
+    db,
+    collectionName,
+    docId
+  ),
   {
-    status:"rejected"
+    status: "rejected",
+    rejectedAt:
+    new Date().toISOString()
   }
 );
 
@@ -107,15 +142,19 @@ await sendMail(
   "आपका आवेदन Rejected कर दिया गया है।"
 );
 
-alert("❌ Application Rejected");
+alert(
+  "❌ Application Rejected"
+);
 
 location.reload();
 
-}
-catch(error){
+} catch (error) {
 
 console.log(error);
-alert(error.message);
+alert(
+  "Reject Error : " +
+  error.message
+);
 
 }
 
@@ -126,32 +165,41 @@ alert(error.message);
 // =========================
 
 window.deleteApplication =
-async function(
+async function (
 collectionName,
 docId
-){
+) {
 
-if(
-confirm("क्या आप आवेदन हटाना चाहते हैं?")
-){
+const ok =
+confirm(
+"क्या आप आवेदन हटाना चाहते हैं?"
+);
 
-try{
+if (!ok) return;
 
-  await deleteDoc(
-    doc(db,collectionName,docId)
-  );
+try {
 
-  alert("🗑️ Application Deleted");
+await deleteDoc(
+  doc(
+    db,
+    collectionName,
+    docId
+  )
+);
 
-  location.reload();
+alert(
+  "🗑️ Application Deleted"
+);
 
-}
-catch(error){
+location.reload();
 
-  console.log(error);
-  alert(error.message);
+} catch (error) {
 
-}
+console.log(error);
+alert(
+  "Delete Error : " +
+  error.message
+);
 
 }
 
