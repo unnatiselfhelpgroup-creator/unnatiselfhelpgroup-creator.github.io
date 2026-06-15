@@ -216,7 +216,13 @@ try {
 
   // Footer
   doc.setFontSize(10);
-
+doc.setFontSize(9);
+doc.text(
+  `Volunteer ID : ${volunteerId}`,
+  pageWidth / 2,
+  266,
+  { align: "center" }
+);
   doc.text(
     "उन्नति स्वयं सहायता समिति",
     pageWidth / 2,
