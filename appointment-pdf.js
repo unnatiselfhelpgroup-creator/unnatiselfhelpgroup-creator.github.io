@@ -1,6 +1,16 @@
 window.generateAppointmentPDF = function (data) {
 
   const { jsPDF } = window.jspdf;
+  const volunteerId =
+  data.volunteer_id ||
+  data.volunteerId ||
+  "-";
+
+const qrText =
+  `Name : ${data.name || ""}
+Volunteer ID : ${volunteerId}
+Post : ${data.designation || "Volunteer"}
+Organisation : उन्नति स्वयं सहायता समिति`;
 
   const doc = new jsPDF("p", "mm", "a4");
 
