@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Login</title>
 
+<style>
+body{
+background:#4a0404;
+font-family:Poppins,sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.box{
+background:rgba(255,255,255,.1);
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+text-align:center;
+box-shadow:0 0 20px gold;
+}
+
+h2{
+color:gold;
+}
+
+input{
+width:100%;
+padding:15px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+box-sizing:border-box;
+}
+
+button{
+background:gold;
+padding:15px;
+width:100%;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🔐 Admin Login</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Email">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+
+</body>
+</html>
