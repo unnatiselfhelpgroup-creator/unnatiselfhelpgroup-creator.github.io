@@ -1,1 +1,296 @@
+window.generateCertificatePDF = function (data) {
 
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF("landscape");
+
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+
+  // ======================
+  // Background
+  // ======================
+
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+  // ======================
+  // Golden Border
+  // ======================
+
+  doc.setDrawColor(212, 175, 55);
+  doc.setLineWidth(3);
+  doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
+
+  doc.setLineWidth(1);
+  doc.rect(15, 15, pageWidth - 30, pageHeight - 30);
+
+  // ======================
+  // Logo
+  // ======================
+
+  try {
+    doc.addImage(
+      "ngologo.png",
+      "PNG",
+      20,
+      18,
+      25,
+      25
+    );
+  } catch (e) {
+    console.log("Logo not found");
+  }
+
+  // ======================
+  // Heading
+  // ======================
+
+  doc.setFontSize(24);
+  doc.setTextColor(128, 0, 0);
+
+  doc.text(
+    "उन्नति स्वयं सहायता समिति",
+    pageWidth / 2,
+    30,
+    { align: "center" }
+  );
+
+  doc.setFontSize(14);
+  doc.setTextColor(0, 0, 0);
+
+  doc.text(
+    "UNNATI SAWAYE SAHAYATA SAMITI",
+    pageWidth / 2,
+    40,
+    { align: "center" }
+  );
+
+  doc.setFontSize(18);
+
+  doc.text(
+    "प्रमाण पत्र : सामाजिक सेवा एवं योगदान",
+    pageWidth / 2,
+    55,
+    { align: "center" }
+  );
+
+  // ======================
+  // Certificate Number
+  // ======================
+
+  const certNo =
+    data.certificate_no ||
+    ("CERT-" + Date.now());
+
+  const date =
+    new Date().toLocaleDateString("hi-IN");
+
+  doc.setFontSize(12);
+
+  doc.text(
+    `प्रमाण पत्र संख्या : ${certNo}`,
+    20,
+    72
+  );
+
+  doc.text(
+    `दिनांक : ${date}`,
+    220,
+    72
+  );
+
+  // ======================
+  // Main Details
+  // ======================
+
+  doc.setFontSize(14);
+
+  doc.text(
+    `यह प्रमाणित किया जाता है कि श्री/सुश्री : ${data.name || "N/A"}`,
+    20,
+    95
+  );
+
+  doc.text(
+    `पुत्र/पुत्री : ${data.father_name || "N/A"}`,
+    20,
+    110
+  );
+
+  doc.text(
+    `वॉलंटियर आईडी : ${data.volunteer_id || "N/A"}`,
+    20,
+    125
+  );
+
+  doc.text(
+    `सेवा अवधि : ${data.duration || "N/A"}`,
+    20,
+    140
+  );
+
+  doc.text(
+    `किए गए सामाजिक कार्य :`,
+    20,
+    155
+  );
+
+  // ======================
+  // Work Details
+  // ======================
+
+  doc.setFontSize(12);
+
+  const work =
+    data.work_details ||
+    data.social_work ||
+    "सामाजिक सेवा कार्य";
+
+  const lines =
+    doc.splitTextToSize(
+      work,
+      220
+    );
+
+  doc.text(
+    lines,
+    20,
+    167
+  );
+
+  // ======================
+  // Appreciation
+  // ======================
+
+  doc.setFontSize(13);
+
+  doc.text(
+    "संस्था इनके उज्ज्वल भविष्य की कामना करती है तथा समाज के प्रति इनके सेवा भाव की सराहना करती है।",
+    20,
+    195
+  );
+
+  // ======================
+  // NITI ID
+  // ======================
+
+  doc.setFontSize(11);
+
+  doc.text(
+    "NITI Aayog Unique ID : UA-2016/0108273",
+    20,
+    210
+  );
+
+  // ======================
+  // Official Seal
+  // ======================
+
+  try {
+
+    doc.addImage(
+      "stamp-signature.png",
+      "PNG",
+      175,
+      170,
+      35,
+      35
+    );
+
+  } catch (e) {
+
+    doc.circle(
+      190,
+      190,
+      15
+    );
+
+    doc.setFontSize(8);
+
+    doc.text(
+      "OFFICIAL",
+      182,
+      188
+    );
+
+    doc.text(
+      "SEAL",
+      186,
+      194
+    );
+  }
+
+  // ======================
+  // Signature
+  // ======================
+
+  try {
+
+    doc.addImage(
+      "signature.png",
+      "PNG",
+      205,
+      178,
+      40,
+      15
+    );
+
+  } catch (e) {
+
+    doc.line(
+      205,
+      190,
+      255,
+      190
+    );
+  }
+
+  doc.setFontSize(11);
+
+  doc.text(
+    "अधिकृत हस्ताक्षर एवं मुहर",
+    205,
+    205
+  );
+
+  doc.text(
+    "राष्ट्रीय सचिव",
+    220,
+    214
+  );
+
+  doc.text(
+    "उन्नति स्वयं सहायता समिति",
+    198,
+    223
+  );
+
+  // ======================
+  // Footer
+  // ======================
+
+  doc.setFontSize(9);
+
+  doc.text(
+    "यह प्रमाण पत्र संस्था द्वारा स्वैच्छिक सामाजिक सेवा के अनुभव हेतु जारी किया गया है।",
+    pageWidth / 2,
+    205,
+    { align: "center" }
+  );
+
+  doc.text(
+    "यह किसी भी सरकारी नौकरी या सरकारी लाभ की गारंटी नहीं देता।",
+    pageWidth / 2,
+    212,
+    { align: "center" }
+  );
+
+  // ======================
+  // Save
+  // ======================
+
+  doc.save(
+    `${data.name || "Certificate"}-Certificate.pdf`
+  );
+
+};
