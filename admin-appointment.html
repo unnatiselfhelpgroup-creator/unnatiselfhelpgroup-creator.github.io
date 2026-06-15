@@ -1,1 +1,78 @@
+<!DOCTYPE html><html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"><title>Appointment Admin</title><style>
 
+body{
+font-family:Arial,sans-serif;
+background:#001a33;
+margin:0;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:white;
+}
+
+#appointments-container{
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:white;
+border-radius:20px;
+padding:25px;
+margin-bottom:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card p{
+font-size:18px;
+margin:18px 0;
+}
+
+.card button{
+border:none;
+padding:14px 25px;
+border-radius:14px;
+font-size:18px;
+font-weight:bold;
+margin:8px;
+cursor:pointer;
+}
+
+.approve{
+background:#28a745;
+color:white;
+}
+
+.reject{
+background:#dc3545;
+color:white;
+}
+
+.delete{
+background:black;
+color:white;
+}
+
+.pdf{
+background:#d4af37;
+color:black;
+}
+
+.print{
+background:#007bff;
+color:white;
+}
+
+</style></head><body><h1>
+Appointment Applications
+</h1><div id="appointments-container">
+Loading...
+</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><script src="appointment-pdf.js"></script><script type="module"
+src="firebase-script.js"></script></body>
+</html>
