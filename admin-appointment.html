@@ -306,5 +306,19 @@ text.includes(input)
 </script><script src="appointment-pdf.js"></script><script
 type="module"
 src="firebase-script.js">
-</script></body>
+</script>
+  <script>
+window.onerror = function (
+  msg,
+  url,
+  line
+) {
+  alert(
+    msg +
+    "\nLine : " +
+    line
+  );
+};
+</script>
+</body>
 </html>
