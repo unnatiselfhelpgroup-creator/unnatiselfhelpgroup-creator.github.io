@@ -35,16 +35,39 @@ h2{
 <p><b>Address :</b> ${data.address || ""}</p>
 <p><b>District :</b> ${data.district || ""}</p>
 <p><b>State :</b> ${data.state || ""}</p><br><p>
-Dear ${data.name || "Member"},
-</p><p>
-You are hereby appointed as
+<p>
+प्रिय ${data.name || "Member"},
+</p>
+
+<p>
+आपको उन्नति स्वयं सहायता समिति में
 <b>${data.designation || "Volunteer"}</b>
-in Unnati Sawaye Sahayata Samiti under the Gau Mata Rashtramata Samman Abhiyan.
-</p><p>
-Your contribution towards social service, cow protection, awareness campaigns and organisational activities is highly appreciated.
-</p></body>
-</html>
+के पद पर नियुक्त किया जाता है।
+</p>
+
+<p>
+आपकी नियुक्ति गौ माता राष्ट्रमाता सम्मान अभियान, सामाजिक सेवा, गौ संरक्षण,
+जन-जागरूकता अभियान एवं संगठनात्मक गतिविधियों के संचालन हेतु की जाती है।
+</p>
+
+<p>
+हमें पूर्ण विश्वास है कि आप अपने दायित्वों का निष्ठापूर्वक निर्वहन करते हुए
+संगठन को नई ऊँचाइयों तक पहुँचाने में महत्वपूर्ण योगदान देंगे।
+</p>
+
+<p>
+उन्नति स्वयं सहायता समिति आपको उज्ज्वल एवं सफल कार्यकाल की शुभकामनाएँ देती है।
+</p>
 `);printWindow.document.close();
 printWindow.focus();
 printWindow.print();
 };
+<br><br><br>
+
+<p style="text-align:right;">
+<b>अधिकृत हस्ताक्षर</b><br>
+उन्नति स्वयं सहायता समिति
+</p>
+
+</body>
+</html>
