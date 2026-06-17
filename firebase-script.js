@@ -93,9 +93,7 @@ status: "Pending",
       );
       window.location.href =
 "payment.html?type=student700";
-if (window.generateAppointmentPDF) {
-    window.generateAppointmentPDF(data);
-}
+
       form.reset();
 
       if (successBox) {
