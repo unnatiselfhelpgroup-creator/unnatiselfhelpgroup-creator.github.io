@@ -75,6 +75,11 @@ dailyReportEnabled: false,
 certificateEnabled: false,
 completedDays: 0,
 status: "Pending",
+orientationCompleted: false,
+internId: "",
+Admin Approval के बाद आपको Daily Work Report Dashboard की Access प्रदान की जाएगी।
+
+कार्यक्रम पूर्ण होने पर अनुभव एवं प्रमाण पत्र उपलब्ध कराया जाएगा।
         createdAt: serverTimestamp()
       };
 emailjs.send(
@@ -93,8 +98,10 @@ emailjs.send(
       "\nकॉलेज: " + form.college.value +
       "\nकोर्स: " + form.course.value +
       "\nअवधि: " + form.duration.value +
-      "\n\nआपका आवेदन अभी Pending स्थिति में है।" +
-      "\Admin Approval के बाद आपको Internship Details तथा Program पूर्ण होने पर Volunteer Internship Certificate प्रदान किया जाएगा।"
+      "\n\nआपका आवेदन अभी Pending स्थिति में है।"+
+      फीस जमा एवं Admin Approval के बाद आपको Daily Work Report Dashboard की Access प्रदान की जाएगी।
+
+कार्यक्रम पूर्ण होने पर अनुभव एवं प्रमाण पत्र उपलब्ध कराया जाएगा।
       "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"
   },
   "AvD_f76bB4qjYnGb0"
