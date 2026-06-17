@@ -34,18 +34,14 @@ h2{
 <p><b>District :</b> ${data.district || ""}</p>
 <p><b>State :</b> ${data.state || ""}</p><br><p>
 <p>
-प्रिय ${data.name || "volunteer"},
 </p>
-
-<p>
-आपको उन्नति स्वयं सहायता समिति में
-volunteer 
-के पद पर नियुक्त किया जाता है।
+आप Volunteer Internship Program में प्रतिभागी के रूप में सम्मिलित हैं।
+कार्य पूर्ण होने एवं Admin Approval के पश्चात आपको
+Volunteer Internship Certificate प्रदान किया जाएगा।
 </p>
-
-<p>
+</p>
 आपका volunteer आवेदन प्राप्त हो चुका है।
-सत्यापन के बाद आपको daily work report Dashboard, तथा Internship संबंधी जानकारी प्रदान की जाएगी।
+सत्यापन के बाद आपको daily work report Dashboard/Internship संबंधी जानकारी प्रदान की जाएगी।
 </p>
 </p>
 <p style="text-align:right;">
