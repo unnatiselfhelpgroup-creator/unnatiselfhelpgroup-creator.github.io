@@ -251,16 +251,19 @@ doc.text(
     doc.addImage(
         "signature.png",
         "PNG",
-        x,
-        y,
-        width,
-        height
+        220,
+        180,
+        35,
+        20
     );
 }catch(e){}
+
+doc.setFontSize(12);
+
 doc.text(
     "अधिकृत हस्ताक्षर",
-    x,
-    y
+    220,
+    205
 );
 
 doc.save("certificate.pdf");
