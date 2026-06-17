@@ -61,50 +61,19 @@ if (form) {
     e.preventDefault();
 
     try {
-      const data = {
-        name: form.name.value,
-        father_name: form.father_name.value,
-        email: form.email.value,
-        mobile: form.mobile.value,
-        college: form.college.value,
-        course: form.course.value,
-        address: form.address.value,
-        social_work: form.social_work.value,
-duration: form.duration.value,
-paymentStatus: "Pending",
-adminApproved: false,
-dailyReportEnabled: false,
-certificateEnabled: false,
-completedDays: 0,
-status: "Pending",
-orientationCompleted: false,
-internId: "",
-note: Admin Approval के बाद आपको Daily Work Report Dashboard की Access प्रदान की जाएगी।
-
-कार्यक्रम पूर्ण होने पर अनुभव एवं प्रमाण पत्र उपलब्ध कराया जाएगा।
-        createdAt: serverTimestamp()
-      };
-emailjs.send(
-  "service_63pefgf",
-  "template_wvzbj7p",
-  {
-    user_name: form.name.value,
-    user_email: form.email.value,
-    subject: "आवेदन प्राप्ति - उन्नति स्वयं सहायता समिति",
-    message:
-      "प्रिय " + form.name.value +
-      ",\n\nआपका आवेदन सफलतापूर्वक प्राप्त हो गया है।" +
-      "\n\nनाम: " + form.name.value +
-      "\nपिता का नाम: " + form.father_name.value +
-      "\nमोबाइल: " + form.mobile.value +
-      "\nकॉलेज: " + form.college.value +
-      "\nकोर्स: " + form.course.value +
-      "\nअवधि: " + form.duration.value +
-      "\n\nआपका आवेदन अभी Pending स्थिति में है।"+
-      फीस जमा एवं Admin Approval के बाद आपको Daily Work Report Dashboard की Access प्रदान की जाएगी।
-
-कार्यक्रम पूर्ण होने पर अनुभव एवं प्रमाण पत्र उपलब्ध कराया जाएगा।
-      "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"
+  message:
+  "प्रिय " + form.name.value +
+  ",\n\nआपका आवेदन सफलतापूर्वक प्राप्त हो गया है।" +
+  "\n\nनाम: " + form.name.value +
+  "\nपिता का नाम: " + form.father_name.value +
+  "\nमोबाइल: " + form.mobile.value +
+  "\nकॉलेज: " + form.college.value +
+  "\nकोर्स: " + form.course.value +
+  "\nअवधि: " + form.duration.value +
+  "\n\nआपका आवेदन अभी Pending स्थिति में है।" +
+  "\nफीस जमा एवं Admin Approval के बाद आपको Daily Work Report Dashboard की Access प्रदान की जाएगी।" +
+  "\nकार्यक्रम पूर्ण होने पर अनुभव एवं प्रमाण पत्र उपलब्ध कराया जाएगा।" +
+  "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"    
   },
   "AvD_f76bB4qjYnGb0"
 )
