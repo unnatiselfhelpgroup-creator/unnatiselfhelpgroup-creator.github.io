@@ -1,3 +1,11 @@
+import { db } from "./firebase-config.js";
+
+import {
+addDoc,
+collection,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 div.querySelector(".pdf").onclick = () => {
 if (window.generateAppointmentPDF) {
 window.generateAppointmentPDF({
@@ -62,3 +70,46 @@ h2{
 </p>
 </body>
 </html>
+const form = document.getElementById("studentRegForm");
+const successBox = document.getElementById("studentSuccess");
+
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = {
+        name: form.name.value,
+        father_name: form.father_name.value,
+        email: form.email.value,
+        mobile: form.mobile.value,
+        college: form.college.value,
+        course: form.course.value,
+        address: form.address.value,
+        social_work: form.social_work.value,
+        status: "Pending",
+        createdAt: serverTimestamp()
+      };
+
+      await addDoc(
+        collection(db, "StudentRegistrations"),
+        data
+      );
+if (window.generateAppointmentPDF) {
+    window.generateAppointmentPDF(data);
+}
+      form.reset();
+
+      if (successBox) {
+        successBox.style.display = "block";
+        successBox.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+
+    } catch (err) {
+      console.log(err);
+      alert("डेटा सेव नहीं हो सका");
+    }
+  });
+}
