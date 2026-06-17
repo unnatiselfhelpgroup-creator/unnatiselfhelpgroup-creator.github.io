@@ -40,7 +40,7 @@ h2{
 Volunteer Internship Certificate प्रदान किया जाएगा।
 </p>
 </p>
-आपका volunteer आवेदन प्राप्त हो चुका है।
+आपका Volunteer Internship Program हेतु आवेदन सफलतापूर्वक प्राप्त एवं पंजीकृत हो चुका है।
 सत्यापन के बाद आपको daily work report Dashboard/Internship संबंधी जानकारी प्रदान की जाएगी।
 </p>
 </p>
