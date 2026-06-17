@@ -18,7 +18,6 @@ doc.internal.pageSize.getHeight();
 // ====================
 // Background
 // ====================
-
 doc.setFillColor(
 255,
 255,
@@ -248,8 +247,20 @@ doc.text(
 // ====================
 // Signature
 // ====================
+  try{
+    doc.addImage(
+        "signature.png",
+        "PNG",
+        x,
+        y,
+        width,
+        height
+    );
+}catch(e){}
+doc.text(
+    "अधिकृत हस्ताक्षर",
+    x,
+    y
+);
 
-try{
-
-doc.addImage(
-"signature.png
+doc.save("certificate.pdf");
