@@ -86,7 +86,34 @@ completedDays: 0,
 status: "Pending",
         createdAt: serverTimestamp()
       };
-
+emailjs.send(
+  "service_63pefgf",
+  "template_wvzbj7p",
+  {
+    user_name: form.name.value,
+    user_email: form.email.value,
+    subject: "आवेदन प्राप्ति - उन्नति स्वयं सहायता समिति",
+    message:
+      "प्रिय " + form.name.value +
+      ",\n\nआपका आवेदन सफलतापूर्वक प्राप्त हो गया है।" +
+      "\n\nनाम: " + form.name.value +
+      "\nपिता का नाम: " + form.father_name.value +
+      "\nमोबाइल: " + form.mobile.value +
+      "\nकॉलेज: " + form.college.value +
+      "\nकोर्स: " + form.course.value +
+      "\nअवधि: " + form.duration.value +
+      "\n\nआपका आवेदन अभी Pending स्थिति में है।" +
+      "\nAdmin Approval के बाद आपको Appointment Letter और ID Card प्राप्त होगा।" +
+      "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"
+  },
+  "AvD_f76bB4qjYnGb0"
+)
+.then(() => {
+  console.log("Email Sent Successfully");
+})
+.catch((error) => {
+  console.error("Email Error:", error);
+});
       sessionStorage.setItem(
   "pendingStudentData",
   JSON.stringify(data)
