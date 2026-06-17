@@ -87,7 +87,13 @@ if (form) {
         course: form.course.value,
         address: form.address.value,
         social_work: form.social_work.value,
-        status: "Pending",
+duration: form.duration.value,
+paymentStatus: "Pending",
+adminApproved: false,
+dailyReportEnabled: false,
+certificateEnabled: false,
+completedDays: 0,
+status: "Pending",
         createdAt: serverTimestamp()
       };
 
