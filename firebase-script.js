@@ -15,7 +15,7 @@ printWindow.document.write(`
 
 <html>
 <head>
-<title>Appointment Letter</title>
+<title>volunteer Registration</title>
 <style>
 body{
   font-family: Arial;
@@ -26,7 +26,7 @@ h2{
   text-align:center;
 }
 </style>
-</head><body><h2>Appointment Letter</h2><p><b>Name :</b> ${data.name || ""}</p>
+</head><body><h2>volunteer Registration</h2><p><b>Name :</b> ${data.name || ""}</p>
 <p><b>Father :</b> ${data.father_name || ""}</p>
 <p><b>Mobile :</b> ${data.mobile || ""}</p>
 <p><b>Email :</b> ${data.email || ""}</p>
@@ -34,23 +34,18 @@ h2{
 <p><b>District :</b> ${data.district || ""}</p>
 <p><b>State :</b> ${data.state || ""}</p><br><p>
 <p>
-प्रिय ${data.name || "Member"},
+प्रिय ${data.name || "volunteer"},
 </p>
 
 <p>
 आपको उन्नति स्वयं सहायता समिति में
-<b>${data.designation || "Volunteer"}</b>
+volunteer 
 के पद पर नियुक्त किया जाता है।
 </p>
 
 <p>
-आपकी नियुक्ति गौ माता राष्ट्रमाता सम्मान अभियान, सामाजिक सेवा, गौ संरक्षण,
-जन-जागरूकता अभियान एवं संगठनात्मक गतिविधियों के संचालन हेतु की जाती है।
-</p>
-
-<p>
-हमें पूर्ण विश्वास है कि आप अपने दायित्वों का निष्ठापूर्वक निर्वहन करते हुए
-संगठन को नई ऊँचाइयों तक पहुँचाने में महत्वपूर्ण योगदान देंगे।
+आपका volunteer आवेदन प्राप्त हो चुका है।
+सत्यापन के बाद आपको daily work report Dashboard, तथा Internship संबंधी जानकारी प्रदान की जाएगी।
 </p>
 </p>
 <p style="text-align:right;">
@@ -103,7 +98,7 @@ emailjs.send(
       "\nकोर्स: " + form.course.value +
       "\nअवधि: " + form.duration.value +
       "\n\nआपका आवेदन अभी Pending स्थिति में है।" +
-      "\nAdmin Approval के बाद आपको Appointment Letter और ID Card प्राप्त होगा।" +
+      "\nAdmin Approval के बाद आपको volunteer ID और Internship Details प्राप्त होंगी।"
       "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"
   },
   "AvD_f76bB4qjYnGb0"
