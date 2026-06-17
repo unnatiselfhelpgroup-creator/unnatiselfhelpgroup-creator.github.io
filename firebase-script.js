@@ -95,6 +95,8 @@ if (form) {
         collection(db, "StudentRegistrations"),
         data
       );
+      window.location.href =
+"payment.html?type=student700";
 if (window.generateAppointmentPDF) {
     window.generateAppointmentPDF(data);
 }
