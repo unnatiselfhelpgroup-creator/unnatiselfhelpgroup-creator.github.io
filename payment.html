@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student Payment</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    padding:30px;
+}
+
+.box{
+    max-width:400px;
+    margin:auto;
+    border:1px solid #ddd;
+    padding:20px;
+    border-radius:10px;
+}
+
+img{
+    width:250px;
+}
+
+button{
+    background:#0a7cff;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<h2>Student Registration Payment</h2>
+
+<h3>Amount : ₹700</h3>
+
+<p>
+नीचे दिए गए QR Code को Scan करके ₹700 जमा करें।
+</p>
+
+<img src="Qrcode.png">
+
+<br><br>
+
+<button id="paidBtn">
+मैंने भुगतान कर दिया है
+</button>
+
+</div>
+
+<script type="module">
+
+import { db } from "./firebase-config.js";
+
+import {
+addDoc,
+collection,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+
+document.getElementById("paidBtn")
+.onclick = async () => {
+
+const data =
+JSON.parse(
+sessionStorage.getItem(
+"pendingStudentData"
+)
+);
+
+if(!data){
+alert("Student Data नहीं मिला");
+return;
+}
+
+data.paymentStatus = "Paid";
+data.createdAt = serverTimestamp();
+
+await addDoc(
+collection(db,"StudentRegistrations"),
+data
+);
+
+sessionStorage.removeItem(
+"pendingStudentData"
+);
+
+alert("Payment Successful");
+
+window.location.href =
+"appointment.html";
+
+};
+
+</script>
+
+</body>
+</html>
