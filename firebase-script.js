@@ -94,7 +94,7 @@ emailjs.send(
       "\nकोर्स: " + form.course.value +
       "\nअवधि: " + form.duration.value +
       "\n\nआपका आवेदन अभी Pending स्थिति में है।" +
-      "\nAdmin Approval के बाद आपको volunteer ID और Internship Details प्राप्त होंगी।"
+      "\Admin Approval के बाद आपको Internship Details तथा Program पूर्ण होने पर Volunteer Internship Certificate प्रदान किया जाएगा।"
       "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"
   },
   "AvD_f76bB4qjYnGb0"
