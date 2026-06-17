@@ -6,16 +6,6 @@ collection,
 serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-div.querySelector(".pdf").onclick = () => {
-if (window.generateAppointmentPDF) {
-window.generateAppointmentPDF({
-...data,
-designation: data.designation || "Volunteer"
-});
-} else {
-alert("appointment-pdf.js load नहीं हुआ।");
-}
-};
 
 div.querySelector(".print").onclick = () => {
 
