@@ -6,10 +6,6 @@ collection,
 serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-const div = ?
-const data = ?
-  
-div.querySelector(".print").onclick = () => {
 
 const printWindow = window.open("", "_blank");
 
