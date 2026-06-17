@@ -35,7 +35,7 @@ h2{
 <p><b>State :</b> ${data.state || ""}</p><br><p>
 <p>
 </p>
-आप Volunteer Internship Program में प्रतिभागी के रूप में सम्मिलित हैं।
+note: आप Volunteer Internship Program में प्रतिभागी के रूप में सम्मिलित हैं।
 कार्य पूर्ण होने एवं Admin Approval के पश्चात आपको
 Volunteer Internship Certificate प्रदान किया जाएगा।
 </p>
