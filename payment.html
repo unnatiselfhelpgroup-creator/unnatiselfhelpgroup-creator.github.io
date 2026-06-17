@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Student Payment</title>
+<title>Volunteer Payment</title>
 
 <style>
 body{
@@ -39,7 +39,7 @@ button{
 
 <div class="box">
 
-<h2>Student Registration Payment</h2>
+<h2>Volunteer Internship Registration Payment</h2>
 
 <h3>Amount : ₹700</h3>
 
@@ -75,25 +75,32 @@ document.getElementById("paidBtn")
 const data =
 JSON.parse(
 sessionStorage.getItem(
-"pendingStudentData"
+"pendingVolunteerData"
 )
 );
 
 if(!data){
-alert("Student Data नहीं मिला");
+alert("Volunteer Data नहीं मिला");
 return;
 }
 
 data.paymentStatus = "Paid";
 data.createdAt = serverTimestamp();
 
+const docRef =
 await addDoc(
-collection(db,"StudentRegistrations"),
+collection(db,"VolunteerRegistrations"),
 data
 );
 
-sessionStorage.removeItem(
-"pendingStudentData"
+sessionStorage.setItem(
+"volunteerDocId",
+docRef.id
+);
+
+window.location.href =
+"appointment.html?id="
++ docRef.id;
 );
 
 alert("Payment Successful");
