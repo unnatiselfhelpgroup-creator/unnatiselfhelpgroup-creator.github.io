@@ -87,11 +87,12 @@ status: "Pending",
         createdAt: serverTimestamp()
       };
 
-      await addDoc(
-        collection(db, "StudentRegistrations"),
-        data
-      );
-      window.location.href =
+      sessionStorage.setItem(
+  "pendingStudentData",
+  JSON.stringify(data)
+);
+
+window.location.href =
 "payment.html?type=student700";
 
       form.reset();
