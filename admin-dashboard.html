@@ -1,1 +1,63 @@
+<!-- यह कोड <div class="grid"> और </div> के बीच में रखें -->
 
+<div class="grid">
+
+    <!-- मौजूदा कार्ड्स... -->
+    <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
+    <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
+    <div class="card"><a href="certificate-verification.html">✅ Certificate Verification</a></div>
+    <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
+    <div class="card"><a href="idverification.html">🔍 ID Verification</a></div>
+    <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
+    <div class="card"><a href="student-registration.html">🎓 Student Registrations</a></div>
+    <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
+    <div class="card"><a href="volunteer-list.html">📋 Volunteer List</a></div>
+    <div class="card"><a href="donation.html">💰 Donations</a></div>
+
+    <!-- नए जोड़े गए कार्ड्स -->
+    <div class="card"><a href="student-reports.html">📈 Student Reports</a></div>
+    <div class="card"><a href="student-certificates.html">🎓📜 Student Certificates</a></div>
+    <div class="card"><a href="student-payments.html">💳 Student Payments</a></div>
+    <div class="card"><a href="volunteer-payments.html">💳 Volunteer Payments</a></div>
+    <div class="card"><a href="donation-reports.html">📋 Donation Reports</a></div>
+
+</div>
+
+<!-- Firebase Script Section (वर्ज़न 12.14.0 के साथ) -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+        authDomain: "ngo-certificate-system.firebaseapp.com",
+        projectId: "ngo-certificate-system",
+        storageBucket: "ngo-certificate-system.firebasestorage.app",
+        messagingSenderId: "664351169113",
+        appId: "1:664351169113:web:3c476e199d369615c6ef48"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadDashboard(){
+        try {
+            // मौजूदा आँकड़े
+            const collections = [
+                { id: "totalVolunteers", name: "Volunteers" },
+                { id: "totalCertificates", name: "Certificates" },
+                { id: "totalIDCards", name: "IDCards" },
+                { id: "totalReports", name: "DailyReports" }
+            ];
+
+            for (const col of collections) {
+                const snapshot = await getDocs(collection(db, col.name));
+                document.getElementById(col.id).innerText = snapshot.size;
+            }
+        } catch(e) {
+            console.log("Error loading dashboard stats:", e);
+        }
+    }
+
+    loadDashboard();
+</script>
