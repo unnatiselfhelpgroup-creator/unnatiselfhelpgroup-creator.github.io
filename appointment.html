@@ -1,1 +1,146 @@
+<script type="module">
+
+import { db } from "./firebase-config.js";
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+const snap = await getDocs(
+  collection(db, "Appointments")
+);
+
+let html = "";
+
+if (snap.empty) {
+
+  document.getElementById("list").innerHTML =
+    "<h3 style='text-align:center;color:#fff'>कोई Appointment Application उपलब्ध नहीं है।</h3>";
+
+}
+
+snap.forEach((docItem) => {
+
+  const d = docItem.data();
+
+  let statusClass = "pending";
+  let statusText = "Pending";
+
+  if (d.status === "verified") {
+    statusClass = "approved";
+    statusText = "Verified";
+  }
+
+  if (d.status === "rejected") {
+    statusClass = "rejected";
+    statusText = "Rejected";
+  }
+
+  const jsonData =
+    JSON.stringify(d)
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  html += `
+
+<div class="card appointment-card">
+
+<h3>${d.name || ""}</h3>
+
+<p><b>Father :</b> ${d.father_name || ""}</p>
+
+<p><b>Mobile :</b> ${d.mobile || ""}</p>
+
+<p><b>Email :</b> ${d.email || ""}</p>
+
+<p><b>Address :</b> ${d.address || ""}</p>
+
+<p><b>District :</b> ${d.district || ""}</p>
+
+<p><b>State :</b> ${d.state || ""}</p>
+
+<p><b>Post :</b> ${d.designation || "Volunteer"}</p>
+
+<p><b>Volunteer ID :</b>
+${d.volunteer_id || d.volunteerId || "-"}
+</p>
+
+<p class="status ${statusClass}">
+Status : ${statusText}
+</p>
+
+<button
+class="verify"
+onclick='verifyApplication(
+"Appointments",
+"${docItem.id}",
+"${d.name || ""}",
+"${d.email || ""}",
+${jsonData}
+)'
+>
+Approve
+</button>
+
+<button
+class="reject"
+onclick='rejectApplication(
+"Appointments",
+"${docItem.id}",
+"${d.name || ""}",
+"${d.email || ""}"
+)'
+>
+Reject
+</button>
+
+<button
+class="delete"
+onclick='deleteApplication(
+"Appointments",
+"${docItem.id}"
+)'
+>
+Delete
+</button>
+
+<button
+class="pdf"
+onclick='generateAppointmentPDF({
+name:`${d.name || ""}`,
+father_name:`${d.father_name || ""}`,
+mobile:`${d.mobile || ""}`,
+email:`${d.email || ""}`,
+address:`${d.address || ""}`,
+district:`${d.district || ""}`,
+state:`${d.state || ""}`,
+designation:`${d.designation || "Volunteer"}`,
+volunteer_id:`${d.volunteer_id || d.volunteerId || ""}`,
+photoURL:`${d.photoURL || ""}`
+})'
+>
+📄 Appointment Letter PDF
+</button>
+
+<button
+class="print"
+onclick="window.print()"
+>
+Print
+</button>
+
+</div>
+
+`;
+
+});
+
+if (!snap.empty) {
+  document.getElementById("list").innerHTML = html;
+}
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="appointment-pdf.js"></script>
 
