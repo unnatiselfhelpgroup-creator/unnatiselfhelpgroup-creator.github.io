@@ -1,31 +1,37 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Management | उन्नति स्वयं सहायता समिति</title>
+    </head>
+<body>
+
+<div id="list">
+    </div>
+
 <script type="module">
     import { db } from "./firebase-config.js";
     import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-    async function loadAppointments() {
+    async function init() {
+        const listDiv = document.getElementById("list");
         try {
             const snap = await getDocs(collection(db, "Appointments"));
-            const listContainer = document.getElementById("list");
             let html = "";
 
             if (snap.empty) {
-                listContainer.innerHTML = "<h3 style='text-align:center;color:#fff'>कोई Appointment Application उपलब्ध नहीं है।</h3>";
+                listDiv.innerHTML = "<h3 style='text-align:center;color:#fff'>कोई Appointment Application उपलब्ध नहीं है।</h3>";
                 return;
             }
 
             snap.forEach((docItem) => {
                 const d = docItem.data();
-
                 let statusClass = "pending";
                 let statusText = "Pending";
 
-                if (d.status === "verified") {
-                    statusClass = "approved";
-                    statusText = "Verified";
-                } else if (d.status === "rejected") {
-                    statusClass = "rejected";
-                    statusText = "Rejected";
-                }
+                if (d.status === "verified") { statusClass = "approved"; statusText = "Verified"; }
+                if (d.status === "rejected") { statusClass = "rejected"; statusText = "Rejected"; }
 
                 const jsonData = JSON.stringify(d).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
@@ -41,7 +47,7 @@
                     <p><b>Post :</b> ${d.designation || "Volunteer"}</p>
                     <p><b>Volunteer ID :</b> ${d.volunteer_id || d.volunteerId || "-"}</p>
                     <p class="status ${statusClass}">Status : ${statusText}</p>
-                    
+
                     <button class="verify" onclick='verifyApplication("Appointments", "${docItem.id}", "${d.name || ""}", "${d.email || ""}", ${jsonData})'>Approve</button>
                     <button class="reject" onclick='rejectApplication("Appointments", "${docItem.id}", "${d.name || ""}", "${d.email || ""}")'>Reject</button>
                     <button class="delete" onclick='deleteApplication("Appointments", "${docItem.id}")'>Delete</button>
@@ -60,15 +66,16 @@
                     <button class="print" onclick="window.print()">Print</button>
                 </div>`;
             });
-
-            listContainer.innerHTML = html;
-        } catch (error) {
-            console.error("Error loading appointments:", error);
+            listDiv.innerHTML = html;
+        } catch (e) {
+            console.error("Data Load Error:", e);
         }
     }
 
-    loadAppointments();
+    init();
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="appointment-pdf.js"></script>
+</body>
+</html>
