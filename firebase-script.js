@@ -49,6 +49,7 @@ Volunteer Internship Certificate प्रदान किया जाएगा
 </p>
 </body>
 </html>
+`); // यहाँ मैंने मिसिंग क्लोजिंग ब्रैकेट और बैकटिक जोड़ दिया है
 const form = document.getElementById("studentRegForm");
 const successBox = document.getElementById("studentSuccess");
 
