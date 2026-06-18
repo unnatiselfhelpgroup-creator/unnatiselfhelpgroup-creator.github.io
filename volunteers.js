@@ -37,7 +37,7 @@ async function loadVolunteers() {
 
     const snap =
       await getDocs(
-        collection(db, "Appointments")
+    collection(db, "VolunteerRegistrations")
       );
 
     body.innerHTML = "";
