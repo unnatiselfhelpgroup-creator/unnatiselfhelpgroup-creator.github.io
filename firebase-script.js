@@ -1,105 +1,57 @@
 import { db } from "./firebase-config.js";
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-import {
-addDoc,
-collection,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
-const printWindow = window.open("", "_blank");
-
-printWindow.document.write(`
-
-<html>
-<head>
-<title>volunteer Registration</title>
-<style>
-body{
-  font-family: Arial;
-  padding:30px;
-  line-height:1.8;
-}
-h2{
-  text-align:center;
-}
-</style>
-</head><body><h2>volunteer Registration</h2><p><b>Name :</b> ${data.name || ""}</p>
-<p><b>Father :</b> ${data.father_name || ""}</p>
-<p><b>Mobile :</b> ${data.mobile || ""}</p>
-<p><b>Email :</b> ${data.email || ""}</p>
-<p><b>Address :</b> ${data.address || ""}</p>
-<p><b>District :</b> ${data.district || ""}</p>
-<p><b>State :</b> ${data.state || ""}</p><br><p>
-<p>
-</p>
-note: आप Volunteer Internship Program में प्रतिभागी के रूप में सम्मिलित हैं।
-कार्य पूर्ण होने एवं Admin Approval के पश्चात आपको
-Volunteer Internship Certificate प्रदान किया जाएगा।
-</p>
-</p>
-आपका Volunteer Internship Program हेतु आवेदन सफलतापूर्वक प्राप्त एवं पंजीकृत हो चुका है।
-सत्यापन के बाद आपको daily work report Dashboard/Internship संबंधी जानकारी प्रदान की जाएगी।
-</p>
-</p>
-<p style="text-align:right;">
-<img src="signature.png" width="120"><br>
-<b>अधिकृत हस्ताक्षर</b><br>
-उन्नति स्वयं सहायता समिति
-</p>
-</body>
-</html>
-`); // यहाँ मैंने मिसिंग क्लोजिंग ब्रैकेट और बैकटिक जोड़ दिया है
 const form = document.getElementById("studentRegForm");
-const successBox = document.getElementById("studentSuccess");
 
 if (form) {
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    try {
-  message:
-  "प्रिय " + form.name.value +
-  ",\n\nआपका आवेदन सफलतापूर्वक प्राप्त हो गया है।" +
-  "\n\nनाम: " + form.name.value +
-  "\nपिता का नाम: " + form.father_name.value +
-  "\nमोबाइल: " + form.mobile.value +
-  "\nकॉलेज: " + form.college.value +
-  "\nकोर्स: " + form.course.value +
-  "\nअवधि: " + form.duration.value +
-  "\n\nआपका आवेदन अभी Pending स्थिति में है।" +
-  "\nफीस जमा एवं Admin Approval के बाद आपको Daily Work Report Dashboard की Access प्रदान की जाएगी।" +
-  "\nकार्यक्रम पूर्ण होने पर अनुभव एवं प्रमाण पत्र उपलब्ध कराया जाएगा।" +
-  "\n\nधन्यवाद\nउन्नति स्वयं सहायता समिति"    
-  },
-  "AvD_f76bB4qjYnGb0"
-)
-.then(() => {
-  console.log("Email Sent Successfully");
-})
-.catch((error) => {
-  console.error("Email Error:", error);
-});
-      sessionStorage.setItem(
-  "pendingStudentData",
-  JSON.stringify(data)
-);
+        // 1. UI Feedback: बटन को डिसेबल करें
+        const submitBtn = form.querySelector("button");
+        submitBtn.disabled = true;
+        submitBtn.innerText = "सबमिट हो रहा है...";
 
-window.location.href =
-"payment.html?type=student700";
+        try {
+            // 2. फॉर्म डेटा इकट्ठा करें
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            data.createdAt = serverTimestamp();
+            data.status = "pending";
 
-      form.reset();
+            // 3. Firestore में डेटा सेव करें
+            await addDoc(collection(db, "StudentRegistrations"), data);
 
-      if (successBox) {
-        successBox.style.display = "block";
-        successBox.scrollIntoView({
-          behavior: "smooth"
-        });
-      }
+            // 4. सेशन में डेटा सेव करें (पेमेंट पेज के लिए)
+            sessionStorage.setItem("pendingStudentData", JSON.stringify(data));
 
-    } catch (err) {
-      console.log(err);
-      alert("डेटा सेव नहीं हो सका");
-    }
-  });
+            // 5. रसीद प्रिंट विंडो (सबमिट होने के बाद)
+            const printWindow = window.open("", "_blank");
+            printWindow.document.write(`
+                <html>
+                <head><title>Registration Receipt</title></head>
+                <body style="font-family:Arial; padding:30px; line-height:1.6;">
+                    <h2 style="text-align:center;">उन्नति स्वयं सहायता समिति</h2>
+                    <p><b>नाम:</b> ${data.name}</p>
+                    <p><b>मोबाइल:</b> ${data.mobile}</p>
+                    <p><b>कोर्स:</b> ${data.course}</p>
+                    <hr>
+                    <p>आपका पंजीकरण सफलतापूर्वक प्राप्त हो गया है।</p>
+                    <p>फीस भुगतान के बाद आपको डैशबोर्ड का एक्सेस मिलेगा।</p>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+
+            // 6. पेमेंट पेज पर रीडायरेक्ट करें
+            window.location.href = "payment.html?type=student700";
+
+        } catch (err) {
+            console.error("Submission Error:", err);
+            alert("सबमिशन फेल हो गया, कृपया इंटरनेट चेक करें।");
+            submitBtn.disabled = false;
+            submitBtn.innerText = "पंजीकरण करें";
+        }
+    });
 }
