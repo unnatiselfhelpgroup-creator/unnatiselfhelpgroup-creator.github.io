@@ -1,108 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<title>Volunteer Payment</title>
-
-<style>
-body{
-    font-family:Arial;
-    text-align:center;
-    padding:30px;
-}
-
-.box{
-    max-width:400px;
-    margin:auto;
-    border:1px solid #ddd;
-    padding:20px;
-    border-radius:10px;
-}
-
-img{
-    width:250px;
-}
-
-button{
-    background:#0a7cff;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    font-size:16px;
-    border-radius:5px;
-    cursor:pointer;
-}
-</style>
-
+    <meta charset="UTF-8">
+    <title>भुगतान करें</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; text-align: center; padding: 20px; background: #f4f7fa; }
+        .box { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        button { background: #00a651; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 20px; }
+    </style>
 </head>
 <body>
-
 <div class="box">
-
-<h2>Volunteer Internship Registration Payment</h2>
-
-<h3>Amount : ₹700</h3>
-
-<p>
-नीचे दिए गए QR Code को Scan करके ₹700 जमा करें।
-</p>
-
-<img src="Qrcode.png">
-
-<br><br>
-
-<button id="paidBtn">
-मैंने भुगतान कर दिया है
-</button>
-
+    <h3>भुगतान: ₹700</h3>
+    <img src="Qrcode.png" width="200"><br>
+    <p>QR Code Scan करें और भुगतान करें</p>
+    <button id="paidBtn">मैंने भुगतान कर दिया है</button>
 </div>
 
 <script type="module">
+    import { db } from "./firebase-config.js";
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-import { db } from "./firebase-config.js";
+    document.getElementById("paidBtn").onclick = async () => {
+        const btn = document.getElementById("paidBtn");
+        btn.innerText = "प्रोसेसिंग...";
+        btn.disabled = true;
 
-import {
-addDoc,
-collection,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
-
-document.getElementById("paidBtn")
-.onclick = async () => {
-
-const data =
-JSON.parse(
-sessionStorage.getItem(
-"pendingStudentData"
-)
-);
-
-if(!data){
-alert("Volunteer Data नहीं मिला");
-return;
-}
-
-data.paymentStatus = "Paid";
-data.createdAt = serverTimestamp();
-
-const docRef =
-await addDoc(
-collection(db,"VolunteerRegistrations"),
-data
-);
-
-sessionStorage.setItem(
-"volunteerDocId",
-docRef.id
-);
-
-window.location.href =
-"appointment.html?id="
-+ docRef.id;
-};    
+        try {
+            const storedData = sessionStorage.getItem("pendingStudentData");
+            if (!storedData) {
+                alert("डेटा नहीं मिला, कृपया फिर से भरें।");
+                window.location.href = "student-registration.html";
+                return;
+            }
+            const data = JSON.parse(storedData);
+            data.paymentStatus = "Paid";
+            data.createdAt = serverTimestamp();
+            
+            await addDoc(collection(db, "StudentRegistrations"), data);
+            
+            // सफलता संदेश
+            document.body.innerHTML = `
+                <div style="max-width:400px; margin:50px auto; padding:40px; text-align:center; border:2px solid #00a651; border-radius:20px; background:white;">
+                    <h3 style="color:#00a651;">✅ पंजीकरण सफल!</h3>
+                    <p>Admin Approval के बाद Dashboard Access मिलेगा।</p>
+                </div>`;
+        } catch (err) {
+            console.error(err);
+            alert("सबमिशन फेल: " + err.message);
+            btn.disabled = false;
+            btn.innerText = "मैंने भुगतान कर दिया है";
+        }
+    };
 </script>
-
 </body>
 </html>
