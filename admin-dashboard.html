@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
         body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; padding: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
@@ -60,26 +65,43 @@
         // लोड स्टूडेंट्स टेबल
         const studentSnap = await getDocs(collection(db, "StudentRegistrations"));
         const body = document.getElementById("studentBody");
+        body.innerHTML = "";
         studentSnap.forEach((docSnap) => {
             const data = docSnap.data();
             const row = `<tr>
                 <td>${data.name}</td>
                 <td>${data.mobile}</td>
-                <td>${data.status || 'pending'}</td>
+                <td>${data.status || 'Pending'}</td>
                 <td>
-                    <button class="btn approve" onclick="updateStatus('${docSnap.id}', 'Approved')">Approve</button>
-                    <button class="btn reject" onclick="updateStatus('${docSnap.id}', 'Rejected')">Reject</button>
+                    <button class="btn approve" onclick="updateStatus('${docSnap.id}', 'Approved', '${data.name}', '${data.email}')">Approve</button>
+                    <button class="btn reject" onclick="updateStatus('${docSnap.id}', 'Rejected', '${data.name}', '${data.email}')">Reject</button>
                 </td>
             </tr>`;
             body.innerHTML += row;
         });
     }
 
-    // ग्लोबल फंक्शन ताकि HTML बटन इसे कॉल कर सकें
-    window.updateStatus = async (id, status) => {
-        await updateDoc(doc(db, "StudentRegistrations", id), { status: status });
-        alert("स्थिति अपडेट कर दी गई: " + status);
-        location.reload();
+    // ग्लोबल फंक्शन अपडेट और ईमेल भेजने के लिए
+    window.updateStatus = async (id, status, name, email) => {
+        try {
+            await updateDoc(doc(db, "StudentRegistrations", id), { status: status });
+            
+            // अगर अप्रूव हुआ, तो छात्र को ईमेल भेजें
+            if (status === 'Approved') {
+                await emailjs.send("service_63pefgf", "template_wvzbj7p", {
+                    user_name: name,
+                    user_email: email,
+                    subject: "पंजीकरण सफल: उन्नति स्वयं सहायता समिति",
+                    message: "बधाई हो " + name + "! आपका पंजीकरण अप्रूव कर दिया गया है। अब आप अपनी डेली वर्क रिपोर्ट भर सकते हैं।"
+                });
+            }
+            
+            alert("स्थिति अपडेट कर दी गई: " + status);
+            location.reload();
+        } catch (err) {
+            console.error(err);
+            alert("त्रुटि: " + err.message);
+        }
     };
 
     loadDashboard();
