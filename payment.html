@@ -45,15 +45,15 @@
             // 1. Firebase में डेटा सेव करें
             await addDoc(collection(db, "StudentRegistrations"), data);
             
-            // 2. EmailJS के जरिए ईमेल भेजें (आपकी डिटेल्स के साथ)
-            emailjs.send("service_63pefgf", "template_wvzbj7p", {
+            // 2. EmailJS के जरिए ईमेल भेजें
+            await emailjs.send("service_63pefgf", "template_wvzbj7p", {
                 user_name: data.name,
                 user_email: data.email,
                 subject: "नया इंटर्नशिप पंजीकरण: " + data.name,
                 message: "नया आवेदन प्राप्त हुआ। छात्र का नाम: " + data.name + ", मोबाइल: " + data.mobile
             });
             
-            // सफलता संदेश (आपकी पुरानी डिज़ाइनिंग के साथ)
+            // 3. सफलता संदेश (पुरानी डिज़ाइनिंग सुरक्षित है)
             document.body.innerHTML = `
                 <div style="max-width:400px; margin:50px auto; padding:40px; text-align:center; border:2px solid #00a651; border-radius:20px; background:white;">
                     <h3 style="color:#00a651;">✅ पंजीकरण सफल!</h3>
