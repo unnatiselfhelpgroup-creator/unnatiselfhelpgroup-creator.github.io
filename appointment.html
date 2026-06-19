@@ -1,28 +1,58 @@
 <!DOCTYPE html>
 <html lang="hi">
-<head><meta charset="UTF-8"><title>Appointment Management</title>
-<style>body{background:#001a33; padding:20px; font-family:Arial;} .card{background:white; padding:20px; margin:10px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.2);}</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Appointment Panel</title>
+    <style>
+        body { background: #001a33; padding: 20px; font-family: Arial; color: white; }
+        .card { background: white; color: black; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        button { padding: 10px; margin-top: 5px; cursor: pointer; }
+        .pdf { background: #28a745; color: white; border: none; }
+        .print { background: #007bff; color: white; border: none; }
+    </style>
 </head>
 <body>
-<div id="list"></div>
-<script type="module">
-    import { auth, db } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-    onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "admin-login.html"; });
-    async function init() {
-        const snap = await getDocs(collection(db, "Appointments"));
-        let html = "";
-        snap.forEach((docItem) => {
-            const d = docItem.data();
-            const jsonData = JSON.stringify({ ...d, doc_id: docItem.id }).replace(/"/g, "&quot;");
-            html += `<div class="card"><h3>${d.name || ""}</h3><button onclick='generateAppointmentPDF(${jsonData})'>📄 PDF जनरेट करें</button></div>`;
+    <h1>आवेदन सूची</h1>
+    <div id="list">लोड हो रहा है...</div>
+
+    <script type="module">
+        import { auth, db } from "./firebase-config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+        // सुरक्षा: बिना लॉगिन कोई न देख सके
+        onAuthStateChanged(auth, (user) => { 
+            if (!user) { window.location.href = "admin-login.html"; } 
         });
-        document.getElementById("list").innerHTML = html || "कोई आवेदन नहीं है।";
-    }
-    init();
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="appointment-pdf.js"></script>
+
+        async function init() {
+            const snap = await getDocs(collection(db, "Appointments"));
+            let html = "";
+            snap.forEach((docItem) => {
+                const d = docItem.data();
+                const jsonData = JSON.stringify({ ...d, doc_id: docItem.id }).replace(/"/g, "&quot;");
+                
+                // नया सुरक्षा लॉजिक: केवल 'verified' होने पर ही PDF खुलेगा
+                let pdfButton = "";
+                if (d.status === "verified") {
+                    pdfButton = `<button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF डाउनलोड करें</button>`;
+                } else {
+                    pdfButton = `<button class="pdf" style="background:gray" onclick="alert('कृपया पहले ईमेल से Approve करें!')">Pending (Approve की प्रतीक्षा)</button>`;
+                }
+
+                html += `
+                <div class="card">
+                    <h3>${d.name || "नाम अनुपलब्ध"}</h3>
+                    <p><b>Status:</b> ${d.status || "Pending"}</p>
+                    ${pdfButton}
+                    <button class="print" onclick="window.print()">🖨️ नॉर्मल प्रिंट</button>
+                </div>`;
+            });
+            document.getElementById("list").innerHTML = html || "कोई आवेदन नहीं है।";
+        }
+        init();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="appointment-pdf.js"></script>
 </body>
 </html>
