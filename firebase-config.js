@@ -1,58 +1,24 @@
-import {
-initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-
-import {
-getFirestore
-}
-from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
-import {
-getAuth
-}
-from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-
-import {
-getStorage
-}
-from "https://www.gstatic.com/firebasejs/12.14.0/firebase-storage.js";
+// Firebase SDKs (Version 12.14.0)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-storage.js";
 
 const firebaseConfig = {
-apiKey:
-"AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
-
-authDomain:
-"ngo-certificate-system.firebaseapp.com",
-
-projectId:
-"ngo-certificate-system",
-
-storageBucket:
-"ngo-certificate-system.firebasestorage.app",
-
-messagingSenderId:
-"664351169113",
-
-appId:
-"1:664351169113:web:3c476e199d369615c6ef48"
+    apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+    authDomain: "ngo-certificate-system.firebaseapp.com",
+    projectId: "ngo-certificate-system",
+    storageBucket: "ngo-certificate-system.firebasestorage.app",
+    messagingSenderId: "664351169113",
+    appId: "1:664351169113:web:3c476e199d369615c6ef48"
 };
 
-const app =
-initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-const db =
-getFirestore(app);
+// Initialize Services
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
-const auth =
-getAuth(app);
-
-const storage =
-getStorage(app);
-
-export {
-app,
-db,
-auth,
-storage
-};
+export { app, db, auth, storage };
