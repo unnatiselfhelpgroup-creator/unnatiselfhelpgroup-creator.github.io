@@ -6,7 +6,6 @@
     <style>
         body { font-family: 'Poppins', sans-serif; background: #f4f7fa; padding: 20px; line-height: 1.6; }
         .student-reg { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h2 { color: #1b2430; text-align: center; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
         button { width: 100%; padding: 15px; background: #ff8b00; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
     </style>
@@ -22,16 +21,30 @@
         <input type="text" name="college" placeholder="कॉलेज का नाम" required>
         <input type="text" name="course" placeholder="कोर्स / कक्षा" required>
         <textarea name="address" rows="3" placeholder="पूरा पता" required></textarea>
+
+        <h3>सामाजिक कार्य का क्षेत्र</h3>
         <select name="social_work" required>
             <option value="">कार्य चुनें</option>
             <option value="गौ सेवा">गौ सेवा</option>
+            <option value="वृक्षारोपण">वृक्षारोपण</option>
+            <option value="स्वच्छ भारत अभियान">स्वच्छ भारत अभियान</option>
+            <option value="रक्तदान">रक्तदान</option>
+            <option value="आपदा राहत">आपदा राहत</option>
+            <option value="शिक्षा एवं साक्षरता">शिक्षा एवं साक्षरता</option>
+            <option value="पर्यावरण संरक्षण">पर्यावरण संरक्षण</option>
+            <option value="महिला सशक्तिकरण">महिला सशक्तिकरण</option>
         </select>
+
+        <h3>इंटर्नशिप अवधि</h3>
         <select name="duration" required>
             <option value="">अवधि चुनें</option>
             <option value="15 दिन">15 दिन</option>
             <option value="30 दिन">30 दिन</option>
+            <option value="60 दिन">60 दिन</option>
+            <option value="90 दिन">90 दिन</option>
         </select>
-        <label><input type="checkbox" name="agree" required> मैं नियमों से सहमत हूँ।</label>
+
+        <label><input type="checkbox" name="agree" required> मैं संस्था के नियमों से सहमत हूँ।</label>
         <button type="submit">भुगतान के लिए आगे बढ़ें (₹700)</button>
     </form>
 </div>
