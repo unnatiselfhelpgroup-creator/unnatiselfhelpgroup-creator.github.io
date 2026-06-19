@@ -10,9 +10,6 @@
         .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .card p { font-size: 18px; margin: 10px 0; }
         .card button { border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; margin: 5px; cursor: pointer; }
-        .approve { background: #28a745; color: white; }
-        .reject { background: #dc3545; color: white; }
-        .delete { background: black; color: white; }
         .pdf { background: #d4af37; color: black; }
         .print { background: #007bff; color: white; }
         .status { font-weight: bold; }
@@ -30,7 +27,7 @@
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
     import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-    // लॉगिन सुरक्षा चेक
+    // लॉगिन सुरक्षा: यदि एडमिन लॉग-इन नहीं है, तो लॉगिन पेज पर भेजें
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "admin-login.html";
@@ -50,13 +47,17 @@
 
             snap.forEach((docItem) => {
                 const d = docItem.data();
+                // Firestore ID (docItem.id) को डेटा में जोड़ें ताकि PDF में काम आए
+                const dataWithId = { ...d, doc_id: docItem.id };
+                
                 let statusClass = "pending";
                 let statusText = "Pending";
 
                 if (d.status === "verified") { statusClass = "approved"; statusText = "Verified"; }
                 if (d.status === "rejected") { statusClass = "rejected"; statusText = "Rejected"; }
 
-                const jsonData = JSON.stringify(d).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+                // डेटा को सुरक्षित रूप से पास करने के लिए
+                const jsonData = JSON.stringify(dataWithId).replace(/"/g, "&quot;");
 
                 html += `
                 <div class="card">
@@ -65,13 +66,14 @@
                     <p><b>Email :</b> ${d.email || ""}</p>
                     <p><b>Post :</b> ${d.designation || "Volunteer"}</p>
                     <p class="status ${statusClass}">Status : ${statusText}</p>
-                    <button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF</button>
+                    <button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF जनरेट करें</button>
                     <button class="print" onclick="window.print()">Print</button>
                 </div>`;
             });
             listDiv.innerHTML = html;
         } catch (e) {
             console.error("Data Load Error:", e);
+            listDiv.innerHTML = "<h3 style='text-align:center;color:#ff0000'>डेटा लोड करने में त्रुटि हुई।</h3>";
         }
     }
 
