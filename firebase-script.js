@@ -9,8 +9,10 @@ if (form) {
 
         // 1. UI Feedback: बटन को डिसेबल करें
         const submitBtn = form.querySelector("button");
-        submitBtn.disabled = true;
-        submitBtn.innerText = "सबमिट हो रहा है...";
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerText = "सबमिट हो रहा है...";
+        }
 
         try {
             // 2. फॉर्म डेटा इकट्ठा करें
@@ -27,31 +29,37 @@ if (form) {
 
             // 5. रसीद प्रिंट विंडो (सबमिट होने के बाद)
             const printWindow = window.open("", "_blank");
-            printWindow.document.write(`
-                <html>
-                <head><title>Registration Receipt</title></head>
-                <body style="font-family:Arial; padding:30px; line-height:1.6;">
-                    <h2 style="text-align:center;">उन्नति स्वयं सहायता समिति</h2>
-                    <p><b>नाम:</b> ${data.name}</p>
-                    <p><b>मोबाइल:</b> ${data.mobile}</p>
-                    <p><b>कोर्स:</b> ${data.course}</p>
-                    <hr>
-                    <p>आपका पंजीकरण सफलतापूर्वक प्राप्त हो गया है।</p>
-                    <p>फीस भुगतान के बाद आपको डैशबोर्ड का एक्सेस मिलेगा।</p>
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-            printWindow.print();
+            if (printWindow) {
+                printWindow.document.write(`
+                    <html>
+                    <head><title>Registration Receipt</title></head>
+                    <body style="font-family:Arial; padding:30px; line-height:1.6;">
+                        <h2 style="text-align:center;">उन्नति स्वयं सहायता समिति</h2>
+                        <h3 style="text-align:center;">पंजीकरण रसीद</h3>
+                        <p><b>नाम:</b> ${data.name || ""}</p>
+                        <p><b>मोबाइल:</b> ${data.mobile || ""}</p>
+                        <p><b>कोर्स:</b> ${data.course || "N/A"}</p>
+                        <hr>
+                        <p>आपका पंजीकरण सफलतापूर्वक प्राप्त हो गया है।</p>
+                        <p>फीस भुगतान के बाद आपको डैशबोर्ड का एक्सेस मिलेगा।</p>
+                        <p style="text-align:center; margin-top:20px;">धन्यवाद!</p>
+                    </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            }
 
             // 6. पेमेंट पेज पर रीडायरेक्ट करें
             window.location.href = "payment.html?type=student700";
 
         } catch (err) {
             console.error("Submission Error:", err);
-            alert("सबमिशन फेल हो गया, कृपया इंटरनेट चेक करें।");
-            submitBtn.disabled = false;
-            submitBtn.innerText = "पंजीकरण करें";
+            alert("सबमिशन फेल हो गया, कृपया इंटरनेट कनेक्शन की जाँच करें।");
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "पंजीकरण करें";
+            }
         }
     });
 }
