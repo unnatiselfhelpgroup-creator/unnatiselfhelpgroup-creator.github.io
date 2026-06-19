@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Action Processing</title>
+</head>
 <body>
     <h2 id="statusMsg">प्रक्रिया जारी है...</h2>
     <script type="module">
@@ -9,19 +13,21 @@
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
         const status = urlParams.get('status');
-        const type = urlParams.get('type'); // यह पहचानेगा कि यह Appointment है या ID Card
+        const type = urlParams.get('type'); // यह पहचानेगा कि यह Appointment है या Student
 
         async function processAction() {
             if (id && status) {
                 try {
-                    // अब यह status के साथ-साथ type को भी अपडेट करेगा
-                    await updateDoc(doc(db, "StudentRegistrations", id), { 
+                    // टाइप के हिसाब से सही कलेक्शन का नाम चुनें
+                    const collectionName = (type === "Appointment") ? "Appointments" : "StudentRegistrations";
+                    
+                    await updateDoc(doc(db, collectionName, id), { 
                         status: status,
                         actionType: type || "General" 
                     });
                     
                     document.getElementById("statusMsg").innerText = 
-                        "सफलतापूर्वक " + (type || "कार्य") + " को " + status + " कर दिया गया है!";
+                        "सफलतापूर्वक आवेदन को " + status + " कर दिया गया है!";
                 } catch (e) {
                     document.getElementById("statusMsg").innerText = "त्रुटि हुई: " + e.message;
                 }
