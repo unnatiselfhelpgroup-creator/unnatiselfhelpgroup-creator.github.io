@@ -4,15 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Management | उन्नति स्वयं सहायता समिति</title>
-    </head>
+    <style>
+        body { font-family: Arial, sans-serif; background: #001a33; margin: 0; padding: 20px; }
+        #list { max-width: 1200px; margin: auto; }
+        .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .card p { font-size: 18px; margin: 10px 0; }
+        .card button { border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; margin: 5px; cursor: pointer; }
+        .approve { background: #28a745; color: white; }
+        .reject { background: #dc3545; color: white; }
+        .delete { background: black; color: white; }
+        .pdf { background: #d4af37; color: black; }
+        .print { background: #007bff; color: white; }
+        .status { font-weight: bold; }
+        .pending { color: orange; }
+        .approved { color: green; }
+        .rejected { color: red; }
+    </style>
+</head>
 <body>
 
-<div id="list">
-    </div>
+<div id="list"></div>
 
 <script type="module">
-    import { db } from "./firebase-config.js";
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
     import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+    // लॉगिन सुरक्षा चेक
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "admin-login.html";
+        }
+    });
 
     async function init() {
         const listDiv = document.getElementById("list");
@@ -36,33 +59,13 @@
                 const jsonData = JSON.stringify(d).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
                 html += `
-                <div class="card appointment-card">
+                <div class="card">
                     <h3>${d.name || ""}</h3>
-                    <p><b>Father :</b> ${d.father_name || ""}</p>
                     <p><b>Mobile :</b> ${d.mobile || ""}</p>
                     <p><b>Email :</b> ${d.email || ""}</p>
-                    <p><b>Address :</b> ${d.address || ""}</p>
-                    <p><b>District :</b> ${d.district || ""}</p>
-                    <p><b>State :</b> ${d.state || ""}</p>
                     <p><b>Post :</b> ${d.designation || "Volunteer"}</p>
-                    <p><b>Volunteer ID :</b> ${d.volunteer_id || d.volunteerId || "-"}</p>
                     <p class="status ${statusClass}">Status : ${statusText}</p>
-
-                    <button class="verify" onclick='verifyApplication("Appointments", "${docItem.id}", "${d.name || ""}", "${d.email || ""}", ${jsonData})'>Approve</button>
-                    <button class="reject" onclick='rejectApplication("Appointments", "${docItem.id}", "${d.name || ""}", "${d.email || ""}")'>Reject</button>
-                    <button class="delete" onclick='deleteApplication("Appointments", "${docItem.id}")'>Delete</button>
-                    <button class="pdf" onclick='generateAppointmentPDF({
-                        name: \`${d.name || ""}\`,
-                        father_name: \`${d.father_name || ""}\`,
-                        mobile: \`${d.mobile || ""}\`,
-                        email: \`${d.email || ""}\`,
-                        address: \`${d.address || ""}\`,
-                        district: \`${d.district || ""}\`,
-                        state: \`${d.state || ""}\`,
-                        designation: \`${d.designation || "Volunteer"}\`,
-                        volunteer_id: \`${d.volunteer_id || d.volunteerId || ""}\`,
-                        photoURL: \`${d.photoURL || ""}\`
-                    })'>📄 Appointment Letter PDF</button>
+                    <button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF</button>
                     <button class="print" onclick="window.print()">Print</button>
                 </div>`;
             });
