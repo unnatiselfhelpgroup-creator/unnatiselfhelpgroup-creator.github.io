@@ -1,85 +1,27 @@
 <!DOCTYPE html>
 <html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment Management | उन्नति स्वयं सहायता समिति</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #001a33; margin: 0; padding: 20px; }
-        #list { max-width: 1200px; margin: auto; }
-        .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .card p { font-size: 18px; margin: 10px 0; }
-        .card button { border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; margin: 5px; cursor: pointer; }
-        .pdf { background: #d4af37; color: black; }
-        .print { background: #007bff; color: white; }
-        .status { font-weight: bold; }
-        .pending { color: orange; }
-        .approved { color: green; }
-        .rejected { color: red; }
-    </style>
+<head><meta charset="UTF-8"><title>Appointment Management</title>
+<style>body{background:#001a33; padding:20px; font-family:Arial;} .card{background:white; padding:20px; margin:10px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.2);}</style>
 </head>
 <body>
-
 <div id="list"></div>
-
 <script type="module">
     import { auth, db } from "./firebase-config.js";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
     import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
-    // लॉगिन सुरक्षा: यदि एडमिन लॉग-इन नहीं है, तो लॉगिन पेज पर भेजें
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "admin-login.html";
-        }
-    });
-
+    onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "admin-login.html"; });
     async function init() {
-        const listDiv = document.getElementById("list");
-        try {
-            const snap = await getDocs(collection(db, "Appointments"));
-            let html = "";
-
-            if (snap.empty) {
-                listDiv.innerHTML = "<h3 style='text-align:center;color:#fff'>कोई Appointment Application उपलब्ध नहीं है।</h3>";
-                return;
-            }
-
-            snap.forEach((docItem) => {
-                const d = docItem.data();
-                // Firestore ID (docItem.id) को डेटा में जोड़ें ताकि PDF में काम आए
-                const dataWithId = { ...d, doc_id: docItem.id };
-                
-                let statusClass = "pending";
-                let statusText = "Pending";
-
-                if (d.status === "verified") { statusClass = "approved"; statusText = "Verified"; }
-                if (d.status === "rejected") { statusClass = "rejected"; statusText = "Rejected"; }
-
-                // डेटा को सुरक्षित रूप से पास करने के लिए
-                const jsonData = JSON.stringify(dataWithId).replace(/"/g, "&quot;");
-
-                html += `
-                <div class="card">
-                    <h3>${d.name || ""}</h3>
-                    <p><b>Mobile :</b> ${d.mobile || ""}</p>
-                    <p><b>Email :</b> ${d.email || ""}</p>
-                    <p><b>Post :</b> ${d.designation || "Volunteer"}</p>
-                    <p class="status ${statusClass}">Status : ${statusText}</p>
-                    <button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF जनरेट करें</button>
-                    <button class="print" onclick="window.print()">Print</button>
-                </div>`;
-            });
-            listDiv.innerHTML = html;
-        } catch (e) {
-            console.error("Data Load Error:", e);
-            listDiv.innerHTML = "<h3 style='text-align:center;color:#ff0000'>डेटा लोड करने में त्रुटि हुई।</h3>";
-        }
+        const snap = await getDocs(collection(db, "Appointments"));
+        let html = "";
+        snap.forEach((docItem) => {
+            const d = docItem.data();
+            const jsonData = JSON.stringify({ ...d, doc_id: docItem.id }).replace(/"/g, "&quot;");
+            html += `<div class="card"><h3>${d.name || ""}</h3><button onclick='generateAppointmentPDF(${jsonData})'>📄 PDF जनरेट करें</button></div>`;
+        });
+        document.getElementById("list").innerHTML = html || "कोई आवेदन नहीं है।";
     }
-
     init();
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="appointment-pdf.js"></script>
 </body>
