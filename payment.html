@@ -12,6 +12,7 @@
         body { font-family: 'Poppins', sans-serif; text-align: center; padding: 20px; background: #f4f7fa; }
         .box { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .pay-link { background: #3395ff; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; display: block; margin: 20px 0; font-weight: bold; }
+        input[type="file"] { margin: 10px 0; display: block; width: 100%; }
         button { background: #00a651; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 20px; display: none; width: 100%; }
     </style>
 </head>
@@ -22,7 +23,10 @@
     <p>1. पहले भुगतान करें:</p>
     <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="pay-link" onclick="document.getElementById('paidBtn').style.display='block'">Razorpay से भुगतान करें</a>
     
-    <p>2. भुगतान के बाद यह बटन दबाएं:</p>
+    <p>2. भुगतान का स्क्रीनशॉट अपलोड करें:</p>
+    <input type="file" id="paymentProof" accept="image/*" required>
+    
+    <p>3. भुगतान के बाद यह बटन दबाएं:</p>
     <button id="paidBtn">मैंने भुगतान कर दिया है</button>
 </div>
 
@@ -31,6 +35,12 @@
     import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
     document.getElementById("paidBtn").onclick = async () => {
+        const fileInput = document.getElementById("paymentProof");
+        if (fileInput.files.length === 0) {
+            alert("कृपया भुगतान का स्क्रीनशॉट अपलोड करें!");
+            return;
+        }
+
         const btn = document.getElementById("paidBtn");
         btn.innerText = "प्रोसेसिंग...";
         btn.disabled = true;
@@ -43,7 +53,7 @@
                 return;
             }
             const data = JSON.parse(storedData);
-            data.paymentStatus = "Paid";
+            data.paymentStatus = "Paid (Proof Uploaded)";
             data.status = "Pending";
             data.createdAt = serverTimestamp();
             
@@ -55,14 +65,14 @@
                 user_name: data.name,
                 user_email: data.email,
                 subject: "नया इंटर्नशिप पंजीकरण: " + data.name,
-                message: "नया आवेदन प्राप्त हुआ। छात्र का नाम: " + data.name + ", मोबाइल: " + data.mobile + ", स्टेटस: भुगतान पूर्ण (Paid)"
+                message: "नया आवेदन प्राप्त हुआ। छात्र का नाम: " + data.name + ", मोबाइल: " + data.mobile + ", स्टेटस: भुगतान पूर्ण (स्क्रीनशॉट अपलोड कर दिया गया है)"
             });
             
             // 3. सफलता संदेश
             document.body.innerHTML = `
                 <div style="max-width:400px; margin:50px auto; padding:40px; text-align:center; border:2px solid #00a651; border-radius:20px; background:white;">
-                    <h3 style="color:#00a651;">✅ पंजीकरण सफल!</h3>
-                    <p>Admin Approval के बाद Dashboard Access मिलेगा।</p>
+                    <h3 style="color:#00a651;">✅ पंजीकरण सफलतापूर्वक जमा हो गया!</h3>
+                    <p>एडमिन द्वारा भुगतान की जांच होने के बाद आपको ईमेल पर सूचित किया जाएगा।</p>
                 </div>`;
         } catch (err) {
             console.error(err);
