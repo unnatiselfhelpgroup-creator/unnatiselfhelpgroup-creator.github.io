@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>भुगतान करें</title>
+    <!-- EmailJS SDK जोड़ा गया है -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
         body { font-family: 'Poppins', sans-serif; text-align: center; padding: 20px; background: #f4f7fa; }
         .box { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
@@ -37,9 +42,18 @@
             data.paymentStatus = "Paid";
             data.createdAt = serverTimestamp();
             
+            // 1. Firebase में डेटा सेव करें
             await addDoc(collection(db, "StudentRegistrations"), data);
             
-            // सफलता संदेश
+            // 2. EmailJS के जरिए ईमेल भेजें (आपकी डिटेल्स के साथ)
+            emailjs.send("service_63pefgf", "template_wvzbj7p", {
+                user_name: data.name,
+                user_email: data.email,
+                subject: "नया इंटर्नशिप पंजीकरण: " + data.name,
+                message: "नया आवेदन प्राप्त हुआ। छात्र का नाम: " + data.name + ", मोबाइल: " + data.mobile
+            });
+            
+            // सफलता संदेश (आपकी पुरानी डिज़ाइनिंग के साथ)
             document.body.innerHTML = `
                 <div style="max-width:400px; margin:50px auto; padding:40px; text-align:center; border:2px solid #00a651; border-radius:20px; background:white;">
                     <h3 style="color:#00a651;">✅ पंजीकरण सफल!</h3>
