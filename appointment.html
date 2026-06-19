@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Appointment Panel</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         body { background: #001a33; padding: 20px; font-family: Arial; color: white; }
         .card { background: white; color: black; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
@@ -30,14 +31,15 @@
             let html = "";
             snap.forEach((docItem) => {
                 const d = docItem.data();
+                // डेटा को JSON स्ट्रिंग में बदलें ताकि फंक्शन में भेजा जा सके
                 const jsonData = JSON.stringify({ ...d, doc_id: docItem.id }).replace(/"/g, "&quot;");
                 
-                // नया सुरक्षा लॉजिक: केवल 'verified' होने पर ही PDF खुलेगा
                 let pdfButton = "";
+                // सुरक्षा लॉजिक: केवल 'verified' होने पर ही PDF बटन सक्रिय होगा
                 if (d.status === "verified") {
                     pdfButton = `<button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF डाउनलोड करें</button>`;
                 } else {
-                    pdfButton = `<button class="pdf" style="background:gray" onclick="alert('कृपया पहले ईमेल से Approve करें!')">Pending (Approve की प्रतीक्षा)</button>`;
+                    pdfButton = `<button class="pdf" style="background:gray" onclick="alert(\'कृपया पहले ईमेल से Approve करें!\')">Pending (Approve की प्रतीक्षा)</button>`;
                 }
 
                 html += `
@@ -52,7 +54,7 @@
         }
         init();
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <script src="appointment-pdf.js"></script>
 </body>
 </html>
