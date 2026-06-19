@@ -2,70 +2,40 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
     <style>
         body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; padding: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
-        .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #d4af37; transition: 0.3s; }
+        .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #d4af37; }
         .card a { color: white; text-decoration: none; font-weight: bold; }
-        .card:hover { background: rgba(212, 175, 55, 0.2); }
     </style>
 </head>
 <body>
-
 <h1 style="text-align:center;">🔐 Admin Dashboard</h1>
-
 <div class="grid">
+    <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">0</h2></div>
+    <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">0</h2></div>
+    <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">0</h2></div>
+    <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">0</h2></div>
     <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
     <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
-    <div class="card"><a href="certificate-verification.html">✅ Certificate Verification</a></div>
     <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
-    <div class="card"><a href="idverification.html">🔍 ID Verification</a></div>
     <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
-    <div class="card"><a href="student-registration.html">🎓 Student Registrations</a></div>
     <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
-    <div class="card"><a href="volunteer-list.html">📋 Volunteer List</a></div>
-    <div class="card"><a href="donation.html">💰 Donations</a></div>
-    <div class="card"><a href="student-reports.html">📈 Student Reports</a></div>
-    <div class="card"><a href="student-certificates.html">🎓📜 Student Certificates</a></div>
-    <div class="card"><a href="student-payments.html">💳 Student Payments</a></div>
-    <div class="card"><a href="volunteer-payments.html">💳 Volunteer Payments</a></div>
-    <div class="card"><a href="donation-reports.html">📋 Donation Reports</a></div>
 </div>
-
 <script type="module">
     import { auth, db } from "./firebase-config.js";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
     import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
-    // 1. सुरक्षा: लॉगिन चेक
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "admin-login.html";
-        }
-    });
-
-    // 2. डेटा लोड
+    onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "admin-login.html"; });
     async function loadDashboard() {
-        try {
-            const collections = [
-                { id: "totalVolunteers", name: "Volunteers" },
-                { id: "totalCertificates", name: "Certificates" },
-                { id: "totalIDCards", name: "IDCards" },
-                { id: "totalReports", name: "DailyReports" }
-            ];
-            for (const col of collections) {
-                const snapshot = await getDocs(collection(db, col.name));
-                const element = document.getElementById(col.id);
-                if (element) element.innerText = snapshot.size;
-            }
-        } catch(e) {
-            console.error("Error loading dashboard stats:", e);
+        const collections = [{id:"totalVolunteers", name:"Volunteers"}, {id:"totalCertificates", name:"Certificates"}, {id:"totalIDCards", name:"IDCards"}, {id:"totalReports", name:"DailyReports"}];
+        for (const col of collections) {
+            const snap = await getDocs(collection(db, col.name));
+            document.getElementById(col.id).innerText = snap.size;
         }
     }
     loadDashboard();
 </script>
-
 </body>
 </html>
