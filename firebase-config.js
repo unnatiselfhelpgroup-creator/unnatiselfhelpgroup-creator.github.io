@@ -1,4 +1,3 @@
-// Firebase SDKs (Version 12.14.0)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
@@ -13,12 +12,7 @@ const firebaseConfig = {
     appId: "1:664351169113:web:3c476e199d369615c6ef48"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Services
-const db = getFirestore(app);
-const auth = getAuth(app);
-const storage = getStorage(app);
-
-export { app, db, auth, storage };
+export const db = getFirestore(app);
+export const auth = getAuth(app);
+export const storage = getStorage(app);
