@@ -1,6 +1,24 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>छात्र पंजीकरण | उन्नति स्वयं सहायता समिति</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f7fa; padding: 20px; line-height: 1.6; }
+        .student-reg { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1b2430; text-align: center; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #ff8b00; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        button:disabled { background: #ccc; }
+        .success-box { display: none; padding: 20px; text-align: center; border: 2px solid #00a651; border-radius: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
 <div class="student-reg">
-    <h2>युवा सामाजिक सारथी - गौ सेवा एवं राष्ट्र निर्माण इंटर्नशिप</h2>
-    <p>राष्ट्र सेवा, आपका अनुभव, हमारा प्रमाण पत्र।</p>
+    <h2>युवा सामाजिक सारथी - इंटर्नशिप</h2>
+    <p style="text-align:center;">राष्ट्र सेवा, आपका अनुभव, हमारा प्रमाण पत्र।</p>
 
     <form id="studentRegForm">
         <input type="text" name="name" placeholder="पूरा नाम" required>
@@ -9,7 +27,7 @@
         <input type="tel" name="mobile" placeholder="मोबाइल नंबर (10 अंक)" pattern="[0-9]{10}" maxlength="10" required>
         <input type="text" name="college" placeholder="कॉलेज / विश्वविद्यालय का नाम" required>
         <input type="text" name="course" placeholder="कोर्स / कक्षा" required>
-        <textarea name="address" placeholder="पूरा पता" required></textarea>
+        <textarea name="address" rows="3" placeholder="पूरा पता" required></textarea>
 
         <h3>सामाजिक कार्य का क्षेत्र</h3>
         <select name="social_work" required>
@@ -19,23 +37,22 @@
             <option value="स्वच्छ भारत अभियान">स्वच्छ भारत अभियान</option>
         </select>
 
-        <h3>इंटर्नशिप अवधि चुनें</h3>
+        <h3>इंटर्नशिप अवधि</h3>
         <select name="duration" required>
             <option value="">अवधि चुनें</option>
             <option value="15 दिन">15 दिन</option>
             <option value="30 दिन">30 दिन</option>
         </select>
 
-        <h3>महत्वपूर्ण घोषणा</h3>
-        <label>
+        <label style="display:flex; align-items:center; gap:10px;">
             <input type="checkbox" name="agree" required>
             मैं संस्था के नियमों से सहमत हूँ।
         </label>
-        <br><br>
+        
         <button type="submit" id="submitBtn">पंजीकरण करें</button>
     </form>
 
-    <div id="studentSuccess" style="display:none; padding:20px; text-align:center; border:2px solid #00a651; border-radius:10px;">
+    <div id="studentSuccess" class="success-box">
         <h3>✅ पंजीकरण सफल!</h3>
         <p>Admin Approval के बाद Dashboard Access मिलेगा।</p>
     </div>
@@ -45,42 +62,31 @@
     import { db } from "./firebase-config.js";
     import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-    document.getElementById("studentRegForm").onsubmit = async (e) => {
+    const form = document.getElementById("studentRegForm");
+    form.onsubmit = async (e) => {
         e.preventDefault();
-        
         const submitBtn = document.getElementById("submitBtn");
         submitBtn.disabled = true;
         submitBtn.innerText = "सबमिट हो रहा है...";
 
         try {
-            const formData = new FormData(e.target);
+            const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
-            
-            // एक्स्ट्रा मेटा-डेटा
             data.status = "pending";
             data.type = "internship";
-            data.createdAt = serverTimestamp(); // Firestore server time
-            data.refId = crypto.randomUUID(); // Unique ID for record
+            data.createdAt = serverTimestamp();
+            data.refId = crypto.randomUUID();
 
             await addDoc(collection(db, "StudentRegistrations"), data);
 
-            // UI अपडेट
-            document.getElementById("studentRegForm").style.display = "none";
+            form.style.display = "none";
             document.getElementById("studentSuccess").style.display = "block";
             
-            // प्रिंट लॉजिक (बेहतर फॉर्मेट के साथ)
+            // रसीद प्रिंट
             const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <html><body>
-                    <h1>पंजीकरण सफल (Ref: ${data.refId})</h1>
-                    <p>नाम: ${data.name}</p>
-                    <p>मोबाइल: ${data.mobile}</p>
-                    <p>स्थिति: Pending Approval</p>
-                </body></html>
-            `);
+            printWindow.document.write(`<html><body><h2>पंजीकरण सफल</h2><p>Ref: ${data.refId}</p><p>नाम: ${data.name}</p></body></html>`);
             printWindow.document.close();
             printWindow.print();
-
         } catch (error) {
             console.error("Error:", error);
             alert("सबमिशन फेल हो गया, कृपया इंटरनेट चेक करें।");
@@ -89,4 +95,5 @@
         }
     };
 </script>
-
+</body>
+</html>
