@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>भुगतान करें</title>
-    <!-- EmailJS SDK जोड़ा गया है -->
+    <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
@@ -11,14 +11,18 @@
     <style>
         body { font-family: 'Poppins', sans-serif; text-align: center; padding: 20px; background: #f4f7fa; }
         .box { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        button { background: #00a651; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 20px; }
+        .pay-link { background: #3395ff; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; display: block; margin: 20px 0; font-weight: bold; }
+        button { background: #00a651; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 20px; display: none; width: 100%; }
     </style>
 </head>
 <body>
 <div class="box">
     <h3>भुगतान: ₹700</h3>
     <img src="Qrcode.png" width="200"><br>
-    <p>QR Code Scan करें और भुगतान करें</p>
+    <p>1. पहले भुगतान करें:</p>
+    <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="pay-link" onclick="document.getElementById('paidBtn').style.display='block'">Razorpay से भुगतान करें</a>
+    
+    <p>2. भुगतान के बाद यह बटन दबाएं:</p>
     <button id="paidBtn">मैंने भुगतान कर दिया है</button>
 </div>
 
@@ -40,6 +44,7 @@
             }
             const data = JSON.parse(storedData);
             data.paymentStatus = "Paid";
+            data.status = "Pending";
             data.createdAt = serverTimestamp();
             
             // 1. Firebase में डेटा सेव करें
@@ -53,7 +58,7 @@
                 message: "नया आवेदन प्राप्त हुआ। छात्र का नाम: " + data.name + ", मोबाइल: " + data.mobile
             });
             
-            // 3. सफलता संदेश (पुरानी डिज़ाइनिंग सुरक्षित है)
+            // 3. सफलता संदेश
             document.body.innerHTML = `
                 <div style="max-width:400px; margin:50px auto; padding:40px; text-align:center; border:2px solid #00a651; border-radius:20px; background:white;">
                     <h3 style="color:#00a651;">✅ पंजीकरण सफल!</h3>
