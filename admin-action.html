@@ -6,9 +6,10 @@
 </head>
 <body>
     <h2 id="statusMsg">प्रक्रिया जारी है...</h2>
+
     <script type="module">
         // auth को firebase-config से इम्पोर्ट करें
-        import { db, auth } from "./firebase-config.js"; 
+        import { db, auth } from "./firebase-config.js";
         import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
@@ -18,37 +19,67 @@
         const type = urlParams.get('type');
 
         async function processAction() {
+
             // पहले चेक करें कि क्या एडमिन लॉग-इन है
             onAuthStateChanged(auth, async (user) => {
+
                 if (user) {
+
                     // अगर एडमिन लॉग-इन है, तो ही डेटा अपडेट करें
                     if (id && status) {
+
                         try {
-                            const collectionName = (type === "Appointment") ? "Appointments" : "StudentRegistrations";
-                            
-                            await updateDoc(doc(db, collectionName, id), { 
-                                status: status,
-                                actionType: type || "General" 
-                            });
-                            
-                            document.getElementById("statusMsg").innerText = 
-                                "सफलतापूर्वक आवेदन को " + status + " कर दिया गया है!";
+
+                            const collectionName =
+                                (type === "Appointment")
+                                ? "Appointments"
+                                : "StudentRegistrations";
+
+                            await updateDoc(
+                                doc(db, collectionName, id),
+                                {
+                                    status: status,
+                                    actionType: type || "General"
+                                }
+                            );
+
+                            document.getElementById("statusMsg").innerText =
+                                "सफलतापूर्वक आवेदन को " +
+                                status +
+                                " कर दिया गया है!";
+
                         } catch (e) {
-                            document.getElementById("statusMsg").innerText = "त्रुटि हुई: " + e.message;
+
+                            document.getElementById("statusMsg").innerText =
+                                "त्रुटि हुई: " + e.message;
+
                         }
+
                     } else {
-                        document.getElementById("statusMsg").innerText = "गलत लिंक! कृपया सही लिंक का उपयोग करें।";
+
+                        document.getElementById("statusMsg").innerText =
+                            "गलत लिंक! कृपया सही लिंक का उपयोग करें।";
+
                     }
+
                 } else {
+
                     // अगर एडमिन लॉग-इन नहीं है, तो उसे लॉगिन पेज पर भेजें
-                    document.getElementById("statusMsg").innerText = "कृपया पहले एडमिन लॉगिन करें...";
+                    document.getElementById("statusMsg").innerText =
+                        "कृपया पहले एडमिन लॉगिन करें...";
+
                     setTimeout(() => {
                         window.location.href = "admin-login.html";
                     }, 2000);
+
                 }
+
             });
+
         }
+
         processAction();
     </script>
+
 </body>
 </html>
