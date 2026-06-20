@@ -1,42 +1,91 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!DOCTYPE html><html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | उन्नति स्वयं सहायता समिति</title>
+    <title>Admin Login | उन्नति स्वयं सहायता समिति</title><style>
+    body{
+        background:#4a0404;
+        font-family:'Poppins',sans-serif;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+        margin:0;
+        padding:20px;
+    }
 
-    <style>
-        body { background: #4a0404; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 20px gold; }
-        h2 { color: gold; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 10px; box-sizing: border-box; }
-        button { background: gold; padding: 15px; width: 100%; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px; }
-        button:hover { background: #ffd700; }
-    </style>
-</head>
+    .box{
+        background:rgba(255,255,255,0.1);
+        padding:30px;
+        border-radius:20px;
+        width:90%;
+        max-width:400px;
+        text-align:center;
+        box-shadow:0 0 20px gold;
+    }
 
-<body>
+    h2{
+        color:gold;
+        margin-bottom:20px;
+    }
 
-    <div class="box">
-        <h2>🔐 Admin Login</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-    </div>
+    input{
+        width:100%;
+        padding:15px;
+        margin:10px 0;
+        border:none;
+        border-radius:10px;
+        box-sizing:border-box;
+        font-size:16px;
+    }
 
-    <!-- Scripts -->
-    <script type="module">
-        import { auth } from "./firebase-config.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        
-        // यदि एडमिन पहले से लॉग-इन है, तो सीधा डैशबोर्ड पर भेजें
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.href = "admin-dashboard.html";
-            }
-        });
-    </script>
-    <script type="module" src="auth.js"></script>
+    button{
+        background:gold;
+        padding:15px;
+        width:100%;
+        border:none;
+        border-radius:10px;
+        font-weight:bold;
+        cursor:pointer;
+        font-size:18px;
+        transition:0.3s;
+    }
 
-</body>
+    button:hover{
+        background:#ffd700;
+    }
+</style>
+
+</head><body><div class="box">
+    <h2>🔐 Admin Login</h2><input
+    type="email"
+    id="email"
+    placeholder="Email"
+    autocomplete="email"
+    required>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Password"
+    autocomplete="current-password"
+    required>
+
+<button onclick="login()">
+    Login
+</button>
+
+</div><script type="module">
+    import { auth } from "./firebase-config.js";
+    import {
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+    // यदि एडमिन पहले से लॉग-इन है
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.location.href = "admin-dashboard.html";
+        }
+    });
+</script><script type="module" src="auth.js"></script></body>
 </html>
