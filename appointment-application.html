@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नियुक्ति आवेदन | उन्नति स्वयं सहायता समिति</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f7fa; padding: 20px; line-height: 1.6; }
+        .appoint-form { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1b2430; text-align: center; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #d4af37; border: none; border-radius: 10px; color: #1b2430; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        #feeBox { background: #fff8e1; border: 1px solid #d4af37; border-radius: 10px; padding: 12px; margin-top: 10px; font-weight: bold; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="appoint-form">
+    <h2>📄 नियुक्ति हेतु आवेदन</h2>
+    <p style="text-align:center;">संस्था के सदस्य, पदाधिकारी अथवा सेवा सहयोगी बनने हेतु आवेदन करें।</p>
+
+    <form id="appointmentForm">
+        <input type="text" name="name" placeholder="पूरा नाम" required>
+        <input type="text" name="father_name" placeholder="पिता/पति का नाम" required>
+        <input type="tel" name="mobile" placeholder="मोबाइल नंबर" required>
+        <input type="email" name="email" placeholder="ईमेल आईडी" required>
+        <input type="text" name="address" placeholder="पूरा पता" required>
+
+        <label>पद (Designation)</label>
+        <select name="designation" id="designationSelect" required>
+            <option value="">पद चुनें</option>
+            <option value="ग्राम गौ-संयोजक">ग्राम गौ-संयोजक</option>
+            <option value="ब्लॉक गौ-प्रभारी">ब्लॉक गौ-प्रभारी</option>
+            <option value="जिला गौ-समन्वयक">जिला गौ-समन्वयक</option>
+            <option value="प्रदेश कार्यकारिणी सदस्य">प्रदेश कार्यकारिणी सदस्य</option>
+            <option value="राष्ट्रीय गौ-पदाधिकारी">राष्ट्रीय गौ-पदाधिकारी</option>
+            <option value="Volunteer">Volunteer (स्वयंसेवक)</option>
+        </select>
+
+        <div id="feeBox"></div>
+
+        <label style="display:block; margin-top:15px;">
+            <input type="checkbox" name="agree" required>
+            मैं संस्था की नियम एवं शर्तों, शुल्क नीति तथा सदस्यता नियमों से सहमत हूँ।
+        </label>
+
+        <button type="submit">आवेदन जमा करें एवं भुगतान हेतु आगे बढ़ें</button>
+    </form>
+</div>
+
+<script>
+    // पद के अनुसार सहयोग राशि — यही list नियुक्ति पत्र (appointment-pdf.js) में भी इस्तेमाल होती है
+    const FEE_BY_DESIGNATION = {
+        "ग्राम गौ-संयोजक": "₹150",
+        "ब्लॉक गौ-प्रभारी": "₹500",
+        "जिला गौ-समन्वयक": "₹1100",
+        "प्रदेश कार्यकारिणी सदस्य": "₹2500",
+        "राष्ट्रीय गौ-पदाधिकारी": "₹5100 – ₹11000",
+        "Volunteer": "₹700 (एकमुश्त)"
+    };
+
+    const select = document.getElementById("designationSelect");
+    const feeBox = document.getElementById("feeBox");
+
+    select.addEventListener("change", () => {
+        const fee = FEE_BY_DESIGNATION[select.value];
+        if (fee) {
+            feeBox.style.display = "block";
+            feeBox.innerText = "इस पद हेतु सहयोग राशि: " + fee + " (Non-Refundable)";
+        } else {
+            feeBox.style.display = "none";
+        }
+    });
+
+    document.getElementById("appointmentForm").onsubmit = (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        data.fee = FEE_BY_DESIGNATION[data.designation] || "-";
+        sessionStorage.setItem("pendingAppointmentData", JSON.stringify(data));
+        window.location.href = "appointment-payment.html";
+    };
+</script>
+
+</body>
+</html>
