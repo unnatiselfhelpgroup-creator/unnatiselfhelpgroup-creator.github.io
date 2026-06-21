@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ID Card आवेदन | उन्नति स्वयं सहायता समिति</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
         body { font-family: 'Poppins', sans-serif; padding: 20px; line-height: 1.6; background: #f4f4f4; }
         .id-card-form { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 15px; border: 1px solid #d4af37; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
@@ -19,7 +23,7 @@
   <h2>आधिकारिक सदस्यता पहचान पत्र (ID Card) आवेदन</h2>
   <p style="text-align:center;"><strong>उन्नति स्वयं सहायता समिति</strong><br>नीति आयोग यूनिक आईडी : US-2016/0108273</p>
   
-  <form id="idCardForm">
+  <form id="idCardForm" data-collection="IDcard" data-form-label="ID कार्ड आवेदन">
     <label>पासपोर्ट साइज फोटो</label>
     <input type="file" name="photo" accept="image/*" required>
 

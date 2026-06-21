@@ -9,7 +9,7 @@ async function loadVolunteers() {
     body.innerHTML = `<tr><td colspan="3">डेटा लोड हो रहा है...</td></tr>`;
 
     try {
-        const snap = await getDocs(collection(db, "VolunteerRegistrations"));
+        const snap = await getDocs(collection(db, "Volunteers"));
         body.innerHTML = "";
 
         if (snap.empty) {

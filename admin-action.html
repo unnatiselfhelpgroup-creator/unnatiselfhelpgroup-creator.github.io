@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Action Processing</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 60px 20px; background: #071b34; color: white; }
+        button { padding: 14px 30px; background: #d4af37; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #f2ce63; }
+    </style>
 </head>
 <body>
     <h2 id="statusMsg">प्रक्रिया जारी है...</h2>
+    <div id="actionArea"></div>
 
     <script type="module">
         // auth को firebase-config से इम्पोर्ट करें
@@ -18,22 +24,23 @@
         const status = urlParams.get('status');
         const type = urlParams.get('type');
 
-        async function processAction() {
+        // सिर्फ इन्हीं वैल्यू को मान्य status माना जाएगा
+        const ALLOWED_STATUS = ["Approved", "Rejected", "Verified"];
 
-            // पहले चेक करें कि क्या एडमिन लॉग-इन है
+        // type सीधे असली Firestore कलेक्शन नाम के बराबर है (EmailJS टेम्पलेट इसे
+        // doc_id के साथ भेजता है) — सिर्फ इन्हीं 5 कलेक्शन में अपडेट की अनुमति है
+        const ALLOWED_COLLECTIONS = ["Appointments", "Certificates", "DailyReports", "IDcard", "StudentRegistrations"];
+
+        function performUpdate() {
             onAuthStateChanged(auth, async (user) => {
 
                 if (user) {
 
-                    // अगर एडमिन लॉग-इन है, तो ही डेटा अपडेट करें
-                    if (id && status) {
+                    if (id && status && ALLOWED_STATUS.includes(status) && ALLOWED_COLLECTIONS.includes(type)) {
 
                         try {
 
-                            const collectionName =
-                                (type === "Appointment")
-                                ? "Appointments"
-                                : "StudentRegistrations";
+                            const collectionName = type;
 
                             await updateDoc(
                                 doc(db, collectionName, id),
@@ -47,6 +54,7 @@
                                 "सफलतापूर्वक आवेदन को " +
                                 status +
                                 " कर दिया गया है!";
+                            document.getElementById("actionArea").innerHTML = "";
 
                         } catch (e) {
 
@@ -75,10 +83,42 @@
                 }
 
             });
-
         }
 
-        processAction();
+        function init() {
+            if (!id || !status) {
+                document.getElementById("statusMsg").innerText =
+                    "गलत लिंक! कृपया सही लिंक का उपयोग करें।";
+                return;
+            }
+            if (!ALLOWED_STATUS.includes(status)) {
+                document.getElementById("statusMsg").innerText =
+                    "अमान्य status मान। कृपया सही लिंक का उपयोग करें।";
+                return;
+            }
+            if (!ALLOWED_COLLECTIONS.includes(type)) {
+                document.getElementById("statusMsg").innerText =
+                    "अमान्य type मान। कृपया सही लिंक का उपयोग करें।";
+                return;
+            }
+
+            // GET लिंक खुलते ही अपने-आप डेटा न बदले (ईमेल/स्कैनर लिंक को auto-preview
+            // करते हैं, जिससे गलती से Approve/Reject हो सकता था) — इसलिए अब एडमिन से
+            // स्पष्ट क्लिक करवाया जाता है।
+            document.getElementById("statusMsg").innerText =
+                "क्या आप इस आवेदन को \"" + status + "\" करना चाहते हैं?";
+
+            const btn = document.createElement("button");
+            btn.innerText = "हाँ, " + status + " करें";
+            btn.onclick = () => {
+                btn.disabled = true;
+                btn.innerText = "प्रक्रिया जारी है...";
+                performUpdate();
+            };
+            document.getElementById("actionArea").appendChild(btn);
+        }
+
+        init();
     </script>
 
 </body>

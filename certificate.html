@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>प्रमाण पत्र आवेदन | उन्नति स्वयं सहायता समिति</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
         body { font-family: 'Poppins', sans-serif; padding: 20px; line-height: 1.6; }
         .certificate-req { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #d4af37; border-radius: 15px; }
@@ -18,7 +22,7 @@
     <h2>सामाजिक सेवा एवं अनुभव प्रमाण पत्र हेतु आवेदन</h2>
     <p><b>युवा सामाजिक सारथी – गौ-सेवा एवं राष्ट्र निर्माण इंटर्नशिप</b><br>राष्ट्र सेवा, आपका अनुभव, हमारा प्रमाण पत्र।</p>
     
-    <form id="certRequestForm">
+    <form id="certRequestForm" data-collection="Certificates" data-form-label="प्रमाण पत्र आवेदन">
         <input type="text" name="name" placeholder="अपना पूरा नाम" required>
         <input type="text" name="father_name" placeholder="पिता/पति का नाम" required>
         <input type="text" name="application_id" placeholder="आवेदन क्रमांक (यदि उपलब्ध हो)">

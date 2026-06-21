@@ -22,39 +22,61 @@
         import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
         // सुरक्षा: बिना लॉगिन कोई न देख सके
-        onAuthStateChanged(auth, (user) => { 
-            if (!user) { window.location.href = "admin-login.html"; } 
+        onAuthStateChanged(auth, (user) => {
+            if (!user) { window.location.href = "admin-login.html"; }
         });
+
+        // doc id -> data, ताकि PDF बटन में JSON को सीधे HTML attribute में न डालना पड़े
+        const recordsById = new Map();
 
         async function init() {
             const snap = await getDocs(collection(db, "Appointments"));
-            let html = "";
+            const list = document.getElementById("list");
+            list.innerHTML = "";
+            recordsById.clear();
+
+            if (snap.empty) {
+                list.innerHTML = "कोई आवेदन नहीं है।";
+                return;
+            }
+
             snap.forEach((docItem) => {
                 const d = docItem.data();
-                // डेटा को JSON स्ट्रिंग में बदलें ताकि फंक्शन में भेजा जा सके
-                const jsonData = JSON.stringify({ ...d, doc_id: docItem.id }).replace(/"/g, "&quot;");
-                
-                let pdfButton = "";
-                // सुरक्षा लॉजिक: केवल 'verified' होने पर ही PDF बटन सक्रिय होगा
-                if (d.status === "verified") {
-                    pdfButton = `<button class="pdf" onclick='generateAppointmentPDF(${jsonData})'>📄 PDF डाउनलोड करें</button>`;
-                } else {
-                    pdfButton = `<button class="pdf" style="background:gray" onclick="alert(\'कृपया पहले ईमेल से Approve करें!\')">Pending (Approve की प्रतीक्षा)</button>`;
-                }
+                recordsById.set(docItem.id, { ...d, doc_id: docItem.id });
 
-                html += `
-                <div class="card">
+                const isVerified = (d.status || "").toLowerCase() === "verified";
+
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
                     <h3>${d.name || "नाम अनुपलब्ध"}</h3>
                     <p><b>Status:</b> ${d.status || "Pending"}</p>
-                    ${pdfButton}
-                    <button class="print" onclick="window.print()">🖨️ नॉर्मल प्रिंट</button>
-                </div>`;
+                    ${isVerified
+                        ? `<button class="pdf" data-action="pdf" data-id="${docItem.id}">📄 PDF डाउनलोड करें</button>`
+                        : `<button class="pdf" style="background:gray" data-action="pending">Pending (Approve की प्रतीक्षा)</button>`
+                    }
+                    <button class="print" data-action="print">🖨️ नॉर्मल प्रिंट</button>`;
+                list.appendChild(card);
             });
-            document.getElementById("list").innerHTML = html || "कोई आवेदन नहीं है।";
         }
+
+        document.getElementById("list").addEventListener("click", (e) => {
+            const btn = e.target.closest("button[data-action]");
+            if (!btn) return;
+
+            if (btn.dataset.action === "pdf") {
+                const data = recordsById.get(btn.dataset.id);
+                if (data) window.generateAppointmentPDF(data);
+            } else if (btn.dataset.action === "pending") {
+                alert("कृपया पहले ईमेल से Approve करें!");
+            } else if (btn.dataset.action === "print") {
+                window.print();
+            }
+        });
+
         init();
     </script>
-    
+
     <script src="appointment-pdf.js"></script>
 </body>
 </html>

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>दैनिक सेवा रिपोर्ट | उन्नति स्वयं सहायता समिति</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
         body { font-family: 'Poppins', sans-serif; background: #f4f7fa; padding: 20px; line-height: 1.6; }
         .daily-report { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
@@ -20,7 +24,7 @@
     <h2>🐄 गौ रक्षक दैनिक सेवा रिपोर्ट</h2>
     <p style="text-align: center;">"युवा सामाजिक सारथी - गौ सेवा एवं राष्ट्र निर्माण इंटर्नशिप" के अंतर्गत अपने दैनिक सामाजिक कार्य की रिपोर्ट यहाँ जमा करें।</p>
 
-    <form id="dailyReportForm">
+    <form id="dailyReportForm" data-collection="DailyReports" data-form-label="दैनिक सेवा रिपोर्ट">
         <input type="text" name="name" placeholder="पूरा नाम" required>
         <input type="text" name="father_name" placeholder="पिता/पति का नाम" required>
         <input type="text" name="volunteer_id" placeholder="वॉलंटियर / सदस्य आईडी" required>

@@ -1,57 +1,42 @@
-import { db } from "./firebase-config.js";
-import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID कार्ड सत्यापन | उन्नति स्वयं सहायता समिति</title>
 
-// =====================
-// ID Verification Function
-// =====================
-window.verifyID = async function () {
-    const idInput = document.getElementById("idInput");
-    const result = document.getElementById("resultBox");
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; text-align: center; padding: 20px; margin: 0; }
+        .box { max-width: 650px; margin: auto; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 2px solid #d4af37; box-shadow: 0 0 15px rgba(212,175,55,0.4); }
+        .logo { width: 90px; margin-bottom: 15px; }
+        h2 { color: #d4af37; }
+        input { width: 90%; padding: 14px; border-radius: 12px; border: none; margin-top: 20px; text-align: center; font-size: 16px; box-sizing: border-box; }
+        button { margin-top: 20px; padding: 12px 35px; background: #d4af37; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        button:hover { background: #f2ce63; }
+        .result { margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; display: none; text-align: left; line-height: 1.8; }
+        a { color: #d4af37; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
+    </style>
+</head>
 
-    if (!idInput) return;
+<body>
 
-    const volunteerID = idInput.value.trim();
+<div class="box">
+    <img src="ngologo.png" class="logo" alt="NGO Logo">
+    <h2>🪪 ID कार्ड सत्यापन</h2>
+    <p>अपनी वॉलंटियर ID दर्ज करें।</p>
 
-    if (!volunteerID) {
-        alert("कृपया वॉलंटियर ID दर्ज करें।");
-        return;
-    }
+    <input type="text" id="idInput" placeholder="उदाहरण : USS-VOL-1001">
+    <br>
+    <button onclick="verifyID()">सत्यापित करें</button>
 
-    // लोडिंग स्थिति दिखाएँ
-    result.style.display = "block";
-    result.innerHTML = "<h3>⏳ सत्यापन किया जा रहा है...</h3>";
+    <div id="resultBox" class="result"></div>
 
-    try {
-        const q = query(collection(db, "IDCards"), where("volunteer_id", "==", volunteerID));
-        const snap = await getDocs(q);
+    <br>
+    <a href="index.html">⬅ मुख्य पृष्ठ पर जाएँ</a>
+</div>
 
-        if (!snap.empty) {
-            const data = snap.docs[0].data();
-            const status = data.status || "Verified";
+<!-- Scripts -->
+<script type="module" src="idverification.js"></script>
 
-            result.innerHTML = `
-                <h3 style="color:#00ff99;">✅ ID कार्ड मान्य है</h3>
-                <p><b>नाम :</b> ${data.name || "-"}</p>
-                <p><b>पिता का नाम :</b> ${data.father_name || "-"}</p>
-                <p><b>पद :</b> ${data.designation || "-"}</p>
-                <p><b>मोबाइल :</b> ${data.mobile || "-"}</p>
-                <p><b>ईमेल :</b> ${data.email || "-"}</p>
-                <p><b>पता :</b> ${data.address || "-"}</p>
-                <p><b>वॉलंटियर ID :</b> ${data.volunteer_id || "-"}</p>
-                <p><b>स्थिति :</b> ${status}</p>
-                ${data.photoURL ? `<img src="${data.photoURL}" style="width:120px; height:140px; object-fit:cover; border:2px solid #d4af37; border-radius:10px; margin-top:15px;">` : ""}
-            `;
-        } else {
-            result.innerHTML = `
-                <h3 style="color:red;">❌ यह वॉलंटियर ID उपलब्ध नहीं है।</h3>
-                <p>कृपया ID पुनः जांचें।</p>
-            `;
-        }
-    } catch (error) {
-        console.error("Verification Error:", error);
-        result.innerHTML = `
-            <h3 style="color:red;">❌ Verification Error</h3>
-            <p>सेवा अभी उपलब्ध नहीं है, कृपया बाद में प्रयास करें।</p>
-        `;
-    }
-};
+</body>
+</html>

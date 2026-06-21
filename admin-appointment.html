@@ -22,6 +22,10 @@
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
         import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
+        // doc id -> data, ताकि PDF बटन में JSON को सीधे HTML attribute में न डालना पड़े
+        // (नाम/पिता आदि में अपॉस्ट्रॉफी ' होने पर वह तरीका टूट जाता था)
+        const recordsById = new Map();
+
         onAuthStateChanged(auth, (user) => {
             if (!user) window.location.href = "admin-login.html";
             else loadData();
@@ -30,22 +34,40 @@
         async function loadData() {
             const snap = await getDocs(collection(db, "Appointments"));
             const list = document.getElementById("list");
+            list.innerHTML = "";
+            recordsById.clear();
+
             snap.forEach(docItem => {
                 const d = docItem.data();
+                recordsById.set(docItem.id, d);
+
                 const card = document.createElement("div");
                 card.className = "card";
-                card.innerHTML = `<p><b>नाम:</b> ${d.name}</p><p><b>पद:</b> ${d.designation}</p>
-                    <button class="approve" onclick="updateStatus('${docItem.id}', 'Verified')">Approve</button>
-                    <button class="reject" onclick="updateStatus('${docItem.id}', 'Rejected')">Reject</button>
-                    <button onclick='generateAppointmentPDF(${JSON.stringify(d).replace(/"/g, "&quot;")})'>PDF</button>`;
+                card.innerHTML = `<p><b>नाम:</b> ${d.name || "-"}</p><p><b>पद:</b> ${d.designation || "-"}</p><p><b>स्थिति:</b> ${d.status || "Pending"}</p>
+                    <button class="approve" data-action="approve" data-id="${docItem.id}">Approve</button>
+                    <button class="reject" data-action="reject" data-id="${docItem.id}">Reject</button>
+                    <button data-action="pdf" data-id="${docItem.id}">PDF</button>`;
                 list.appendChild(card);
             });
         }
 
-        window.updateStatus = async (id, status) => {
+        document.getElementById("list").addEventListener("click", (e) => {
+            const btn = e.target.closest("button[data-action]");
+            if (!btn) return;
+            const id = btn.dataset.id;
+
+            if (btn.dataset.action === "approve") updateStatus(id, "Verified");
+            else if (btn.dataset.action === "reject") updateStatus(id, "Rejected");
+            else if (btn.dataset.action === "pdf") {
+                const data = recordsById.get(id);
+                if (data) window.generateAppointmentPDF(data);
+            }
+        });
+
+        async function updateStatus(id, status) {
             await updateDoc(doc(db, "Appointments", id), { status: status });
             location.reload();
-        };
+        }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="appointment-pdf.js"></script>

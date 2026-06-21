@@ -56,7 +56,7 @@
 
     async function loadDashboard() {
         // लोड कार्ड्स
-        const collections = [{id:"totalVolunteers", name:"Volunteers"}, {id:"totalCertificates", name:"Certificates"}, {id:"totalIDCards", name:"IDCards"}, {id:"totalReports", name:"DailyReports"}];
+        const collections = [{id:"totalVolunteers", name:"Volunteers"}, {id:"totalCertificates", name:"Certificates"}, {id:"totalIDCards", name:"IDcard"}, {id:"totalReports", name:"DailyReports"}];
         for (const col of collections) {
             const snap = await getDocs(collection(db, col.name));
             document.getElementById(col.id).innerText = snap.size;
@@ -91,8 +91,12 @@
                 await emailjs.send("service_63pefgf", "template_wvzbj7p", {
                     user_name: name,
                     user_email: email,
-                    subject: "पंजीकरण सफल: उन्नति स्वयं सहायता समिति",
-                    message: "बधाई हो " + name + "! आपका पंजीकरण अप्रूव कर दिया गया है। अब आप अपनी डेली वर्क रिपोर्ट भर सकते हैं।"
+                    name: name,
+                    mobile: "",
+                    email: email,
+                    designation: "छात्र पंजीकरण स्वीकृत",
+                    doc_id: id,
+                    type: "StudentRegistrations"
                 });
             }
             

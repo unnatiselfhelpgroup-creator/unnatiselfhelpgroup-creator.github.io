@@ -58,14 +58,18 @@
             data.createdAt = serverTimestamp();
             
             // 1. Firebase में डेटा सेव करें
-            await addDoc(collection(db, "StudentRegistrations"), data);
-            
-            // 2. EmailJS के जरिए ईमेल भेजें
+            const docRef = await addDoc(collection(db, "StudentRegistrations"), data);
+
+            // 2. EmailJS के जरिए एडमिन को अलर्ट भेजें (Approve/Reject बटन सहित)
             await emailjs.send("service_63pefgf", "template_wvzbj7p", {
                 user_name: data.name,
                 user_email: data.email,
-                subject: "नया इंटर्नशिप पंजीकरण: " + data.name,
-                message: "नया आवेदन प्राप्त हुआ। छात्र का नाम: " + data.name + ", मोबाइल: " + data.mobile + ", स्टेटस: भुगतान पूर्ण (स्क्रीनशॉट अपलोड कर दिया गया है)"
+                name: data.name,
+                mobile: data.mobile,
+                email: data.email,
+                designation: "छात्र पंजीकरण (भुगतान पूर्ण)",
+                doc_id: docRef.id,
+                type: "StudentRegistrations"
             });
             
             // 3. सफलता संदेश
