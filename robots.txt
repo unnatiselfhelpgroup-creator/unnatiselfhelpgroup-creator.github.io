@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Admin pages - Google index न करे
+Disallow: /admin-login.html
+Disallow: /admin-dashboard.html
+Disallow: /admin-action.html
+Disallow: /admin-appointment.html
+Disallow: /appointment.html
+Disallow: /appointment-payment.html
+Disallow: /daily-report.html
+
+# Sitemap location
+Sitemap: https://unnatiselfhelpgroup-creator.github.io/sitemap.xml
