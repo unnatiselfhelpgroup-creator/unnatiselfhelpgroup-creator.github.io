@@ -2,74 +2,101 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Appointment Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Admin | उन्नति स्वयं सहायता समिति</title>
+    <meta name="robots" content="noindex, nofollow">
     <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; background: #001a33; margin: 0; padding: 20px; }
-        h1 { text-align: center; color: white; }
-        #list { max-width: 1200px; margin: auto; }
-        .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .card button { border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; margin: 5px; cursor: pointer; }
+        h1 { text-align: center; color: white; margin-bottom: 24px; font-size: 1.5rem; }
+        #list { max-width: 1100px; margin: auto; }
+        .card {
+            background: white; border-radius: 16px;
+            padding: 22px 25px; margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+        }
+        .card p { margin: 4px 0; font-size: 0.95rem; }
+        .card-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .card button { border: none; padding: 9px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.88rem; transition: opacity 0.2s; }
+        .card button:hover { opacity: 0.85; }
         .approve { background: #28a745; color: white; }
-        .reject { background: #dc3545; color: white; }
+        .reject  { background: #dc3545; color: white; }
+        .pdf-btn { background: #1b2430; color: white; }
+        #loading { text-align: center; color: #d4af37; padding: 30px; font-size: 1rem; }
     </style>
 </head>
 <body>
-    <h1>Appointment Applications</h1>
-    <div id="list"></div>
+    <h1>📋 Appointment Applications</h1>
+    <div id="list"><p id="loading">डेटा लोड हो रहा है...</p></div>
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
         import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-        // doc id -> data, ताकि PDF बटन में JSON को सीधे HTML attribute में न डालना पड़े
-        // (नाम/पिता आदि में अपॉस्ट्रॉफी ' होने पर वह तरीका टूट जाता था)
         const recordsById = new Map();
 
         onAuthStateChanged(auth, (user) => {
-            if (!user) window.location.href = "admin-login.html";
-            else loadData();
+            if (!user) { window.location.href = "admin-login.html"; return; }
+            loadData();
         });
 
-        async function loadData() {
-            const snap = await getDocs(collection(db, "Appointments"));
-            const list = document.getElementById("list");
-            list.innerHTML = "";
-            recordsById.clear();
-
-            snap.forEach(docItem => {
-                const d = docItem.data();
-                recordsById.set(docItem.id, d);
-
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerHTML = `<p><b>नाम:</b> ${d.name || "-"}</p><p><b>पद:</b> ${d.designation || "-"}</p><p><b>स्थिति:</b> ${d.status || "Pending"}</p>
-                    <button class="approve" data-action="approve" data-id="${docItem.id}">Approve</button>
-                    <button class="reject" data-action="reject" data-id="${docItem.id}">Reject</button>
-                    <button data-action="pdf" data-id="${docItem.id}">PDF</button>`;
-                list.appendChild(card);
-            });
+        function escapeHtml(s) {
+            return String(s || "").replace(/[&<>"']/g, c =>
+                ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
         }
 
-        document.getElementById("list").addEventListener("click", (e) => {
+        async function loadData() {
+            try {
+                const snap = await getDocs(collection(db, "Appointments"));
+                const list = document.getElementById("list");
+                list.innerHTML = "";
+                recordsById.clear();
+
+                if (snap.empty) { list.innerHTML = "<p style='color:white;text-align:center'>कोई आवेदन नहीं मिला।</p>"; return; }
+
+                snap.forEach(docItem => {
+                    const d = docItem.data();
+                    recordsById.set(docItem.id, d);
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `
+                        <p><b>नाम:</b> ${escapeHtml(d.name)}</p>
+                        <p><b>पद:</b> ${escapeHtml(d.designation)}</p>
+                        <p><b>मोबाइल:</b> ${escapeHtml(d.mobile)}</p>
+                        <p><b>स्थिति:</b> ${escapeHtml(d.status || "Pending")}</p>
+                        <div class="card-actions">
+                            <button class="approve" data-action="approve" data-id="${docItem.id}">✅ Approve</button>
+                            <button class="reject"  data-action="reject"  data-id="${docItem.id}">❌ Reject</button>
+                            <button class="pdf-btn" data-action="pdf"     data-id="${docItem.id}">📄 PDF</button>
+                        </div>`;
+                    list.appendChild(card);
+                });
+            } catch(err) {
+                document.getElementById("list").innerHTML = `<p style='color:red'>त्रुटि: ${err.message}</p>`;
+            }
+        }
+
+        document.getElementById("list").addEventListener("click", async (e) => {
             const btn = e.target.closest("button[data-action]");
             if (!btn) return;
-            const id = btn.dataset.id;
-
-            if (btn.dataset.action === "approve") updateStatus(id, "Verified");
-            else if (btn.dataset.action === "reject") updateStatus(id, "Rejected");
-            else if (btn.dataset.action === "pdf") {
+            const { action, id } = btn.dataset;
+            if (action === "approve") { btn.disabled = true; await updateStatus(id, "Verified"); }
+            else if (action === "reject") { btn.disabled = true; await updateStatus(id, "Rejected"); }
+            else if (action === "pdf") {
                 const data = recordsById.get(id);
                 if (data) window.generateAppointmentPDF(data);
             }
         });
 
         async function updateStatus(id, status) {
-            await updateDoc(doc(db, "Appointments", id), { status: status });
-            location.reload();
+            try {
+                await updateDoc(doc(db, "Appointments", id), { status });
+                location.reload();
+            } catch(err) { alert("त्रुटि: " + err.message); }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    <script src="appointment-pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" defer></script>
+    <script src="appointment-pdf.js" defer></script>
 </body>
 </html>
