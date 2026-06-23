@@ -16,8 +16,8 @@
     <script type="module">
         // auth को firebase-config से इम्पोर्ट करें
         import { db, auth } from "./firebase-config.js";
-        import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');

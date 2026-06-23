@@ -171,7 +171,7 @@ window.generateCertificatePDF = async function (data) {
 
     try {
         const { db } = await import("./firebase-config.js");
-        const { doc: fireDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js");
+        const { doc: fireDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
         await setDoc(fireDoc(db, "Certificates", certNo), {
             name: data.name,
             father_name: data.father_name || "",

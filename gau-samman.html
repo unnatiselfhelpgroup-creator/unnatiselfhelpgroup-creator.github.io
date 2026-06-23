@@ -374,8 +374,8 @@ let playTimer = null;
 const FB_BASE = "https://firebasestorage.googleapis.com/v0/b/ngo-certificate-system.firebasestorage.app/o/rti-docs%2F";
 
 function getPdfUrl(filename) {
-  // GitHub Pages: serve from rti-docs/ folder directly
-  return "rti-docs/" + encodeURIComponent(filename);
+  // Firebase Storage से PDF load करें
+  return FB_BASE + encodeURIComponent(filename) + "?alt=media";
 }
 
 function buildThumbs() {
@@ -428,33 +428,25 @@ function loadDoc() {
   const activeThumb = document.getElementById('thumb-' + current);
   if (activeThumb) activeThumb.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
 
-  // Load PDF
+  // Firebase Storage से PDF load करें
   const url = getPdfUrl(doc.file);
-  // Use Google Docs viewer as fallback for GitHub Pages
-  const fullUrl = window.location.origin + "/" + 
-    window.location.pathname.split('/').slice(0,-1).join('/') + "/" + url;
   
-  // Try direct embed first
   iframe.src = url;
-  
-  let loaded = false;
   iframe.onload = () => {
-    loaded = true;
     loading.style.display = 'none';
     iframe.style.display = 'block';
   };
-  
-  // Fallback after 4 seconds
+  iframe.onerror = () => {
+    // Fallback: Google Docs viewer
+    iframe.src = "https://docs.google.com/viewer?url=" + encodeURIComponent(url) + "&embedded=true";
+    loading.style.display = 'none';
+    iframe.style.display = 'block';
+  };
+  // Show after 5s regardless
   setTimeout(() => {
-    if (!loaded) {
-      // Try with PDF.js viewer
-      iframe.src = "https://docs.google.com/viewer?url=" + 
-        encodeURIComponent(window.location.href.split('/gau-samman')[0] + "/" + url) + 
-        "&embedded=true";
-      loading.style.display = 'none';
-      iframe.style.display = 'block';
-    }
-  }, 4000);
+    loading.style.display = 'none';
+    iframe.style.display = 'block';
+  }, 5000);
 }
 
 function nextDoc() {

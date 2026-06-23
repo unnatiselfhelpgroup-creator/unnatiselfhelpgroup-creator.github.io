@@ -19,8 +19,8 @@
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
         // doc id -> data, ताकि PDF बटन में JSON को सीधे HTML attribute में न डालना पड़े
         // (नाम/पिता आदि में अपॉस्ट्रॉफी ' होने पर वह तरीका टूट जाता था)

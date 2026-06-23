@@ -3,7 +3,7 @@ import { auth } from "./firebase-config.js";
 import {
 signInWithEmailAndPassword,
 signOut
-} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 // =======================
 // Admin Login

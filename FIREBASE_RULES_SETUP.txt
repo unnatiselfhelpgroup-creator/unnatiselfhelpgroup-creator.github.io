@@ -1,0 +1,77 @@
+════════════════════════════════════════════════
+  FIREBASE SECURITY RULES — सेटअप निर्देश
+════════════════════════════════════════════════
+
+Firebase Console → Firestore → Rules में यह paste करें:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // एडमिन की पहचान के लिए फंक्शन
+    function isAdmin() {
+      return request.auth != null &&
+             request.auth.token.email == "unnatiselfhelpgroup@gmail.com";
+    }
+
+    // StudentRegistrations के लिए नियम
+    match /StudentRegistrations/{docId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // Appointments के लिए नियम
+    match /Appointments/{docId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // Volunteers के लिए नियम
+    match /Volunteers/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // DailyReports के लिए नियम
+    match /DailyReports/{docId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // Certificates के लिए नियम
+    match /Certificates/{docId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // IDcard के लिए नियम
+    match /IDcard/{docId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if isAdmin();
+    }
+  }
+}
+
+════════════════════════════════════════════════
+  RTI PDF UPLOAD — निर्देश
+════════════════════════════════════════════════
+
+Firebase Console → Storage → rti-docs/ folder बनाएं
+और सभी PDF files वहाँ upload करें।
+
+Firebase Storage Rules:
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /rti-docs/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+════════════════════════════════════════════════
