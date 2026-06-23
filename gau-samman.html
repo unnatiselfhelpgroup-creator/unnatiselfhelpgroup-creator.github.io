@@ -159,7 +159,7 @@ footer p{font-size:13px;color:#ccc;line-height:2}
       <!-- Top Bar -->
       <div class="ss-topbar">
         <span class="ss-title">📂 RTI दस्तावेज — गौ माता राज्यमाता आंदोलन</span>
-        <span class="ss-counter" id="ss-counter">दस्तावेज 1 / 35</span>
+        <span class="ss-counter" id="ss-counter">दस्तावेज 1 / 43</span>
       </div>
 
       <!-- Progress -->
@@ -322,20 +322,21 @@ const BASE = "rti-docs/"; // GitHub पर folder name
 const docs = [
   { name: "RTI आवेदन — विधान सभा सचिवालय (20 अप्रैल 2026)", file: "Adobe_Scan_20-Jun-2026__1_.pdf" },
   { name: "RTI आवेदन — पशुपालन विभाग (20 अप्रैल 2026)", file: "Adobe_Scan_20-Jun-2026__2_.pdf" },
+  { name: "RTI आवेदन — पशुपालन विभाग (द्वितीय प्रति)", file: "Adobe_Scan_20-Jun-2026.pdf" },
   { name: "विधान सभा संकल्प पत्र — उप सचिव (05 मार्च 2026)", file: "Adobe_Scan_20-Jun-2026__4_.pdf" },
   { name: "विधायक पत्र संग्रह — RTI संलग्नक", file: "Adobe_Scan_20-Jun-2026__5_.pdf" },
   { name: "पशुपालन विभाग RTI अनुरोध पत्र", file: "Adobe_Scan_20-Jun-2026__6_.pdf" },
   { name: "RTI शुल्क भुगतान पत्र — IPO 73F 424217", file: "Adobe_Scan_20-Jun-2026__7_.pdf" },
   { name: "पशुपालन विभाग — Note #1 (06 मार्च 2026)", file: "Adobe_Scan_20-Jun-2026__8_.pdf" },
-  { name: "पशुपालन विभाग — Note #2, #3 (06 मार्च 2026)", file: "Adobe_Scan_20-Jun-2026__9_.pdf" },
+  { name: "पशुपालन विभाग — Note #2 #3 (06 मार्च 2026)", file: "Adobe_Scan_20-Jun-2026__9_.pdf" },
   { name: "पशुपालन विभाग — Note #4-7 (Under/Deputy/Addl/Secretary)", file: "Adobe_Scan_20-Jun-2026__10_.pdf" },
   { name: "पशुपालन विभाग — Note #8-10 (Secretary Rajendra Kumar)", file: "Adobe_Scan_20-Jun-2026__11_.pdf" },
   { name: "पशुपालन विभाग — Note #11-15", file: "Adobe_Scan_20-Jun-2026__12_.pdf" },
   { name: "पशुपालन विभाग — Note #16-20 (सांस्कृति विभाग संदर्भ)", file: "Adobe_Scan_20-Jun-2026__13_.pdf" },
   { name: "पशुपालन विभाग — Note #21 (08 अप्रैल 2026)", file: "Adobe_Scan_20-Jun-2026__14_.pdf" },
   { name: "पशुपालन विभाग — गौ सेवा आयोग विस्तृत रिपोर्ट", file: "Adobe_Scan_20-Jun-2026__15_.pdf" },
-  { name: "पशुपालन विभाग — Note #27 (Pankaj Singh Sajwan)", file: "Adobe_Scan_20-Jun-2026__16_.pdf" },
-  { name: "पशुपालन विभाग — Note #148 (मंत्री पत्र 22 जनवरी 2026)", file: "Adobe_Scan_20-Jun-2026__17_.pdf" },
+  { name: "पशुपालन — Note #27 (Pankaj Singh Sajwan)", file: "Adobe_Scan_20-Jun-2026__16_.pdf" },
+  { name: "पशुपालन — Note #148 (मंत्री पत्र 22 जनवरी 2026)", file: "Adobe_Scan_20-Jun-2026__17_.pdf" },
   { name: "36 MLA समर्थन सूची — विधायकगण एवं गौ सेवा आयोग", file: "36MLA_और_GAU_SEVA_AAYOG.pdf" },
   { name: "36 MLA सूची — क्रमांक 33-37 (पृष्ठ 2)", file: "Adobe_Scan_20-Jun-2026__18_.pdf" },
   { name: "विधान सभा — RTI जवाब पत्र (06 मई 2026)", file: "Adobe_Scan_20-Jun-2026__19_.pdf" },
@@ -355,6 +356,13 @@ const docs = [
   { name: "विधानसभा कार्यवाही — Video Footage निर्देश", file: "Adobe_Scan_20-Jun-2026__34_.pdf" },
   { name: "13 मार्च 2026 विधान सभा उपवेशन — मद 16(4)", file: "Adobe_Scan_20-Jun-2026__35_.pdf" },
   { name: "विधायक पत्र — मुख्यमंत्री को (प्रीतम सिंह पंवार)", file: "Adobe_Scan_20-Jun-2026__36_.pdf" },
+  { name: "उत्तराखंड गौ सेवा आयोग — दंडवत यात्रा एवं अंग समर्पण पत्र", file: "ग_स_व__आय_ग_उत_तर_ख_ड.pdf" },
+  { name: "गौ माता दंडवत यात्रा — सिटी मजिस्ट्रेट आश्वासन (समाचार)", file: "ग__म_त__द_डवत_य_त_र__आश_व_सन.pdf" },
+  { name: "गौ माता के लिए अन्न-जल त्याग — समाचार एवं दंडवत यात्रा", file: "ग__म_त__क__ल_ए_अन_न_जल_त_य_ग_न_य_ज_1.pdf" },
+  { name: "गौ माता दंडवत यात्रा — देहरादून पहुंची (समाचार पत्र)", file: "ग__म_त__द_डवत_य_त_र_.pdf" },
+  { name: "विधान सभा सचिव — विधिवत रूप से प्रस्तुत ज्ञापन एवं गेट पास (13 फरवरी 2026)", file: "व_ध_नसभ__सच_व_व_ध_वत_र_प_स_.pdf" },
+  { name: "विधान सभा अध्यक्ष — स्पीड पोस्ट ज्ञापन (डिजिटल हस्ताक्षरित)", file: "व_ध_नसभ__अध_यक_ष_स_प_ड_प_स_ट.pdf" },
+  { name: "राष्ट्रपति महोदया को निवेदन — दंडवत यात्रा एवं अंग समर्पण (15 नवम्बर 2025)", file: "र_ष_ट_रपत__स__न_व_दन.pdf" },
 ];
 
 let current = 0;
@@ -366,7 +374,8 @@ let playTimer = null;
 const FB_BASE = "https://firebasestorage.googleapis.com/v0/b/ngo-certificate-system.firebasestorage.app/o/rti-docs%2F";
 
 function getPdfUrl(filename) {
-  return FB_BASE + encodeURIComponent(filename) + "?alt=media";
+  // GitHub Pages: serve from rti-docs/ folder directly
+  return "rti-docs/" + encodeURIComponent(filename);
 }
 
 function buildThumbs() {
@@ -421,22 +430,31 @@ function loadDoc() {
 
   // Load PDF
   const url = getPdfUrl(doc.file);
+  // Use Google Docs viewer as fallback for GitHub Pages
+  const fullUrl = window.location.origin + "/" + 
+    window.location.pathname.split('/').slice(0,-1).join('/') + "/" + url;
+  
+  // Try direct embed first
   iframe.src = url;
+  
+  let loaded = false;
   iframe.onload = () => {
+    loaded = true;
     loading.style.display = 'none';
     iframe.style.display = 'block';
   };
-  iframe.onerror = () => {
-    loading.innerHTML = `
-      <div style="text-align:center;padding:20px">
-        <div style="font-size:48px;margin-bottom:16px">📄</div>
-        <div style="color:#ffd700;font-size:15px;margin-bottom:8px">${doc.name}</div>
-        <div style="color:#aaa;font-size:12px;margin-bottom:16px">PDF Firebase Storage से लोड हो रही है।<br>कृपया पहले Firebase Storage में files upload करें।</div>
-        <a href="admin-login.html" style="color:#ffd700;border:1px solid gold;padding:8px 18px;border-radius:12px;text-decoration:none;font-size:12px">Admin Panel →</a>
-      </div>`;
-    loading.style.display = 'block';
-    iframe.style.display = 'none';
-  };
+  
+  // Fallback after 4 seconds
+  setTimeout(() => {
+    if (!loaded) {
+      // Try with PDF.js viewer
+      iframe.src = "https://docs.google.com/viewer?url=" + 
+        encodeURIComponent(window.location.href.split('/gau-samman')[0] + "/" + url) + 
+        "&embedded=true";
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
+    }
+  }, 4000);
 }
 
 function nextDoc() {
