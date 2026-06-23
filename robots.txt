@@ -2,8 +2,17 @@ User-agent: *
 Allow: /
 Disallow: /admin-login.html
 Disallow: /admin-dashboard.html
-Disallow: /admin-appointment.html
 Disallow: /admin-action.html
-Disallow: /appointment.html
+Disallow: /admin-appointment.html
+Disallow: /firebase-config.js
+Disallow: /auth.js
 
 Sitemap: https://unnatiselfhelpgroup-creator.github.io/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /

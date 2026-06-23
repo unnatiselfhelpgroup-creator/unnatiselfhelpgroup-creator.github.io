@@ -2,155 +2,113 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
-    <meta name="robots" content="noindex, nofollow">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', Arial, sans-serif; background: #071b34; color: white; padding: 20px; }
-        h1 { text-align: center; margin-bottom: 24px; font-size: 1.6rem; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px; padding: 0 0 24px;
-        }
-        .card {
-            background: rgba(255,255,255,0.08);
-            padding: 20px; border-radius: 15px;
-            text-align: center;
-            border: 1px solid #d4af37;
-            transition: background 0.2s;
-        }
-        .card:hover { background: rgba(255,255,255,0.14); }
-        .card a { color: white; text-decoration: none; font-weight: bold; display: block; }
-        .card h3 { font-size: 0.9rem; color: #d4af37; margin-bottom: 6px; }
-        .card h2 { font-size: 2rem; }
-        h2.section-title { text-align: center; margin: 32px 0 16px; font-size: 1.3rem; }
-        .table-wrap { overflow-x: auto; border-radius: 12px; }
-        table { width: 100%; border-collapse: collapse; background: white; color: black; border-radius: 12px; overflow: hidden; min-width: 500px; }
-        th { background: #1b2430; color: white; padding: 13px 12px; font-size: 0.9rem; }
-        td { padding: 11px 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; text-align: center; }
-        tr:last-child td { border-bottom: none; }
-        .btn { padding: 6px 14px; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; font-size: 0.82rem; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.85; }
+        body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #d4af37; }
+        .card a { color: white; text-decoration: none; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; color: black; background: white; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+        .btn { padding: 5px 10px; cursor: pointer; border: none; border-radius: 5px; }
         .approve { background: #00a651; color: white; }
-        .reject  { background: #ff4d4d; color: white; }
-        #loadingMsg { text-align: center; color: #d4af37; padding: 20px; }
+        .reject { background: #ff4d4d; color: white; }
     </style>
 </head>
 <body>
-<header><h1>🔐 Admin Dashboard</h1></header>
+<h1 style="text-align:center;">🔐 Admin Dashboard</h1>
+<div class="grid">
+    <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">0</h2></div>
+    <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">0</h2></div>
+    <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">0</h2></div>
+    <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">0</h2></div>
+    <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
+    <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
+    <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
+    <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
+    <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
+</div>
 
-<main>
-  <section aria-label="Stats Overview">
-    <div class="grid">
-        <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">—</h2></div>
-        <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">—</h2></div>
-        <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">—</h2></div>
-        <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">—</h2></div>
-        <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
-        <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
-        <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
-        <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
-        <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
-    </div>
-  </section>
-
-  <h2 class="section-title">छात्र पंजीकरण (Internship)</h2>
-  <div class="table-wrap">
-    <table id="studentTable" aria-label="छात्र पंजीकरण सूची">
-        <thead>
-            <tr><th>नाम</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr>
-        </thead>
-        <tbody id="studentBody">
-            <tr><td colspan="4" id="loadingMsg">डेटा लोड हो रहा है...</td></tr>
-        </tbody>
-    </table>
-  </div>
-</main>
+<h2 style="text-align:center; margin-top:40px;">छात्र पंजीकरण (Internship)</h2>
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>नाम</th>
+            <th>मोबाइल</th>
+            <th>स्थिति</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="studentBody"></tbody>
+</table>
 
 <script type="module">
     import { auth, db } from "./firebase-config.js";
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
     import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) { window.location.href = "admin-login.html"; return; }
-        loadDashboard();
-    });
+    onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "admin-login.html"; });
 
     async function loadDashboard() {
-        const collections = [
-            { id: "totalVolunteers",    name: "Volunteers" },
-            { id: "totalCertificates",  name: "Certificates" },
-            { id: "totalIDCards",       name: "IDcard" },
-            { id: "totalReports",       name: "DailyReports" }
-        ];
-        await Promise.all(collections.map(async (col) => {
-            try {
-                const snap = await getDocs(collection(db, col.name));
-                document.getElementById(col.id).innerText = snap.size;
-            } catch { document.getElementById(col.id).innerText = "—"; }
-        }));
-
-        try {
-            const studentSnap = await getDocs(collection(db, "StudentRegistrations"));
-            const body = document.getElementById("studentBody");
-            body.innerHTML = "";
-            if (studentSnap.empty) {
-                body.innerHTML = "<tr><td colspan='4'>कोई पंजीकरण नहीं मिला।</td></tr>";
-                return;
-            }
-            studentSnap.forEach((docSnap) => {
-                const d = docSnap.data();
-                const safeId    = CSS.escape(docSnap.id);
-                const safeName  = (d.name  || "").replace(/['"<>&]/g, c => ({'\'':'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-                const safeEmail = (d.email || "").replace(/['"<>&]/g, c => ({'\'':'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${safeName || "—"}</td>
-                    <td>${d.mobile || "—"}</td>
-                    <td>${d.status || "Pending"}</td>
-                    <td>
-                        <button class="btn approve" data-id="${docSnap.id}" data-name="${safeName}" data-email="${safeEmail}" data-action="approve">Approve</button>
-                        <button class="btn reject"  data-id="${docSnap.id}" data-name="${safeName}" data-action="reject">Reject</button>
-                    </td>`;
-                body.appendChild(row);
-            });
-        } catch(err) {
-            document.getElementById("studentBody").innerHTML = `<tr><td colspan='4'>त्रुटि: ${err.message}</td></tr>`;
+        // लोड कार्ड्स
+        const collections = [{id:"totalVolunteers", name:"Volunteers"}, {id:"totalCertificates", name:"Certificates"}, {id:"totalIDCards", name:"IDcard"}, {id:"totalReports", name:"DailyReports"}];
+        for (const col of collections) {
+            const snap = await getDocs(collection(db, col.name));
+            document.getElementById(col.id).innerText = snap.size;
         }
+
+        // लोड स्टूडेंट्स टेबल
+        const studentSnap = await getDocs(collection(db, "StudentRegistrations"));
+        const body = document.getElementById("studentBody");
+        body.innerHTML = "";
+        studentSnap.forEach((docSnap) => {
+            const data = docSnap.data();
+            const row = `<tr>
+                <td>${data.name}</td>
+                <td>${data.mobile}</td>
+                <td>${data.status || 'Pending'}</td>
+                <td>
+                    <button class="btn approve" onclick="updateStatus('${docSnap.id}', 'Approved', '${data.name}', '${data.email}')">Approve</button>
+                    <button class="btn reject" onclick="updateStatus('${docSnap.id}', 'Rejected', '${data.name}', '${data.email}')">Reject</button>
+                </td>
+            </tr>`;
+            body.innerHTML += row;
+        });
     }
 
-    document.getElementById("studentBody").addEventListener("click", async (e) => {
-        const btn = e.target.closest("button[data-action]");
-        if (!btn) return;
-        const { id, name, email, action } = btn.dataset;
-        const status = action === "approve" ? "Approved" : "Rejected";
-        btn.disabled = true;
+    // ग्लोबल फंक्शन अपडेट और ईमेल भेजने के लिए
+    window.updateStatus = async (id, status, name, email) => {
         try {
-            await updateDoc(doc(db, "StudentRegistrations", id), { status });
-            if (status === "Approved") {
+            await updateDoc(doc(db, "StudentRegistrations", id), { status: status });
+            
+            // अगर अप्रूव हुआ, तो छात्र को ईमेल भेजें
+            if (status === 'Approved') {
                 await emailjs.send("service_63pefgf", "template_wvzbj7p", {
-                    user_name: name, user_email: email,
-                    name, mobile: "", email,
+                    user_name: name,
+                    user_email: email,
+                    name: name,
+                    mobile: "",
+                    email: email,
                     designation: "छात्र पंजीकरण स्वीकृत",
-                    doc_id: id, type: "StudentRegistrations"
+                    doc_id: id,
+                    type: "StudentRegistrations"
                 });
             }
-            alert("स्थिति अपडेट: " + status);
+            
+            alert("स्थिति अपडेट कर दी गई: " + status);
             location.reload();
-        } catch(err) {
+        } catch (err) {
+            console.error(err);
             alert("त्रुटि: " + err.message);
-            btn.disabled = false;
         }
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        if (typeof emailjs !== "undefined") emailjs.init("AvD_f76bB4qJYnGb0");
-    });
+    };
+
+    loadDashboard();
 </script>
 </body>
 </html>
