@@ -1,77 +1,93 @@
 ════════════════════════════════════════════════
-  FIREBASE SECURITY RULES — सेटअप निर्देश
+  FIREBASE SECURITY RULES — अपडेटेड सेटअप
+  (Payment Screenshot Storage Support सहित)
 ════════════════════════════════════════════════
 
+━━━ FIRESTORE RULES ━━━
 Firebase Console → Firestore → Rules में यह paste करें:
 
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // एडमिन की पहचान के लिए फंक्शन
     function isAdmin() {
       return request.auth != null &&
              request.auth.token.email == "unnatiselfhelpgroup@gmail.com";
     }
 
-    // StudentRegistrations के लिए नियम
     match /StudentRegistrations/{docId} {
       allow create: if true;
       allow read: if true;
       allow update, delete: if isAdmin();
     }
 
-    // Appointments के लिए नियम
     match /Appointments/{docId} {
       allow create: if true;
       allow read: if true;
       allow update, delete: if isAdmin();
     }
 
-    // Volunteers के लिए नियम
     match /Volunteers/{docId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // DailyReports के लिए नियम
     match /DailyReports/{docId} {
       allow create: if true;
       allow read: if true;
       allow update, delete: if isAdmin();
     }
 
-    // Certificates के लिए नियम
     match /Certificates/{docId} {
       allow create: if true;
       allow read: if true;
       allow update, delete: if isAdmin();
     }
 
-    // IDcard के लिए नियम
     match /IDcard/{docId} {
       allow create: if true;
       allow read: if true;
       allow update, delete: if isAdmin();
     }
+
+    // ✅ Sequential Counter (appointment letter numbers)
+    match /Counters/{docId} {
+      allow read: if true;
+      allow write: if true;  // counter publicly writable (create only needed)
+    }
   }
 }
 
-════════════════════════════════════════════════
-  RTI PDF UPLOAD — निर्देश
-════════════════════════════════════════════════
+━━━ FIREBASE STORAGE RULES ━━━
+Firebase Console → Storage → Rules में यह paste करें:
 
-Firebase Console → Storage → rti-docs/ folder बनाएं
-और सभी PDF files वहाँ upload करें।
-
-Firebase Storage Rules:
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+
+    // ✅ Payment Proofs - User upload कर सकता है, Admin पढ़ सकता है
+    match /payment-proofs/{allPaths=**} {
+      allow read: if request.auth != null;   // सिर्फ Admin देख सकता है
+      allow write: if request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // RTI Documents - Public read
     match /rti-docs/{fileName} {
       allow read: if true;
       allow write: if request.auth != null;
     }
   }
 }
+
+━━━ STORAGE FOLDER STRUCTURE ━━━
+Firebase Storage में यह folders automatically बनेंगे:
+  payment-proofs/
+    appointments/   ← Appointment payment screenshots
+    students/       ← Student registration screenshots
+
+━━━ IMPORTANT NOTES ━━━
+1. Counters collection automatically बनेगा जब पहली PDF generate होगी
+2. Payment Screenshot URL admin-dashboard और admin-appointment में दिखेगा
+3. Storage rules में 5MB limit और image/* type check है
 ════════════════════════════════════════════════

@@ -10,32 +10,55 @@
     </script>
     <style>
         body { font-family: 'Poppins', sans-serif; text-align: center; padding: 20px; background: #f4f7fa; }
-        .box { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .box { max-width: 420px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .pay-link { background: #3395ff; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; display: block; margin: 20px 0; font-weight: bold; }
-        input[type="file"] { margin: 10px 0; display: block; width: 100%; }
-        button { background: #00a651; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 20px; display: none; width: 100%; }
+        input[type="file"] { margin: 10px 0; display: block; width: 100%; padding: 8px; border: 2px dashed #d4af37; border-radius: 8px; background: #fffde7; }
+        button { background: #00a651; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 20px; display: none; width: 100%; font-weight: bold; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
         #feeLine { font-weight: bold; color: #1b2430; margin-top: 10px; }
+        #uploadProgress { display: none; margin-top: 12px; }
+        #progressBar { width: 100%; height: 10px; background: #eee; border-radius: 10px; overflow: hidden; }
+        #progressFill { height: 100%; width: 0%; background: #00a651; transition: width 0.3s; border-radius: 10px; }
+        #progressText { font-size: 13px; color: #555; margin-top: 5px; }
+        #previewImg { display: none; max-width: 100%; max-height: 180px; border: 2px solid #d4af37; border-radius: 10px; margin-top: 10px; object-fit: contain; }
+        .step { background: #f8f9fa; border-left: 4px solid #d4af37; padding: 8px 12px; margin: 8px 0; border-radius: 5px; text-align: left; font-size: 14px; }
     </style>
 </head>
 <body>
 <div class="box">
-    <h3>नियुक्ति हेतु भुगतान</h3>
+    <h3>🧾 नियुक्ति हेतु भुगतान</h3>
     <p id="feeLine"></p>
-    <img src="Qrcode.png" width="200"><br>
-    <p>1. पहले भुगतान करें:</p>
-    <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="pay-link" onclick="document.getElementById('paidBtn').style.display='block'">Razorpay से भुगतान करें</a>
 
-    <p>2. भुगतान का स्क्रीनशॉट अपलोड करें:</p>
+    <img src="Qrcode.png" width="180" alt="QR Code" style="border-radius:10px; margin:10px 0;"><br>
+
+    <div class="step">1️⃣ पहले नीचे दिए लिंक से भुगतान करें:</div>
+    <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom"
+       target="_blank"
+       class="pay-link"
+       onclick="document.getElementById('paidBtn').style.display='block'">
+       💳 Razorpay से भुगतान करें
+    </a>
+
+    <div class="step">2️⃣ भुगतान का स्क्रीनशॉट अपलोड करें (अनिवार्य):</div>
     <input type="file" id="paymentProof" accept="image/*" required>
+    <img id="previewImg" alt="Screenshot Preview">
 
-    <p>3. भुगतान के बाद यह बटन दबाएं:</p>
-    <button id="paidBtn">मैंने भुगतान कर दिया है</button>
+    <div class="step">3️⃣ भुगतान पूर्ण होने के बाद यह बटन दबाएं:</div>
+    <button id="paidBtn">✅ मैंने भुगतान कर दिया है</button>
+
+    <!-- Upload Progress -->
+    <div id="uploadProgress">
+        <div id="progressBar"><div id="progressFill"></div></div>
+        <p id="progressText">अपलोड हो रहा है...</p>
+    </div>
 </div>
 
 <script type="module">
-    import { db } from "./firebase-config.js";
+    import { db, storage } from "./firebase-config.js";
     import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-storage.js";
 
+    // ── Session से Data लोड करें ──
     const storedData = sessionStorage.getItem("pendingAppointmentData");
     if (!storedData) {
         alert("डेटा नहीं मिला, कृपया फिर से भरें।");
@@ -46,27 +69,88 @@
             "पद: " + (preview.designation || "-") + " | सहयोग राशि: " + (preview.fee || "-");
     }
 
+    // ── Screenshot preview ──
+    document.getElementById("paymentProof").addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.getElementById("previewImg");
+                img.src = e.target.result;
+                img.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+            // Razorpay link पर click न करने पर भी बटन दिखाएं
+            document.getElementById("paidBtn").style.display = "block";
+        }
+    });
+
+    // ── Main Submit ──
     document.getElementById("paidBtn").onclick = async () => {
         const fileInput = document.getElementById("paymentProof");
+
         if (fileInput.files.length === 0) {
-            alert("कृपया भुगतान का स्क्रीनशॉट अपलोड करें!");
+            alert("⚠️ कृपया भुगतान का स्क्रीनशॉट अपलोड करें!");
+            return;
+        }
+
+        const file = fileInput.files[0];
+
+        // File size check (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+            alert("⚠️ फाइल का साइज 5MB से कम होना चाहिए।");
             return;
         }
 
         const btn = document.getElementById("paidBtn");
-        btn.innerText = "प्रोसेसिंग...";
+        btn.innerText = "अपलोड हो रहा है...";
         btn.disabled = true;
+
+        // Progress bar दिखाएं
+        document.getElementById("uploadProgress").style.display = "block";
 
         try {
             const data = JSON.parse(sessionStorage.getItem("pendingAppointmentData"));
-            data.paymentStatus = "Paid (Proof Uploaded)";
+
+            // ── STEP 1: Firebase Storage में Screenshot Upload ──
+            const timestamp = Date.now();
+            const safeName = (data.name || "user").replace(/[^a-zA-Z0-9]/g, "_");
+            const ext = file.name.split(".").pop();
+            const storagePath = `payment-proofs/appointments/${safeName}_${timestamp}.${ext}`;
+
+            const storageRef = ref(storage, storagePath);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            // Upload progress
+            await new Promise((resolve, reject) => {
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                        document.getElementById("progressFill").style.width = pct + "%";
+                        document.getElementById("progressText").innerText = `अपलोड: ${pct}%`;
+                    },
+                    (error) => reject(error),
+                    () => resolve()
+                );
+            });
+
+            // Download URL प्राप्त करें
+            const screenshotURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+            document.getElementById("progressText").innerText = "Firestore में सेव हो रहा है...";
+
+            // ── STEP 2: Firestore में Data + Screenshot URL सेव करें ──
+            data.paymentStatus = "Paid (Screenshot Uploaded)";
+            data.paymentScreenshotURL = screenshotURL;   // ✅ Admin को दिखेगा
+            data.paymentStoragePath = storagePath;
             data.status = "Pending";
             data.createdAt = serverTimestamp();
+            data.submittedAt = new Date().toISOString();
 
-            // 1. Firebase में डेटा सेव करें
             const docRef = await addDoc(collection(db, "Appointments"), data);
 
-            // 2. EmailJS के जरिए एडमिन को अलर्ट भेजें (Approve/Reject बटन सहित)
+            // ── STEP 3: Admin को EmailJS Alert ──
             await emailjs.send("service_63pefgf", "template_wvzbj7p", {
                 user_name: data.name,
                 user_email: data.email,
@@ -80,17 +164,44 @@
 
             sessionStorage.removeItem("pendingAppointmentData");
 
-            // 3. सफलता संदेश
+            // ── STEP 4: Success Message ──
             document.body.innerHTML = `
-                <div style="max-width:400px; margin:50px auto; padding:40px; text-align:center; border:2px solid #00a651; border-radius:20px; background:white;">
-                    <h3 style="color:#00a651;">✅ नियुक्ति आवेदन सफलतापूर्वक जमा हो गया!</h3>
-                    <p>एडमिन द्वारा भुगतान की जांच होने के बाद आपको ईमेल पर सूचित किया जाएगा।</p>
+                <div style="max-width:420px; margin:50px auto; padding:40px; text-align:center;
+                    border:2px solid #00a651; border-radius:20px; background:white;
+                    box-shadow:0 5px 20px rgba(0,166,81,0.2);">
+                    <div style="font-size:60px;">✅</div>
+                    <h3 style="color:#00a651;">आवेदन सफलतापूर्वक जमा हो गया!</h3>
+                    <p style="color:#555; margin-top:10px;">
+                        भुगतान का स्क्रीनशॉट सुरक्षित रूप से अपलोड हो गया।<br>
+                        एडमिन द्वारा जांच के बाद आपको ईमेल पर सूचित किया जाएगा।
+                    </p>
+                    <p style="color:#888; font-size:13px; margin-top:15px;">
+                        Application ID: ${docRef.id}
+                    </p>
+                    <a href="index.html" style="display:inline-block; margin-top:20px;
+                        background:#d4af37; color:#1b2430; padding:12px 25px;
+                        border-radius:10px; text-decoration:none; font-weight:bold;">
+                        🏠 होम पेज पर जाएं
+                    </a>
                 </div>`;
+
         } catch (err) {
-            console.error(err);
-            alert("सबमिशन फेल: " + err.message);
+            console.error("Submit Error:", err);
+
+            let errMsg = "सबमिशन फेल हुआ।";
+            if (err.code === "storage/unauthorized") {
+                errMsg = "Storage Permission Error। Firebase Storage Rules चेक करें।";
+            } else if (err.code === "storage/canceled") {
+                errMsg = "अपलोड रद्द हो गया।";
+            } else {
+                errMsg = "त्रुटि: " + err.message;
+            }
+
+            alert("❌ " + errMsg);
             btn.disabled = false;
-            btn.innerText = "मैंने भुगतान कर दिया है";
+            btn.innerText = "✅ मैंने भुगतान कर दिया है";
+            document.getElementById("uploadProgress").style.display = "none";
+            document.getElementById("progressFill").style.width = "0%";
         }
     };
 </script>

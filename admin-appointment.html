@@ -2,74 +2,209 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Appointment Admin</title>
+    <title>Appointment Admin | उन्नति स्वयं सहायता समिति</title>
     <style>
         body { font-family: Arial, sans-serif; background: #001a33; margin: 0; padding: 20px; }
         h1 { text-align: center; color: white; }
-        #list { max-width: 1200px; margin: auto; }
-        .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .card button { border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; margin: 5px; cursor: pointer; }
+        #list { max-width: 1100px; margin: auto; }
+        .card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .card p { margin: 5px 0; font-size: 14px; }
+        .card strong { color: #1b2430; }
+        .card button { border: none; padding: 9px 18px; border-radius: 8px; font-weight: bold; margin: 4px; cursor: pointer; font-size: 13px; }
         .approve { background: #28a745; color: white; }
         .reject { background: #dc3545; color: white; }
+        .pdf-btn { background: #d4af37; color: #1b2430; }
+        .screenshot-btn { background: #3395ff; color: white; }
+        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .status-Pending { background: #fff3cd; color: #856404; }
+        .status-Verified { background: #d4edda; color: #155724; }
+        .status-Rejected { background: #f8d7da; color: #721c24; }
+        .search-bar { max-width: 1100px; margin: 0 auto 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .search-bar input, .search-bar select { padding: 10px 15px; border-radius: 10px; border: none; font-size: 14px; flex: 1; min-width: 180px; }
+        #loadingMsg { text-align: center; color: #ffd700; font-size: 16px; padding: 20px; }
+        #emptyMsg { display: none; text-align: center; color: #aaa; padding: 30px; }
     </style>
 </head>
 <body>
-    <h1>Appointment Applications</h1>
-    <div id="list"></div>
+<h1>📄 Appointment Applications</h1>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-        import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 नाम, मोबाइल या पद से खोजें...">
+    <select id="statusFilter">
+        <option value="">सभी स्थिति</option>
+        <option value="Pending">Pending</option>
+        <option value="Verified">Verified/Approved</option>
+        <option value="Rejected">Rejected</option>
+    </select>
+</div>
 
-        // doc id -> data, ताकि PDF बटन में JSON को सीधे HTML attribute में न डालना पड़े
-        // (नाम/पिता आदि में अपॉस्ट्रॉफी ' होने पर वह तरीका टूट जाता था)
-        const recordsById = new Map();
+<div id="loadingMsg">⏳ डेटा लोड हो रहा है...</div>
+<div id="emptyMsg">कोई आवेदन नहीं मिला।</div>
+<div id="list"></div>
 
-        onAuthStateChanged(auth, (user) => {
-            if (!user) window.location.href = "admin-login.html";
-            else loadData();
-        });
+<script type="module">
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-        async function loadData() {
+    // Map: id → data (XSS-safe, JSON injection नहीं)
+    const recordsById = new Map();
+    let allRecords = [];
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) window.location.href = "admin-login.html";
+        else loadData();
+    });
+
+    async function loadData() {
+        document.getElementById("loadingMsg").style.display = "block";
+        try {
             const snap = await getDocs(collection(db, "Appointments"));
-            const list = document.getElementById("list");
-            list.innerHTML = "";
+            allRecords = [];
             recordsById.clear();
 
             snap.forEach(docItem => {
                 const d = docItem.data();
                 recordsById.set(docItem.id, d);
-
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerHTML = `<p><b>नाम:</b> ${d.name || "-"}</p><p><b>पद:</b> ${d.designation || "-"}</p><p><b>स्थिति:</b> ${d.status || "Pending"}</p>
-                    <button class="approve" data-action="approve" data-id="${docItem.id}">Approve</button>
-                    <button class="reject" data-action="reject" data-id="${docItem.id}">Reject</button>
-                    <button data-action="pdf" data-id="${docItem.id}">PDF</button>`;
-                list.appendChild(card);
+                allRecords.push({ id: docItem.id, ...d });
             });
+            renderCards(allRecords);
+        } catch(e) {
+            document.getElementById("loadingMsg").innerText = "❌ Error: " + e.message;
         }
+        document.getElementById("loadingMsg").style.display = "none";
+    }
 
-        document.getElementById("list").addEventListener("click", (e) => {
-            const btn = e.target.closest("button[data-action]");
-            if (!btn) return;
-            const id = btn.dataset.id;
+    // ✅ XSS-Safe card rendering
+    function renderCards(records) {
+        const list = document.getElementById("list");
+        list.innerHTML = "";
 
-            if (btn.dataset.action === "approve") updateStatus(id, "Verified");
-            else if (btn.dataset.action === "reject") updateStatus(id, "Rejected");
-            else if (btn.dataset.action === "pdf") {
-                const data = recordsById.get(id);
-                if (data) window.generateAppointmentPDF(data);
+        if (records.length === 0) {
+            document.getElementById("emptyMsg").style.display = "block";
+            return;
+        }
+        document.getElementById("emptyMsg").style.display = "none";
+
+        records.forEach(({ id, ...d }) => {
+            const status = d.status || "Pending";
+
+            const card = document.createElement("div");
+            card.className = "card";
+
+            // Safe text fields
+            const fields = [
+                ["नाम", d.name],
+                ["पिता/पति", d.father_name],
+                ["मोबाइल", d.mobile],
+                ["ईमेल", d.email],
+                ["पद", d.designation],
+                ["सहयोग राशि", d.fee],
+            ];
+
+            fields.forEach(([label, val]) => {
+                if (!val) return;
+                const p = document.createElement("p");
+                const strong = document.createElement("strong");
+                strong.textContent = label + ": ";
+                p.appendChild(strong);
+                p.appendChild(document.createTextNode(val));
+                card.appendChild(p);
+            });
+
+            // Status badge
+            const statusP = document.createElement("p");
+            const badge = document.createElement("span");
+            badge.className = "status-badge status-" + status;
+            badge.textContent = status;
+            statusP.appendChild(document.createTextNode("स्थिति: "));
+            statusP.appendChild(badge);
+            card.appendChild(statusP);
+
+            // Payment Screenshot
+            if (d.paymentScreenshotURL) {
+                const proofP = document.createElement("p");
+                const proofLink = document.createElement("a");
+                proofLink.href = d.paymentScreenshotURL;
+                proofLink.target = "_blank";
+                proofLink.rel = "noopener";
+                proofLink.style.color = "#3395ff";
+                proofLink.textContent = "📸 Payment Screenshot देखें";
+                proofP.appendChild(document.createTextNode("भुगतान प्रमाण: "));
+                proofP.appendChild(proofLink);
+                card.appendChild(proofP);
+            } else {
+                const noProof = document.createElement("p");
+                noProof.style.color = "#dc3545";
+                noProof.textContent = "⚠️ Payment Screenshot उपलब्ध नहीं";
+                card.appendChild(noProof);
             }
-        });
 
-        async function updateStatus(id, status) {
-            await updateDoc(doc(db, "Appointments", id), { status: status });
-            location.reload();
+            // Buttons
+            const btnDiv = document.createElement("div");
+            btnDiv.style.marginTop = "10px";
+
+            const approveBtn = document.createElement("button");
+            approveBtn.className = "approve";
+            approveBtn.textContent = "✅ Verify/Approve";
+            approveBtn.onclick = () => updateStatus(id, "Verified");
+
+            const rejectBtn = document.createElement("button");
+            rejectBtn.className = "reject";
+            rejectBtn.textContent = "❌ Reject";
+            rejectBtn.onclick = () => updateStatus(id, "Rejected");
+
+            const pdfBtn = document.createElement("button");
+            pdfBtn.className = "pdf-btn";
+            pdfBtn.textContent = "📄 PDF";
+            pdfBtn.onclick = () => {
+                const rec = recordsById.get(id);
+                if (rec) window.generateAppointmentPDF({ ...rec, doc_id: id });
+            };
+
+            btnDiv.appendChild(approveBtn);
+            btnDiv.appendChild(rejectBtn);
+            btnDiv.appendChild(pdfBtn);
+            card.appendChild(btnDiv);
+            list.appendChild(card);
+        });
+    }
+
+    // Search + Filter
+    function filterRecords() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const statusVal = document.getElementById("statusFilter").value;
+        const filtered = allRecords.filter(d => {
+            const matchSearch = !query ||
+                (d.name || "").toLowerCase().includes(query) ||
+                (d.mobile || "").includes(query) ||
+                (d.designation || "").toLowerCase().includes(query);
+            const matchStatus = !statusVal || (d.status || "Pending") === statusVal;
+            return matchSearch && matchStatus;
+        });
+        renderCards(filtered);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", filterRecords);
+    document.getElementById("statusFilter").addEventListener("change", filterRecords);
+
+    async function updateStatus(id, status) {
+        const rec = recordsById.get(id);
+        const name = rec ? (rec.name || "यह आवेदन") : "यह आवेदन";
+        if (!confirm(`क्या आप "${name}" को ${status} करना चाहते हैं?`)) return;
+        try {
+            await updateDoc(doc(db, "Appointments", id), { status });
+            const r = allRecords.find(r => r.id === id);
+            if (r) r.status = status;
+            if (recordsById.has(id)) recordsById.get(id).status = status;
+            filterRecords();
+            alert("✅ " + name + " को " + status + " कर दिया गया।");
+        } catch(e) {
+            alert("❌ त्रुटि: " + e.message);
         }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    <script src="appointment-pdf.js"></script>
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script src="appointment-pdf.js"></script>
 </body>
 </html>
