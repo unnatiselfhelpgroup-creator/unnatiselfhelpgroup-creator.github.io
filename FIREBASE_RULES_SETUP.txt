@@ -1,10 +1,11 @@
 ════════════════════════════════════════════════
-  FIREBASE SECURITY RULES — अपडेटेड सेटअप
-  (Payment Screenshot Storage Support सहित)
+  FIREBASE SECURITY RULES — Updated Setup
+  (Base64 Screenshot — Storage की जरूरत नहीं)
 ════════════════════════════════════════════════
 
 ━━━ FIRESTORE RULES ━━━
 Firebase Console → Firestore → Rules में यह paste करें:
+(यह rules पहले से सही हैं — screenshot में दिखी हैं — इन्हें ऐसे ही रखें)
 
 rules_version = '2';
 service cloud.firestore {
@@ -50,44 +51,22 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
-    // ✅ Sequential Counter (appointment letter numbers)
     match /Counters/{docId} {
       allow read: if true;
-      allow write: if true;  // counter publicly writable (create only needed)
+      allow write: if true;
     }
   }
 }
 
 ━━━ FIREBASE STORAGE RULES ━━━
-Firebase Console → Storage → Rules में यह paste करें:
-
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-
-    // ✅ Payment Proofs - User upload कर सकता है, Admin पढ़ सकता है
-    match /payment-proofs/{allPaths=**} {
-      allow read: if request.auth != null;   // सिर्फ Admin देख सकता है
-      allow write: if request.resource.size < 5 * 1024 * 1024
-                   && request.resource.contentType.matches('image/.*');
-    }
-
-    // RTI Documents - Public read
-    match /rti-docs/{fileName} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-  }
-}
-
-━━━ STORAGE FOLDER STRUCTURE ━━━
-Firebase Storage में यह folders automatically बनेंगे:
-  payment-proofs/
-    appointments/   ← Appointment payment screenshots
-    students/       ← Student registration screenshots
+❌ Firebase Storage की अब जरूरत नहीं है।
+   Payment screenshots अब Firestore में Base64 format में save होते हैं।
+   Firebase Storage का paid plan लेने की जरूरत नहीं!
+   Storage Rules में कोई बदलाव न करें।
 
 ━━━ IMPORTANT NOTES ━━━
-1. Counters collection automatically बनेगा जब पहली PDF generate होगी
-2. Payment Screenshot URL admin-dashboard और admin-appointment में दिखेगा
-3. Storage rules में 5MB limit और image/* type check है
+1. Screenshots — paymentScreenshotBase64 field में Firestore में save होते हैं
+2. Admin Panel → "📸 Payment Screenshot" button से देख सकते हैं
+3. Counters collection — Appointment Letter numbers के लिए है
+4. Firestore document limit: 1MB — Image auto-compress होती है
 ════════════════════════════════════════════════

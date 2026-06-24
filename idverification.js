@@ -39,7 +39,7 @@ window.verifyID = async function () {
                 <p><b>पता :</b> ${data.address || "-"}</p>
                 <p><b>वॉलंटियर ID :</b> ${data.volunteer_id || "-"}</p>
                 <p><b>स्थिति :</b> ${status}</p>
-                ${data.photoURL ? `<img src="${data.photoURL}" style="width:120px; height:140px; object-fit:cover; border:2px solid #d4af37; border-radius:10px; margin-top:15px;">` : ""}
+                ${(data.photoBase64 || data.photoURL) ? `<img src="${data.photoBase64 || data.photoURL}" style="width:120px; height:140px; object-fit:cover; border:2px solid #d4af37; border-radius:10px; margin-top:15px;">` : ""}
             `;
         } else {
             result.innerHTML = `

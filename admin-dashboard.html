@@ -154,14 +154,21 @@
 
             // Payment Screenshot cell
             const tdProof = document.createElement("td");
-            if (data.paymentScreenshotURL) {
-                const link = document.createElement("a");
-                link.href = data.paymentScreenshotURL;
-                link.target = "_blank";
-                link.rel = "noopener";
-                link.textContent = "📸 देखें";
-                link.className = "screenshot-link";
-                tdProof.appendChild(link);
+            const proofSrc = data.paymentScreenshotBase64 || data.paymentScreenshotBase64 || data.paymentScreenshotURL || "";
+            if (proofSrc) {
+                const btn = document.createElement("button");
+                btn.textContent = "📸 देखें";
+                btn.className = "screenshot-link";
+                btn.style.cssText = "background:none;border:none;color:#3395ff;cursor:pointer;text-decoration:underline;font-size:13px;padding:2px;";
+                btn.onclick = () => {
+                    const win = window.open("", "_blank");
+                    if (proofSrc.startsWith("data:")) {
+                        win.document.write(`<img src="${proofSrc}" style="max-width:100%;display:block;margin:auto;">`);
+                    } else {
+                        win.location.href = proofSrc;
+                    }
+                };
+                tdProof.appendChild(btn);
             } else {
                 tdProof.textContent = "नहीं";
                 tdProof.style.color = "#ff4d4d";
