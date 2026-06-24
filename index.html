@@ -237,8 +237,103 @@ img{max-width:100%;height:auto}
       <p>ऑनलाइन दान हेतु QR Code।</p>
       <br><a href="Qrcode.png" target="_blank" rel="noopener" class="btn">Open QR</a>
     </div>
+    <div class="card" style="border:2px solid #d4af37; position:relative;">
+      <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#d4af37;color:#1b2430;padding:3px 16px;border-radius:20px;font-size:13px;font-weight:bold;white-space:nowrap;">🔐 Admin Login Required</div>
+      <h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3>
+      <p>संस्था की वार्षिक वित्तीय विवरण एवं CA द्वारा ऑडिट रिपोर्ट।<br>
+      <span style="font-size:12px;color:#ffd700;">वर्ष 2022, 2023, 2024, 2025</span></p>
+      <br><button onclick="openAuditLogin()" class="btn" style="cursor:pointer;border:none;width:auto;">🔒 Open Balance Sheet</button>
+    </div>
   </div>
 </section>
+
+<!-- ══ AUDIT LOGIN MODAL ══ -->
+<div id="auditModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#1b2430;border:2px solid #d4af37;border-radius:20px;padding:35px 30px;max-width:380px;width:90%;text-align:center;position:relative;">
+    <button onclick="closeAuditModal()" style="position:absolute;top:12px;right:15px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">✕</button>
+    <div style="font-size:48px;margin-bottom:10px;">🔐</div>
+    <h3 style="color:#d4af37;margin-bottom:5px;">Admin Login</h3>
+    <p style="color:#aaa;font-size:13px;margin-bottom:20px;">बैलेंस शीट देखने के लिए Admin ईमेल एवं पासवर्ड दर्ज करें</p>
+    <input id="auditEmail" type="email" placeholder="Admin Email" 
+      style="width:100%;padding:12px;border-radius:8px;border:1px solid #d4af37;background:#071b34;color:white;margin-bottom:10px;box-sizing:border-box;font-size:14px;">
+    <input id="auditPassword" type="password" placeholder="Password"
+      style="width:100%;padding:12px;border-radius:8px;border:1px solid #d4af37;background:#071b34;color:white;margin-bottom:15px;box-sizing:border-box;font-size:14px;">
+    <div id="auditError" style="color:#ff4d4d;font-size:13px;margin-bottom:10px;display:none;">❌ गलत Email या Password</div>
+    <button onclick="verifyAuditLogin()" 
+      style="width:100%;padding:13px;background:linear-gradient(145deg,#d4af37,#b8962e);color:#1b2430;border:none;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer;">
+      🔓 Login करें
+    </button>
+  </div>
+</div>
+
+<!-- ══ AUDIT DOCS MODAL ══ -->
+<div id="auditDocsModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;overflow-y:auto;">
+  <div style="background:#1b2430;border:2px solid #d4af37;border-radius:20px;padding:30px;max-width:500px;width:90%;text-align:center;position:relative;margin:20px auto;">
+    <button onclick="closeAuditDocs()" style="position:absolute;top:12px;right:15px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">✕</button>
+    <div style="font-size:40px;margin-bottom:8px;">📊</div>
+    <h3 style="color:#d4af37;margin-bottom:5px;">बैलेंस शीट एवं ऑडिट रिपोर्ट</h3>
+    <p style="color:#aaa;font-size:12px;margin-bottom:20px;">Kandpal Rohit & Associates, Chartered Accountant</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <a href="balance_sheet_2025.pdf" target="_blank" rel="noopener"
+         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
+         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
+         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2025</span>
+      </a>
+      <a href="balance_sheet_2024.pdf" target="_blank" rel="noopener"
+         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
+         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
+         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2024</span>
+      </a>
+      <a href="balance_sheet_2023.pdf" target="_blank" rel="noopener"
+         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
+         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
+         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2023</span>
+      </a>
+      <a href="balance_sheet_2022.pdf" target="_blank" rel="noopener"
+         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
+         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
+         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2022</span>
+      </a>
+    </div>
+    <p style="color:#888;font-size:11px;margin-top:15px;">CA Rohit Kandpal | M.No. 468969 | FRN: 034498C</p>
+  </div>
+</div>
+
+<script>
+function openAuditLogin() {
+  document.getElementById("auditModal").style.display = "flex";
+  document.getElementById("auditEmail").value = "";
+  document.getElementById("auditPassword").value = "";
+  document.getElementById("auditError").style.display = "none";
+}
+function closeAuditModal() {
+  document.getElementById("auditModal").style.display = "none";
+}
+function closeAuditDocs() {
+  document.getElementById("auditDocsModal").style.display = "none";
+}
+function verifyAuditLogin() {
+  const email = document.getElementById("auditEmail").value.trim().toLowerCase();
+  const pass = document.getElementById("auditPassword").value;
+  // Firebase Auth से verify करें
+  import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js").then(({signInWithEmailAndPassword}) => {
+    import("./firebase-config.js").then(({auth}) => {
+      signInWithEmailAndPassword(auth, email, pass)
+        .then(() => {
+          closeAuditModal();
+          document.getElementById("auditDocsModal").style.display = "flex";
+        })
+        .catch(() => {
+          document.getElementById("auditError").style.display = "block";
+        });
+    });
+  });
+}
+// ESC key से modal बंद
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { closeAuditModal(); closeAuditDocs(); }
+});
+</script>
 
 <!-- ONLINE PORTAL -->
 <section class="section" aria-labelledby="portal-heading">
