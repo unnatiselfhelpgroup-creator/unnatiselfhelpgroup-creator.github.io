@@ -199,7 +199,7 @@
     </div>
 
     <!-- Balance Sheet -->
-    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><a href="admin-login.html" class="cbtn">🔒 Open Balance Sheet</a></div>
+    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><button onclick="document.getElementById('balMod').style.display='flex'" class="cbtn">🔒 Open Balance Sheet</button></div>
   </div>
 </div>
 
@@ -447,9 +447,20 @@
 
 
 <script>
+function checkAdminLogin(){
+  var email = document.getElementById('adminEmail').value.trim();
+  var pass  = document.getElementById('adminPass').value.trim();
+  if(email === 'unnatiselfhelpgroup@gmail.com' && pass === 'admin@2024'){
+    document.getElementById('balMod').style.display = 'none';
+    document.getElementById('loginErr').style.display = 'none';
+    document.getElementById('bsMod').style.display = 'flex';
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
-    ['rtiOv','darpanOv'].forEach(function(id){document.getElementById(id).classList.remove('on')});
+    ['rtiOv','darpanOv'].forEach(function(id){document.getElementById(id).classList.remove('on')});document.getElementById('balMod').style.display='none';document.getElementById('bsMod').style.display='none';
   }
 });
 
@@ -463,5 +474,34 @@ function googleTranslateElementInit(){
 }
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+<!-- Balance Sheet Login Modal -->
+<div id="balMod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px;" onclick="if(event.target===this)this.classList.remove('on')">
+  <div style="background:#4a0404;border:2px solid #c8860a;border-radius:16px;padding:26px;max-width:400px;width:100%;position:relative;">
+    <button onclick="document.getElementById('balMod').classList.remove('on')" style="position:absolute;top:10px;right:12px;background:none;border:none;color:#f5d080;font-size:22px;cursor:pointer;">✕</button>
+    <h3 style="color:#f5d080;font-size:1.1rem;margin-bottom:6px;text-align:center;">🔐 Admin Login</h3>
+    <p style="color:rgba(255,255,255,.7);font-size:.78rem;text-align:center;margin-bottom:16px;">बैलेंस शीट देखने हेतु</p>
+    <div id="loginErr" style="color:#ff6b6b;font-size:.82rem;margin-bottom:10px;display:none;">❌ गलत Email या Password</div>
+    <input type="email" id="adminEmail" placeholder="Admin Email" style="width:100%;padding:10px 14px;background:rgba(255,255,255,.12);border:1px solid #c8860a;border-radius:8px;color:#fff;font-size:.9rem;margin-bottom:10px;font-family:inherit;" />
+    <input type="password" id="adminPass" placeholder="Password" style="width:100%;padding:10px 14px;background:rgba(255,255,255,.12);border:1px solid #c8860a;border-radius:8px;color:#fff;font-size:.9rem;margin-bottom:14px;font-family:inherit;" />
+    <button onclick="checkAdminLogin()" style="width:100%;padding:12px;background:linear-gradient(135deg,#c8860a,#f5d080);color:#2a0a0a;border:none;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;">🔓 Login करें</button>
+  </div>
+</div>
+
+<!-- Balance Sheet Files Modal -->
+<div id="bsMod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px;" onclick="if(event.target===this)this.classList.remove('on')">
+  <div style="background:#4a0404;border:2px solid #c8860a;border-radius:16px;padding:26px;max-width:480px;width:100%;position:relative;">
+    <button onclick="document.getElementById('bsMod').classList.remove('on')" style="position:absolute;top:10px;right:12px;background:none;border:none;color:#f5d080;font-size:22px;cursor:pointer;">✕</button>
+    <h3 style="color:#f5d080;font-size:1rem;margin-bottom:4px;text-align:center;">📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3>
+    <p style="color:rgba(255,255,255,.6);font-size:.72rem;text-align:center;margin-bottom:16px;">Kandpal Rohit &amp; Associates, CA</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <a href="balance_sheet_2025.pdf" target="_blank" style="display:block;padding:12px;background:linear-gradient(135deg,#c8860a,#f5d080);color:#2a0a0a;border-radius:10px;font-size:.9rem;font-weight:700;text-align:center;text-decoration:none;">📋 Balance Sheet 31 March 2025</a>
+      <a href="balance_sheet_2024.pdf" target="_blank" style="display:block;padding:12px;background:linear-gradient(135deg,#c8860a,#f5d080);color:#2a0a0a;border-radius:10px;font-size:.9rem;font-weight:700;text-align:center;text-decoration:none;">📋 Balance Sheet 31 March 2024</a>
+      <a href="balance_sheet_2023.pdf" target="_blank" style="display:block;padding:12px;background:linear-gradient(135deg,#c8860a,#f5d080);color:#2a0a0a;border-radius:10px;font-size:.9rem;font-weight:700;text-align:center;text-decoration:none;">📋 Balance Sheet 31 March 2023</a>
+      <a href="balance_sheet_2022.pdf" target="_blank" style="display:block;padding:12px;background:linear-gradient(135deg,#c8860a,#f5d080);color:#2a0a0a;border-radius:10px;font-size:.9rem;font-weight:700;text-align:center;text-decoration:none;">📋 Balance Sheet 31 March 2022</a>
+    </div>
+    <p style="color:rgba(255,255,255,.5);font-size:.7rem;text-align:center;margin-top:12px;">CA Rohit Kandpal | M.No. 468969 | FRN: 034498C</p>
+  </div>
+</div>
 </body>
 </html>
