@@ -199,7 +199,7 @@
     </div>
 
     <!-- Balance Sheet -->
-    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><button onclick="document.getElementById('balMod').classList.add('on')" class="cbtn">🔒 Open Balance Sheet</button></div>
+    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><a href="admin-login.html" class="cbtn">🔒 Open Balance Sheet</a></div>
   </div>
 </div>
 
@@ -443,47 +443,16 @@
 </div>
 
 <!-- Balance Sheet Modal -->
-<div id="balMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
-  <div class="mod-box">
-    <button class="mod-x" onclick="document.getElementById('balMod').classList.remove('on')">✕</button>
-    <h3>🔐 Admin Login<br/><small style="font-size:.72rem;color:var(--tm);">बैलेंस शीट देखने हेतु</small></h3>
-    <div class="mod-err" id="lerr">❌ गलत Email या Password</div>
-    <input type="email" id="aemail" class="mod-inp" placeholder="Admin Email"/>
-    <input type="password" id="apass" class="mod-inp" placeholder="Password"/>
-    <button onclick="doLogin()" class="cbtn">🔓 Login करें</button>
-  </div>
-</div>
-<div id="bsMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
-  <div class="mod-box" style="max-width:480px;">
-    <button class="mod-x" onclick="document.getElementById('bsMod').classList.remove('on')">✕</button>
-    <h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट<br/><small style="font-size:.7rem;color:var(--tm);">Kandpal Rohit &amp; Associates, CA</small></h3>
-    <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px;">
-      <a href="balance_sheet_2025.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2025</a>
-      <a href="balance_sheet_2024.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2024</a>
-      <a href="balance_sheet_2023.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2023</a>
-      <a href="balance_sheet_2022.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2022</a>
-    </div>
-    <p style="font-size:.7rem;color:var(--tm);margin-top:10px;text-align:center;">CA Rohit Kandpal | M.No. 468969 | FRN: 034498C</p>
-  </div>
-</div>
+
+
 
 <script>
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
-    ['rtiOv','darpanOv','balMod','bsMod'].forEach(function(id){document.getElementById(id).classList.remove('on')});
+    ['rtiOv','darpanOv'].forEach(function(id){document.getElementById(id).classList.remove('on')});
   }
 });
-function doLogin(){
-  var e=document.getElementById('aemail').value.trim();
-  var p=document.getElementById('apass').value.trim();
-  if(e==='unnatiselfhelpgroup@gmail.com' && p==='admin@2024'){
-    document.getElementById('balMod').classList.remove('on');
-    document.getElementById('bsMod').classList.add('on');
-    document.getElementById('lerr').classList.remove('on');
-  } else {
-    document.getElementById('lerr').classList.add('on');
-  }
-}
+
 // Protect org name from wrong translation
 document.addEventListener('DOMContentLoaded', function() {
   var orgElements = document.querySelectorAll('[translate="no"], .notranslate');
