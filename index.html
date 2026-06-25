@@ -180,7 +180,7 @@
         <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">NGO Darpan / नीति आयोग</h3>
         <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">DARPAN ID: <strong style="color:var(--gold-light);">UA/2016/0108273</strong><br>स्थिति: <strong style="color:#4ade80;">Active ✓</strong></p>
       </div>
-      <button onclick="document.getElementById('darpanOv').classList.add('on')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
+      <button onclick="event.stopPropagation();document.getElementById('darpanOv').classList.add('on')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
         🏛️ NGO Darpan विवरण देखें ›
       </button>
     </div>
@@ -193,13 +193,13 @@
         <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">सूचना का अधिकार (RTI)</h3>
         <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">RTI अधिनियम 2005 के अंतर्गत दायर आवेदन एवं द्वितीय अपील के दस्तावेज़ यहाँ देखें।</p>
       </div>
-      <button onclick="document.getElementById('rtiOv').classList.add('on')" class="cbtn" style="margin-top:12px;">
+      <button onclick="event.stopPropagation();document.getElementById('rtiOv').classList.add('on')" class="cbtn" style="margin-top:12px;">
         📂 RTI दस्तावेज़ देखें ›
       </button>
     </div>
 
     <!-- Balance Sheet -->
-    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><button onclick="document.getElementById('balMod').style.display='flex'" class="cbtn">🔒 Open Balance Sheet</button></div>
+    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><button onclick="event.stopPropagation();document.getElementById('balMod').style.display='flex';" class="cbtn">🔒 Open Balance Sheet</button></div>
   </div>
 </div>
 
@@ -476,9 +476,9 @@ function googleTranslateElementInit(){
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 
 <!-- Balance Sheet Login Modal -->
-<div id="balMod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px;" onclick="if(event.target===this)this.classList.remove('on')">
+<div id="balMod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px;" onclick="if(event.target===this){this.style.display='none';}">
   <div style="background:#4a0404;border:2px solid #c8860a;border-radius:16px;padding:26px;max-width:400px;width:100%;position:relative;">
-    <button onclick="document.getElementById('balMod').classList.remove('on')" style="position:absolute;top:10px;right:12px;background:none;border:none;color:#f5d080;font-size:22px;cursor:pointer;">✕</button>
+    <button onclick="document.getElementById('balMod').style.display='none';" style="position:absolute;top:10px;right:12px;background:none;border:none;color:#f5d080;font-size:22px;cursor:pointer;">✕</button>
     <h3 style="color:#f5d080;font-size:1.1rem;margin-bottom:6px;text-align:center;">🔐 Admin Login</h3>
     <p style="color:rgba(255,255,255,.7);font-size:.78rem;text-align:center;margin-bottom:16px;">बैलेंस शीट देखने हेतु</p>
     <div id="loginErr" style="color:#ff6b6b;font-size:.82rem;margin-bottom:10px;display:none;">❌ गलत Email या Password</div>
@@ -489,9 +489,9 @@ function googleTranslateElementInit(){
 </div>
 
 <!-- Balance Sheet Files Modal -->
-<div id="bsMod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px;" onclick="if(event.target===this)this.classList.remove('on')">
+<div id="bsMod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px;" onclick="if(event.target===this){this.style.display='none';}">
   <div style="background:#4a0404;border:2px solid #c8860a;border-radius:16px;padding:26px;max-width:480px;width:100%;position:relative;">
-    <button onclick="document.getElementById('bsMod').classList.remove('on')" style="position:absolute;top:10px;right:12px;background:none;border:none;color:#f5d080;font-size:22px;cursor:pointer;">✕</button>
+    <button onclick="document.getElementById('bsMod').style.display='none';" style="position:absolute;top:10px;right:12px;background:none;border:none;color:#f5d080;font-size:22px;cursor:pointer;">✕</button>
     <h3 style="color:#f5d080;font-size:1rem;margin-bottom:4px;text-align:center;">📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3>
     <p style="color:rgba(255,255,255,.6);font-size:.72rem;text-align:center;margin-bottom:16px;">Kandpal Rohit &amp; Associates, CA</p>
     <div style="display:flex;flex-direction:column;gap:10px;">
