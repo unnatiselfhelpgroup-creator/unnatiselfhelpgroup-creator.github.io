@@ -171,7 +171,18 @@
     <div class="card"><div><div class="ci">📋</div><h3>CSR-1 Registration</h3><p>संस्था का CSR-1 पंजीकरण प्रमाणपत्र।</p></div><a href="CSR-1Registration.pdf" target="_blank" class="cbtn">Open PDF</a></div>
     <div class="card"><div><div class="ci">🪪</div><h3>NGO PAN Card</h3><p>संस्था का पैन कार्ड दस्तावेज।</p></div><a href="ngopancard.pdf" target="_blank" class="cbtn">Open PDF</a></div>
     <div class="card"><div><div class="ci">📃</div><h3>Registration Certificate</h3><p>संस्था का पंजीकरण प्रमाणपत्र।</p></div><a href="ngorc.jpg" target="_blank" class="cbtn">View</a></div>
-    <div class="card"><div><div class="ci">📰</div><h3>Press Note</h3><p>संस्था की प्रेस विज्ञप्ति एवं समाचार।</p></div><a href="pressnote.jpg" target="_blank" class="cbtn">View</a></div>
+    <!-- NGO Darpan Card -->
+    <div class="rti-card" style="border-color:#2d8a45;box-shadow:0 0 16px rgba(45,138,69,.28);">
+      <span class="rti-new" style="background:#2d8a45;">Active</span>
+      <div>
+        <div class="ci">🏛️</div>
+        <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">NGO Darpan / नीति आयोग</h3>
+        <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">DARPAN ID: <strong style="color:var(--gold-light);">UA/2016/0108273</strong><br>स्थिति: <strong style="color:#4ade80;">Active ✓</strong></p>
+      </div>
+      <button onclick="document.getElementById('darpanOv').classList.add('on')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
+        🏛️ NGO Darpan विवरण देखें ›
+      </button>
+    </div>
 
     <!-- ★★★ RTI CARD — QR Code की जगह ★★★ -->
     <div class="rti-card">
@@ -272,7 +283,7 @@
   <h2 class="sec-title">💰 दान एवं सहयोग</h2>
   <div class="g2">
     <div class="card"><div class="ci">🙏</div><h3>राष्ट्रहित दान करें</h3><p>आपका सहयोग गौ सेवा, घायल गोवंश सहायता, मानव सेवा, रक्तदान, पर्यावरण संरक्षण एवं जनकल्याण कार्यों में उपयोग किया जाता है।</p><a href="Donate.html" class="cbtn">Donate Now</a></div>
-    <div class="card"><div class="ci">📱</div><h3>Donation QR Code</h3><p>QR Code के माध्यम से भी दान किया जा सकता है।</p><a href="Qrcode.png" target="_blank" class="cbtn">View QR</a></div>
+    <div class="card"><div><div class="ci">📰</div><h3>Press Note</h3><p>संस्था की प्रेस विज्ञप्ति एवं समाचार देखें।</p></div><a href="pressnote.jpg" target="_blank" class="cbtn">View Press Note</a></div>
   </div>
 </div>
 
@@ -326,6 +337,78 @@
   <img src="signature.png" alt="हस्ताक्षर" style="margin-top:14px;max-height:55px;opacity:.75;"/>
   <div class="ft-c">© 2026 उन्नति स्वयं सहायता समिति | सर्वाधिकार सुरक्षित</div>
 </footer>
+
+<!-- ══════ NGO DARPAN SLIDING PANEL ══════ -->
+<div id="darpanOv" class="rti-ov" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="rti-pan">
+    <div class="rti-ph" style="background:linear-gradient(135deg,#1a5c2a,#2d8a45);">
+      <div class="rti-drag"></div>
+      <h3>🏛️ NGO Darpan / नीति आयोग विवरण</h3>
+      <p>UNNATISELFHELPGROUP | Generated: 25-06-2026</p>
+      <button class="rti-x" onclick="document.getElementById('darpanOv').classList.remove('on')">✕</button>
+    </div>
+    <div class="rti-bd">
+
+      <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;">🪪 DARPAN पहचान</div>
+      <div class="rti-row"><span class="rti-l">DARPAN ID</span><span class="rti-v" style="color:#1a5c2a;font-size:.95rem;">UA/2016/0108273</span></div>
+      <div class="rti-row"><span class="rti-l">DARPAN Status</span><span class="rti-v"><span style="background:#d1fae5;color:#065f46;padding:2px 10px;border-radius:20px;font-size:.72rem;font-weight:700;">✅ Active</span></span></div>
+      <div class="rti-row"><span class="rti-l">Registration No.</span><span class="rti-v">UK0660892021006667</span></div>
+      <div class="rti-row"><span class="rti-l">पंजीकरण दिनांक</span><span class="rti-v">01-02-2016</span></div>
+
+      <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">🏢 संस्था विवरण</div>
+      <div class="rti-row"><span class="rti-l">संस्था का नाम</span><span class="rti-v">UNNATISELFHELPGROUP</span></div>
+      <div class="rti-row"><span class="rti-l">PAN Number</span><span class="rti-v">AAATU7133Q</span></div>
+      <div class="rti-row"><span class="rti-l">NPO Type</span><span class="rti-v">Society</span></div>
+      <div class="rti-row"><span class="rti-l">Act</span><span class="rti-v">Under Act 1860</span></div>
+      <div class="rti-row"><span class="rti-l">Registering Authority</span><span class="rti-v">Registrar of Societies</span></div>
+      <div class="rti-row"><span class="rti-l">Validity</span><span class="rti-v">31-01-2026 (YES)</span></div>
+
+      <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">📍 पता</div>
+      <div class="rti-row" style="flex-direction:column;gap:3px;">
+        <span class="rti-l">NPO Address</span>
+        <span class="rti-v" style="font-size:.8rem;line-height:1.6;">VILL-HALDUCHAUR DEENA, PO-HALDUCHAUR,<br>TEHSIL-LALKUAN, DISTT-NAINITAL,<br>STATE-UTTARAKHAND (INDIA) — 263139</span>
+      </div>
+      <div class="rti-row"><span class="rti-l">District</span><span class="rti-v">NAINITAL (Uttarakhand)</span></div>
+
+      <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">👥 Board Members (4)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
+          <div style="font-weight:700;color:#065f46;">KAVITABHATT</div>
+          <div style="color:#555;">Chairman</div>
+          <div style="color:#888;">Since: 01-02-2016</div>
+        </div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
+          <div style="font-weight:700;color:#065f46;">VINOD CHANDER BHATT</div>
+          <div style="color:#555;">Secretary</div>
+          <div style="color:#888;">Since: 13-02-2022</div>
+        </div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
+          <div style="font-weight:700;color:#065f46;">VINODCHANDRA BHATT</div>
+          <div style="color:#555;">Secretary</div>
+          <div style="color:#888;">Since: 01-02-2016</div>
+        </div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
+          <div style="font-weight:700;color:#065f46;">HEMLATAJOSHI</div>
+          <div style="color:#555;">Treasurer</div>
+          <div style="color:#888;">Since: 01-02-2016</div>
+        </div>
+      </div>
+
+      <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:6px;">🎯 कार्य क्षेत्र</div>
+      <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.78rem;color:#1a5c2a;line-height:1.7;">
+        Animal Husbandry, Dairying &amp; Fisheries • New &amp; Renewable Energy • Right to Information &amp; Advocacy • Rural Development &amp; Poverty Alleviation • Animal Welfare • Disaster Management • Environment &amp; Forests
+      </div>
+
+      <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">📑 दस्तावेज़</div>
+      <a href="ngodarpan.pdf" download class="rti-abtn" style="background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
+        ⬇️ NGO Darpan PDF डाउनलोड करें
+      </a>
+      <a href="https://ngodarpan.gov.in" target="_blank" class="rti-abtn" style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;margin-top:8px;">
+        🌐 NGO Darpan Portal पर देखें
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- ══════ RTI SLIDING PANEL ══════ -->
 <div id="rtiOv" class="rti-ov" onclick="if(event.target===this)this.classList.remove('on')">
@@ -385,7 +468,7 @@
 <script>
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
-    ['rtiOv','balMod','bsMod'].forEach(function(id){document.getElementById(id).classList.remove('on')});
+    ['rtiOv','darpanOv','balMod','bsMod'].forEach(function(id){document.getElementById(id).classList.remove('on')});
   }
 });
 function doLogin(){
