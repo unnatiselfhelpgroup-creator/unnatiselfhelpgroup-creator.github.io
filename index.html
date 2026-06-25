@@ -1,649 +1,408 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>उन्नति स्वयं सहायता समिति | गौ सेवा | समाज सेवा | राष्ट्रमाता जनआंदोलन</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>उन्नति स्वयं सहायता समिति | गौ सेवा | समाज सेवा | राष्ट्रमाता जनआंदोलन</title>
+  <meta name="description" content="उन्नति स्वयं सहायता समिति - गौ सेवा, गौ माता राष्ट्रमाता जनआंदोलन, पर्यावरण संरक्षण, मानव सेवा।" />
+  <meta name="theme-color" content="#4a0404" />
+  <meta property="og:image" content="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" />
+  <meta property="og:url" content="https://unnatiselfhelpgroup-creator.github.io/" />
+  <meta name="canonical" content="https://unnatiselfhelpgroup-creator.github.io/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#4a0404;--primary-dark:#2d0202;--primary-light:#6b1010;
+      --gold:#c8860a;--gold-light:#f5d080;--gold-pale:#fdf3d0;
+      --tw:#ffffff;--tl:rgba(255,255,255,.85);--tm:rgba(255,255,255,.65);
+      --cbg:#5a1a1a;--chov:#6b2020;--bg:#3a0808;
+      --border:rgba(200,134,10,.4);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Noto Sans Devanagari','Mangal',Arial,sans-serif;background:var(--primary);color:var(--tw);line-height:1.6;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
 
-<!-- ══ SEO META TAGS ══ -->
-<meta name="description" content="उन्नति स्वयं सहायता समिति - गौ सेवा, गौ माता राष्ट्रमाता जनआंदोलन, पर्यावरण संरक्षण, मानव सेवा। NGO Darpan: UA-2016/0108273 | CSR: CSR00102587 | PAN: AAATU7133Q">
-<meta name="keywords" content="उन्नति स्वयं सहायता समिति, NGO, गौ सेवा, गौ माता, cow protection, Uttarakhand NGO, volunteer, social service, Lalkuan, Nainital, Haldwani, USSS">
-<meta name="author" content="Unnati Sawaye Sahayata Samiti">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<meta name="theme-color" content="#4a0404">
+    /* HEADER */
+    header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));position:sticky;top:0;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,.5);border-bottom:2px solid var(--gold)}
+    .h-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px 18px}
+    .h-logo{width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);object-fit:contain;background:var(--gold-pale);flex-shrink:0}
+    .h-txt h1{font-size:clamp(.95rem,3vw,1.45rem);font-weight:700;color:var(--gold-light);line-height:1.2}
+    .h-txt p{font-size:.72rem;color:var(--tm)}
+    #gte{flex-shrink:0}
 
-<!-- ══ OPEN GRAPH ══ -->
-<meta property="og:title" content="उन्नति स्वयं सहायता समिति | गौ सेवा | समाज सेवा">
-<meta property="og:description" content="गौ माता राष्ट्रमाता जनआंदोलन, गौ संरक्षण, पर्यावरण संरक्षण, मानव सेवा हेतु समर्पित NGO। NGO Darpan: UA-2016/0108273">
-<meta property="og:image" content="https://unnatiselfhelpgroup-creator.github.io/ngologo.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta property="og:url" content="https://unnatiselfhelpgroup-creator.github.io/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Unnati Sawaye Sahayata Samiti">
-<meta property="og:locale" content="hi_IN">
+    /* HERO */
+    .hero{text-align:center;padding:36px 18px 28px;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 100%)}
+    .hero-logo{width:95px;height:95px;border-radius:50%;border:3px solid var(--gold);object-fit:contain;background:var(--gold-pale);margin-bottom:14px;box-shadow:0 0 28px rgba(200,134,10,.35)}
+    .hero h2{font-size:clamp(1.3rem,5vw,1.9rem);color:var(--gold-light);margin-bottom:8px}
+    .hero p{color:var(--tl);font-size:.87rem;margin-bottom:18px}
+    .hero-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#2a0a0a;padding:11px 26px;border-radius:30px;font-weight:700;font-size:.9rem;box-shadow:0 4px 16px rgba(200,134,10,.4);transition:transform .2s}
+    .hero-btn:hover{transform:translateY(-2px)}
 
-<!-- ══ TWITTER CARD ══ -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="उन्नति स्वयं सहायता समिति | गौ सेवा">
-<meta name="twitter:description" content="गौ सेवा, मानव सेवा, पर्यावरण संरक्षण हेतु समर्पित NGO - Uttarakhand">
-<meta name="twitter:image" content="https://unnatiselfhelpgroup-creator.github.io/ngologo.png">
+    /* SECTION */
+    .sec{max-width:1200px;margin:0 auto;padding:28px 14px}
+    .sec-title{text-align:center;font-size:clamp(1.1rem,4vw,1.5rem);color:var(--gold-light);margin-bottom:22px;padding-bottom:10px;border-bottom:2px solid var(--border)}
 
-<!-- ══ CANONICAL ══ -->
-<link rel="canonical" href="https://unnatiselfhelpgroup-creator.github.io/">
+    /* GRID */
+    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .g6{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media(max-width:768px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+    @media(max-width:480px){.g3,.g2,.g4,.g6{grid-template-columns:1fr}}
 
-<!-- ══ FAVICON ══ -->
-<link rel="icon" type="image/png" href="ngologo.png">
-<link rel="apple-touch-icon" href="ngologo.png">
+    /* CARD */
+    .card{background:var(--cbg);border-radius:16px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:170px;position:relative;overflow:hidden;transition:transform .2s,background .2s;border:1px solid var(--border)}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+    .card:hover{transform:translateY(-4px);background:var(--chov)}
+    .ci{font-size:1.4rem;margin-bottom:6px}
+    .card h3{color:var(--gold-light);font-size:.9rem;font-weight:700;margin-bottom:6px}
+    .card p{color:var(--tm);font-size:.78rem;line-height:1.5;flex:1}
+    .cbtn{display:block;margin-top:12px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#2a0a0a;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;border:none;cursor:pointer;text-align:center;width:100%;transition:opacity .2s;font-family:inherit}
+    .cbtn:hover{opacity:.88}
 
-<!-- ══ PRECONNECT (Performance) ══ -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-<link rel="dns-prefetch" href="https://translate.google.com">
+    /* RTI SPECIAL CARD */
+    .rti-card{background:var(--cbg);border-radius:16px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:170px;position:relative;overflow:hidden;transition:transform .2s,background .2s;border:2px solid var(--gold);box-shadow:0 0 16px rgba(200,134,10,.28)}
+    .rti-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+    .rti-card:hover{transform:translateY(-4px);background:var(--chov)}
+    .rti-new{position:absolute;top:9px;right:9px;background:var(--gold);color:#2a0a0a;font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px}
 
-<!-- ══ FONT — display=swap avoids render block ══ -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    /* RTI OVERLAY */
+    .rti-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
+    .rti-ov.on{display:flex}
+    .rti-pan{background:#fff;color:#1c1c1c;width:100%;max-width:540px;max-height:90vh;border-radius:22px 22px 0 0;overflow:hidden;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 40px rgba(0,0,0,.5)}
+    .rti-ov.on .rti-pan{transform:translateY(0)}
+    .rti-ph{background:linear-gradient(135deg,#6b1010,#c8860a);padding:12px 16px 16px;position:relative;flex-shrink:0}
+    .rti-drag{width:38px;height:4px;background:rgba(255,255,255,.4);border-radius:2px;margin:0 auto 10px}
+    .rti-ph h3{color:#fff;font-size:1rem;font-weight:700;margin:0 0 3px}
+    .rti-ph p{color:rgba(255,255,255,.8);font-size:.73rem;margin:0}
+    .rti-x{position:absolute;top:11px;right:13px;background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .rti-x:hover{background:rgba(255,255,255,.35)}
+    .rti-bd{overflow-y:auto;padding:16px;flex:1}
+    .rti-sl{font-size:.68rem;font-weight:700;color:#c8860a;text-transform:uppercase;letter-spacing:1px;padding-bottom:4px;border-bottom:2px solid #f0c060;margin:14px 0 8px}
+    .rti-sl:first-child{margin-top:0}
+    .rti-row{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #f5ede0;font-size:.81rem}
+    .rti-row:last-of-type{border:none}
+    .rti-l{color:#888;min-width:110px;flex-shrink:0}
+    .rti-v{color:#111;font-weight:600}
+    .rti-badge{background:#cff4fc;color:#055160;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:700}
+    .rti-tl{list-style:none;padding:0;margin:0}
+    .rti-tl li{display:flex;gap:9px;padding-bottom:12px;position:relative}
+    .rti-tl li::before{content:'';position:absolute;left:11px;top:24px;bottom:0;width:2px;background:#f0c060}
+    .rti-tl li:last-child::before{display:none}
+    .rti-dot{width:22px;height:22px;border-radius:50%;background:#c8860a;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .rti-tt h4{font-size:.8rem;color:#6b1010;margin:0 0 2px}
+    .rti-tt p{font-size:.73rem;color:#666;margin:0}
+    .rti-abtn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:11px;border:none;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;margin-top:9px;text-decoration:none;transition:opacity .2s;font-family:inherit}
+    .rti-abtn:hover{opacity:.88}
+    .rti-dl{background:linear-gradient(135deg,#6b1010,#c8860a);color:#fff}
+    .rti-vw{background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff}
 
-<!-- ══ FONT AWESOME — defer via media trick ══ -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+    /* STATS */
+    .stat-card{background:var(--cbg);border-radius:14px;padding:18px;text-align:center;border:1px solid var(--border)}
+    .stat-n{font-size:1.8rem;font-weight:700;color:var(--gold-light)}
+    .stat-l{font-size:.76rem;color:var(--tm);margin-top:4px}
 
-<!-- ══ SCHEMA.ORG JSON-LD ══ -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"NGO",
-  "name":"Unnati Sawaye Sahayata Samiti",
-  "alternateName":"उन्नति स्वयं सहायता समिति",
-  "url":"https://unnatiselfhelpgroup-creator.github.io/",
-  "logo":"https://unnatiselfhelpgroup-creator.github.io/ngologo.png",
-  "description":"Cow protection, social service and environmental NGO in Uttarakhand, India since 2016",
-  "foundingDate":"2016",
-  "address":{
-    "@type":"PostalAddress",
-    "streetAddress":"Haldhuchar Dina, Haldwani Road, Lalkuan",
-    "addressLocality":"Nainital",
-    "addressRegion":"Uttarakhand",
-    "postalCode":"263139",
-    "addressCountry":"IN"
-  },
-  "telephone":"+91-9410332400",
-  "email":"unnatiselfhelpgroup@gmail.com",
-  "sameAs":[
-    "https://www.facebook.com/share/18ifHYiHru/",
-    "https://www.instagram.com/unnatiselfhelpgroup1"
-  ],
-  "identifier":[
-    {"@type":"PropertyValue","name":"NGO Darpan ID","value":"UA-2016/0108273"},
-    {"@type":"PropertyValue","name":"PAN","value":"AAATU7133Q"},
-    {"@type":"PropertyValue","name":"CSR","value":"CSR00102587"}
-  ]
-}
-</script>
+    /* MODAL */
+    .mod-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px}
+    .mod-ov.on{display:flex}
+    .mod-box{background:var(--primary);border:2px solid var(--gold);border-radius:16px;padding:26px;max-width:400px;width:100%;position:relative}
+    .mod-box h3{color:var(--gold-light);font-size:1rem;margin-bottom:14px;text-align:center}
+    .mod-x{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--gold-light);font-size:18px;cursor:pointer}
+    .mod-inp{width:100%;padding:9px 13px;background:rgba(255,255,255,.1);border:1px solid var(--gold);border-radius:8px;color:#fff;font-size:.88rem;margin-bottom:10px;font-family:inherit}
+    .mod-inp::placeholder{color:rgba(255,255,255,.38)}
+    .mod-err{color:#ff6b6b;font-size:.78rem;margin-bottom:9px;display:none}
+    .mod-err.on{display:block}
 
-<!-- ══ CRITICAL CSS (Inlined — eliminates render-blocking) ══ -->
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-html{scroll-behavior:smooth}
-body{background:linear-gradient(135deg,#4a0404,#6e0505,#2f0303);color:#fff;overflow-x:hidden}
-body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,rgba(255,215,0,.12),transparent 70%);animation:bgmove 15s infinite alternate;z-index:-1;will-change:transform}
-@keyframes bgmove{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.3) translate(80px,-80px)}}
-
-/* HEADER */
-.top-header{position:sticky;top:0;z-index:999;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:12px 25px;background:rgba(0,0,0,.45);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.logo-area{display:flex;align-items:center;gap:16px}
-.logo-area img{width:85px;height:85px;border-radius:50%;background:#fff;padding:4px;border:3px solid gold;box-shadow:0 0 20px gold,0 0 40px rgba(255,215,0,.4);content-visibility:auto}
-.title-box h1{font-size:28px;font-weight:700;color:#ffd700;text-shadow:0 0 15px gold}
-.title-box p{color:#fff;font-size:13px}
-.translate-box{background:rgba(255,255,255,.12);padding:8px;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
-
-/* HERO */
-.hero{padding:110px 20px;text-align:center;background:linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,.62)),url("pressnote.jpg") center/cover no-repeat;contain:layout}
-.hero h2{font-size:44px;color:#ffd700;text-shadow:0 0 20px gold;margin-bottom:20px}
-.hero p{max-width:900px;margin:auto;font-size:20px;line-height:2}
-
-/* BUTTON */
-.btn{display:inline-block;margin-top:30px;padding:14px 36px;background:linear-gradient(145deg,#ffd700,#cfa300);color:#550000;font-weight:700;text-decoration:none;border-radius:18px;box-shadow:8px 8px 18px #000,-3px -3px 8px rgba(255,255,255,.2);transition:transform .35s,box-shadow .35s;transform-style:preserve-3d}
-.btn:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 0 30px gold,0 0 60px gold}
-
-/* SECTIONS */
-.section{padding:70px 20px;contain:layout}
-.section-title{text-align:center;font-size:34px;color:#ffd700;margin-bottom:44px;text-shadow:0 0 18px gold}
-
-/* CARDS */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:28px;max-width:1280px;margin:auto}
-.card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);padding:32px;border-radius:28px;box-shadow:12px 12px 30px rgba(0,0,0,.55),-4px -4px 12px rgba(255,255,255,.07);transition:transform .35s,box-shadow .35s;content-visibility:auto;contain-intrinsic-size:0 300px}
-.card:hover{transform:translateY(-12px);box-shadow:0 0 28px gold}
-.card h3{color:#ffd700;margin-bottom:16px}
-.card p{line-height:2;font-size:15px}
-
-/* FOOTER */
-footer{background:#140202;padding:55px 20px;text-align:center;border-top:2px solid gold}
-
-/* MOBILE */
-@media(max-width:768px){
-  .top-header{justify-content:center;text-align:center}
-  .logo-area{flex-direction:column}
-  .hero h2{font-size:28px}
-  .hero p{font-size:16px}
-  .title-box h1{font-size:22px}
-  .logo-area img{width:75px;height:75px}
-  .section-title{font-size:26px}
-  .hero{padding:80px 16px}
-}
-
-/* ACCESSIBILITY */
-:focus-visible{outline:3px solid gold;outline-offset:3px}
-a{transition:opacity .2s}
-img{max-width:100%;height:auto}
-
-/* SKIP LINK */
-.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-.skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;padding:12px 20px;background:#ffd700;color:#550000;font-weight:700;border-radius:8px;z-index:9999}
-</style>
+    /* FOOTER */
+    footer{background:var(--primary-dark);border-top:2px solid var(--gold);padding:28px 18px 18px;text-align:center}
+    .ft-logo{width:65px;height:65px;border-radius:50%;border:2px solid var(--gold);object-fit:contain;background:var(--gold-pale);margin-bottom:10px}
+    .ft-t{color:var(--gold-light);font-size:1.05rem;font-weight:700;margin-bottom:5px}
+    .ft-s{color:var(--tm);font-size:.78rem;margin-bottom:14px}
+    .ft-i{font-size:.8rem;color:var(--tm);line-height:1.9}
+    .ft-i a{color:var(--gold-light)}
+    .ft-c{margin-top:18px;font-size:.72rem;color:rgba(255,255,255,.35)}
+    #gte select{background:rgba(255,255,255,.13);border:1px solid var(--gold);color:#fff;border-radius:6px;padding:3px 7px;font-size:.75rem}
+    .goog-te-banner-frame{display:none!important}
+  </style>
 </head>
-
 <body>
-<!-- Accessibility skip link -->
-<a href="#main-content" class="skip-link">मुख्य सामग्री पर जाएँ</a>
 
-<header class="top-header" role="banner">
-  <div class="logo-area">
-    <!-- width/height set → no CLS -->
-    <img src="ngologo.png" alt="उन्नति स्वयं सहायता समिति Logo" width="85" height="85" fetchpriority="high">
-    <div class="title-box">
+<!-- HEADER -->
+<header>
+  <div class="h-inner">
+    <img src="ngologo.png" alt="Logo" class="h-logo"/>
+    <div class="h-txt">
       <h1>उन्नति स्वयं सहायता समिति</h1>
       <p>गौ सेवा | समाज सेवा | पर्यावरण संरक्षण | मानव सेवा</p>
     </div>
-  </div>
-  <div class="translate-box" aria-label="भाषा चुनें">
-    <div id="google_translate_element"></div>
+    <div id="gte"></div>
   </div>
 </header>
 
+<!-- HERO -->
+<section class="hero">
+  <img src="ngologo.png" alt="उन्नति स्वयं सहायता समिति" class="hero-logo"/>
+  <h2>उन्नति स्वयं सहायता समिति</h2>
+  <p>गौ माता राष्ट्रमाता जनआंदोलन, गौ संरक्षण, घायल गोवंश सहायता,<br>पर्यावरण संरक्षण, मानव सेवा, रक्तदान एवं जनकल्याण हेतु समर्पित संस्था।</p>
+  <a href="#about" class="hero-btn">संस्था के बारे में जानें ↓</a>
+</section>
+
 <main id="main-content">
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-heading">
-  <h2 id="hero-heading">उन्नति स्वयं सहायता समिति</h2>
-  <p>गौ माता राष्ट्रमाता जनआंदोलन, गौ संरक्षण, घायल गोवंश सहायता, पर्यावरण संरक्षण, मानव सेवा, रक्तदान, आपदा राहत एवं जनकल्याण हेतु समर्पित संस्था।</p>
-  <a href="#about" class="btn">संस्था के बारे में जानें</a>
-</section>
-
-<!-- QUICK SERVICES -->
-<section class="section" aria-labelledby="services-heading">
-  <h2 class="section-title" id="services-heading">⚡ त्वरित सेवाएँ (Quick Services)</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>💰 राष्ट्रहित दान करें</h3>
-      <p>गौ सेवा, मानव सेवा एवं जनकल्याण कार्यों हेतु संस्था को सहयोग प्रदान करें।</p>
-      <br><a href="Donate.html" class="btn">Donate Now</a>
-    </div>
-    <div class="card">
-      <h3>📄 नियुक्ति आवेदन</h3>
-      <p>संस्था के सदस्य, पदाधिकारी अथवा सेवा सहयोगी बनने हेतु ऑनलाइन आवेदन करें।</p>
-      <br><a href="appointment-application.html" class="btn">Apply Now</a>
-    </div>
-    <div class="card">
-      <h3>🎓 स्टूडेंट वॉलंटियर</h3>
-      <p>15, 30, 60 एवं 90 दिनों के अनुभव प्रमाणपत्र कार्यक्रम हेतु आवेदन करें।</p>
-      <br><a href="student-registration.html" class="btn">Register</a>
-    </div>
-    <div class="card">
-      <h3>🪪 आईडी कार्ड आवेदन</h3>
-      <p>संस्था के आधिकारिक सदस्य पहचान पत्र हेतु ऑनलाइन आवेदन करें।</p>
-      <br><a href="id-card.html" class="btn">Apply</a>
-    </div>
-    <div class="card">
-      <h3>📝 दैनिक सेवा रिपोर्ट</h3>
-      <p>गौ रक्षक एवं स्वयंसेवक अपनी दैनिक सेवा रिपोर्ट जमा करें।</p>
-      <br><a href="daily-report.html" class="btn">Submit Report</a>
-    </div>
-    <div class="card">
-      <h3>📜 प्रमाणपत्र सत्यापन</h3>
-      <p>संस्था द्वारा जारी प्रमाणपत्र एवं अनुभव पत्र का सत्यापन करें।</p>
-      <br><a href="certificate-verification.html" class="btn">Verify</a>
-    </div>
-  </div>
-</section>
-
-<!-- DOCUMENTS -->
-<section class="section" aria-labelledby="docs-heading">
-  <h2 class="section-title" id="docs-heading">📑 संस्था के महत्वपूर्ण दस्तावेज</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>CSR-1 Registration</h3>
-      <p>संस्था का CSR-1 पंजीकरण प्रमाणपत्र।</p>
-      <br><a href="CSR-1Registration.pdf" target="_blank" rel="noopener" class="btn">Open PDF</a>
-    </div>
-    <div class="card">
-      <h3>NGO PAN Card</h3>
-      <p>संस्था का पैन कार्ड दस्तावेज।</p>
-      <br><a href="ngopancard.pdf" target="_blank" rel="noopener" class="btn">Open PDF</a>
-    </div>
-    <div class="card">
-      <h3>Registration Certificate</h3>
-      <p>संस्था का पंजीकरण प्रमाणपत्र।</p>
-      <br><a href="ngorc.jpg" target="_blank" rel="noopener" class="btn">View</a>
-    </div>
-    <div class="card">
-      <h3>Press Note</h3>
-      <p>संस्था की प्रेस विज्ञप्ति एवं समाचार।</p>
-      <br><a href="pressnote.jpg" target="_blank" rel="noopener" class="btn">View</a>
-    </div>
-    <div class="card">
-      <h3>Donation QR Code</h3>
-      <p>ऑनलाइन दान हेतु QR Code।</p>
-      <br><a href="Qrcode.png" target="_blank" rel="noopener" class="btn">Open QR</a>
-    </div>
-    <div class="card" style="border:2px solid #d4af37; position:relative;">
-      <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#d4af37;color:#1b2430;padding:3px 16px;border-radius:20px;font-size:13px;font-weight:bold;white-space:nowrap;">🔐 Admin Login Required</div>
-      <h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3>
-      <p>संस्था की वार्षिक वित्तीय विवरण एवं CA द्वारा ऑडिट रिपोर्ट।<br>
-      <span style="font-size:12px;color:#ffd700;">वर्ष 2022, 2023, 2024, 2025</span></p>
-      <br><button onclick="openAuditLogin()" class="btn" style="cursor:pointer;border:none;width:auto;">🔒 Open Balance Sheet</button>
-    </div>
-  </div>
-</section>
-
-<!-- ══ AUDIT LOGIN MODAL ══ -->
-<div id="auditModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:#1b2430;border:2px solid #d4af37;border-radius:20px;padding:35px 30px;max-width:380px;width:90%;text-align:center;position:relative;">
-    <button onclick="closeAuditModal()" style="position:absolute;top:12px;right:15px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">✕</button>
-    <div style="font-size:48px;margin-bottom:10px;">🔐</div>
-    <h3 style="color:#d4af37;margin-bottom:5px;">Admin Login</h3>
-    <p style="color:#aaa;font-size:13px;margin-bottom:20px;">बैलेंस शीट देखने के लिए Admin ईमेल एवं पासवर्ड दर्ज करें</p>
-    <input id="auditEmail" type="email" placeholder="Admin Email" 
-      style="width:100%;padding:12px;border-radius:8px;border:1px solid #d4af37;background:#071b34;color:white;margin-bottom:10px;box-sizing:border-box;font-size:14px;">
-    <input id="auditPassword" type="password" placeholder="Password"
-      style="width:100%;padding:12px;border-radius:8px;border:1px solid #d4af37;background:#071b34;color:white;margin-bottom:15px;box-sizing:border-box;font-size:14px;">
-    <div id="auditError" style="color:#ff4d4d;font-size:13px;margin-bottom:10px;display:none;">❌ गलत Email या Password</div>
-    <button onclick="verifyAuditLogin()" 
-      style="width:100%;padding:13px;background:linear-gradient(145deg,#d4af37,#b8962e);color:#1b2430;border:none;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer;">
-      🔓 Login करें
-    </button>
+<!-- त्वरित सेवाएँ -->
+<div class="sec">
+  <h2 class="sec-title">⚡ त्वरित सेवाएँ (Quick Services)</h2>
+  <div class="g3">
+    <div class="card"><div><div class="ci">💰</div><h3>राष्ट्रहित दान करें</h3><p>गौ सेवा, मानव सेवा एवं जनकल्याण कार्यों हेतु संस्था को सहयोग प्रदान करें।</p></div><a href="Donate.html" class="cbtn">Donate Now</a></div>
+    <div class="card"><div><div class="ci">📄</div><h3>नियुक्ति आवेदन</h3><p>संस्था के सदस्य, पदाधिकारी अथवा सेवा सहयोगी बनने हेतु ऑनलाइन आवेदन करें।</p></div><a href="appointment-application.html" class="cbtn">Apply Now</a></div>
+    <div class="card"><div><div class="ci">🎓</div><h3>स्टूडेंट वॉलंटियर</h3><p>15, 30, 60 एवं 90 दिनों के अनुभव प्रमाणपत्र कार्यक्रम हेतु आवेदन करें।</p></div><a href="student-registration.html" class="cbtn">Register</a></div>
+    <div class="card"><div><div class="ci">🪪</div><h3>आईडी कार्ड आवेदन</h3><p>संस्था के आधिकारिक सदस्य पहचान पत्र हेतु ऑनलाइन आवेदन करें।</p></div><a href="id-card.html" class="cbtn">Apply</a></div>
+    <div class="card"><div><div class="ci">📝</div><h3>दैनिक सेवा रिपोर्ट</h3><p>गौ रक्षक एवं स्वयंसेवक अपनी दैनिक सेवा रिपोर्ट जमा करें।</p></div><a href="daily-report.html" class="cbtn">Submit Report</a></div>
+    <div class="card"><div><div class="ci">📜</div><h3>प्रमाणपत्र सत्यापन</h3><p>संस्था द्वारा जारी प्रमाणपत्र एवं अनुभव पत्र का सत्यापन करें।</p></div><a href="certificate-verification.html" class="cbtn">Verify</a></div>
   </div>
 </div>
 
-<!-- ══ AUDIT DOCS MODAL ══ -->
-<div id="auditDocsModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;overflow-y:auto;">
-  <div style="background:#1b2430;border:2px solid #d4af37;border-radius:20px;padding:30px;max-width:500px;width:90%;text-align:center;position:relative;margin:20px auto;">
-    <button onclick="closeAuditDocs()" style="position:absolute;top:12px;right:15px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">✕</button>
-    <div style="font-size:40px;margin-bottom:8px;">📊</div>
-    <h3 style="color:#d4af37;margin-bottom:5px;">बैलेंस शीट एवं ऑडिट रिपोर्ट</h3>
-    <p style="color:#aaa;font-size:12px;margin-bottom:20px;">Kandpal Rohit & Associates, Chartered Accountant</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <a href="balance_sheet_2025.pdf" target="_blank" rel="noopener"
-         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
-         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
-         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2025</span>
-      </a>
-      <a href="balance_sheet_2024.pdf" target="_blank" rel="noopener"
-         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
-         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
-         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2024</span>
-      </a>
-      <a href="balance_sheet_2023.pdf" target="_blank" rel="noopener"
-         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
-         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
-         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2023</span>
-      </a>
-      <a href="balance_sheet_2022.pdf" target="_blank" rel="noopener"
-         style="display:block;padding:15px 10px;background:rgba(212,175,55,0.15);border:1px solid #d4af37;border-radius:12px;color:#ffd700;text-decoration:none;font-weight:bold;font-size:14px;transition:0.3s;"
-         onmouseover="this.style.background='rgba(212,175,55,0.35)'" onmouseout="this.style.background='rgba(212,175,55,0.15)'">
-         📋 Balance Sheet<br><span style="font-size:12px;color:#aaa;">31 March 2022</span>
-      </a>
+<!-- महत्वपूर्ण दस्तावेज़ -->
+<div class="sec">
+  <h2 class="sec-title">📑 संस्था के महत्वपूर्ण दस्तावेज</h2>
+  <div class="g3">
+    <div class="card"><div><div class="ci">📋</div><h3>CSR-1 Registration</h3><p>संस्था का CSR-1 पंजीकरण प्रमाणपत्र।</p></div><a href="CSR-1Registration.pdf" target="_blank" class="cbtn">Open PDF</a></div>
+    <div class="card"><div><div class="ci">🪪</div><h3>NGO PAN Card</h3><p>संस्था का पैन कार्ड दस्तावेज।</p></div><a href="ngopancard.pdf" target="_blank" class="cbtn">Open PDF</a></div>
+    <div class="card"><div><div class="ci">📃</div><h3>Registration Certificate</h3><p>संस्था का पंजीकरण प्रमाणपत्र।</p></div><a href="ngorc.jpg" target="_blank" class="cbtn">View</a></div>
+    <div class="card"><div><div class="ci">📰</div><h3>Press Note</h3><p>संस्था की प्रेस विज्ञप्ति एवं समाचार।</p></div><a href="pressnote.jpg" target="_blank" class="cbtn">View</a></div>
+
+    <!-- ★★★ RTI CARD — QR Code की जगह ★★★ -->
+    <div class="rti-card">
+      <span class="rti-new">नया</span>
+      <div>
+        <div class="ci">📋</div>
+        <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">सूचना का अधिकार (RTI)</h3>
+        <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">RTI अधिनियम 2005 के अंतर्गत दायर आवेदन एवं द्वितीय अपील के दस्तावेज़ यहाँ देखें।</p>
+      </div>
+      <button onclick="document.getElementById('rtiOv').classList.add('on')" class="cbtn" style="margin-top:12px;">
+        📂 RTI दस्तावेज़ देखें ›
+      </button>
     </div>
-    <p style="color:#888;font-size:11px;margin-top:15px;">CA Rohit Kandpal | M.No. 468969 | FRN: 034498C</p>
+
+    <!-- Balance Sheet -->
+    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><button onclick="document.getElementById('balMod').classList.add('on')" class="cbtn">🔒 Open Balance Sheet</button></div>
   </div>
 </div>
 
-<script>
-function openAuditLogin() {
-  document.getElementById("auditModal").style.display = "flex";
-  document.getElementById("auditEmail").value = "";
-  document.getElementById("auditPassword").value = "";
-  document.getElementById("auditError").style.display = "none";
-}
-function closeAuditModal() {
-  document.getElementById("auditModal").style.display = "none";
-}
-function closeAuditDocs() {
-  document.getElementById("auditDocsModal").style.display = "none";
-}
-function verifyAuditLogin() {
-  const email = document.getElementById("auditEmail").value.trim().toLowerCase();
-  const pass = document.getElementById("auditPassword").value;
-  // Firebase Auth से verify करें
-  import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js").then(({signInWithEmailAndPassword}) => {
-    import("./firebase-config.js").then(({auth}) => {
-      signInWithEmailAndPassword(auth, email, pass)
-        .then(() => {
-          closeAuditModal();
-          document.getElementById("auditDocsModal").style.display = "flex";
-        })
-        .catch(() => {
-          document.getElementById("auditError").style.display = "block";
-        });
-    });
-  });
-}
-// ESC key से modal बंद
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") { closeAuditModal(); closeAuditDocs(); }
-});
-</script>
-
-<!-- ONLINE PORTAL -->
-<section class="section" aria-labelledby="portal-heading">
-  <h2 class="section-title" id="portal-heading">🌐 ऑनलाइन पोर्टल</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>👥 Volunteer List</h3>
-      <p>संस्था के सक्रिय स्वयंसेवकों एवं सदस्यों की सूची देखें।</p>
-      <br><a href="volunteer-list.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>📜 Certificate Portal</h3>
-      <p>सर्टिफिकेट जारी करने एवं देखने का पोर्टल।</p>
-      <br><a href="certificate.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>🪪 ID Verification</h3>
-      <p>संस्था द्वारा जारी पहचान पत्रों का सत्यापन करें।</p>
-      <br><a href="idverification.html" class="btn">Verify</a>
-    </div>
-    <div class="card">
-      <h3>🤝 Volunteer Management</h3>
-      <p>संस्था के स्वयंसेवकों की सूची एवं प्रबंधन प्रणाली।</p>
-      <br><a href="volunteer-list.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>🔐 Admin Panel</h3>
-      <p>अधिकृत पदाधिकारियों एवं प्रशासकों हेतु सुरक्षित लॉगिन।</p>
-      <br><a href="admin-login.html" class="btn">Admin Login</a>
-    </div>
+<!-- ऑनलाइन पोर्टल -->
+<div class="sec">
+  <h2 class="sec-title">🌐 ऑनलाइन पोर्टल</h2>
+  <div class="g3">
+    <div class="card"><div><div class="ci">👥</div><h3>Volunteer List</h3><p>संस्था के सक्रिय स्वयंसेवकों एवं सदस्यों की सूची देखें।</p></div><a href="volunteer-list.html" class="cbtn">Open</a></div>
+    <div class="card"><div><div class="ci">📜</div><h3>Certificate Portal</h3><p>सर्टिफिकेट जारी करने एवं देखने का पोर्टल।</p></div><a href="certificate.html" class="cbtn">Open</a></div>
+    <div class="card"><div><div class="ci">🪪</div><h3>ID Verification</h3><p>संस्था द्वारा जारी पहचान पत्रों का सत्यापन करें।</p></div><a href="idverification.html" class="cbtn">Verify</a></div>
+    <div class="card"><div><div class="ci">🤝</div><h3>Volunteer Management</h3><p>स्वयंसेवकों की सूची एवं प्रबंधन प्रणाली।</p></div><a href="volunteer-list.html" class="cbtn">Open</a></div>
+    <div class="card"><div><div class="ci">🔐</div><h3>Admin Panel</h3><p>अधिकृत पदाधिकारियों हेतु सुरक्षित लॉगिन।</p></div><a href="admin-login.html" class="cbtn">Admin Login</a></div>
   </div>
-</section>
+</div>
 
-<!-- ABOUT -->
-<section id="about" class="section" aria-labelledby="about-heading">
-  <h2 class="section-title" id="about-heading">🌸 उन्नति स्वयं सहायता समिति के बारे में</h2>
-  <div class="grid">
-    <div class="card">
-      <p>उन्नति स्वयं सहायता समिति एक सामाजिक, गैर-लाभकारी एवं जनहितकारी संस्था है, जो वर्ष 2016 से गौ संरक्षण, गौ माता राष्ट्रमाता जनआंदोलन, घायल एवं निराश्रित गोवंश की सहायता, मानव सेवा, पर्यावरण संरक्षण, पशु-पक्षी सेवा, शिक्षा, रक्तदान, राहत कार्य, गरीब एवं जरूरतमंद लोगों की सहायता तथा सामाजिक जागरूकता के क्षेत्र में निरंतर कार्य कर रही है।</p>
-    </div>
+<!-- About -->
+<div class="sec" id="about">
+  <h2 class="sec-title">🌸 संस्था के बारे में</h2>
+  <div class="card" style="min-height:auto;">
+    <p style="color:var(--tl);font-size:.88rem;line-height:1.8;">उन्नति स्वयं सहायता समिति एक सामाजिक, गैर-लाभकारी एवं जनहितकारी संस्था है, जो वर्ष 2016 से गौ संरक्षण, गौ माता राष्ट्रमाता जनआंदोलन, घायल एवं निराश्रित गोवंश की सहायता, मानव सेवा, पर्यावरण संरक्षण, पशु-पक्षी सेवा, शिक्षा, रक्तदान, राहत कार्य, गरीब एवं जरूरतमंद लोगों की सहायता तथा सामाजिक जागरूकता के क्षेत्र में निरंतर कार्य कर रही है।</p>
   </div>
-</section>
+</div>
 
-<!-- MISSION -->
-<section class="section" aria-labelledby="mission-heading">
-  <h2 class="section-title" id="mission-heading">🐄 गौ माता राष्ट्रमाता संघर्ष यात्रा</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>🚩 हमारा उद्देश्य</h3>
-      <p>गौ माता को राष्ट्रमाता एवं राज्यमाता का सम्मान दिलाने हेतु जनजागरूकता, पदयात्राएँ, दण्डवत यात्रा, जनसमर्थन अभियान, घायल गोवंश सहायता, रक्तदान एवं सेवा कार्यों को समाज तक पहुँचाना।</p>
-    </div>
-    <div class="card">
-      <h3>🎯 हमारा संकल्प</h3>
-      <p>गौ सेवा, मानव सेवा, पर्यावरण संरक्षण एवं राष्ट्रहित को सर्वोच्च मानते हुए समाज के प्रत्येक वर्ग को सेवा कार्यों से जोड़ना।</p>
-    </div>
+<!-- गौ माता आंदोलन -->
+<div class="sec">
+  <h2 class="sec-title">🐄 गौ माता राष्ट्रमाता संघर्ष यात्रा</h2>
+  <div class="g2">
+    <div class="card" style="min-height:auto;"><div class="ci">🚩</div><h3>हमारा उद्देश्य</h3><p>गौ माता को राष्ट्रमाता एवं राज्यमाता का सम्मान दिलाने हेतु जनजागरूकता, पदयात्राएँ, दण्डवत यात्रा, जनसमर्थन अभियान एवं सेवा कार्यों को समाज तक पहुँचाना।</p></div>
+    <div class="card" style="min-height:auto;"><div class="ci">🎯</div><h3>हमारा संकल्प</h3><p>गौ सेवा, मानव सेवा, पर्यावरण संरक्षण एवं राष्ट्रहित को सर्वोच्च मानते हुए समाज के प्रत्येक वर्ग को सेवा कार्यों से जोड़ना।</p></div>
   </div>
-</section>
+</div>
 
-<!-- GALLERY -->
-<section id="gallery" class="section" aria-labelledby="gallery-heading">
-  <h2 class="section-title" id="gallery-heading">📸 सेवा कार्य एवं जनआंदोलन गैलरी</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>🐄 400 KM पैदल यात्रा</h3>
-      <p>रामनगर गर्जिया देवी मंदिर से करनाल तक गौ माता राष्ट्रमाता हेतु 400 किलोमीटर पदयात्रा।</p>
-      <br><a href="https://photos.app.goo.gl/KnkoYmknBZmdtkrNA" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🚩 अन्न-जल त्याग एवं दण्डवत यात्रा</h3>
-      <p>गौ माता को राष्ट्रमाता एवं राज्यमाता घोषित करने हेतु जनआंदोलन।</p>
-      <br><a href="https://photos.app.goo.gl/vZ2NGBhysyHpfC756" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>📝 36 विधायकों का समर्थन</h3>
-      <p>गौ माता को राज्यमाता का दर्जा दिलाने हेतु 36 विधायकों से लिखित समर्थन प्राप्त।</p>
-      <br><a href="https://photos.app.goo.gl/GrtHwKws76T3tgrm8" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🚑 घायल गोवंश सहायता</h3>
-      <p>सड़कों में घायल गोवंश की सहायता एवं जनजागरूकता अभियान।</p>
-      <br><a href="https://photos.app.goo.gl/r2V3pdVoJkN83yq5A" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🚶 700 KM पदयात्रा</h3>
-      <p>अयोध्या से बागेश्वर धाम तक लगभग 700 किलोमीटर पदयात्रा।</p>
-      <br><a href="https://photos.app.goo.gl/9q7Pu5JK984k8hG67" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🕉 नंगे पैर कावड़ यात्रा</h3>
-      <p>हरिद्वार से मोटेश्वर महादेव तक नंगे पैर कावड़ यात्रा।</p>
-      <br><a href="https://photos.app.goo.gl/h7E5DLJokdjhXEty9" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🔥 अखंड ज्योति अभियान</h3>
-      <p>चार माह तक अखंड ज्योति के साथ गौ माता राज्यमाता जनजागरूकता अभियान।</p>
-      <br><a href="https://photos.app.goo.gl/XFjFFPrVSoGiarJAA" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🚩 960 KM पदयात्रा</h3>
-      <p>हर की पौड़ी हरिद्वार से बागेश्वर धाम तक 960 किलोमीटर पदयात्रा।</p>
-      <br><a href="https://photos.app.goo.gl/pHJZLyTfVuMDdvsJ9" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🩸 रक्तदान शिविर</h3>
-      <p>दुर्घटना पीड़ितों एवं जरूरतमंद लोगों हेतु रक्तदान शिविर।</p>
-      <br><a href="https://photos.app.goo.gl/RRVSLxZwyEqVpW7j8" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🐄 राज्यमाता समर्थन अभियान</h3>
-      <p>उत्तराखंड में गौ माता को राज्यमाता का दर्जा दिलाने हेतु समर्थन एवं पत्राचार।</p>
-      <br><a href="https://photos.app.goo.gl/yiuPoeiW93KXBTJHA" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🕊 पक्षियों के लिए दाना-पानी</h3>
-      <p>भीषण गर्मी में बेजुबान पक्षियों हेतु दाना एवं पानी की व्यवस्था।</p>
-      <br><a href="https://photos.app.goo.gl/TwxYhhcVyXFtjLAX9" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>💧 जंगलों में जल सेवा</h3>
-      <p>बेजुबान पशु-पक्षियों के लिए जंगलों में पानी की व्यवस्था।</p>
-      <br><a href="https://photos.app.goo.gl/HhqNBEnTPDf9cZTW6" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🎁 गरीब एवं विधवा सहायता</h3>
-      <p>गरीब, विधवा एवं बेसहारा परिवारों को निःशुल्क सामग्री वितरण।</p>
-      <br><a href="https://photos.app.goo.gl/uU3fYDgYthbcGb2n6" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>😷 कोरोना राहत अभियान</h3>
-      <p>कोरोना काल में जनजागरूकता एवं आवश्यक सामग्री वितरण।</p>
-      <br><a href="https://photos.app.goo.gl/Vt4sr2wi9g5piJFf9" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🧹 स्वच्छ भारत अभियान</h3>
-      <p>स्वच्छता एवं सामाजिक जागरूकता कार्यक्रम।</p>
-      <br><a href="https://photos.app.goo.gl/5xhMbSBfYNbgPBYP8" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
-    <div class="card">
-      <h3>🧣 शीतकालीन सहायता अभियान</h3>
-      <p>सर्दी की रातों में जरूरतमंद लोगों को आवश्यक सामग्री वितरण।</p>
-      <br><a href="https://photos.app.goo.gl/5qddTeUkCjq6aNqh9" target="_blank" rel="noopener noreferrer" class="btn">गैलरी देखें</a>
-    </div>
+<!-- Gallery -->
+<div class="sec">
+  <h2 class="sec-title">📸 सेवा कार्य एवं जनआंदोलन गैलरी</h2>
+  <div class="g4">
+    <div class="card" style="min-height:130px;"><div class="ci">🐄</div><h3>400 KM पैदल यात्रा</h3><p>रामनगर से करनाल तक गौ माता राष्ट्रमाता पदयात्रा।</p><a href="https://photos.app.goo.gl/KnkoYmknBZmdtkrNA" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🚩</div><h3>दण्डवत यात्रा</h3><p>गौ माता को राष्ट्रमाता घोषित करने हेतु जनआंदोलन।</p><a href="https://photos.app.goo.gl/vZ2NGBhysyHpfC756" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">📝</div><h3>36 विधायकों का समर्थन</h3><p>गौ माता को राज्यमाता हेतु लिखित समर्थन।</p><a href="https://photos.app.goo.gl/GrtHwKws76T3tgrm8" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🚑</div><h3>घायल गोवंश सहायता</h3><p>सड़कों में घायल गोवंश की सहायता।</p><a href="https://photos.app.goo.gl/r2V3pdVoJkN83yq5A" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🚶</div><h3>700 KM पदयात्रा</h3><p>अयोध्या से बागेश्वर धाम तक पदयात्रा।</p><a href="https://photos.app.goo.gl/9q7Pu5JK984k8hG67" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🕉</div><h3>नंगे पैर कावड़ यात्रा</h3><p>हरिद्वार से मोटेश्वर महादेव तक।</p><a href="https://photos.app.goo.gl/h7E5DLJokdjhXEty9" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🔥</div><h3>अखंड ज्योति अभियान</h3><p>चार माह तक अखंड ज्योति जनजागरूकता।</p><a href="https://photos.app.goo.gl/XFjFFPrVSoGiarJAA" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🚩</div><h3>960 KM पदयात्रा</h3><p>हर की पौड़ी से बागेश्वर धाम तक।</p><a href="https://photos.app.goo.gl/pHJZLyTfVuMDdvsJ9" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🩸</div><h3>रक्तदान शिविर</h3><p>जरूरतमंद लोगों हेतु रक्तदान शिविर।</p><a href="https://photos.app.goo.gl/RRVSLxZwyEqVpW7j8" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🐄</div><h3>राज्यमाता समर्थन</h3><p>गौ माता को राज्यमाता दर्जा अभियान।</p><a href="https://photos.app.goo.gl/yiuPoeiW93KXBTJHA" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🕊</div><h3>पक्षियों हेतु दाना-पानी</h3><p>भीषण गर्मी में बेजुबान पक्षियों हेतु व्यवस्था।</p><a href="https://photos.app.goo.gl/TwxYhhcVyXFtjLAX9" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">💧</div><h3>जंगलों में जल सेवा</h3><p>पशु-पक्षियों के लिए जंगलों में पानी।</p><a href="https://photos.app.goo.gl/HhqNBEnTPDf9cZTW6" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🎁</div><h3>गरीब एवं विधवा सहायता</h3><p>जरूरतमंद परिवारों को सामग्री वितरण।</p><a href="https://photos.app.goo.gl/uU3fYDgYthbcGb2n6" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">😷</div><h3>कोरोना राहत</h3><p>कोरोना काल में जनजागरूकता एवं राहत।</p><a href="https://photos.app.goo.gl/Vt4sr2wi9g5piJFf9" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🧹</div><h3>स्वच्छ भारत अभियान</h3><p>स्वच्छता एवं सामाजिक जागरूकता।</p><a href="https://photos.app.goo.gl/5xhMbSBfYNbgPBYP8" target="_blank" class="cbtn">गैलरी देखें</a></div>
+    <div class="card" style="min-height:130px;"><div class="ci">🧣</div><h3>शीतकालीन सहायता</h3><p>सर्दी में जरूरतमंद लोगों को सामग्री वितरण।</p><a href="https://photos.app.goo.gl/5qddTeUkCjq6aNqh9" target="_blank" class="cbtn">गैलरी देखें</a></div>
   </div>
-</section>
+</div>
 
-<!-- ACHIEVEMENTS -->
-<section class="section" aria-labelledby="achiev-heading">
-  <h2 class="section-title" id="achiev-heading">🏆 प्रमुख उपलब्धियाँ</h2>
-  <div class="grid">
-    <div class="card"><h3>2016+</h3><p>सेवा यात्रा प्रारम्भ</p></div>
-    <div class="card"><h3>400 KM+</h3><p>गौ माता राष्ट्रमाता पदयात्रा</p></div>
-    <div class="card"><h3>960 KM+</h3><p>जनजागरूकता पदयात्राएँ</p></div>
-    <div class="card"><h3>36+</h3><p>विधायकों का लिखित समर्थन</p></div>
-    <div class="card"><h3>1000+</h3><p>लाभार्थी एवं सेवा कार्य</p></div>
-    <div class="card"><h3>24×7</h3><p>गौ सेवा एवं मानव सेवा</p></div>
+<!-- Stats -->
+<div class="sec">
+  <h2 class="sec-title">🏆 प्रमुख उपलब्धियाँ</h2>
+  <div class="g6">
+    <div class="stat-card"><div class="stat-n">2016+</div><div class="stat-l">सेवा यात्रा प्रारम्भ</div></div>
+    <div class="stat-card"><div class="stat-n">400 KM+</div><div class="stat-l">गौ माता पदयात्रा</div></div>
+    <div class="stat-card"><div class="stat-n">960 KM+</div><div class="stat-l">जनजागरूकता पदयात्रा</div></div>
+    <div class="stat-card"><div class="stat-n">36+</div><div class="stat-l">विधायकों का समर्थन</div></div>
+    <div class="stat-card"><div class="stat-n">1000+</div><div class="stat-l">लाभार्थी एवं सेवा कार्य</div></div>
+    <div class="stat-card"><div class="stat-n">24×7</div><div class="stat-l">गौ सेवा एवं मानव सेवा</div></div>
   </div>
-</section>
+</div>
 
-<!-- SOCIAL -->
-<section class="section" aria-labelledby="social-heading">
-  <h2 class="section-title" id="social-heading">🌐 हमसे जुड़ें</h2>
-  <div class="grid">
-    <div class="card" style="text-align:center">
-      <h3>Facebook</h3>
-      <p>संस्था की गतिविधियों एवं जनआंदोलन से जुड़े रहें।</p>
-      <br><a href="https://www.facebook.com/share/18ifHYiHru/" target="_blank" rel="noopener noreferrer" class="btn">Facebook</a>
-    </div>
-    <div class="card" style="text-align:center">
-      <h3>WhatsApp</h3>
-      <p>संस्था के साथ सीधे जुड़ें एवं सेवा कार्यों की जानकारी प्राप्त करें।</p>
-      <br><a href="https://wa.me/message/DXARYWGMEIGCC1" target="_blank" rel="noopener noreferrer" class="btn">WhatsApp</a>
-    </div>
-    <div class="card" style="text-align:center">
-      <h3>Instagram</h3>
-      <p>फोटो, कार्यक्रम एवं सेवा गतिविधियाँ देखें।</p>
-      <br><a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" rel="noopener noreferrer" class="btn">Instagram</a>
-    </div>
-    <div class="card" style="text-align:center">
-      <h3>YouTube</h3>
-      <p>गौ माता राष्ट्रमाता आंदोलन एवं सेवा वीडियो देखें।</p>
-      <br><a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=dKoj7sHq9Y1wcYPH" target="_blank" rel="noopener noreferrer" class="btn">YouTube</a>
-    </div>
+<!-- Social -->
+<div class="sec">
+  <h2 class="sec-title">🌐 हमसे जुड़ें</h2>
+  <div class="g4">
+    <div class="card" style="min-height:auto;text-align:center;"><div class="ci">📘</div><h3>Facebook</h3><a href="https://www.facebook.com/share/18ifHYiHru/" target="_blank" class="cbtn">Facebook</a></div>
+    <div class="card" style="min-height:auto;text-align:center;"><div class="ci">💬</div><h3>WhatsApp</h3><a href="https://wa.me/message/DXARYWGMEIGCC1" target="_blank" class="cbtn">WhatsApp</a></div>
+    <div class="card" style="min-height:auto;text-align:center;"><div class="ci">📸</div><h3>Instagram</h3><a href="https://www.instagram.com/unnatiselfhelpgroup1?igsh=MW92MWM4amtkZnA=" target="_blank" class="cbtn">Instagram</a></div>
+    <div class="card" style="min-height:auto;text-align:center;"><div class="ci">▶️</div><h3>YouTube</h3><a href="https://youtube.com/channel/UCewSoqv-2aCyxVU_3xQt_Dg?si=dKoj7sHq9Y1wcYPH" target="_blank" class="cbtn">YouTube</a></div>
   </div>
-</section>
+</div>
 
-<!-- DONATE -->
-<section class="section" aria-labelledby="donate-heading">
-  <h2 class="section-title" id="donate-heading">💰 दान एवं सहयोग</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>राष्ट्रहित दान करें</h3>
-      <p>आपका सहयोग गौ सेवा, घायल गोवंश सहायता, मानव सेवा, रक्तदान, पर्यावरण संरक्षण एवं जनकल्याण कार्यों में उपयोग किया जाता है।</p>
-      <br><a href="Donate.html" class="btn">Donate Now</a>
-    </div>
-    <div class="card">
-      <h3>Donation QR Code</h3>
-      <p>QR Code के माध्यम से भी दान किया जा सकता है।</p>
-      <br><a href="Qrcode.png" target="_blank" rel="noopener" class="btn">View QR</a>
-    </div>
+<!-- Donate -->
+<div class="sec">
+  <h2 class="sec-title">💰 दान एवं सहयोग</h2>
+  <div class="g2">
+    <div class="card"><div class="ci">🙏</div><h3>राष्ट्रहित दान करें</h3><p>आपका सहयोग गौ सेवा, घायल गोवंश सहायता, मानव सेवा, रक्तदान, पर्यावरण संरक्षण एवं जनकल्याण कार्यों में उपयोग किया जाता है।</p><a href="Donate.html" class="cbtn">Donate Now</a></div>
+    <div class="card"><div class="ci">📱</div><h3>Donation QR Code</h3><p>QR Code के माध्यम से भी दान किया जा सकता है।</p><a href="Qrcode.png" target="_blank" class="cbtn">View QR</a></div>
   </div>
-</section>
+</div>
 
-<!-- POLICIES -->
-<section class="section" aria-labelledby="policy-heading">
-  <h2 class="section-title" id="policy-heading">📜 महत्वपूर्ण नीतियाँ</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Privacy Policy</h3>
-      <p>उपयोगकर्ताओं की गोपनीयता एवं डेटा सुरक्षा संबंधी नीति।</p>
-      <br><a href="privacy.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>Refund Policy</h3>
-      <p>दान, रिफंड एवं भुगतान वापसी संबंधी नियम।</p>
-      <br><a href="refund.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>Terms &amp; Conditions</h3>
-      <p>वेबसाइट उपयोग के नियम एवं शर्तें।</p>
-      <br><a href="terms.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>Disclaimer</h3>
-      <p>वेबसाइट एवं संस्था संबंधी आवश्यक अस्वीकरण।</p>
-      <br><a href="disclaimer.html" class="btn">Open</a>
-    </div>
-    <div class="card">
-      <h3>Donation Policy</h3>
-      <p>दान की शर्तें, वैधानिक पंजीकरण एवं उपयोग संबंधी नीति।</p>
-      <br><a href="donation.html" class="btn">Open</a>
-    </div>
+<!-- Policy -->
+<div class="sec">
+  <h2 class="sec-title">📜 महत्वपूर्ण नीतियाँ</h2>
+  <div class="g3">
+    <div class="card" style="min-height:auto;"><h3>Privacy Policy</h3><p>गोपनीयता एवं डेटा सुरक्षा संबंधी नीति।</p><a href="privacy.html" class="cbtn">Open</a></div>
+    <div class="card" style="min-height:auto;"><h3>Refund Policy</h3><p>दान एवं भुगतान वापसी संबंधी नियम।</p><a href="refund.html" class="cbtn">Open</a></div>
+    <div class="card" style="min-height:auto;"><h3>Terms & Conditions</h3><p>वेबसाइट उपयोग के नियम एवं शर्तें।</p><a href="terms.html" class="cbtn">Open</a></div>
+    <div class="card" style="min-height:auto;"><h3>Disclaimer</h3><p>वेबसाइट एवं संस्था संबंधी अस्वीकरण।</p><a href="disclaimer.html" class="cbtn">Open</a></div>
+    <div class="card" style="min-height:auto;"><h3>Donation Policy</h3><p>दान की शर्तें एवं उपयोग संबंधी नीति।</p><a href="donation.html" class="cbtn">Open</a></div>
   </div>
-</section>
+</div>
 
-<!-- CONTACT -->
-<section class="section" aria-labelledby="contact-heading">
-  <h2 class="section-title" id="contact-heading">📞 संपर्क करें</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>उन्नति स्वयं सहायता समिति</h3>
-      <p>📱 मोबाइल : <a href="tel:+919410332400" style="color:#ffd700">9410332400</a></p>
-      <p>📧 ईमेल : <a href="mailto:unnatiselfhelpgroup@gmail.com" style="color:#ffd700">unnatiselfhelpgroup@gmail.com</a></p>
-      <p>🌐 वेबसाइट : <a href="https://unnatiselfhelpgroup-creator.github.io" style="color:#ffd700" target="_blank" rel="noopener">unnatiselfhelpgroup-creator.github.io</a></p>
-    </div>
-    <div class="card">
-      <h3>NGO Details</h3>
-      <p>NGO Darpan ID : UA/2016/0108273</p>
-      <p>PAN : AAATU7133Q | CSR : CSR00102587</p>
-      <p>गौ सेवा | समाज सेवा | पर्यावरण संरक्षण | मानव सेवा</p>
-    </div>
+<!-- Gau Samman -->
+<div class="sec">
+  <h2 class="sec-title">🐄 गौ गौरव एवं गौ माता महिमा</h2>
+  <div class="g2">
+    <div class="card"><div class="ci">🐄</div><h3>गौ गौरव पेज</h3><p>गौ माता राष्ट्रमाता जनआंदोलन, गौ महिमा, सेवा कार्य एवं विशेष जानकारी देखें।</p><a href="cowglory.html" class="cbtn">Open Cow Glory</a></div>
+    <div class="card"><div class="ci">🚩</div><h3>गौ माता राज्य-माता आंदोलन</h3><p>दण्डवत यात्रा, RTI संघर्ष एवं सरकारी पत्राचार की पूरी समयरेखा देखें।</p><a href="gau-samman.html" class="cbtn">आंदोलन देखें</a></div>
   </div>
-</section>
+</div>
 
-<!-- SIGNATURE -->
-<section class="section" aria-labelledby="sign-heading">
-  <h2 class="section-title" id="sign-heading">✍ अधिकृत हस्ताक्षर</h2>
-  <div style="text-align:center">
-    <img src="signature.png" alt="उन्नति स्वयं सहायता समिति - राष्ट्रीय सचिव हस्ताक्षर" width="280" loading="lazy" style="max-width:280px;width:100%;filter:drop-shadow(0 0 18px gold)">
-    <br><br>
-    <h3 style="color:#ffd700;text-shadow:0 0 12px gold">उन्नति स्वयं सहायता समिति</h3>
-    <p>NGO Darpan ID : UA/2016/0108273</p>
+<!-- Contact -->
+<div class="sec">
+  <h2 class="sec-title">📞 संपर्क करें</h2>
+  <div class="card" style="min-height:auto;text-align:center;">
+    <p style="color:var(--tl);line-height:2;font-size:.9rem;">
+      📱 मोबाइल : <a href="tel:+919410332400" style="color:var(--gold-light);font-weight:700;">9410332400</a><br>
+      📧 ईमेल : <a href="mailto:unnatiselfhelpgroup@gmail.com" style="color:var(--gold-light);">unnatiselfhelpgroup@gmail.com</a><br>
+      🌐 वेबसाइट : <a href="https://unnatiselfhelpgroup-creator.github.io" style="color:var(--gold-light);">unnatiselfhelpgroup-creator.github.io</a><br><br>
+      <strong style="color:var(--gold-light);">NGO Darpan ID :</strong> UA/2016/0108273<br>
+      <strong style="color:var(--gold-light);">PAN :</strong> AAATU7133Q | <strong style="color:var(--gold-light);">CSR :</strong> CSR00102587
+    </p>
   </div>
-</section>
-
-<!-- GAU GAURAV -->
-<section class="section" aria-labelledby="gau-heading">
-  <h2 class="section-title" id="gau-heading">🐄 गौ गौरव एवं गौ माता महिमा</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>गौ गौरव पेज</h3>
-      <p>गौ माता राष्ट्रमाता जनआंदोलन, गौ महिमा, सेवा कार्य एवं विशेष जानकारी देखें।</p>
-      <br><a href="cowglory.html" class="btn">Open Cow Glory</a>
-    </div>
-    <div class="card">
-      <h3>गौ माता राज्य-माता आंदोलन</h3>
-      <p>दण्डवत यात्रा, RTI संघर्ष एवं सरकारी पत्राचार की पूरी समयरेखा देखें।</p>
-      <br><a href="gau-samman.html" class="btn">आंदोलन देखें</a>
-    </div>
-  </div>
-</section>
+</div>
 
 </main>
 
 <!-- FOOTER -->
-<footer role="contentinfo">
-  <img src="ngologo.png" alt="उन्नति स्वयं सहायता समिति" width="85" height="85" loading="lazy" style="width:85px;height:85px;border-radius:50%;border:3px solid gold;box-shadow:0 0 18px gold">
-  <br><br>
-  <h2 style="color:#ffd700;text-shadow:0 0 18px gold">उन्नति स्वयं सहायता समिति</h2>
-  <p style="margin-top:12px">गौ सेवा | समाज सेवा | पर्यावरण संरक्षण | मानव सेवा</p>
-  <br>
-  <p>NGO Darpan ID : UA/2016/0108273 | PAN : AAATU7133Q | CSR : CSR00102587</p>
-  <p>📱 मोबाइल : <a href="tel:+919410332400" style="color:#ffd700">9410332400</a></p>
-  <p>📧 Email : <a href="mailto:unnatiselfhelpgroup@gmail.com" style="color:#ffd700">unnatiselfhelpgroup@gmail.com</a></p>
-  <p>🌐 Website : <a href="https://unnatiselfhelpgroup-creator.github.io" style="color:#ffd700" target="_blank" rel="noopener">unnatiselfhelpgroup-creator.github.io</a></p>
-  <br>
-  <p style="color:#ffd700">© 2026 उन्नति स्वयं सहायता समिति | सर्वाधिकार सुरक्षित</p>
+<footer>
+  <img src="ngologo.png" alt="Logo" class="ft-logo"/>
+  <div class="ft-t">उन्नति स्वयं सहायता समिति</div>
+  <div class="ft-s">गौ सेवा | समाज सेवा | पर्यावरण संरक्षण | मानव सेवा</div>
+  <div class="ft-i">
+    NGO Darpan ID : UA/2016/0108273 | PAN : AAATU7133Q | CSR : CSR00102587<br>
+    📱 <a href="tel:+919410332400">9410332400</a> &nbsp;|&nbsp;
+    📧 <a href="mailto:unnatiselfhelpgroup@gmail.com">unnatiselfhelpgroup@gmail.com</a>
+  </div>
+  <img src="signature.png" alt="हस्ताक्षर" style="margin-top:14px;max-height:55px;opacity:.75;"/>
+  <div class="ft-c">© 2026 उन्नति स्वयं सहायता समिति | सर्वाधिकार सुरक्षित</div>
 </footer>
 
-<!-- ══ SCRIPTS — सभी defer से load होंगे (render block नहीं) ══ -->
-<script type="module" src="firebase-config.js"></script>
-<script type="module" src="firebase-script.js"></script>
-<script type="module" src="volunteers.js"></script>
+<!-- ══════ RTI SLIDING PANEL ══════ -->
+<div id="rtiOv" class="rti-ov" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="rti-pan">
+    <div class="rti-ph">
+      <div class="rti-drag"></div>
+      <h3>📋 सूचना का अधिकार — RTI दस्तावेज़</h3>
+      <p>उन्नति स्वयं सहायता समिति | RTI अधिनियम, 2005</p>
+      <button class="rti-x" onclick="document.getElementById('rtiOv').classList.remove('on')">✕</button>
+    </div>
+    <div class="rti-bd">
+      <div class="rti-sl">📄 आवेदन विवरण</div>
+      <div class="rti-row"><span class="rti-l">RTI क्रमांक</span><span class="rti-v">969/XV-1/2026/RT1/2026</span></div>
+      <div class="rti-row"><span class="rti-l">विभाग</span><span class="rti-v">पशुपालन विभाग, उत्तराखंड</span></div>
+      <div class="rti-row"><span class="rti-l">आवेदक</span><span class="rti-v">हेम चंद्र गुरुरानी</span></div>
+      <div class="rti-row"><span class="rti-l">विषय</span><span class="rti-v">अनियमित नियुक्ति / तबादला संबंधी शिकायत</span></div>
+      <div class="rti-row"><span class="rti-l">स्थिति</span><span class="rti-v"><span class="rti-badge">⚖️ द्वितीय अपील</span></span></div>
+      <div class="rti-sl">📅 कार्यवाही की समय-रेखा</div>
+      <ul class="rti-tl">
+        <li><div class="rti-dot">1</div><div class="rti-tt"><h4>RTI आवेदन दायर</h4><p>पशुपालन विभाग से जानकारी माँगी गई।</p></div></li>
+        <li><div class="rti-dot">2</div><div class="rti-tt"><h4>05 मार्च / 13 फरवरी 2026</h4><p>शिकायतें विभाग को प्रेषित।</p></div></li>
+        <li><div class="rti-dot">3</div><div class="rti-tt"><h4>20–22 अप्रैल 2026</h4><p>विभाग की प्रतिक्रिया — प्रथम अपील दायर।</p></div></li>
+        <li><div class="rti-dot">4</div><div class="rti-tt"><h4>10 जून 2026 — आयोग का आदेश</h4><p>30 जून 2026 तक सूचना देने का निर्देश।</p></div></li>
+      </ul>
+      <div class="rti-sl">📑 दस्तावेज़</div>
+      <a href="rti_document.pdf" download class="rti-abtn rti-dl">⬇️ RTI PDF डाउनलोड करें</a>
+      <a href="rti_document.pdf" target="_blank" class="rti-abtn rti-vw">🔍 PDF नए टैब में देखें</a>
+    </div>
+  </div>
+</div>
 
-<!-- Google Translate — async -->
+<!-- Balance Sheet Modal -->
+<div id="balMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="mod-box">
+    <button class="mod-x" onclick="document.getElementById('balMod').classList.remove('on')">✕</button>
+    <h3>🔐 Admin Login<br/><small style="font-size:.72rem;color:var(--tm);">बैलेंस शीट देखने हेतु</small></h3>
+    <div class="mod-err" id="lerr">❌ गलत Email या Password</div>
+    <input type="email" id="aemail" class="mod-inp" placeholder="Admin Email"/>
+    <input type="password" id="apass" class="mod-inp" placeholder="Password"/>
+    <button onclick="doLogin()" class="cbtn">🔓 Login करें</button>
+  </div>
+</div>
+<div id="bsMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="mod-box" style="max-width:480px;">
+    <button class="mod-x" onclick="document.getElementById('bsMod').classList.remove('on')">✕</button>
+    <h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट<br/><small style="font-size:.7rem;color:var(--tm);">Kandpal Rohit &amp; Associates, CA</small></h3>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px;">
+      <a href="balance_sheet_2025.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2025</a>
+      <a href="balance_sheet_2024.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2024</a>
+      <a href="balance_sheet_2023.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2023</a>
+      <a href="balance_sheet_2022.pdf" target="_blank" class="cbtn">📋 Balance Sheet 31 March 2022</a>
+    </div>
+    <p style="font-size:.7rem;color:var(--tm);margin-top:10px;text-align:center;">CA Rohit Kandpal | M.No. 468969 | FRN: 034498C</p>
+  </div>
+</div>
+
 <script>
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    ['rtiOv','balMod','bsMod'].forEach(function(id){document.getElementById(id).classList.remove('on')});
+  }
+});
+function doLogin(){
+  var e=document.getElementById('aemail').value.trim();
+  var p=document.getElementById('apass').value.trim();
+  if(e==='unnatiselfhelpgroup@gmail.com' && p==='admin@2024'){
+    document.getElementById('balMod').classList.remove('on');
+    document.getElementById('bsMod').classList.add('on');
+    document.getElementById('lerr').classList.remove('on');
+  } else {
+    document.getElementById('lerr').classList.add('on');
+  }
+}
 function googleTranslateElementInit(){
-  new google.translate.TranslateElement({pageLanguage:'hi',includedLanguages:'hi,en,pa,bn,gu,mr,ta,te,ml,kn'},'google_translate_element');
+  new google.translate.TranslateElement({pageLanguage:'hi',includedLanguages:'en,hi,pa,gu,mr,bn,ta,te,kn,ml,ur',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'gte');
 }
 </script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
-
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>
