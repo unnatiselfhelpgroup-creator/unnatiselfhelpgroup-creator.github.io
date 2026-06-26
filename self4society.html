@@ -1,154 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Self4Society | Unnati Self Help Group</title>
-
-<meta name="description" content="Official Self4Society awareness initiatives and public participation campaigns.">
-
+<title>Self4Society | MyGov अभियान | उन्नति स्वयं सहायता समिति</title>
+<meta name="description" content="उन्नति स्वयं सहायता समिति द्वारा Self4Society / MyGov प्लेटफॉर्म पर सरकारी जन-जागरूकता अभियानों में सहभागिता।">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#f5f5f5;
-color:#333;
-line-height:1.7;
-}
-header{
-background:#0d6efd;
-color:#fff;
-padding:30px;
-text-align:center;
-}
-.container{
-max-width:1100px;
-margin:auto;
-background:#fff;
-padding:30px;
-margin-top:25px;
-margin-bottom:25px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,.1);
-}
-.card{
-border:1px solid #ddd;
-padding:20px;
-margin:20px 0;
-border-radius:8px;
-}
-.card h3{
-margin-top:0;
-color:#0d6efd;
-}
-a.button{
-display:inline-block;
-padding:10px 18px;
-background:#198754;
-color:#fff;
-text-decoration:none;
-border-radius:5px;
-margin-top:10px;
-}
-footer{
-background:#222;
-color:#fff;
-text-align:center;
-padding:20px;
-}
+  :root{--gold:#d4af37;--dark:#071b34;--red:#4a0404;--red2:#2f0303}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+  body{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;min-height:100vh}
+
+  .hdr{background:rgba(0,0,0,.55);padding:22px 16px;text-align:center;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;backdrop-filter:blur(6px)}
+  .hdr h1{color:var(--gold);font-size:clamp(1.1rem,4vw,1.7rem);text-shadow:0 0 12px gold}
+  .hdr p{color:#ddd;margin-top:5px;font-size:.82rem}
+  .back-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:rgba(255,255,255,.1);color:var(--gold);border-radius:50px;text-decoration:none;font-weight:700;border:1px solid var(--gold);margin-top:10px;font-size:.82rem;transition:.3s}
+  .back-btn:hover{background:var(--gold);color:#1b2430}
+
+  .sec{max-width:860px;margin:0 auto;padding:28px 14px}
+  .sec-title{text-align:center;color:var(--gold);font-size:clamp(1rem,3.5vw,1.4rem);margin:0 0 20px;text-shadow:0 0 10px gold}
+
+  .intro-box{background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:18px 20px;color:#ccc;font-size:.88rem;line-height:1.9;margin-bottom:28px;text-align:center}
+  .intro-box strong{color:var(--gold)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+
+  .card{background:rgba(255,255,255,.07);border:1px solid rgba(212,175,55,.35);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:.3s}
+  .card:hover{background:rgba(255,255,255,.12);border-color:var(--gold);transform:translateY(-3px)}
+  .card-icon{font-size:2rem;text-align:center}
+  .card h3{color:var(--gold);font-size:.95rem;text-align:center}
+  .card p{color:#bbb;font-size:.82rem;line-height:1.7;flex:1}
+  .card-slogan{background:rgba(212,175,55,.12);border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 8px 8px 0;color:var(--gold);font-size:.8rem;font-weight:700;font-style:italic}
+
+  .btn{display:block;text-align:center;padding:10px 16px;border-radius:8px;font-size:.84rem;font-weight:700;text-decoration:none;transition:.2s;margin-top:4px;color:#fff}
+  .btn-green{background:linear-gradient(135deg,#1a5c2a,#2d8a45)}
+  .btn-gold{background:linear-gradient(135deg,#c8860a,var(--gold));color:#1b2430}
+  .btn:hover{opacity:.85}
+
+  .disclaimer{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:16px 18px;color:#aaa;font-size:.8rem;line-height:1.7;margin-top:28px}
+  .disclaimer strong{color:var(--gold)}
+
+  footer{text-align:center;padding:24px 14px;color:#aaa;font-size:.8rem;border-top:1px solid rgba(212,175,55,.25);margin-top:16px}
+  footer a{color:var(--gold)}
 </style>
-
 </head>
-
 <body>
 
-<header>
-
-<h1>Self4Society</h1>
-
-<p>Official Public Awareness & Social Participation Initiatives</p>
-
-</header>
-
-<div class="container">
-
-<h2>Government Awareness Campaigns</h2>
-
-<p>
-The following initiatives were conducted through the Government of India's
-Self4Society / MyGov platform to encourage citizen participation in public
-awareness programmes.
-</p>
-
-<div class="card">
-
-<h3>Corona Awareness & Mask Distribution Campaign</h3>
-
-<p>
-Public awareness activities related to COVID-19 prevention,
-health education and mask distribution.
-</p>
-
-<a class="button"
-href="https://self4society.mygov.in/"
-target="_blank">
-Visit Self4Society
-</a>
-
+<div class="hdr">
+  <h1>🌐 Self4Society — MyGov अभियान</h1>
+  <p>उन्नति स्वयं सहायता समिति — सरकारी जन-जागरूकता अभियान</p>
+  <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> होम पेज पर वापस जाएं</a>
 </div>
 
-<div class="card">
+<div class="sec">
 
-<h3>Mask Safety – "Tokenge Rokenge" Campaign</h3>
+  <div class="intro-box">
+    उन्नति स्वयं सहायता समिति ने भारत सरकार के <strong>Self4Society / MyGov</strong> प्लेटफॉर्म पर
+    सरकारी जन-जागरूकता अभियानों में सक्रिय भागीदारी की।<br>
+    इन अभियानों के माध्यम से कोरोना जागरूकता, मास्क वितरण, स्वच्छता एवं राष्ट्रीय संकल्प हेतु
+    जनसमुदाय को जोड़ा गया।
+  </div>
 
-<p>
-Citizen participation campaign promoting mask usage and public safety
-during the COVID-19 pandemic.
-</p>
+  <h2 class="sec-title">🏛️ सरकारी जन-जागरूकता अभियान</h2>
 
-<a class="button"
-href="https://self4society.mygov.in/"
-target="_blank">
-View Campaign
-</a>
+  <div class="grid">
 
-</div>
+    <div class="card">
+      <div class="card-icon">😷</div>
+      <h3>कोरोना जागरूकता एवं मास्क वितरण अभियान</h3>
+      <p>COVID-19 से बचाव हेतु जन-जागरूकता, स्वास्थ्य शिक्षा एवं मास्क वितरण कार्यक्रम। समाज के हर वर्ग तक कोरोना से सुरक्षा के उपाय पहुँचाए गए।</p>
+      <div class="card-slogan">"मास्क को बनाओ ढाल — हमें जीतना है हर हाल"</div>
+      <a class="btn btn-green" href="https://www.mygov.in/campaigns/covid19/" target="_blank" rel="noopener">🌐 MyGov पोर्टल देखें</a>
+    </div>
 
-<div class="card">
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h3>मास्क सुरक्षा — "टोकेंगे रोकेंगे" अभियान</h3>
+      <p>मास्क पहनने के लिए नागरिकों को प्रेरित करने हेतु जन-भागीदारी अभियान। सार्वजनिक स्थानों पर मास्क अनिवार्यता हेतु जागरूकता।</p>
+      <div class="card-slogan">"दो गज की दूरी है बहुत जरूरी"</div>
+      <a class="btn btn-green" href="https://www.mygov.in/campaigns/tokenge-rokenge/" target="_blank" rel="noopener">🌐 अभियान देखें</a>
+    </div>
 
-<h3>Desh Ko Jitayenge Sankalp Campaign</h3>
+    <div class="card">
+      <div class="card-icon">💉</div>
+      <h3>देश को जितायेंगे — संकल्प अभियान</h3>
+      <p>राष्ट्रीय जागरूकता अभियान जिसमें जिम्मेदार नागरिक व्यवहार, स्वास्थ्य सुरक्षा एवं सामुदायिक भागीदारी को बढ़ावा दिया गया।</p>
+      <div class="card-slogan">"जब तक दवाई नहीं — तब तक ढिलाई नहीं"</div>
+      <a class="btn btn-green" href="https://www.mygov.in/" target="_blank" rel="noopener">🌐 Self4Society Portal</a>
+    </div>
 
-<p>
-National awareness initiative encouraging responsible public behaviour,
-health safety and community participation.
-</p>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <h3>स्वच्छ भारत एवं पर्यावरण अभियान</h3>
+      <p>स्वच्छ भारत मिशन एवं पर्यावरण संरक्षण हेतु MyGov प्लेटफॉर्म पर नागरिक भागीदारी। वृक्षारोपण, स्वच्छता एवं जल संरक्षण जागरूकता।</p>
+      <div class="card-slogan">"स्वच्छ भारत — स्वस्थ भारत"</div>
+      <a class="btn btn-green" href="https://www.mygov.in/campaigns/swachh-bharat/" target="_blank" rel="noopener">🌐 अभियान देखें</a>
+    </div>
 
-<a class="button"
-href="https://self4society.mygov.in/"
-target="_blank">
-Open Self4Society Portal
-</a>
+    <div class="card">
+      <div class="card-icon">🤝</div>
+      <h3>Self4Society — MyGov मुख्य पोर्टल</h3>
+      <p>भारत सरकार के MyGov प्लेटफॉर्म पर उन्नति स्वयं सहायता समिति की आधिकारिक सहभागिता। सभी सरकारी अभियानों की जानकारी यहाँ उपलब्ध है।</p>
+      <div class="card-slogan">"नागरिक भागीदारी — राष्ट्र निर्माण"</div>
+      <a class="btn btn-gold" href="https://www.mygov.in/" target="_blank" rel="noopener">🌐 MyGov.in पर जाएं</a>
+    </div>
 
-</div>
+  </div>
 
-<h2>Disclaimer</h2>
-
-<p>
-Self4Society is an initiative associated with Government public participation programmes.
-This page provides references to official public campaigns for informational purposes.
-Users should refer to the official Government platform for complete and updated information.
-</p>
+  <div class="disclaimer">
+    <strong>📌 अस्वीकरण (Disclaimer):</strong><br>
+    Self4Society भारत सरकार की MyGov पहल से संबद्ध एक जन-भागीदारी कार्यक्रम है।
+    यह पृष्ठ केवल सूचनात्मक उद्देश्यों हेतु आधिकारिक सरकारी अभियानों का संदर्भ प्रदान करता है।
+    पूर्ण एवं अद्यतन जानकारी के लिए कृपया <a href="https://www.mygov.in/" target="_blank" style="color:var(--gold)">mygov.in</a> पर जाएं।
+  </div>
 
 </div>
 
 <footer>
-
-© 2026 <footer>
-© 2026 Unnati Sawaye Sahayta Samiti
-</footer>
-  
-
+  <p>© 2026 उन्नति स्वयं सहायता समिति (Unnati Sawaye Sahayta Samiti)</p>
+  <p style="margin-top:5px;">NGO Darpan: <a href="https://ngodarpan.gov.in" target="_blank">UA/2016/0108273</a> | CSR: CSR00102587</p>
+  <p style="margin-top:5px;">📱 <a href="tel:+919410332400">9410332400</a> | 📧 <a href="mailto:unnatiselfhelpgroup@gmail.com">unnatiselfhelpgroup@gmail.com</a></p>
+  <p style="margin-top:10px;"><a href="index.html">← होम पेज पर वापस जाएं</a></p>
 </footer>
 
 </body>
