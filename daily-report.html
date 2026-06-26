@@ -1,1 +1,265 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>दैनिक सेवा रिपोर्ट | उन्नति स्वयं सहायता समिति</title>
+<meta name="description" content="गौ रक्षक एवं स्वयंसेवक अपनी दैनिक सेवा रिपोर्ट यहाँ जमा करें।">
+<link rel="icon" href="https://unnatiselfhelpgroup-creator.github.io/ngologo.png">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#f5f0ff;color:#1a0d33;min-height:100vh}
+  .header{background:linear-gradient(135deg,#2d1a6e,#4a2fa0);color:#fff;text-align:center;padding:24px 16px}
+  .header img{width:70px;height:70px;border-radius:50%;border:3px solid #ffd700;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto}
+  .header h1{font-size:1.25rem;font-weight:700;margin-bottom:4px}
+  .header p{font-size:0.83rem;opacity:0.9}
+  .container{max-width:600px;margin:0 auto;padding:20px 16px 40px}
+  .card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 20px rgba(45,26,110,0.1);margin-bottom:16px}
+  .card h2{color:#2d1a6e;font-size:1.05rem;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #ffd700;display:flex;align-items:center;gap:8px}
+  .form-group{margin-bottom:15px}
+  .form-group label{display:block;font-size:0.84rem;font-weight:600;color:#2d1a6e;margin-bottom:5px}
+  .form-group label span{color:#c0392b}
+  .form-group input,.form-group select,.form-group textarea{
+    width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;
+    font-size:0.95rem;font-family:inherit;background:#fafafa;color:#1a0d33;transition:border-color 0.2s
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    outline:none;border-color:#4a2fa0;box-shadow:0 0 0 3px rgba(74,47,160,0.1);background:#fff
+  }
+  .form-group textarea{resize:vertical;min-height:90px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:480px){.row{grid-template-columns:1fr}}
+  .hours-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .hr-btn{background:#f5f0ff;border:1.5px solid #c0b3f5;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:0.85rem;color:#2d1a6e;font-weight:600;transition:all 0.15s}
+  .hr-btn:hover,.hr-btn.active{background:#4a2fa0;color:#fff;border-color:#4a2fa0}
+  .photo-upload{border:2px dashed #c0b3f5;border-radius:10px;padding:16px;text-align:center;cursor:pointer;background:#faf7ff;position:relative;margin-top:6px}
+  .photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .photo-upload p{font-size:0.85rem;color:#666}
+  .photo-upload small{font-size:0.75rem;color:#999}
+  #photoNames{font-size:0.8rem;color:#4a2fa0;margin-top:6px;font-weight:600}
+  .checkbox-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;background:#f5f0ff;padding:12px;border-radius:8px}
+  .checkbox-group input[type="checkbox"]{width:18px;height:18px;margin-top:2px;cursor:pointer;accent-color:#4a2fa0;flex-shrink:0}
+  .checkbox-group label{font-size:0.82rem;color:#555;cursor:pointer}
+  .btn-submit{
+    width:100%;background:linear-gradient(135deg,#2d1a6e,#4a2fa0);color:#fff;
+    border:none;padding:14px;border-radius:10px;font-size:1rem;font-weight:700;
+    cursor:pointer;transition:all 0.2s
+  }
+  .btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(74,47,160,0.35)}
+  .btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+  .success-msg{background:#e8f5e9;border:1.5px solid #27ae60;border-radius:12px;padding:24px;text-align:center;display:none}
+  .success-msg .icon{font-size:2.5rem;margin-bottom:8px}
+  .success-msg h3{color:#1b5e20;margin-bottom:6px}
+  .success-msg p{color:#2e7d32;font-size:0.88rem;margin-top:6px}
+  .error-msg{background:#fdecea;border:1.5px solid #c0392b;border-radius:10px;padding:12px;margin-bottom:14px;font-size:0.85rem;color:#c0392b;display:none}
+  .back-link{text-align:center;margin-top:20px}
+  .back-link a{color:#2d1a6e;text-decoration:none;font-size:0.9rem;font-weight:600}
+  .loader{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .today-badge{background:#4a2fa0;color:#fff;font-size:0.8rem;padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:14px}
+  .whatsapp-note{background:#e8f5e9;border:1.5px solid #27ae60;border-radius:10px;padding:12px;font-size:0.82rem;color:#2e7d32;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="header">
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+  <h1>🐄 गौ रक्षक दैनिक सेवा रिपोर्ट</h1>
+  <p>युवा सामाजिक सारथी — गौ सेवा एवं राष्ट्र निर्माण इंटर्नशिप</p>
+</div>
 
+<div class="container">
+  <div class="card">
+    <h2>📤 दैनिक रिपोर्ट जमा करें</h2>
+
+    <div class="whatsapp-note">
+      📸 फोटो WhatsApp पर भेजें: <strong><a href="https://wa.me/919410332400" style="color:#27ae60">9410332400</a></strong> — अपना नाम और ID साथ लिखें।
+    </div>
+
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="success-msg" id="successMsg">
+      <div class="icon">✅</div>
+      <h3>रिपोर्ट सफलतापूर्वक जमा हुई!</h3>
+      <p>आपकी दैनिक सेवा रिपोर्ट प्राप्त हो गई है।</p>
+      <p>📧 Email पर confirmation भेजा गया है।</p>
+      <p style="margin-top:8px">📸 फोटो WhatsApp पर भेजना न भूलें: <strong>9410332400</strong></p>
+      <button onclick="resetForm()" style="margin-top:14px;background:#4a2fa0;color:#fff;border:none;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:0.9rem;font-weight:600">
+        + नई रिपोर्ट जमा करें
+      </button>
+    </div>
+
+    <form id="dailyReportForm">
+      <div id="todayDate" class="today-badge"></div>
+      <input type="hidden" name="रिपोर्ट दिनांक" id="hiddenDate">
+
+      <div class="row">
+        <div class="form-group">
+          <label>पूरा नाम <span>*</span></label>
+          <input type="text" name="पूरा नाम" placeholder="अपना पूरा नाम" required>
+        </div>
+        <div class="form-group">
+          <label>वॉलंटियर / सदस्य ID <span>*</span></label>
+          <input type="text" name="Volunteer ID" placeholder="जैसे: USHS-001" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>मोबाइल नंबर <span>*</span></label>
+          <input type="tel" name="मोबाइल नंबर" placeholder="10 अंकों का नंबर" pattern="[6-9][0-9]{9}" required>
+        </div>
+        <div class="form-group">
+          <label>ईमेल आईडी <span>*</span></label>
+          <input type="email" name="ईमेल" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>आज किस क्षेत्र में कार्य किया? <span>*</span></label>
+        <select name="कार्य क्षेत्र" required>
+          <option value="">कार्य चुनें</option>
+          <option>गौ सेवा</option>
+          <option>वृक्षारोपण</option>
+          <option>स्वच्छता अभियान</option>
+          <option>रक्तदान जागरूकता</option>
+          <option>शिक्षा जागरूकता</option>
+          <option>स्वास्थ्य जागरूकता</option>
+          <option>पर्यावरण संरक्षण</option>
+          <option>महिला सशक्तिकरण</option>
+          <option>आपदा राहत</option>
+          <option>अन्य सामाजिक सेवा</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>कार्य का स्थान (Location) <span>*</span></label>
+        <input type="text" name="कार्य का स्थान" placeholder="गाँव/वार्ड/शहर का नाम" required>
+      </div>
+
+      <div class="form-group">
+        <label>कार्य विवरण (Work Description) <span>*</span></label>
+        <textarea name="कार्य विवरण" placeholder="आज आपने क्या सेवा कार्य किया, उसका संक्षिप्त विवरण लिखें..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>कितने घंटे सेवा की? <span>*</span></label>
+        <div class="hours-btns" id="hoursBtns">
+          <button type="button" class="hr-btn" onclick="setHours(this,'1 घंटा')">1 घंटा</button>
+          <button type="button" class="hr-btn" onclick="setHours(this,'2 घंटे')">2 घंटे</button>
+          <button type="button" class="hr-btn" onclick="setHours(this,'3 घंटे')">3 घंटे</button>
+          <button type="button" class="hr-btn" onclick="setHours(this,'4 घंटे')">4 घंटे</button>
+          <button type="button" class="hr-btn" onclick="setHours(this,'5+ घंटे')">5+ घंटे</button>
+          <button type="button" class="hr-btn" onclick="setHours(this,'पूरा दिन')">पूरा दिन</button>
+        </div>
+        <input type="hidden" name="सेवा घंटे" id="hiddenHours">
+      </div>
+
+      <div class="form-group">
+        <label>लाभार्थी / प्रभावित लोगों की संख्या (अनुमानित)</label>
+        <input type="number" name="लाभार्थी संख्या" placeholder="जैसे: 10, 50, 100" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>फोटो — WhatsApp पर भेजें: 9410332400</label>
+        <div class="photo-upload">
+          <input type="file" id="photoInput" accept="image/*" multiple onchange="showPhotoNames(this)">
+          <p>📸 फोटो यहाँ tap करके चुनें</p>
+          <small>फोटो WhatsApp पर भेजें: <strong>9410332400</strong></small>
+          <div id="photoNames"></div>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="agree" required>
+        <label for="agree">मैं घोषणा करता/करती हूँ कि दी गई जानकारी सत्य है और संस्था आवश्यकता पड़ने पर इसकी समीक्षा कर सकती है।</label>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        📤 दैनिक रिपोर्ट सबमिट करें
+      </button>
+    </form>
+  </div>
+
+  <div class="back-link">
+    <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+  </div>
+</div>
+
+<script>
+const FORMSPREE_ID = "YOUR_FORM_ID"; // ← Formspree ID यहाँ डालें
+
+// Set today's date
+const today = new Date();
+const dateStr = today.toLocaleDateString('hi-IN', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('todayDate').textContent = "📅 " + dateStr;
+document.getElementById('hiddenDate').value = today.toISOString().split('T')[0];
+
+function setHours(btn, val) {
+  document.querySelectorAll('.hr-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('hiddenHours').value = val;
+}
+
+function showPhotoNames(input) {
+  const names = Array.from(input.files).map(f => f.name).join(', ');
+  document.getElementById('photoNames').textContent = names ? "✓ चुनी गई: " + names : "";
+}
+
+function resetForm() {
+  document.getElementById('dailyReportForm').reset();
+  document.getElementById('dailyReportForm').style.display = 'block';
+  document.getElementById('successMsg').style.display = 'none';
+  document.querySelectorAll('.hr-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('hiddenHours').value = '';
+  document.getElementById('photoNames').textContent = '';
+}
+
+document.getElementById("dailyReportForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById("submitBtn");
+  const errorMsg = document.getElementById("errorMsg");
+  const successMsg = document.getElementById("successMsg");
+  errorMsg.style.display = "none";
+
+  if (!document.getElementById('hiddenHours').value) {
+    errorMsg.textContent = "❌ कृपया सेवा घंटे चुनें।";
+    errorMsg.style.display = "block"; return;
+  }
+
+  const mobile = this.querySelector('[name="मोबाइल नंबर"]').value;
+  if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+    errorMsg.textContent = "❌ कृपया सही 10 अंकों का मोबाइल नंबर डालें।";
+    errorMsg.style.display = "block"; return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> जमा हो रहा है...';
+
+  const formData = new FormData();
+  const fields = ['पूरा नाम','Volunteer ID','मोबाइल नंबर','ईमेल','कार्य क्षेत्र','कार्य का स्थान','कार्य विवरण','लाभार्थी संख्या','रिपोर्ट दिनांक','सेवा घंटे'];
+  fields.forEach(f => {
+    const el = this.querySelector(`[name="${f}"]`);
+    if (el) formData.append(f, el.value);
+  });
+  formData.append("_subject", "दैनिक सेवा रिपोर्ट — " + this.querySelector('[name="पूरा नाम"]').value);
+  formData.append("_language", "hi");
+  formData.append("फोटो नोट", "फोटो WhatsApp 9410332400 पर भेजें");
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: "POST", body: formData, headers: { Accept: "application/json" }
+    });
+    if (res.ok) {
+      this.style.display = "none";
+      successMsg.style.display = "block";
+      successMsg.scrollIntoView({ behavior: "smooth" });
+    } else { throw new Error(); }
+  } catch {
+    errorMsg.textContent = "❌ त्रुटि हुई। पुनः प्रयास करें या 9410332400 पर संपर्क करें।";
+    errorMsg.style.display = "block";
+    btn.disabled = false;
+    btn.innerHTML = "📤 दैनिक रिपोर्ट सबमिट करें";
+  }
+});
+</script>
+</body>
+</html>
