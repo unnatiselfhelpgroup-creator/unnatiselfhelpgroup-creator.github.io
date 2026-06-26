@@ -2,73 +2,78 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Appointment Panel</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Panel | उन्नति स्वयं सहायता समिति</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
     <style>
-        body { background: #001a33; padding: 20px; font-family: Arial; color: white; }
-        .card { background: white; color: black; padding: 20px; margin: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        button { padding: 10px; margin-top: 5px; cursor: pointer; }
-        .pdf { background: #28a745; color: white; border: none; }
-        .print { background: #007bff; color: white; border: none; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #001a33; padding: 20px; font-family: Arial, sans-serif; color: white; }
+        h1 { margin-bottom: 20px; font-size: 1.5rem; }
+        .card { background: white; color: black; padding: 20px; margin: 12px 0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .card h3 { margin-bottom: 8px; }
+        .card-actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+        button { padding: 9px 16px; margin-top: 4px; cursor: pointer; border: none; border-radius: 8px; font-weight: bold; font-size: 0.88rem; }
+        .pdf-btn { background: #28a745; color: white; }
+        .pending-btn { background: #999; color: white; cursor: not-allowed; }
+        .print-btn { background: #007bff; color: white; }
+        #list { max-width: 900px; margin: auto; }
     </style>
 </head>
 <body>
-    <h1>आवेदन सूची</h1>
+    <h1>📋 आवेदन सूची</h1>
     <div id="list">लोड हो रहा है...</div>
 
     <script type="module">
         import { auth, db } from "./firebase-config.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-        // सुरक्षा: बिना लॉगिन कोई न देख सके
         onAuthStateChanged(auth, (user) => {
-            if (!user) { window.location.href = "admin-login.html"; }
+            if (!user) { window.location.href = "admin-login.html"; return; }
         });
 
-        // doc id -> data, ताकि PDF बटन में JSON को सीधे HTML attribute में न डालना पड़े
         const recordsById = new Map();
 
         async function init() {
-            const snap = await getDocs(collection(db, "Appointments"));
-            const list = document.getElementById("list");
-            list.innerHTML = "";
-            recordsById.clear();
+            try {
+                const snap = await getDocs(collection(db, "Appointments"));
+                const list = document.getElementById("list");
+                list.innerHTML = "";
+                recordsById.clear();
 
-            if (snap.empty) {
-                list.innerHTML = "कोई आवेदन नहीं है।";
-                return;
+                if (snap.empty) { list.innerHTML = "<p>कोई आवेदन नहीं है।</p>"; return; }
+
+                snap.forEach((docItem) => {
+                    const d = docItem.data();
+                    recordsById.set(docItem.id, { ...d, doc_id: docItem.id });
+                    const isVerified = (d.status || "").toLowerCase() === "verified";
+
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `
+                        <h3>${d.name || "नाम अनुपलब्ध"}</h3>
+                        <p><b>Status:</b> ${d.status || "Pending"}</p>
+                        <div class="card-actions">
+                            ${isVerified
+                                ? `<button class="pdf-btn" data-action="pdf" data-id="${docItem.id}">📄 PDF डाउनलोड</button>`
+                                : `<button class="pending-btn" disabled>⏳ Approve की प्रतीक्षा</button>`
+                            }
+                            <button class="print-btn" data-action="print">🖨️ Print</button>
+                        </div>`;
+                    list.appendChild(card);
+                });
+            } catch(err) {
+                document.getElementById("list").innerHTML = `<p style="color:red">त्रुटि: ${err.message}</p>`;
             }
-
-            snap.forEach((docItem) => {
-                const d = docItem.data();
-                recordsById.set(docItem.id, { ...d, doc_id: docItem.id });
-
-                const isVerified = (d.status || "").toLowerCase() === "verified";
-
-                const card = document.createElement("div");
-                card.className = "card";
-                card.innerHTML = `
-                    <h3>${d.name || "नाम अनुपलब्ध"}</h3>
-                    <p><b>Status:</b> ${d.status || "Pending"}</p>
-                    ${isVerified
-                        ? `<button class="pdf" data-action="pdf" data-id="${docItem.id}">📄 PDF डाउनलोड करें</button>`
-                        : `<button class="pdf" style="background:gray" data-action="pending">Pending (Approve की प्रतीक्षा)</button>`
-                    }
-                    <button class="print" data-action="print">🖨️ नॉर्मल प्रिंट</button>`;
-                list.appendChild(card);
-            });
         }
 
         document.getElementById("list").addEventListener("click", (e) => {
             const btn = e.target.closest("button[data-action]");
             if (!btn) return;
-
             if (btn.dataset.action === "pdf") {
                 const data = recordsById.get(btn.dataset.id);
                 if (data) window.generateAppointmentPDF(data);
-            } else if (btn.dataset.action === "pending") {
-                alert("कृपया पहले ईमेल से Approve करें!");
             } else if (btn.dataset.action === "print") {
                 window.print();
             }
@@ -76,7 +81,6 @@
 
         init();
     </script>
-
-    <script src="appointment-pdf.js"></script>
+    <script src="appointment-pdf.js" defer></script>
 </body>
 </html>

@@ -2,226 +2,133 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
+    <meta name="robots" content="noindex, nofollow">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
-        .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #d4af37; }
-        .card a { color: white; text-decoration: none; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; color: black; background: white; border-radius: 10px; overflow: hidden; }
-        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; font-size: 14px; }
-        th { background: #d4af37; color: #1b2430; font-weight: bold; }
-        .btn { padding: 6px 12px; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; font-size: 13px; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', Arial, sans-serif; background: #071b34; color: white; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 24px; font-size: 1.6rem; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px; padding: 0 0 24px;
+        }
+        .card {
+            background: rgba(255,255,255,0.08);
+            padding: 20px; border-radius: 15px;
+            text-align: center;
+            border: 1px solid #d4af37;
+            transition: background 0.2s;
+        }
+        .card:hover { background: rgba(255,255,255,0.14); }
+        .card a { color: white; text-decoration: none; font-weight: bold; display: block; }
+        .card h3 { font-size: 0.9rem; color: #d4af37; margin-bottom: 6px; }
+        .card h2 { font-size: 2rem; }
+        h2.section-title { text-align: center; margin: 32px 0 16px; font-size: 1.3rem; }
+        .table-wrap { overflow-x: auto; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; background: white; color: black; border-radius: 12px; overflow: hidden; min-width: 500px; }
+        th { background: #1b2430; color: white; padding: 13px 12px; font-size: 0.9rem; }
+        td { padding: 11px 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; text-align: center; }
+        tr:last-child td { border-bottom: none; }
+        .btn { padding: 6px 14px; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; font-size: 0.82rem; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.85; }
         .approve { background: #00a651; color: white; }
-        .reject { background: #ff4d4d; color: white; }
-        .search-bar { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-        .search-bar input { flex: 1; padding: 10px 15px; border-radius: 10px; border: none; font-size: 14px; min-width: 200px; }
-        .search-bar select { padding: 10px; border-radius: 10px; border: none; font-size: 14px; }
-        #noResults { display: none; color: #ffd700; text-align: center; padding: 20px; font-size: 15px; }
-        .screenshot-link { color: #3395ff; text-decoration: underline; cursor: pointer; font-size: 12px; }
-        #loadingMsg { text-align: center; color: #ffd700; padding: 20px; display: none; }
+        .reject  { background: #ff4d4d; color: white; }
+        #loadingMsg { text-align: center; color: #d4af37; padding: 20px; }
     </style>
 </head>
 <body>
-<h1 style="text-align:center;">🔐 Admin Dashboard</h1>
+<header><h1>🔐 Admin Dashboard</h1></header>
 
-<div class="grid">
-    <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">...</h2></div>
-    <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">...</h2></div>
-    <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">...</h2></div>
-    <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">...</h2></div>
-    <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
-    <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
-    <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
-    <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
-    <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
-</div>
+<main>
+  <section aria-label="Stats Overview">
+    <div class="grid">
+        <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">—</h2></div>
+        <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">—</h2></div>
+        <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">—</h2></div>
+        <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">—</h2></div>
+        <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
+        <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
+        <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
+        <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
+        <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
+    </div>
+  </section>
 
-<h2 style="text-align:center; margin-top:40px;">छात्र पंजीकरण (Internship)</h2>
-
-<!-- Search Bar -->
-<div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 नाम या मोबाइल से खोजें...">
-    <select id="statusFilter">
-        <option value="">सभी स्थिति</option>
-        <option value="Pending">Pending</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-    </select>
-</div>
-
-<div id="loadingMsg">⏳ डेटा लोड हो रहा है...</div>
-<div id="noResults">कोई रिकॉर्ड नहीं मिला।</div>
-
-<table id="studentTable">
-    <thead>
-        <tr>
-            <th>नाम</th>
-            <th>मोबाइल</th>
-            <th>ईमेल</th>
-            <th>स्थिति</th>
-            <th>Payment Proof</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody id="studentBody"></tbody>
-</table>
+  <h2 class="section-title">छात्र पंजीकरण (Internship)</h2>
+  <div class="table-wrap">
+    <table id="studentTable" aria-label="छात्र पंजीकरण सूची">
+        <thead>
+            <tr><th>नाम</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr>
+        </thead>
+        <tbody id="studentBody">
+            <tr><td colspan="4" id="loadingMsg">डेटा लोड हो रहा है...</td></tr>
+        </tbody>
+    </table>
+  </div>
+</main>
 
 <script type="module">
     import { auth, db } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
     onAuthStateChanged(auth, (user) => {
-        if (!user) window.location.href = "admin-login.html";
-        else loadDashboard();
+        if (!user) { window.location.href = "admin-login.html"; return; }
+        loadDashboard();
     });
 
-    // ── सभी rows को store करें (Search के लिए) ──
-    let allStudents = [];
-
     async function loadDashboard() {
-        document.getElementById("loadingMsg").style.display = "block";
-
-        // Stats Cards
         const collections = [
-            { id: "totalVolunteers", name: "Volunteers" },
-            { id: "totalCertificates", name: "Certificates" },
-            { id: "totalIDCards", name: "IDcard" },
-            { id: "totalReports", name: "DailyReports" }
+            { id: "totalVolunteers",    name: "Volunteers" },
+            { id: "totalCertificates",  name: "Certificates" },
+            { id: "totalIDCards",       name: "IDcard" },
+            { id: "totalReports",       name: "DailyReports" }
         ];
-        for (const col of collections) {
+        await Promise.all(collections.map(async (col) => {
             try {
                 const snap = await getDocs(collection(db, col.name));
                 document.getElementById(col.id).innerText = snap.size;
-            } catch(e) {
-                document.getElementById(col.id).innerText = "-";
-            }
-        }
+            } catch { document.getElementById(col.id).innerText = "—"; }
+        }));
 
-        // Student Table
         try {
             const studentSnap = await getDocs(collection(db, "StudentRegistrations"));
-            allStudents = [];
-            studentSnap.forEach((docSnap) => {
-                allStudents.push({ id: docSnap.id, ...docSnap.data() });
-            });
-            renderTable(allStudents);
-        } catch(e) {
-            document.getElementById("studentBody").innerHTML = "";
-            const tr = document.createElement("tr");
-            const td = document.createElement("td");
-            td.colSpan = 6;
-            td.textContent = "डेटा लोड त्रुटि: " + e.message;
-            tr.appendChild(td);
-            document.getElementById("studentBody").appendChild(tr);
-        }
-
-        document.getElementById("loadingMsg").style.display = "none";
-    }
-
-    // ✅ XSS-Safe DOM rendering - innerHTML नहीं
-    function renderTable(students) {
-        const body = document.getElementById("studentBody");
-        body.innerHTML = "";
-
-        if (students.length === 0) {
-            document.getElementById("noResults").style.display = "block";
-            return;
-        }
-        document.getElementById("noResults").style.display = "none";
-
-        students.forEach((data) => {
-            const tr = document.createElement("tr");
-
-            // Name cell - textContent से XSS safe
-            const tdName = document.createElement("td");
-            tdName.textContent = data.name || "-";
-
-            const tdMobile = document.createElement("td");
-            tdMobile.textContent = data.mobile || "-";
-
-            const tdEmail = document.createElement("td");
-            tdEmail.textContent = data.email || "-";
-
-            const tdStatus = document.createElement("td");
-            const status = data.status || "Pending";
-            tdStatus.textContent = status;
-            tdStatus.style.color = status === "Approved" ? "#00a651" : status === "Rejected" ? "#ff4d4d" : "#ff8b00";
-            tdStatus.style.fontWeight = "bold";
-
-            // Payment Screenshot cell
-            const tdProof = document.createElement("td");
-            const proofSrc = data.paymentScreenshotBase64 || data.paymentScreenshotBase64 || data.paymentScreenshotURL || "";
-            if (proofSrc) {
-                const btn = document.createElement("button");
-                btn.textContent = "📸 देखें";
-                btn.className = "screenshot-link";
-                btn.style.cssText = "background:none;border:none;color:#3395ff;cursor:pointer;text-decoration:underline;font-size:13px;padding:2px;";
-                btn.onclick = () => {
-                    const win = window.open("", "_blank");
-                    if (proofSrc.startsWith("data:")) {
-                        win.document.write(`<img src="${proofSrc}" style="max-width:100%;display:block;margin:auto;">`);
-                    } else {
-                        win.location.href = proofSrc;
-                    }
-                };
-                tdProof.appendChild(btn);
-            } else {
-                tdProof.textContent = "नहीं";
-                tdProof.style.color = "#ff4d4d";
+            const body = document.getElementById("studentBody");
+            body.innerHTML = "";
+            if (studentSnap.empty) {
+                body.innerHTML = "<tr><td colspan='4'>कोई पंजीकरण नहीं मिला।</td></tr>";
+                return;
             }
-
-            // Action buttons
-            const tdAction = document.createElement("td");
-
-            const approveBtn = document.createElement("button");
-            approveBtn.textContent = "✅ Approve";
-            approveBtn.className = "btn approve";
-            approveBtn.onclick = () => updateStudentStatus(data.id, "Approved", data.name, data.email);
-
-            const rejectBtn = document.createElement("button");
-            rejectBtn.textContent = "❌ Reject";
-            rejectBtn.className = "btn reject";
-            rejectBtn.style.marginLeft = "5px";
-            rejectBtn.onclick = () => updateStudentStatus(data.id, "Rejected", data.name, data.email);
-
-            tdAction.appendChild(approveBtn);
-            tdAction.appendChild(rejectBtn);
-
-            tr.appendChild(tdName);
-            tr.appendChild(tdMobile);
-            tr.appendChild(tdEmail);
-            tr.appendChild(tdStatus);
-            tr.appendChild(tdProof);
-            tr.appendChild(tdAction);
-            body.appendChild(tr);
-        });
+            studentSnap.forEach((docSnap) => {
+                const d = docSnap.data();
+                const safeId    = CSS.escape(docSnap.id);
+                const safeName  = (d.name  || "").replace(/['"<>&]/g, c => ({'\'':'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+                const safeEmail = (d.email || "").replace(/['"<>&]/g, c => ({'\'':'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${safeName || "—"}</td>
+                    <td>${d.mobile || "—"}</td>
+                    <td>${d.status || "Pending"}</td>
+                    <td>
+                        <button class="btn approve" data-id="${docSnap.id}" data-name="${safeName}" data-email="${safeEmail}" data-action="approve">Approve</button>
+                        <button class="btn reject"  data-id="${docSnap.id}" data-name="${safeName}" data-action="reject">Reject</button>
+                    </td>`;
+                body.appendChild(row);
+            });
+        } catch(err) {
+            document.getElementById("studentBody").innerHTML = `<tr><td colspan='4'>त्रुटि: ${err.message}</td></tr>`;
+        }
     }
 
-    // ── Search & Filter ──
-    function filterStudents() {
-        const query = document.getElementById("searchInput").value.trim().toLowerCase();
-        const statusVal = document.getElementById("statusFilter").value;
-        const filtered = allStudents.filter((d) => {
-            const matchSearch = !query ||
-                (d.name || "").toLowerCase().includes(query) ||
-                (d.mobile || "").includes(query) ||
-                (d.email || "").toLowerCase().includes(query);
-            const matchStatus = !statusVal || (d.status || "Pending") === statusVal;
-            return matchSearch && matchStatus;
-        });
-        renderTable(filtered);
-    }
-
-    document.getElementById("searchInput").addEventListener("input", filterStudents);
-    document.getElementById("statusFilter").addEventListener("change", filterStudents);
-
-    // ── Update Status + EmailJS ──
-    window.updateStudentStatus = async (id, status, name, email) => {
-        if (!confirm(`क्या आप "${name}" को ${status} करना चाहते हैं?`)) return;
+    document.getElementById("studentBody").addEventListener("click", async (e) => {
+        const btn = e.target.closest("button[data-action]");
+        if (!btn) return;
+        const { id, name, email, action } = btn.dataset;
+        const status = action === "approve" ? "Approved" : "Rejected";
+        btn.disabled = true;
         try {
             await updateDoc(doc(db, "StudentRegistrations", id), { status });
             if (status === "Approved") {
@@ -232,16 +139,18 @@
                     doc_id: id, type: "StudentRegistrations"
                 });
             }
-            // Local update (reload नहीं)
-            const student = allStudents.find(s => s.id === id);
-            if (student) student.status = status;
-            filterStudents();
-            alert("✅ स्थिति अपडेट: " + status);
-        } catch (err) {
-            console.error(err);
-            alert("❌ त्रुटि: " + err.message);
+            alert("स्थिति अपडेट: " + status);
+            location.reload();
+        } catch(err) {
+            alert("त्रुटि: " + err.message);
+            btn.disabled = false;
         }
-    };
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof emailjs !== "undefined") emailjs.init("AvD_f76bB4qJYnGb0");
+    });
 </script>
 </body>
 </html>

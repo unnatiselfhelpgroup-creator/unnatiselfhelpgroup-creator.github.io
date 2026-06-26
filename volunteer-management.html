@@ -4,70 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteer Management | उन्नति स्वयं सहायता समिति</title>
+    <meta name="robots" content="noindex, nofollow">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-        body { background:linear-gradient(135deg,#4a0404,#6e0505,#2f0303); color:#fff; min-height:100vh; padding:30px; }
-        .container { max-width:1200px; margin:auto; }
-        .header { text-align:center; margin-bottom:40px; }
-        .header img { width:100px; height:100px; border-radius:50%; border:4px solid gold; padding:5px; background:#fff; box-shadow:0 0 25px gold; }
-        .header h1 { margin-top:20px; color:#ffd700; font-size:35px; text-shadow:0 0 20px gold; }
-        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px; }
-        .card { background:rgba(255,255,255,.08); backdrop-filter:blur(15px); padding:30px; border-radius:25px; border:1px solid rgba(255,255,255,.15); text-align:center; box-shadow:0 10px 25px rgba(0,0,0,.5); transition:.4s; }
-        .card:hover { transform:translateY(-10px); box-shadow:0 0 25px gold; }
-        .card h2 { font-size:45px; color:#ffd700; margin-bottom:10px; }
-        .btn { display:inline-block; margin:10px; padding:14px 30px; background:linear-gradient(145deg,#ffd700,#cfa300); color:#550000; font-weight:bold; text-decoration:none; border-radius:15px; transition:.3s; }
-        .btn:hover { transform:scale(1.05); box-shadow:0 0 20px gold; }
-        .action { margin-top:50px; text-align:center; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #4a0404, #6e0505, #2f0303); color: #fff; min-height: 100vh; padding: 30px 20px; }
+        .container { max-width: 1100px; margin: auto; }
+        .header { text-align: center; margin-bottom: 36px; }
+        .header img { width: 100px; height: 100px; border-radius: 50%; border: 4px solid gold; padding: 5px; background: #fff; box-shadow: 0 0 25px gold; }
+        .header h1 { margin-top: 16px; color: #ffd700; font-size: 2rem; text-shadow: 0 0 20px gold; }
+        .header p { color: #f5c97f; margin-top: 6px; font-size: 0.95rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+        .card { background: rgba(255,255,255,0.08); backdrop-filter: blur(15px); padding: 28px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.15); text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.5); transition: 0.3s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 0 22px gold; }
+        .card h2 { font-size: 2.5rem; color: #ffd700; margin-bottom: 8px; }
+        .card p { font-size: 0.9rem; color: #f0d080; }
+        .action { margin-top: 48px; text-align: center; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .btn { display: inline-block; padding: 13px 28px; background: linear-gradient(145deg, #ffd700, #cfa300); color: #550000; font-weight: bold; text-decoration: none; border-radius: 14px; transition: 0.3s; font-size: 0.95rem; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 18px gold; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="header">
-        <img src="ngologo.png" alt="NGO Logo">
+        <img src="ngologo.png" alt="उन्नति स्वयं सहायता समिति">
         <h1>Volunteer Management</h1>
-        <p>उन्नति स्वयं सहायता समिति<br>NITI Aayog ID : UA-2016/0108273</p>
+        <p>उन्नति स्वयं सहायता समिति | NITI Aayog ID: UA-2016/0108273</p>
     </div>
 
     <div class="grid">
-        <div class="card"><h2 id="totalVolunteer">0</h2><p>कुल स्वयंसेवक</p></div>
-        <div class="card"><h2 id="activeVolunteer">0</h2><p>सक्रिय सदस्य</p></div>
-        <div class="card"><h2 id="pendingVolunteer">0</h2><p>Pending आवेदन</p></div>
+        <div class="card"><h2 id="totalVolunteer">—</h2><p>कुल स्वयंसेवक</p></div>
+        <div class="card"><h2 id="activeVolunteer">—</h2><p>सक्रिय सदस्य</p></div>
+        <div class="card"><h2 id="pendingVolunteer">—</h2><p>Pending आवेदन</p></div>
     </div>
 
     <div class="action">
         <a href="volunteer-list.html" class="btn">👥 Volunteer List</a>
-        <a href="admin-appointment.html" class="btn">📄 Appointment Applications</a>
-        <a href="admin-dashboard.html" class="btn">🛠 Admin Dashboard</a>
+        <a href="admin-appointment.html" class="btn">📄 Appointment</a>
+        <a href="admin-dashboard.html" class="btn">🛠 Dashboard</a>
         <a href="index.html" class="btn">🏠 Home</a>
     </div>
 </div>
 
 <script type="module">
-    import { db } from "./firebase-config.js";
-    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-    async function loadDashboard(){
+    onAuthStateChanged(auth, (user) => {
+        if (!user) { window.location.href = "admin-login.html"; return; }
+        loadDashboard();
+    });
+
+    async function loadDashboard() {
         let total = 0, active = 0, pending = 0;
         try {
             const snap = await getDocs(collection(db, "Volunteers"));
             total = snap.size;
             snap.forEach((docItem) => {
-                const d = docItem.data();
-                const status = (d.status || "Pending").toLowerCase();
-                if (status === "approved" || status === "verified") active++;
+                const s = (docItem.data().status || "Pending").toLowerCase();
+                if (s === "approved" || s === "verified") active++;
                 else pending++;
             });
             document.getElementById("totalVolunteer").innerText = total;
             document.getElementById("activeVolunteer").innerText = active;
             document.getElementById("pendingVolunteer").innerText = pending;
-        } catch(error) {
-            console.error("Dashboard Error:", error);
+        } catch(e) {
+            console.error("Dashboard Error:", e);
         }
     }
-    loadDashboard();
 </script>
-
 </body>
 </html>
