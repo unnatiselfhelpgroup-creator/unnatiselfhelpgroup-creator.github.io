@@ -2,11 +2,20 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Action Processing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Processing | उन्नति स्वयं सहायता समिति</title>
+    <meta name="robots" content="noindex, nofollow">
     <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; text-align: center; padding: 60px 20px; background: #071b34; color: white; }
-        button { padding: 14px 30px; background: #d4af37; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        h2 { font-size: 1.3rem; margin-bottom: 16px; }
+        button {
+            padding: 14px 30px; background: #d4af37; border: none;
+            border-radius: 10px; font-weight: bold; font-size: 1rem;
+            cursor: pointer; margin-top: 20px; transition: background 0.3s;
+        }
         button:hover { background: #f2ce63; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -14,112 +23,57 @@
     <div id="actionArea"></div>
 
     <script type="module">
-        // auth को firebase-config से इम्पोर्ट करें
         import { db, auth } from "./firebase-config.js";
-        import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-        const status = urlParams.get('status');
-        const type = urlParams.get('type');
+        const params  = new URLSearchParams(window.location.search);
+        const id      = params.get("id");
+        const status  = params.get("status");
+        const type    = params.get("type");
 
-        // सिर्फ इन्हीं वैल्यू को मान्य status माना जाएगा
-        const ALLOWED_STATUS = ["Approved", "Rejected", "Verified"];
-
-        // type सीधे असली Firestore कलेक्शन नाम के बराबर है (EmailJS टेम्पलेट इसे
-        // doc_id के साथ भेजता है) — सिर्फ इन्हीं 5 कलेक्शन में अपडेट की अनुमति है
+        const ALLOWED_STATUS      = ["Approved", "Rejected", "Verified"];
         const ALLOWED_COLLECTIONS = ["Appointments", "Certificates", "DailyReports", "IDcard", "StudentRegistrations"];
 
-        function performUpdate() {
+        const msgEl    = document.getElementById("statusMsg");
+        const areaEl   = document.getElementById("actionArea");
+
+        function setMsg(text) { msgEl.innerText = text; }
+
+        async function performUpdate() {
             onAuthStateChanged(auth, async (user) => {
-
-                if (user) {
-
-                    if (id && status && ALLOWED_STATUS.includes(status) && ALLOWED_COLLECTIONS.includes(type)) {
-
-                        try {
-
-                            const collectionName = type;
-
-                            await updateDoc(
-                                doc(db, collectionName, id),
-                                {
-                                    status: status,
-                                    actionType: type || "General"
-                                }
-                            );
-
-                            document.getElementById("statusMsg").innerText =
-                                "सफलतापूर्वक आवेदन को " +
-                                status +
-                                " कर दिया गया है!";
-                            document.getElementById("actionArea").innerHTML = "";
-
-                        } catch (e) {
-
-                            document.getElementById("statusMsg").innerText =
-                                "त्रुटि हुई: " + e.message;
-
-                        }
-
-                    } else {
-
-                        document.getElementById("statusMsg").innerText =
-                            "गलत लिंक! कृपया सही लिंक का उपयोग करें।";
-
-                    }
-
-                } else {
-
-                    // अगर एडमिन लॉग-इन नहीं है, तो उसे लॉगिन पेज पर भेजें
-                    document.getElementById("statusMsg").innerText =
-                        "कृपया पहले एडमिन लॉगिन करें...";
-
-                    setTimeout(() => {
-                        window.location.href = "admin-login.html";
-                    }, 2000);
-
+                if (!user) {
+                    setMsg("कृपया पहले एडमिन लॉगिन करें...");
+                    setTimeout(() => { window.location.href = "admin-login.html"; }, 2000);
+                    return;
                 }
-
+                try {
+                    await updateDoc(doc(db, type, id), { status, actionType: type || "General" });
+                    setMsg("✅ सफलतापूर्वक आवेदन को \"" + status + "\" कर दिया गया है!");
+                    areaEl.innerHTML = "";
+                } catch(e) {
+                    setMsg("❌ त्रुटि हुई: " + e.message);
+                }
             });
         }
 
         function init() {
-            if (!id || !status) {
-                document.getElementById("statusMsg").innerText =
-                    "गलत लिंक! कृपया सही लिंक का उपयोग करें।";
-                return;
-            }
-            if (!ALLOWED_STATUS.includes(status)) {
-                document.getElementById("statusMsg").innerText =
-                    "अमान्य status मान। कृपया सही लिंक का उपयोग करें।";
-                return;
-            }
-            if (!ALLOWED_COLLECTIONS.includes(type)) {
-                document.getElementById("statusMsg").innerText =
-                    "अमान्य type मान। कृपया सही लिंक का उपयोग करें।";
-                return;
-            }
+            if (!id || !status) { setMsg("❌ गलत लिंक! कृपया सही लिंक का उपयोग करें।"); return; }
+            if (!ALLOWED_STATUS.includes(status)) { setMsg("❌ अमान्य status मान।"); return; }
+            if (!ALLOWED_COLLECTIONS.includes(type)) { setMsg("❌ अमान्य type मान।"); return; }
 
-            // GET लिंक खुलते ही अपने-आप डेटा न बदले (ईमेल/स्कैनर लिंक को auto-preview
-            // करते हैं, जिससे गलती से Approve/Reject हो सकता था) — इसलिए अब एडमिन से
-            // स्पष्ट क्लिक करवाया जाता है।
-            document.getElementById("statusMsg").innerText =
-                "क्या आप इस आवेदन को \"" + status + "\" करना चाहते हैं?";
-
+            setMsg("क्या आप इस आवेदन को \"" + status + "\" करना चाहते हैं?");
             const btn = document.createElement("button");
             btn.innerText = "हाँ, " + status + " करें";
-            btn.onclick = () => {
+            btn.addEventListener("click", () => {
                 btn.disabled = true;
                 btn.innerText = "प्रक्रिया जारी है...";
                 performUpdate();
-            };
-            document.getElementById("actionArea").appendChild(btn);
+            });
+            areaEl.appendChild(btn);
         }
 
         init();
     </script>
-
 </body>
 </html>

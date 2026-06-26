@@ -4,21 +4,14 @@ Disallow: /admin-login.html
 Disallow: /admin-dashboard.html
 Disallow: /admin-action.html
 Disallow: /admin-appointment.html
+Disallow: /volunteer-management.html
 Disallow: /firebase-config.js
-Disallow: /firebase-script.js
 Disallow: /auth.js
-Disallow: /FIREBASE_RULES_SETUP.txt
 
 Sitemap: https://unnatiselfhelpgroup-creator.github.io/sitemap.xml
 
-# Google
 User-agent: Googlebot
 Allow: /
-Disallow: /admin-login.html
-Disallow: /admin-dashboard.html
 
-# Bing
 User-agent: Bingbot
 Allow: /
-Disallow: /admin-login.html
-Disallow: /admin-dashboard.html
