@@ -1,1 +1,322 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; padding: 20px; }
+        
+        /* Security overlay - page load par hide */
+        #authOverlay { position:fixed; top:0; left:0; width:100%; height:100%; background:#071b34; z-index:9999; display:flex; align-items:center; justify-content:center; }
+        #authOverlay p { color:#d4af37; font-size:18px; }
 
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #d4af37; }
+        .card a { color: white; text-decoration: none; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; color: black; background: white; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; font-size: 14px; }
+        th { background: #d4af37; color: #1b2430; font-weight: bold; }
+        .btn { padding: 6px 12px; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; font-size: 13px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .approve { background: #00a651; color: white; }
+        .reject { background: #ff4d4d; color: white; }
+        .search-bar { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+        .search-bar input { flex: 1; padding: 10px 15px; border-radius: 10px; border: none; font-size: 14px; min-width: 200px; }
+        .search-bar select { padding: 10px; border-radius: 10px; border: none; font-size: 14px; }
+        #noResults { display: none; color: #ffd700; text-align: center; padding: 20px; font-size: 15px; }
+        #loadingMsg { text-align: center; color: #ffd700; padding: 20px; display: none; }
+
+        /* Status badges */
+        .badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:bold; color:white; }
+        .badge-approved { background:#00a651; }
+        .badge-rejected { background:#ff4d4d; }
+        .badge-pending  { background:#ff8b00; }
+
+        .logout-btn { float:right; background:#ff4d4d; color:white; border:none; padding:8px 16px; border-radius:8px; cursor:pointer; font-weight:bold; }
+    </style>
+</head>
+<body>
+
+<!-- Security: page content tab tak nahi dikhega jab tak login verify na ho -->
+<div id="authOverlay"><p>⏳ Login verify ho rahi hai...</p></div>
+
+<div id="mainContent" style="display:none;">
+
+<button class="logout-btn" onclick="doLogout()">🚪 Logout</button>
+<h1 style="text-align:center;">🔐 Admin Dashboard</h1>
+
+<div class="grid">
+    <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">...</h2></div>
+    <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">...</h2></div>
+    <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">...</h2></div>
+    <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">...</h2></div>
+    <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
+    <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
+    <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
+    <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
+    <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
+</div>
+
+<h2 style="text-align:center; margin-top:40px;">छात्र पंजीकरण (Internship)</h2>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 नाम या मोबाइल से खोजें...">
+    <select id="statusFilter">
+        <option value="">सभी स्थिति</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+    </select>
+</div>
+
+<div id="loadingMsg">⏳ डेटा लोड हो रहा है...</div>
+<div id="noResults">कोई रिकॉर्ड नहीं मिला।</div>
+
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>नाम</th>
+            <th>मोबाइल</th>
+            <th>ईमेल</th>
+            <th>स्थिति</th>
+            <th>Payment Proof</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="studentBody"></tbody>
+</table>
+
+</div><!-- end mainContent -->
+
+<script type="module">
+    import { auth, db } from "./firebase-config.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    // ── SECURITY: Login check ──
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // Login nahi — login page pe bhejo
+            window.location.replace("admin-login.html");
+        } else {
+            // Login hai — content dikhao
+            document.getElementById("authOverlay").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            loadDashboard();
+        }
+    });
+
+    // ── Logout ──
+    window.doLogout = async () => {
+        if (!confirm("क्या आप logout करना चाहते हैं?")) return;
+        await signOut(auth);
+        window.location.replace("admin-login.html");
+    };
+
+    let allStudents = [];
+
+    async function loadDashboard() {
+        document.getElementById("loadingMsg").style.display = "block";
+
+        // Stats Cards
+        const collections = [
+            { id: "totalVolunteers", name: "Volunteers" },
+            { id: "totalCertificates", name: "Certificates" },
+            { id: "totalIDCards", name: "IDcard" },
+            { id: "totalReports", name: "DailyReports" }
+        ];
+        for (const col of collections) {
+            try {
+                const snap = await getDocs(collection(db, col.name));
+                document.getElementById(col.id).innerText = snap.size;
+            } catch(e) {
+                document.getElementById(col.id).innerText = "-";
+            }
+        }
+
+        // Student Table
+        try {
+            const studentSnap = await getDocs(collection(db, "StudentRegistrations"));
+            allStudents = [];
+            studentSnap.forEach((docSnap) => {
+                allStudents.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            renderTable(allStudents);
+        } catch(e) {
+            const tbody = document.getElementById("studentBody");
+            tbody.innerHTML = "";
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.colSpan = 6;
+            td.textContent = "डेटा लोड त्रुटि: " + e.message;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+        }
+
+        document.getElementById("loadingMsg").style.display = "none";
+    }
+
+    function getStatusBadge(status) {
+        const span = document.createElement("span");
+        span.textContent = status;
+        span.className = "badge";
+        if (status === "Approved") span.classList.add("badge-approved");
+        else if (status === "Rejected") span.classList.add("badge-rejected");
+        else span.classList.add("badge-pending");
+        return span;
+    }
+
+    function renderTable(students) {
+        const body = document.getElementById("studentBody");
+        body.innerHTML = "";
+
+        if (students.length === 0) {
+            document.getElementById("noResults").style.display = "block";
+            return;
+        }
+        document.getElementById("noResults").style.display = "none";
+
+        students.forEach((data) => {
+            const tr = document.createElement("tr");
+            tr.id = "row-" + data.id;
+
+            const tdName = document.createElement("td");
+            tdName.textContent = data.name || "-";
+
+            const tdMobile = document.createElement("td");
+            tdMobile.textContent = data.mobile || "-";
+
+            const tdEmail = document.createElement("td");
+            tdEmail.textContent = data.email || "-";
+
+            // Status badge
+            const tdStatus = document.createElement("td");
+            tdStatus.id = "status-" + data.id;
+            const status = data.status || "Pending";
+            tdStatus.appendChild(getStatusBadge(status));
+
+            // Payment proof
+            const tdProof = document.createElement("td");
+            const proofSrc = data.paymentScreenshotBase64 || data.paymentScreenshotURL || "";
+            if (proofSrc) {
+                const btn = document.createElement("button");
+                btn.textContent = "📸 देखें";
+                btn.style.cssText = "background:none;border:none;color:#3395ff;cursor:pointer;text-decoration:underline;font-size:13px;";
+                btn.onclick = () => {
+                    const win = window.open("", "_blank");
+                    if (proofSrc.startsWith("data:")) {
+                        win.document.write(`<img src="${proofSrc}" style="max-width:100%;display:block;margin:auto;">`);
+                    } else {
+                        win.location.href = proofSrc;
+                    }
+                };
+                tdProof.appendChild(btn);
+            } else {
+                tdProof.textContent = "नहीं";
+                tdProof.style.color = "#ff4d4d";
+            }
+
+            // Action buttons — already approved/rejected hone par disable
+            const tdAction = document.createElement("td");
+            tdAction.id = "action-" + data.id;
+
+            const approveBtn = document.createElement("button");
+            approveBtn.textContent = "✅ Approve";
+            approveBtn.className = "btn approve";
+            approveBtn.id = "approve-" + data.id;
+            if (status === "Approved") approveBtn.disabled = true;
+            approveBtn.onclick = () => updateStudentStatus(data.id, "Approved", data.name, data.email, approveBtn);
+
+            const rejectBtn = document.createElement("button");
+            rejectBtn.textContent = "❌ Reject";
+            rejectBtn.className = "btn reject";
+            rejectBtn.id = "reject-" + data.id;
+            rejectBtn.style.marginLeft = "5px";
+            if (status === "Rejected") rejectBtn.disabled = true;
+            rejectBtn.onclick = () => updateStudentStatus(data.id, "Rejected", data.name, data.email, rejectBtn);
+
+            tdAction.appendChild(approveBtn);
+            tdAction.appendChild(rejectBtn);
+
+            tr.appendChild(tdName);
+            tr.appendChild(tdMobile);
+            tr.appendChild(tdEmail);
+            tr.appendChild(tdStatus);
+            tr.appendChild(tdProof);
+            tr.appendChild(tdAction);
+            body.appendChild(tr);
+        });
+    }
+
+    function filterStudents() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const statusVal = document.getElementById("statusFilter").value;
+        const filtered = allStudents.filter((d) => {
+            const matchSearch = !query ||
+                (d.name || "").toLowerCase().includes(query) ||
+                (d.mobile || "").includes(query) ||
+                (d.email || "").toLowerCase().includes(query);
+            const matchStatus = !statusVal || (d.status || "Pending") === statusVal;
+            return matchSearch && matchStatus;
+        });
+        renderTable(filtered);
+    }
+
+    document.getElementById("searchInput").addEventListener("input", filterStudents);
+    document.getElementById("statusFilter").addEventListener("change", filterStudents);
+
+    window.updateStudentStatus = async (id, status, name, email, clickedBtn) => {
+        if (!confirm(`क्या आप "${name}" को ${status} करना चाहते हैं?`)) return;
+
+        // Button turant disable karo — dobara click na ho
+        clickedBtn.disabled = true;
+        clickedBtn.textContent = "⏳ ...";
+
+        try {
+            await updateDoc(doc(db, "StudentRegistrations", id), { status });
+
+            if (status === "Approved") {
+                try {
+                    await emailjs.send("service_63pefgf", "template_wvzbj7p", {
+                        user_name: name||"", user_email: email||"",
+                        name: name||"", mobile: "", email: email||"",
+                        designation: "छात्र पंजीकरण स्वीकृत",
+                        doc_id: id, type: "StudentRegistrations"
+                    });
+                } catch(emailErr) { console.warn("Email त्रुटि:", emailErr); }
+            }
+
+            // Local data update
+            const student = allStudents.find(s => s.id === id);
+            if (student) student.status = status;
+
+            // Status badge update — page reload nahi
+            const statusCell = document.getElementById("status-" + id);
+            if (statusCell) {
+                statusCell.innerHTML = "";
+                statusCell.appendChild(getStatusBadge(status));
+            }
+
+            // Dono buttons ko sahi state mein karo
+            const approveBtn = document.getElementById("approve-" + id);
+            const rejectBtn  = document.getElementById("reject-"  + id);
+            if (approveBtn) {
+                approveBtn.disabled = (status === "Approved");
+                approveBtn.textContent = "✅ Approve";
+            }
+            if (rejectBtn) {
+                rejectBtn.disabled = (status === "Rejected");
+                rejectBtn.textContent = "❌ Reject";
+            }
+
+        } catch (err) {
+            alert("❌ त्रुटि: " + (err.message || "अज्ञात त्रुटि"));
+            clickedBtn.disabled = false;
+            clickedBtn.textContent = status === "Approved" ? "✅ Approve" : "❌ Reject";
+        }
+    };
+</script>
+</body>
+</html>
