@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>प्रमाण पत्र आवेदन | उन्नति स्वयं सहायता समिति</title>
+<meta name="description" content="उन्नति स्वयं सहायता समिति में स्वयंसेवी प्रमाण पत्र हेतु आवेदन करें।">
+<link rel="icon" href="https://unnatiselfhelpgroup-creator.github.io/ngologo.png">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#f0f4ff;color:#1a1a33;min-height:100vh}
+  .header{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;text-align:center;padding:24px 16px}
+  .header img{width:70px;height:70px;border-radius:50%;border:3px solid #ffd700;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto}
+  .header h1{font-size:1.25rem;font-weight:700;margin-bottom:4px}
+  .header p{font-size:0.83rem;opacity:0.9}
+  .container{max-width:600px;margin:0 auto;padding:20px 16px 40px}
+  .card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 20px rgba(26,35,126,0.1);margin-bottom:16px}
+  .card h2{color:#1a237e;font-size:1.05rem;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #ffd700;display:flex;align-items:center;gap:8px}
+  .form-group{margin-bottom:15px}
+  .form-group label{display:block;font-size:0.84rem;font-weight:600;color:#1a237e;margin-bottom:5px}
+  .form-group label span{color:#c0392b}
+  .form-group input,.form-group select,.form-group textarea{
+    width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;
+    font-size:0.95rem;font-family:inherit;background:#fafafa;color:#1a1a33;transition:border-color 0.2s
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    outline:none;border-color:#1a237e;box-shadow:0 0 0 3px rgba(26,35,126,0.1);background:#fff
+  }
+  .form-group textarea{resize:vertical;min-height:90px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:480px){.row{grid-template-columns:1fr}}
+  .dur-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
+  @media(max-width:480px){.dur-cards{grid-template-columns:repeat(2,1fr)}}
+  .dur-card{background:#f0f4ff;border:2px solid #c5cae9;border-radius:10px;padding:12px 6px;text-align:center;cursor:pointer;transition:all 0.2s}
+  .dur-card:hover{border-color:#1a237e}
+  .dur-card.selected{border-color:#1a237e;background:#e8eaf6}
+  .dur-card .days{font-size:1.3rem;font-weight:700;color:#1a237e}
+  .dur-card .label{font-size:0.7rem;color:#666}
+  .fee-box{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1.5px solid #ffd700;border-radius:10px;padding:16px;margin:16px 0}
+  .fee-box h3{color:#1a237e;font-size:0.9rem;margin-bottom:10px}
+  .fee-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:0.82rem}
+  .fee-item::before{content:"✓ ";color:#27ae60;font-weight:700}
+  .fee-item{color:#444}
+  .fee-amount{font-size:1.3rem;font-weight:700;color:#1a237e;margin-top:10px;text-align:center}
+  .fee-note{font-size:0.75rem;color:#666;text-align:center;margin-top:4px}
+  .checkbox-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;background:#f0f4ff;padding:12px;border-radius:8px}
+  .checkbox-group input[type="checkbox"]{width:18px;height:18px;margin-top:2px;cursor:pointer;accent-color:#1a237e;flex-shrink:0}
+  .checkbox-group label{font-size:0.82rem;color:#555;cursor:pointer}
+  .btn-submit{
+    width:100%;background:linear-gradient(135deg,#1a237e,#283593);color:#fff;
+    border:none;padding:14px;border-radius:10px;font-size:1rem;font-weight:700;
+    cursor:pointer;transition:all 0.2s
+  }
+  .btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(26,35,126,0.35)}
+  .btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+  .success-msg{background:#e8f5e9;border:1.5px solid #27ae60;border-radius:12px;padding:24px;text-align:center;display:none}
+  .success-msg .icon{font-size:2.5rem;margin-bottom:8px}
+  .success-msg h3{color:#1b5e20;margin-bottom:6px}
+  .success-msg p{color:#2e7d32;font-size:0.88rem;margin-top:6px}
+  .pay-btn{display:block;width:100%;background:#27ae60;color:#fff;border:none;padding:13px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-top:10px}
+  .error-msg{background:#fdecea;border:1.5px solid #c0392b;border-radius:10px;padding:12px;margin-bottom:14px;font-size:0.85rem;color:#c0392b;display:none}
+  .back-link{text-align:center;margin-top:20px}
+  .back-link a{color:#1a237e;text-decoration:none;font-size:0.9rem;font-weight:600}
+  .loader{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="header">
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+  <h1>📜 सामाजिक सेवा प्रमाण पत्र आवेदन</h1>
+  <p>युवा सामाजिक सारथी — गौ-सेवा एवं राष्ट्र निर्माण इंटर्नशिप</p>
+</div>
 
+<div class="container">
+  <div class="card">
+    <h2>📝 प्रमाण पत्र हेतु आवेदन करें</h2>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="icon">📜</div>
+      <h3>आवेदन सफलतापूर्वक जमा हुआ!</h3>
+      <p>आपका प्रमाण पत्र आवेदन प्राप्त हो गया है।</p>
+      <p>📧 Email पर confirmation भेजा गया है।</p>
+      <p style="margin-top:10px;font-weight:600">अब शुल्क का भुगतान करें:</p>
+      <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" class="pay-btn" target="_blank">
+        💳 ₹700 का भुगतान करें →
+      </a>
+      <p style="font-size:0.75rem;color:#888;margin-top:8px">भुगतान के बाद प्रमाण पत्र 7-10 कार्यदिवस में जारी होगा।</p>
+    </div>
+
+    <form id="certForm">
+
+      <div class="form-group">
+        <label>सेवा अवधि <span>*</span></label>
+        <div class="dur-cards">
+          <div class="dur-card" onclick="selectDur(this,'15 दिन')"><div class="days">15</div><div class="label">दिन</div></div>
+          <div class="dur-card" onclick="selectDur(this,'30 दिन')"><div class="days">30</div><div class="label">दिन</div></div>
+          <div class="dur-card" onclick="selectDur(this,'60 दिन')"><div class="days">60</div><div class="label">दिन</div></div>
+          <div class="dur-card" onclick="selectDur(this,'90 दिन')"><div class="days">90</div><div class="label">दिन</div></div>
+        </div>
+        <input type="hidden" name="सेवा अवधि" id="hiddenDur">
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>पूरा नाम <span>*</span></label>
+          <input type="text" name="पूरा नाम" placeholder="जैसे Certificate पर चाहते हैं" required>
+        </div>
+        <div class="form-group">
+          <label>पिता/पति का नाम <span>*</span></label>
+          <input type="text" name="पिता/पति का नाम" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>मोबाइल नंबर <span>*</span></label>
+          <input type="tel" name="मोबाइल नंबर" placeholder="10 अंकों का नंबर" pattern="[6-9][0-9]{9}" required>
+        </div>
+        <div class="form-group">
+          <label>ईमेल आईडी <span>*</span></label>
+          <input type="email" name="ईमेल" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>आवेदन क्रमांक (यदि उपलब्ध हो)</label>
+        <input type="text" name="आवेदन क्रमांक" placeholder="जैसे: USHS-2025-001">
+      </div>
+
+      <div class="form-group">
+        <label>कार्य क्षेत्र (Social Activity) <span>*</span></label>
+        <select name="कार्य क्षेत्र" required>
+          <option value="">सामाजिक कार्य चुनें</option>
+          <option>वृक्षारोपण अभियान</option>
+          <option>स्वच्छ भारत अभियान</option>
+          <option>गौ-सेवा एवं जागरूकता</option>
+          <option>शिक्षा एवं जन-जागरूकता</option>
+          <option>स्वास्थ्य एवं रक्तदान</option>
+          <option>पर्यावरण संरक्षण</option>
+          <option>महिला सशक्तिकरण</option>
+          <option>आपदा राहत सेवा</option>
+          <option>अन्य सामाजिक सेवा</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>किए गए सामाजिक कार्य का विवरण <span>*</span></label>
+        <textarea name="कार्य विवरण" placeholder="आपने किस स्थान पर, किस प्रकार का सामाजिक कार्य किया — संक्षिप्त विवरण लिखें..." required></textarea>
+      </div>
+
+      <div class="fee-box">
+        <h3>💰 प्रशासनिक सहयोग राशि — ₹700</h3>
+        <div class="fee-grid">
+          <div class="fee-item">ID Card निर्माण</div>
+          <div class="fee-item">प्रमाण पत्र (Digital + Print)</div>
+          <div class="fee-item">NGO Dashboard Access</div>
+          <div class="fee-item">प्रशिक्षण सामग्री</div>
+          <div class="fee-item">प्रशासनिक प्रबंधन</div>
+          <div class="fee-item">तकनीकी सेवाएँ</div>
+        </div>
+        <div class="fee-amount">₹700 एकमुश्त (Non-Refundable)</div>
+        <div class="fee-note">भुगतान आवेदन जमा होने के बाद करें</div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="agree" required>
+        <label for="agree">मैं घोषणा करता/करती हूँ कि दी गई जानकारी सत्य है और मैं संस्था के नियमों से सहमत हूँ।</label>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        📜 आवेदन जमा करें एवं शुल्क भुगतान करें →
+      </button>
+    </form>
+  </div>
+
+  <div class="back-link">
+    <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+  </div>
+</div>
+
+<script>
+const FORMSPREE_ID = "YOUR_FORM_ID"; // ← Formspree ID यहाँ डालें
+
+function selectDur(el, val) {
+  document.querySelectorAll('.dur-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('hiddenDur').value = val;
+}
+
+document.getElementById("certForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById("submitBtn");
+  const errorMsg = document.getElementById("errorMsg");
+  const successMsg = document.getElementById("successMsg");
+  errorMsg.style.display = "none";
+
+  if (!document.getElementById('hiddenDur').value) {
+    errorMsg.textContent = "❌ कृपया सेवा अवधि चुनें।";
+    errorMsg.style.display = "block"; return;
+  }
+
+  const mobile = this.querySelector('[name="मोबाइल नंबर"]').value;
+  if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+    errorMsg.textContent = "❌ कृपया सही 10 अंकों का मोबाइल नंबर डालें।";
+    errorMsg.style.display = "block"; return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> जमा हो रहा है...';
+
+  const formData = new FormData(this);
+  formData.append("_subject", "नया प्रमाण पत्र आवेदन — उन्नति स्वयं सहायता समिति");
+  formData.append("_language", "hi");
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: "POST", body: formData, headers: { Accept: "application/json" }
+    });
+    if (res.ok) {
+      this.style.display = "none";
+      successMsg.style.display = "block";
+      successMsg.scrollIntoView({ behavior: "smooth" });
+    } else { throw new Error(); }
+  } catch {
+    errorMsg.textContent = "❌ त्रुटि हुई। पुनः प्रयास करें या 9410332400 पर संपर्क करें।";
+    errorMsg.style.display = "block";
+    btn.disabled = false;
+    btn.innerHTML = "📜 आवेदन जमा करें एवं शुल्क भुगतान करें →";
+  }
+});
+</script>
+</body>
+</html>
