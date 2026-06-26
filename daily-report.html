@@ -3,70 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>दैनिक सेवा रिपोर्ट | उन्नति स्वयं सहायता समिति | Daily Volunteer Report</title>
-    <meta name="description" content="उन्नति स्वयं सहायता समिति के स्वयंसेवक यहाँ अपनी दैनिक सामाजिक सेवा रिपोर्ट जमा करें। गौ सेवा, वृक्षारोपण, स्वच्छता जैसे कार्यों का दैनिक विवरण। Haldwani.">
-    <meta name="keywords" content="volunteer daily report NGO, दैनिक सेवा रिपोर्ट, Unnati volunteer report, गौ रक्षक रिपोर्ट, NGO internship report Uttarakhand">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://unnatiselfhelpgroup-creator.github.io/daily-report.html">
-    <meta property="og:title" content="दैनिक सेवा रिपोर्ट — उन्नति स्वयं सहायता समिति">
-    <meta property="og:description" content="स्वयंसेवकों के लिए दैनिक सामाजिक सेवा रिपोर्ट जमा करने का फॉर्म।">
-    <meta property="og:url" content="https://unnatiselfhelpgroup-creator.github.io/daily-report.html">
-    <meta property="og:type" content="website">
+    <title>दैनिक सेवा रिपोर्ट | उन्नति स्वयं सहायता समिति</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
+    <script type="text/javascript">
+        (function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();
+    </script>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', Arial, sans-serif; background: #f4f7fa; padding: 24px 16px; line-height: 1.7; color: #1b2430; }
-        .daily-report { max-width: 620px; margin: 20px auto; background: white; padding: 32px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.09); }
-        h1 { color: #1b2430; text-align: center; font-size: 1.4rem; margin-bottom: 8px; }
-        .subtitle { text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 20px; }
-        label { display: block; font-weight: 600; font-size: 0.88rem; margin: 12px 0 4px; color: #333; }
-        input, select, textarea {
-            width: 100%; padding: 11px 14px; border: 1.5px solid #ddd;
-            border-radius: 9px; font-size: 0.97rem; font-family: inherit;
-            transition: border-color 0.3s;
-        }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #ff8b00; }
-        textarea { resize: vertical; min-height: 80px; }
-        .declaration { display: flex; align-items: flex-start; gap: 10px; margin: 16px 0; font-size: 0.88rem; cursor: pointer; }
-        .declaration input { width: auto; margin-top: 3px; flex-shrink: 0; accent-color: #ff8b00; }
-        button[type="submit"] {
-            width: 100%; padding: 14px; background: #ff8b00; border: none;
-            border-radius: 10px; color: white; font-weight: bold;
-            cursor: pointer; font-size: 1rem; margin-top: 10px; transition: background 0.3s, transform 0.1s;
-        }
-        button[type="submit"]:hover { background: #e67e00; }
-        button[type="submit"]:active { transform: scale(0.98); }
-        button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7fa; padding: 20px; line-height: 1.6; }
+        .daily-report { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1b2430; text-align: center; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #ff8b00; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        button:hover { background: #e67e00; }
+        .declaration-box { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-<main>
-  <section class="daily-report" aria-label="दैनिक सेवा रिपोर्ट फॉर्म">
-    <h1>🐄 गौ रक्षक दैनिक सेवा रिपोर्ट</h1>
-    <p class="subtitle">युवा सामाजिक सारथी — गौ सेवा एवं राष्ट्र निर्माण इंटर्नशिप के अंतर्गत<br>अपने दैनिक सामाजिक कार्य की रिपोर्ट यहाँ जमा करें।</p>
 
-    <form id="dailyReportForm" data-collection="DailyReports" novalidate>
-        <label for="dr_name">पूरा नाम *</label>
-        <input type="text" id="dr_name" name="name" placeholder="पूरा नाम" autocomplete="name" required>
+<div class="daily-report">
+    <h2>🐄 गौ रक्षक दैनिक सेवा रिपोर्ट</h2>
+    <p style="text-align: center;">"युवा सामाजिक सारथी - गौ सेवा एवं राष्ट्र निर्माण इंटर्नशिप" के अंतर्गत अपने दैनिक सामाजिक कार्य की रिपोर्ट यहाँ जमा करें।</p>
 
-        <label for="dr_father">पिता/पति का नाम *</label>
-        <input type="text" id="dr_father" name="father_name" placeholder="पिता/पति का नाम" required>
-
-        <label for="dr_vid">वॉलंटियर / सदस्य आईडी *</label>
-        <input type="text" id="dr_vid" name="volunteer_id" placeholder="आपकी वॉलंटियर ID" required>
-
-        <label for="dr_email">ईमेल आईडी *</label>
-        <input type="email" id="dr_email" name="email" placeholder="yourname@email.com" autocomplete="email" required>
-
-        <label for="dr_mobile">मोबाइल नंबर *</label>
-        <input type="tel" id="dr_mobile" name="mobile" placeholder="10 अंकों का मोबाइल नंबर" pattern="[6-9][0-9]{9}" autocomplete="tel" required>
-
-        <label for="dr_date">दिनांक *</label>
-        <input type="date" id="dr_date" name="date" required>
-
-        <label for="dr_worktype">आज आपने किस क्षेत्र में कार्य किया? *</label>
-        <select id="dr_worktype" name="work_type" required>
+    <form id="dailyReportForm" data-collection="DailyReports" data-form-label="दैनिक सेवा रिपोर्ट">
+        <input type="text" name="name" placeholder="पूरा नाम" required>
+        <input type="text" name="father_name" placeholder="पिता/पति का नाम" required>
+        <input type="text" name="volunteer_id" placeholder="वॉलंटियर / सदस्य आईडी" required>
+        <input type="email" name="email" placeholder="ईमेल आईडी" required>
+        <input type="text" name="mobile" placeholder="मोबाइल नंबर" required>
+        <input type="date" name="date" required>
+        
+        <label>आज आपने किस क्षेत्र में कार्य किया?</label>
+        <select name="work_type" required>
             <option value="">कार्य चुनें</option>
             <option value="गौ सेवा">गौ सेवा</option>
             <option value="वृक्षारोपण">वृक्षारोपण</option>
@@ -77,24 +44,20 @@
             <option value="अन्य सामाजिक सेवा">अन्य सामाजिक सेवा</option>
         </select>
 
-        <label for="dr_details">कार्य विवरण *</label>
-        <textarea id="dr_details" name="work_details" rows="4" placeholder="आज किए गए सामाजिक कार्य का पूरा विवरण लिखें" required></textarea>
+        <textarea name="work_details" rows="4" placeholder="आज किए गए सामाजिक कार्य का पूरा विवरण लिखें" required></textarea>
+        <label>कार्य की फोटो अपलोड करें:</label>
+        <input type="file" name="work_photo" accept="image/*">
+        <input type="number" name="hours" placeholder="कितने घंटे सेवा की" min="1" required>
 
-        <label for="dr_photo">कार्य की फोटो अपलोड करें</label>
-        <input type="file" id="dr_photo" name="work_photo" accept="image/*">
-
-        <label for="dr_hours">कितने घंटे सेवा की? *</label>
-        <input type="number" id="dr_hours" name="hours" placeholder="घंटों की संख्या" min="1" max="24" required>
-
-        <label class="declaration">
+        <div class="declaration-box">
             <input type="checkbox" name="declaration" required>
-            <span>मैं घोषणा करता/करती हूँ कि दी गई जानकारी सत्य है और संस्था आवश्यकता पड़ने पर इसकी समीक्षा कर सकती है।</span>
-        </label>
+            <label>मैं घोषणा करता/करती हूँ कि दी गई जानकारी सत्य है और संस्था आवश्यकता पड़ने पर इसकी समीक्षा कर सकती है।</label>
+        </div>
 
         <button type="submit">📤 दैनिक रिपोर्ट सबमिट करें</button>
     </form>
-  </section>
-</main>
+</div>
+
 <script type="module" src="firebase-script.js"></script>
 </body>
 </html>
