@@ -1,89 +1,111 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
-    <meta name="robots" content="noindex, nofollow">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
-    <style>
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'Segoe UI',Arial,sans-serif;background:#071b34;color:white;padding:20px;min-height:100vh}
-        h1{text-align:center;margin-bottom:24px;font-size:1.5rem;color:#d4af37}
-        .logout-btn{position:fixed;top:14px;right:16px;background:#c0392b;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.85rem;z-index:99}
-        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;padding:0 0 24px}
-        .stat-card{background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;text-align:center;border:1px solid #d4af37}
-        .stat-card h3{font-size:0.85rem;color:#d4af37;margin-bottom:6px}
-        .stat-card h2{font-size:2rem;font-weight:700}
-        .section-title{text-align:center;margin:28px 0 14px;font-size:1.1rem;color:#d4af37}
-        .table-wrap{overflow-x:auto;border-radius:10px;margin-bottom:30px}
-        table{width:100%;border-collapse:collapse;min-width:500px;font-size:0.85rem}
-        th{background:#0f2d54;color:#d4af37;padding:10px 12px;text-align:left;font-size:0.82rem}
-        td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:middle}
-        tr:hover td{background:rgba(255,255,255,0.05)}
-        .status{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.75rem;font-weight:700}
-        .status.pending{background:#ffa500;color:#000}
-        .status.approved{background:#27ae60;color:#fff}
-        .status.rejected{background:#c0392b;color:#fff}
-        .btn{padding:5px 12px;border:none;border-radius:6px;cursor:pointer;font-size:0.78rem;font-weight:700;transition:opacity 0.2s}
-        .btn:hover{opacity:0.85}
-        .btn:disabled{opacity:0.4;cursor:not-allowed}
-        .btn.approve{background:#27ae60;color:#fff}
-        .btn.reject{background:#c0392b;color:#fff;margin-left:5px}
-        .loading{text-align:center;padding:20px;color:#aaa;font-size:0.9rem}
-        .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;justify-content:center}
-        .tab{padding:8px 18px;background:rgba(255,255,255,0.1);border:1px solid #d4af37;border-radius:20px;cursor:pointer;font-size:0.85rem;transition:all 0.2s}
-        .tab.active,.tab:hover{background:#d4af37;color:#071b34;font-weight:700}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>(function(){emailjs.init("AvD_f76bB4qJYnGb0");})()</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#071b34;color:#fff;padding:16px;min-height:100vh}
+h1{text-align:center;color:#d4af37;margin-bottom:20px;font-size:1.2rem;line-height:1.4}
+.logout-btn{position:fixed;top:12px;right:12px;background:#c0392b;color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.82rem;z-index:999}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:480px){.grid{grid-template-columns:repeat(2,1fr)}}
+.stat{background:rgba(255,255,255,0.08);border:1px solid #d4af37;border-radius:12px;padding:14px 10px;text-align:center}
+.stat h3{font-size:0.75rem;color:#d4af37;margin-bottom:6px}
+.stat h2{font-size:1.8rem;font-weight:700}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.tab{padding:8px 16px;background:rgba(255,255,255,0.1);border:1px solid #d4af37;border-radius:20px;cursor:pointer;font-size:0.83rem;transition:all 0.2s}
+.tab.active,.tab:hover{background:#d4af37;color:#071b34;font-weight:700}
+.table-wrap{overflow-x:auto;border-radius:10px;margin-bottom:24px}
+table{width:100%;border-collapse:collapse;min-width:540px;font-size:0.82rem}
+th{background:#0f2d54;color:#d4af37;padding:9px 10px;text-align:left;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.07);vertical-align:middle}
+tr:hover td{background:rgba(255,255,255,0.04)}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.72rem;font-weight:700;white-space:nowrap}
+.badge.pending{background:#ffa500;color:#000}
+.badge.approved{background:#27ae60;color:#fff}
+.badge.rejected{background:#c0392b;color:#fff}
+.btn{padding:5px 10px;border:none;border-radius:6px;cursor:pointer;font-size:0.75rem;font-weight:700;margin:2px;transition:opacity 0.2s;white-space:nowrap}
+.btn:hover{opacity:0.82}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+.btn.approve{background:#27ae60;color:#fff}
+.btn.reject{background:#c0392b;color:#fff}
+.btn.pdf{background:#d4af37;color:#071b34}
+.btn.idpdf{background:#1565c0;color:#fff}
+.loading{text-align:center;padding:24px;color:#aaa;font-size:0.88rem}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;overflow-y:auto;padding:20px}
+.modal-bg.show{display:flex;align-items:flex-start;justify-content:center}
+.modal{background:#fff;color:#000;border-radius:14px;max-width:700px;width:100%;padding:30px;margin:auto}
+.modal h2{color:#4a0404;font-size:1.1rem;margin-bottom:16px;text-align:center}
+.modal-close{position:absolute;top:12px;right:14px;background:#c0392b;color:#fff;border:none;border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:700}
+.detail-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin-bottom:16px}
+.detail-table td{padding:6px 10px;border-bottom:1px solid #eee}
+.detail-table td:first-child{font-weight:700;color:#4a0404;width:40%}
+</style>
 </head>
 <body>
 <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
-<h1>🛡️ Admin Dashboard — उन्नति स्वयं सहायता समिति</h1>
+<h1>🛡️ Admin Dashboard<br><span style="font-size:0.9rem">उन्नति स्वयं सहायता समिति</span></h1>
 
 <div class="grid">
-    <div class="stat-card"><h3>📋 Appointments</h3><h2 id="totalAppointments">...</h2></div>
-    <div class="stat-card"><h3>🪪 ID Cards</h3><h2 id="totalIDCards">...</h2></div>
-    <div class="stat-card"><h3>📜 Certificates</h3><h2 id="totalCertificates">...</h2></div>
-    <div class="stat-card"><h3>👥 Volunteers</h3><h2 id="totalVolunteers">...</h2></div>
-    <div class="stat-card"><h3>📝 Reports</h3><h2 id="totalReports">...</h2></div>
-    <div class="stat-card"><h3>🎓 Students</h3><h2 id="totalStudents">...</h2></div>
+  <div class="stat"><h3>📋 Appointments</h3><h2 id="cA">…</h2></div>
+  <div class="stat"><h3>🪪 ID Cards</h3><h2 id="cI">…</h2></div>
+  <div class="stat"><h3>📜 Certificates</h3><h2 id="cC">…</h2></div>
+  <div class="stat"><h3>👥 Volunteers</h3><h2 id="cV">…</h2></div>
+  <div class="stat"><h3>📝 Reports</h3><h2 id="cR">…</h2></div>
+  <div class="stat"><h3>🎓 Students</h3><h2 id="cS">…</h2></div>
 </div>
 
 <div class="tabs">
-    <div class="tab active" onclick="showTab('appointments')">📋 Appointments</div>
-    <div class="tab" onclick="showTab('idcards')">🪪 ID Cards</div>
-    <div class="tab" onclick="showTab('students')">🎓 Students</div>
+  <div class="tab active" onclick="showTab('app')">📋 Appointments</div>
+  <div class="tab" onclick="showTab('id')">🪪 ID Cards</div>
+  <div class="tab" onclick="showTab('stu')">🎓 Students</div>
 </div>
 
-<div id="tab-appointments">
-    <h2 class="section-title">नियुक्ति आवेदन</h2>
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>राशि</th><th>स्थिति</th><th>Action</th></tr></thead>
-            <tbody id="appointmentBody"><tr><td colspan="6" class="loading">लोड हो रहा है...</td></tr></tbody>
-        </table>
-    </div>
+<!-- Appointments Tab -->
+<div id="tab-app">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>राशि</th><th>स्थिति</th><th>Action</th></tr></thead>
+      <tbody id="bodyApp"><tr><td colspan="6" class="loading">लोड हो रहा है…</td></tr></tbody>
+    </table>
+  </div>
 </div>
 
-<div id="tab-idcards" style="display:none">
-    <h2 class="section-title">ID Card आवेदन</h2>
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr></thead>
-            <tbody id="idcardBody"><tr><td colspan="5" class="loading">लोड हो रहा है...</td></tr></tbody>
-        </table>
-    </div>
+<!-- ID Cards Tab -->
+<div id="tab-id" style="display:none">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr></thead>
+      <tbody id="bodyID"><tr><td colspan="5" class="loading">लोड हो रहा है…</td></tr></tbody>
+    </table>
+  </div>
 </div>
 
-<div id="tab-students" style="display:none">
-    <h2 class="section-title">छात्र पंजीकरण</h2>
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>नाम</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr></thead>
-            <tbody id="studentBody"><tr><td colspan="4" class="loading">लोड हो रहा है...</td></tr></tbody>
-        </table>
-    </div>
+<!-- Students Tab -->
+<div id="tab-stu" style="display:none">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>नाम</th><th>मोबाइल</th><th>ईमेल</th><th>स्थिति</th><th>Action</th></tr></thead>
+      <tbody id="bodyStu"><tr><td colspan="5" class="loading">लोड हो रहा है…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal()">✕ बंद करें</button>
+    <h2 id="modalTitle">विवरण</h2>
+    <div id="modalContent"></div>
+    <div id="modalBtns" style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"></div>
+  </div>
 </div>
 
 <script type="module">
@@ -91,124 +113,316 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
-    authDomain: "ngo-certificate-system.firebaseapp.com",
-    projectId: "ngo-certificate-system",
-    storageBucket: "ngo-certificate-system.firebasestorage.app",
-    messagingSenderId: "664351169113",
-    appId: "1:664351169113:web:3c476e199d369615c6ef48"
+const FB = {
+  apiKey:"AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+  authDomain:"ngo-certificate-system.firebaseapp.com",
+  projectId:"ngo-certificate-system",
+  storageBucket:"ngo-certificate-system.firebasestorage.app",
+  messagingSenderId:"664351169113",
+  appId:"1:664351169113:web:3c476e199d369615c6ef48"
 };
-const app  = initializeApp(firebaseConfig);
+const app  = initializeApp(FB);
 const db   = getFirestore(app);
 const auth = getAuth(app);
 
-function esc(s){ return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-function statusBadge(s){ const cls=s==="Approved"?"approved":s==="Rejected"?"rejected":"pending"; return `<span class="status ${cls}">${esc(s||"Pending")}</span>`; }
+const LOGO = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
+const SIGN = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
 
-onAuthStateChanged(auth, user => {
-    if (!user) { window.location.href = "admin-login.html"; return; }
-    loadAll();
+function esc(s){return String(s||"—").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function badge(s){const c=s==="Approved"?"approved":s==="Rejected"?"rejected":"pending";return`<span class="badge ${c}">${esc(s||"Pending")}</span>`}
+
+// Auth check
+onAuthStateChanged(auth,user=>{
+  if(!user){window.location.href="admin-login.html";return}
+  loadAll();
 });
 
-document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth).then(() => window.location.href = "admin-login.html"));
+document.getElementById("logoutBtn").addEventListener("click",()=>signOut(auth).then(()=>window.location.href="admin-login.html"));
 
-async function countCol(colName, elId) {
-    try { const s = await getDocs(collection(db, colName)); document.getElementById(elId).textContent = s.size; }
-    catch { document.getElementById(elId).textContent = "—"; }
+// Count collections
+async function cnt(col,el){
+  try{const s=await getDocs(collection(db,col));document.getElementById(el).textContent=s.size}
+  catch{document.getElementById(el).textContent="—"}
 }
 
-async function loadAll() {
-    countCol("Appointments", "totalAppointments");
-    countCol("IDcard",       "totalIDCards");
-    countCol("Certificates", "totalCertificates");
-    countCol("Volunteers",   "totalVolunteers");
-    countCol("DailyReports", "totalReports");
-    countCol("StudentRegistrations", "totalStudents");
-    loadAppointments();
-    loadIDCards();
-    loadStudents();
+async function loadAll(){
+  cnt("Appointments","cA"); cnt("IDcard","cI"); cnt("Certificates","cC");
+  cnt("Volunteers","cV"); cnt("DailyReports","cR"); cnt("StudentRegistrations","cS");
+  loadAppointments(); loadIDCards(); loadStudents();
 }
 
-async function loadAppointments() {
-    const body = document.getElementById("appointmentBody");
-    try {
-        const snap = await getDocs(collection(db, "Appointments"));
-        if (snap.empty) { body.innerHTML = "<tr><td colspan='6'>कोई आवेदन नहीं।</td></tr>"; return; }
-        body.innerHTML = "";
-        snap.forEach(d => {
-            const x = d.data();
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${esc(x.fee)}</td><td>${statusBadge(x.status)}</td>
-            <td><button class="btn approve" data-col="Appointments" data-id="${d.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅ Approve</button>
-                <button class="btn reject"  data-col="Appointments" data-id="${d.id}" data-action="Rejected">❌ Reject</button></td>`;
-            body.appendChild(row);
-        });
-    } catch(e) { body.innerHTML = `<tr><td colspan='6'>त्रुटि: ${esc(e.message)}</td></tr>`; }
-}
-
-async function loadIDCards() {
-    const body = document.getElementById("idcardBody");
-    try {
-        const snap = await getDocs(collection(db, "IDcard"));
-        if (snap.empty) { body.innerHTML = "<tr><td colspan='5'>कोई आवेदन नहीं।</td></tr>"; return; }
-        body.innerHTML = "";
-        snap.forEach(d => {
-            const x = d.data();
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${statusBadge(x.status)}</td>
-            <td><button class="btn approve" data-col="IDcard" data-id="${d.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅ Approve</button>
-                <button class="btn reject"  data-col="IDcard" data-id="${d.id}" data-action="Rejected">❌ Reject</button></td>`;
-            body.appendChild(row);
-        });
-    } catch(e) { body.innerHTML = `<tr><td colspan='5'>त्रुटि: ${esc(e.message)}</td></tr>`; }
-}
-
-async function loadStudents() {
-    const body = document.getElementById("studentBody");
-    try {
-        const snap = await getDocs(collection(db, "StudentRegistrations"));
-        if (snap.empty) { body.innerHTML = "<tr><td colspan='4'>कोई पंजीकरण नहीं।</td></tr>"; return; }
-        body.innerHTML = "";
-        snap.forEach(d => {
-            const x = d.data();
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td>${statusBadge(x.status)}</td>
-            <td><button class="btn approve" data-col="StudentRegistrations" data-id="${d.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅ Approve</button>
-                <button class="btn reject"  data-col="StudentRegistrations" data-id="${d.id}" data-action="Rejected">❌ Reject</button></td>`;
-            body.appendChild(row);
-        });
-    } catch(e) { body.innerHTML = `<tr><td colspan='4'>त्रुटि: ${esc(e.message)}</td></tr>`; }
-}
-
-// Action buttons
-document.body.addEventListener("click", async e => {
-    const btn = e.target.closest("button[data-action]");
-    if (!btn) return;
-    const { col, id, name, email, action } = btn.dataset;
-    if (!confirm(`क्या आप "${name || id}" को ${action} करना चाहते हैं?`)) return;
-    btn.disabled = true;
-    try {
-        await updateDoc(doc(db, col, id), { status: action });
-        if (action === "Approved" && email && typeof emailjs !== "undefined") {
-            await emailjs.send("service_63pefgf", "template_wvzbj7p", {
-                user_name: name, user_email: email, name, email,
-                designation: col + " — Approved", doc_id: id, type: col
-            });
-        }
-        alert("✅ स्थिति अपडेट हो गई: " + action);
-        location.reload();
-    } catch(err) { alert("❌ त्रुटि: " + err.message); btn.disabled = false; }
-});
-
-window.showTab = function(tab) {
-    ["appointments","idcards","students"].forEach(t => {
-        document.getElementById("tab-"+t).style.display = t===tab ? "block" : "none";
+// ─── APPOINTMENTS ───
+window._appData={};
+async function loadAppointments(){
+  const body=document.getElementById("bodyApp");
+  try{
+    const snap=await getDocs(collection(db,"Appointments"));
+    if(snap.empty){body.innerHTML="<tr><td colspan='6' class='loading'>कोई आवेदन नहीं।</td></tr>";return}
+    body.innerHTML="";
+    snap.forEach(d=>{
+      const x=d.data(); window._appData[d.id]=x;
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${esc(x.fee)}</td><td>${badge(x.status)}</td>
+      <td>
+        <button class="btn pdf" onclick="openApp('${d.id}')">👁️ देखें</button>
+        <button class="btn approve" onclick="doAction('Appointments','${d.id}','Approved','${esc(x.name)}','${esc(x.email)}')">✅ Approve</button>
+        <button class="btn reject" onclick="doAction('Appointments','${d.id}','Rejected','${esc(x.name)}','')">❌ Reject</button>
+      </td>`;
+      body.appendChild(tr);
     });
-    document.querySelectorAll(".tab").forEach((el,i) => {
-        el.classList.toggle("active", ["appointments","idcards","students"][i]===tab);
-    });
+  }catch(e){body.innerHTML=`<tr><td colspan='6' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
+}
+
+window.openApp=function(id){
+  const x=window._appData[id]; if(!x) return;
+  document.getElementById("modalTitle").textContent="📋 नियुक्ति आवेदन विवरण";
+  document.getElementById("modalContent").innerHTML=`
+  <table class="detail-table">
+    <tr><td>पूरा नाम</td><td>${esc(x.name)}</td></tr>
+    <tr><td>पिता/पति का नाम</td><td>${esc(x.fatherName||x.father_name)}</td></tr>
+    <tr><td>पद</td><td>${esc(x.designation)}</td></tr>
+    <tr><td>मोबाइल</td><td>${esc(x.mobile)}</td></tr>
+    <tr><td>ईमेल</td><td>${esc(x.email)}</td></tr>
+    <tr><td>पता</td><td>${esc(x.address)}</td></tr>
+    <tr><td>सहयोग राशि</td><td><strong>${esc(x.fee)}</strong></td></tr>
+    <tr><td>शैक्षिक योग्यता</td><td>${esc(x.education)}</td></tr>
+    <tr><td>सेवा क्षेत्र</td><td>${esc(x.serviceArea)}</td></tr>
+    <tr><td>भुगतान स्थिति</td><td>${esc(x.paymentStatus)}</td></tr>
+    <tr><td>स्थिति</td><td>${badge(x.status)}</td></tr>
+  </table>`;
+  document.getElementById("modalBtns").innerHTML=`
+    <button class="btn approve" onclick="doAction('Appointments','${id}','Approved','${esc(x.name)}','${esc(x.email)}');closeModal()">✅ Approve करें</button>
+    <button class="btn reject" onclick="doAction('Appointments','${id}','Rejected','${esc(x.name)}','');closeModal()">❌ Reject करें</button>
+    <button class="btn pdf" onclick="genAppPDF('${id}')">📄 नियुक्ति पत्र PDF</button>`;
+  document.getElementById("modalBg").classList.add("show");
 };
+
+window.genAppPDF=function(id){
+  const x=window._appData[id]; if(!x) return;
+  const now=new Date();
+  const dateStr=now.toLocaleDateString("hi-IN",{day:"2-digit",month:"long",year:"numeric"});
+  const letterNo="USS/APP/"+now.getFullYear()+"/"+String(Date.now()).slice(-6);
+  const FEE={
+    "Volunteer (स्वयंसेवक)":"₹700","ग्राम गौ-संयोजक":"₹150","ब्लॉक गौ-प्रभारी":"₹500",
+    "जिला गौ-समन्वयक":"₹1,100","प्रदेश कार्यकारिणी सदस्य":"₹2,500","राष्ट्रीय गौ-पदाधिकारी":"₹5,100 – ₹11,000"
+  };
+  const fee=x.fee||FEE[x.designation]||"—";
+  const el=document.createElement("div");
+  el.style.cssText="width:794px;padding:0;background:white;font-family:Arial,sans-serif;color:#000";
+  el.innerHTML=`
+  <div style="border:5px double #d4af37;padding:36px;min-height:1100px;position:relative">
+    <div style="text-align:center;margin-bottom:14px">
+      <img src="${LOGO}" crossorigin="anonymous" style="width:75px;height:75px;border-radius:50%;border:3px solid #d4af37;margin-bottom:8px">
+      <h1 style="color:#4a0404;font-size:20px;margin:0">उन्नति स्वयं सहायता समिति</h1>
+      <p style="color:#555;font-size:11px;margin:4px 0">गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • राष्ट्र सेवा</p>
+      <p style="color:#777;font-size:10px;margin:2px 0">NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q | CSR: CSR00102587</p>
+      <p style="color:#777;font-size:10px;margin:2px 0">Reg: UK0660892021006667 | Halduchaur Deena, Lalkuan, Nainital-263139 | 📱 9410332400</p>
+      <hr style="border:2px solid #d4af37;margin:10px 0">
+      <h2 style="color:#4a0404;font-size:15px;letter-spacing:2px;margin:0">नियुक्ति पत्र (APPOINTMENT LETTER)</h2>
+      <hr style="border:1px solid #d4af37;margin:8px 0">
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:#333;margin-bottom:18px">
+      <div><strong>पत्र संख्या:</strong> ${letterNo}</div>
+      <div><strong>दिनांक:</strong> ${dateStr}</div>
+    </div>
+    <div style="background:#fff8e1;border:1.5px solid #ffd700;border-radius:8px;padding:14px;margin-bottom:18px">
+      <h3 style="color:#4a0404;font-size:12px;margin-bottom:10px;border-bottom:1px solid #ffd700;padding-bottom:5px">📋 नियुक्त व्यक्ति का विवरण</h3>
+      <table style="width:100%;font-size:11px;border-collapse:collapse">
+        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404;width:38%">नाम:</td><td style="padding:4px 8px">${x.name||"—"}</td></tr>
+        <tr style="background:#fffef5"><td style="padding:4px 8px;font-weight:700;color:#4a0404">पिता/पति का नाम:</td><td style="padding:4px 8px">${x.fatherName||x.father_name||"—"}</td></tr>
+        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404">मोबाइल:</td><td style="padding:4px 8px">${x.mobile||"—"}</td></tr>
+        <tr style="background:#fffef5"><td style="padding:4px 8px;font-weight:700;color:#4a0404">ईमेल:</td><td style="padding:4px 8px">${x.email||"—"}</td></tr>
+        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404">पता:</td><td style="padding:4px 8px">${x.address||"—"}</td></tr>
+        <tr style="background:#fffef5"><td style="padding:4px 8px;font-weight:700;color:#4a0404">पद (Designation):</td><td style="padding:4px 8px;font-weight:700;color:#4a0404">${x.designation||"—"}</td></tr>
+        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404">सहयोग राशि:</td><td style="padding:4px 8px;font-weight:700;color:#c0392b">${fee}</td></tr>
+      </table>
+    </div>
+    <div style="font-size:12px;line-height:1.9;color:#222;margin-bottom:18px;text-align:justify">
+      <p>महोदय/महोदया,</p><br>
+      <p>उन्नति स्वयं सहायता समिति आपकी सामाजिक सेवा एवं गौ-संरक्षण के प्रति समर्पण का स्वागत करती है। आपके आवेदन एवं प्रशासनिक सहयोग राशि के भुगतान के पश्चात, आपको संस्था के अंतर्गत <strong style="color:#4a0404">${x.designation||"—"}</strong> पद पर तत्काल प्रभाव से नियुक्त किया जाता है।</p><br>
+      <p>आप अपने क्षेत्र में गौ सेवा, घायल गोवंश सहायता, पर्यावरण संरक्षण एवं समाज सेवा में सक्रिय भूमिका निभाएंगे। गौ माता को राष्ट्रमाता का सम्मान दिलाने के संस्था के उद्देश्य में आपका सहयोग अपेक्षित है।</p><br>
+      <p><strong>महत्वपूर्ण:</strong> इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु किया जाए। किसी से धन की मांग करना या संस्था के नाम पर अवैध कार्य करना दंडनीय अपराध होगा।</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:36px">
+      <div style="font-size:10px;color:#555">
+        <p>नियुक्त व्यक्ति के हस्ताक्षर</p>
+        <div style="margin-top:28px;border-top:1px solid #999;width:150px"></div>
+        <p style="margin-top:3px">${x.name||""}</p>
+      </div>
+      <div style="text-align:center">
+        <img src="${SIGN}" crossorigin="anonymous" style="height:55px;max-width:170px;object-fit:contain">
+        <div style="border-top:1px solid #999;margin-top:3px"></div>
+        <p style="font-size:10px;font-weight:700;color:#4a0404;margin-top:3px">अधिकृत हस्ताक्षर</p>
+        <p style="font-size:9px;color:#555">राष्ट्रीय सचिव — उन्नति स्वयं सहायता समिति</p>
+      </div>
+    </div>
+    <div style="margin-top:24px;text-align:center;border-top:1.5px solid #d4af37;padding-top:8px">
+      <p style="font-size:9px;color:#777">Reg: UK0660892021006667 | Valid: 30-01-2031 | NGO Darpan: UA/2016/0108273</p>
+      <p style="font-size:9px;color:#4a0404;font-weight:700">unnatiselfhelpgroup-creator.github.io | unnatiselfhelpgroup@gmail.com | 9410332400</p>
+    </div>
+  </div>`;
+  const opt={margin:4,filename:(x.name||"Appointment")+"-NiyuktiPatra.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,useCORS:true,allowTaint:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};
+  html2pdf().set(opt).from(el).save();
+};
+
+// ─── ID CARDS ───
+window._idData={};
+async function loadIDCards(){
+  const body=document.getElementById("bodyID");
+  try{
+    const snap=await getDocs(collection(db,"IDcard"));
+    if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई आवेदन नहीं।</td></tr>";return}
+    body.innerHTML="";
+    snap.forEach(d=>{
+      const x=d.data(); window._idData[d.id]=x;
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${badge(x.status)}</td>
+      <td>
+        <button class="btn pdf" onclick="openID('${d.id}')">👁️ देखें</button>
+        <button class="btn approve" onclick="doAction('IDcard','${d.id}','Approved','${esc(x.name)}','${esc(x.email)}')">✅ Approve</button>
+        <button class="btn reject" onclick="doAction('IDcard','${d.id}','Rejected','${esc(x.name)}','')">❌ Reject</button>
+      </td>`;
+      body.appendChild(tr);
+    });
+  }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
+}
+
+window.openID=function(id){
+  const x=window._idData[id]; if(!x) return;
+  document.getElementById("modalTitle").textContent="🪪 ID Card आवेदन विवरण";
+  document.getElementById("modalContent").innerHTML=`
+  <table class="detail-table">
+    <tr><td>पूरा नाम</td><td>${esc(x.name)}</td></tr>
+    <tr><td>पद</td><td>${esc(x.designation)}</td></tr>
+    <tr><td>मोबाइल</td><td>${esc(x.mobile)}</td></tr>
+    <tr><td>ईमेल</td><td>${esc(x.email)}</td></tr>
+    <tr><td>पता</td><td>${esc(x.address)}</td></tr>
+    <tr><td>जन्म तिथि</td><td>${esc(x.dob)}</td></tr>
+    <tr><td>Blood Group</td><td>${esc(x.bloodGroup)}</td></tr>
+    <tr><td>शुल्क</td><td><strong>${esc(x.fee)}</strong></td></tr>
+    <tr><td>स्थिति</td><td>${badge(x.status)}</td></tr>
+  </table>`;
+  document.getElementById("modalBtns").innerHTML=`
+    <button class="btn approve" onclick="doAction('IDcard','${id}','Approved','${esc(x.name)}','${esc(x.email)}');closeModal()">✅ Approve</button>
+    <button class="btn reject" onclick="doAction('IDcard','${id}','Rejected','${esc(x.name)}','');closeModal()">❌ Reject</button>
+    <button class="btn idpdf" onclick="genIDCard('${id}')">🪪 ID Card PDF</button>`;
+  document.getElementById("modalBg").classList.add("show");
+};
+
+window.genIDCard=function(id){
+  const x=window._idData[id]; if(!x) return;
+  const vid="USSS-"+String(Date.now()).slice(-7);
+  const el=document.createElement("div");
+  el.style.cssText="width:794px;padding:0;background:white;font-family:Arial,sans-serif";
+  el.innerHTML=`
+  <div style="border:4px double #d4af37;padding:30px;background:#fff">
+    <!-- FRONT -->
+    <div style="border:2px solid #d4af37;border-radius:12px;padding:20px;margin-bottom:20px;background:linear-gradient(135deg,#071b34,#0f2d54);color:#fff">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:2px solid #d4af37;padding-bottom:12px">
+        <img src="${LOGO}" crossorigin="anonymous" style="width:60px;height:60px;border-radius:50%;border:2px solid #d4af37">
+        <div>
+          <div style="color:#d4af37;font-size:13px;font-weight:700">उन्नति स्वयं सहायता समिति</div>
+          <div style="color:#ccc;font-size:10px">UNNATI SAWAYE SAHAYATA SAMITI</div>
+          <div style="color:#aaa;font-size:9px">NGO Darpan: UA/2016/0108273</div>
+        </div>
+        <div style="margin-left:auto;text-align:center">
+          <div style="background:#d4af37;color:#071b34;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px">MEMBER ID CARD</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div style="width:80px;height:100px;border:2px solid #d4af37;border-radius:6px;background:#0a2347;display:flex;align-items:center;justify-content:center;font-size:10px;color:#888;flex-shrink:0">PHOTO</div>
+        <div style="flex:1;font-size:11px">
+          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">नाम:</span> <span style="color:#fff;font-size:12px;font-weight:700">${x.name||"—"}</span></div>
+          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">पद:</span> <span style="color:#fff">${x.designation||"—"}</span></div>
+          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">पिता/पति:</span> <span style="color:#fff">${x.fatherName||x.father_name||"—"}</span></div>
+          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">मोबाइल:</span> <span style="color:#fff">${x.mobile||"—"}</span></div>
+          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">ID:</span> <span style="color:#d4af37;font-weight:700">${vid}</span></div>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #d4af37;padding-top:10px">
+        <div style="font-size:9px;color:#aaa">${x.address||""}</div>
+        <div style="text-align:center">
+          <img src="${SIGN}" crossorigin="anonymous" style="height:35px;object-fit:contain">
+          <div style="font-size:9px;color:#d4af37;margin-top:2px">अधिकृत हस्ताक्षर</div>
+        </div>
+      </div>
+    </div>
+    <!-- BACK -->
+    <div style="border:2px solid #d4af37;border-radius:12px;padding:20px;background:#071b34;color:#fff">
+      <div style="text-align:center;margin-bottom:14px;border-bottom:2px solid #d4af37;padding-bottom:10px">
+        <div style="color:#d4af37;font-size:14px;font-weight:700">उन्नति स्वयं सहायता समिति</div>
+        <div style="color:#aaa;font-size:10px">Official Member ID Card — Back Side</div>
+      </div>
+      <div style="background:#d4af37;border-radius:8px;padding:10px;text-align:center;margin-bottom:14px">
+        <div style="color:#071b34;font-size:11px;font-weight:700">Volunteer ID</div>
+        <div style="color:#071b34;font-size:18px;font-weight:700;letter-spacing:2px">${vid}</div>
+      </div>
+      <div style="font-size:10px;line-height:1.8;color:#ddd">
+        <p>• यह कार्ड हस्तांतरणीय नहीं है।</p>
+        <p>• इस कार्ड का दुरुपयोग दंडनीय अपराध है।</p>
+        <p>• खोने पर तुरंत संस्था को सूचित करें।</p>
+        <p>• सभी गतिविधियाँ संविधान के दायरे में होंगी।</p>
+        <p>• नियुक्ति पत्र के नियम एवं शर्तें लागू होंगी।</p>
+      </div>
+      <div style="margin-top:14px;text-align:center;border-top:1px solid #d4af37;padding-top:10px;font-size:10px;color:#d4af37">
+        📞 9410332400 | unnatiselfhelpgroup@gmail.com
+      </div>
+    </div>
+  </div>`;
+  const opt={margin:4,filename:(x.name||"Member")+"-IDCard.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,useCORS:true,allowTaint:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};
+  html2pdf().set(opt).from(el).save();
+};
+
+// ─── STUDENTS ───
+window._stuData={};
+async function loadStudents(){
+  const body=document.getElementById("bodyStu");
+  try{
+    const snap=await getDocs(collection(db,"StudentRegistrations"));
+    if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई पंजीकरण नहीं।</td></tr>";return}
+    body.innerHTML="";
+    snap.forEach(d=>{
+      const x=d.data(); window._stuData[d.id]=x;
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td style="font-size:0.75rem">${esc(x.email)}</td><td>${badge(x.status)}</td>
+      <td>
+        <button class="btn approve" onclick="doAction('StudentRegistrations','${d.id}','Approved','${esc(x.name)}','${esc(x.email)}')">✅ Approve</button>
+        <button class="btn reject" onclick="doAction('StudentRegistrations','${d.id}','Rejected','${esc(x.name)}','')">❌ Reject</button>
+      </td>`;
+      body.appendChild(tr);
+    });
+  }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
+}
+
+// ─── APPROVE / REJECT ───
+window.doAction=async function(col,id,status,name,email){
+  if(!confirm(`"${name}" को ${status} करना चाहते हैं?`)) return;
+  try{
+    await updateDoc(doc(db,col,id),{status});
+    if(status==="Approved"&&email&&typeof emailjs!=="undefined"){
+      await emailjs.send("service_63pefgf","template_wvzbj7p",{
+        user_name:name,user_email:email,name,email,
+        designation:col+" — "+status,doc_id:id,type:col
+      });
+    }
+    alert("✅ "+status+" सफलतापूर्वक हो गया!");
+    loadAll();
+  }catch(err){alert("❌ त्रुटि: "+err.message)}
+};
+
+// ─── TABS ───
+window.showTab=function(tab){
+  ["app","id","stu"].forEach(t=>{
+    document.getElementById("tab-"+t).style.display=t===tab?"block":"none";
+  });
+  document.querySelectorAll(".tab").forEach((el,i)=>{
+    el.classList.toggle("active",["app","id","stu"][i]===tab);
+  });
+};
+
+// ─── MODAL ───
+window.closeModal=function(){document.getElementById("modalBg").classList.remove("show")};
+document.getElementById("modalBg").addEventListener("click",function(e){if(e.target===this)closeModal()});
 </script>
 </body>
 </html>
