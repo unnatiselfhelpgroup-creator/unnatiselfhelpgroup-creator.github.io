@@ -82,6 +82,9 @@
     .rti-card:hover{transform:translateY(-4px);background:var(--chov)}
     .rti-new{position:absolute;top:9px;right:9px;background:var(--gold);color:#2a0a0a;font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px}
 
+    /* LOCK BADGE */
+    .lock-badge{position:absolute;top:9px;right:9px;background:#4a0404;border:1px solid var(--gold);color:var(--gold-light);font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px;display:flex;align-items:center;gap:3px}
+
     /* RTI OVERLAY */
     .rti-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
     .rti-ov.on{display:flex}
@@ -183,10 +186,29 @@
 <div class="sec">
   <h2 class="sec-title">📑 संस्था के महत्वपूर्ण दस्तावेज</h2>
   <div class="g3">
-    <div class="card"><div><div class="ci">📋</div><h3>CSR-1 Registration</h3><p>संस्था का CSR-1 पंजीकरण प्रमाणपत्र।</p></div><a href="CSR-1Registration.pdf" target="_blank" class="cbtn">Open PDF</a></div>
-    <div class="card"><div><div class="ci">🪪</div><h3>NGO PAN Card</h3><p>संस्था का पैन कार्ड दस्तावेज।</p></div><a href="ngopancard.pdf" target="_blank" class="cbtn">Open PDF</a></div>
-    <div class="card"><div><div class="ci">📃</div><h3>Registration Certificate</h3><p>संस्था का पंजीकरण प्रमाणपत्र।</p></div><a href="ngorc.jpg" target="_blank" class="cbtn">View</a></div>
-    <!-- NGO Darpan Card -->
+
+    <!-- 1. CSR-1 Registration — LOCKED -->
+    <div class="card">
+      <span class="lock-badge">🔒 Admin Only</span>
+      <div><div class="ci">📋</div><h3>CSR-1 Registration</h3><p>संस्था का CSR-1 पंजीकरण प्रमाणपत्र।</p></div>
+      <button onclick="openDocLock('CSR-1Registration.pdf','open')" class="cbtn">🔒 Open PDF</button>
+    </div>
+
+    <!-- 2. NGO PAN Card — LOCKED -->
+    <div class="card">
+      <span class="lock-badge">🔒 Admin Only</span>
+      <div><div class="ci">🪪</div><h3>NGO PAN Card</h3><p>संस्था का पैन कार्ड दस्तावेज।</p></div>
+      <button onclick="openDocLock('ngopancard.pdf','open')" class="cbtn">🔒 Open PDF</button>
+    </div>
+
+    <!-- 3. Registration Certificate — LOCKED -->
+    <div class="card">
+      <span class="lock-badge">🔒 Admin Only</span>
+      <div><div class="ci">📃</div><h3>Registration Certificate</h3><p>संस्था का पंजीकरण प्रमाणपत्र।</p></div>
+      <button onclick="openDocLock('ngorc.jpg','open')" class="cbtn">🔒 View</button>
+    </div>
+
+    <!-- 4. NGO Darpan — LOCKED -->
     <div class="rti-card" style="border-color:#2d8a45;box-shadow:0 0 16px rgba(45,138,69,.28);">
       <span class="rti-new" style="background:#2d8a45;">Active</span>
       <div>
@@ -194,12 +216,12 @@
         <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">NGO Darpan / नीति आयोग</h3>
         <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">DARPAN ID: <strong style="color:var(--gold-light);">UA/2016/0108273</strong><br>स्थिति: <strong style="color:#4ade80;">Active ✓</strong></p>
       </div>
-      <button onclick="document.getElementById('darpanOv').classList.add('on')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
-        🏛️ NGO Darpan विवरण देखें ›
+      <button onclick="openDocLock('darpanOv','panel')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
+        🔒 NGO Darpan विवरण देखें ›
       </button>
     </div>
 
-    <!-- ★★★ RTI CARD — QR Code की जगह ★★★ -->
+    <!-- 5. RTI — LOCKED -->
     <div class="rti-card">
       <span class="rti-new">नया</span>
       <div>
@@ -207,13 +229,18 @@
         <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">सूचना का अधिकार (RTI)</h3>
         <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">RTI अधिनियम 2005 के अंतर्गत दायर आवेदन एवं द्वितीय अपील के दस्तावेज़ यहाँ देखें।</p>
       </div>
-      <button onclick="document.getElementById('rtiOv').classList.add('on')" class="cbtn" style="margin-top:12px;">
-        📂 RTI दस्तावेज़ देखें ›
+      <button onclick="openDocLock('rtiOv','panel')" class="cbtn" style="margin-top:12px;">
+        🔒 RTI दस्तावेज़ देखें ›
       </button>
     </div>
 
-    <!-- Balance Sheet -->
-    <div class="card"><div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div><button onclick="document.getElementById('balMod').classList.add('on')" class="cbtn">🔒 Open Balance Sheet</button></div>
+    <!-- 6. Balance Sheet — LOCKED (already was) -->
+    <div class="card">
+      <span class="lock-badge">🔒 Admin Only</span>
+      <div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div>
+      <button onclick="openDocLock('bsMod','modal')" class="cbtn">🔒 Open Balance Sheet</button>
+    </div>
+
   </div>
 </div>
 
@@ -311,13 +338,12 @@
     <div class="card" style="min-height:auto;"><h3>Terms & Conditions</h3><p>वेबसाइट उपयोग के नियम एवं शर्तें।</p><a href="terms.html" class="cbtn">Open</a></div>
     <div class="card" style="min-height:auto;"><h3>Disclaimer</h3><p>वेबसाइट एवं संस्था संबंधी अस्वीकरण।</p><a href="disclaimer.html" class="cbtn">Open</a></div>
     <div class="card" style="min-height:auto;"><h3>Donation Policy</h3><p>दान की शर्तें एवं उपयोग संबंधी नीति।</p><a href="donation.html" class="cbtn">Open</a></div>
-  <div class="card" style="min-height:auto;">
-  <div class="ci">🌐</div>
-  <h3>self4society.html</h3>
-  <p>सरकारी जन-जागरूकता अभियानों एवं MyGov भागीदारी का विवरण।</p>
-  <a href="self4society.html" class="cbtn">विवरण देखें</a>
-  </div>
-    
+    <div class="card" style="min-height:auto;">
+      <div class="ci">🌐</div>
+      <h3>self4society.html</h3>
+      <p>सरकारी जन-जागरूकता अभियानों एवं MyGov भागीदारी का विवरण।</p>
+      <a href="self4society.html" class="cbtn">विवरण देखें</a>
+    </div>
   </div>
 </div>
 
@@ -370,13 +396,11 @@
       <button class="rti-x" onclick="document.getElementById('darpanOv').classList.remove('on')">✕</button>
     </div>
     <div class="rti-bd">
-
       <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;">🪪 DARPAN पहचान</div>
       <div class="rti-row"><span class="rti-l">DARPAN ID</span><span class="rti-v" style="color:#1a5c2a;font-size:.95rem;">UA/2016/0108273</span></div>
       <div class="rti-row"><span class="rti-l">DARPAN Status</span><span class="rti-v"><span style="background:#d1fae5;color:#065f46;padding:2px 10px;border-radius:20px;font-size:.72rem;font-weight:700;">✅ Active</span></span></div>
       <div class="rti-row"><span class="rti-l">Registration No.</span><span class="rti-v">UK0660892021006667</span></div>
       <div class="rti-row"><span class="rti-l">पंजीकरण दिनांक</span><span class="rti-v">01-02-2016</span></div>
-
       <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">🏢 संस्था विवरण</div>
       <div class="rti-row"><span class="rti-l">संस्था का नाम</span><span class="rti-v">UNNATI SAWAYE SAHAYTA SAMITI</span></div>
       <div class="rti-row"><span class="rti-l">PAN Number</span><span class="rti-v">AAATU7133Q</span></div>
@@ -385,50 +409,26 @@
       <div class="rti-row"><span class="rti-l">Act</span><span class="rti-v">Under Act 1860</span></div>
       <div class="rti-row"><span class="rti-l">Registering Authority</span><span class="rti-v">Registrar of Societies</span></div>
       <div class="rti-row"><span class="rti-l">Validity</span><span class="rti-v" style="color:#1a5c2a;font-weight:700;">30-01-2031 ✓</span></div>
-
       <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">📍 पता</div>
       <div class="rti-row" style="flex-direction:column;gap:3px;">
         <span class="rti-l">NPO Address</span>
         <span class="rti-v" style="font-size:.8rem;line-height:1.6;">VILL-HALDUCHAUR DEENA, PO-HALDUCHAUR,<br>TEHSIL-LALKUAN, DISTT-NAINITAL,<br>STATE-UTTARAKHAND (INDIA) — 263139</span>
       </div>
       <div class="rti-row"><span class="rti-l">District</span><span class="rti-v">NAINITAL (Uttarakhand)</span></div>
-
       <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">👥 Board Members (4)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
-          <div style="font-weight:700;color:#065f46;">KAVITABHATT</div>
-          <div style="color:#555;">Chairman</div>
-          <div style="color:#888;">Since: 01-02-2016</div>
-        </div>
-        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
-          <div style="font-weight:700;color:#065f46;">VINOD CHANDER BHATT</div>
-          <div style="color:#555;">Secretary</div>
-          <div style="color:#888;">Since: 13-02-2022</div>
-        </div>
-        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
-          <div style="font-weight:700;color:#065f46;">VINODCHANDRA BHATT</div>
-          <div style="color:#555;">Secretary</div>
-          <div style="color:#888;">Since: 01-02-2016</div>
-        </div>
-        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;">
-          <div style="font-weight:700;color:#065f46;">HEMLATAJOSHI</div>
-          <div style="color:#555;">Treasurer</div>
-          <div style="color:#888;">Since: 01-02-2016</div>
-        </div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;"><div style="font-weight:700;color:#065f46;">KAVITABHATT</div><div style="color:#555;">Chairman</div><div style="color:#888;">Since: 01-02-2016</div></div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;"><div style="font-weight:700;color:#065f46;">VINOD CHANDER BHATT</div><div style="color:#555;">Secretary</div><div style="color:#888;">Since: 13-02-2022</div></div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;"><div style="font-weight:700;color:#065f46;">VINODCHANDRA BHATT</div><div style="color:#555;">Secretary</div><div style="color:#888;">Since: 01-02-2016</div></div>
+        <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.76rem;"><div style="font-weight:700;color:#065f46;">HEMLATAJOSHI</div><div style="color:#555;">Treasurer</div><div style="color:#888;">Since: 01-02-2016</div></div>
       </div>
-
       <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:6px;">🎯 कार्य क्षेत्र</div>
       <div style="background:#f0fdf4;border-radius:8px;padding:10px;font-size:.78rem;color:#1a5c2a;line-height:1.7;">
         Animal Husbandry, Dairying &amp; Fisheries • New &amp; Renewable Energy • Right to Information &amp; Advocacy • Rural Development &amp; Poverty Alleviation • Animal Welfare • Disaster Management • Environment &amp; Forests
       </div>
-
       <div class="rti-sl" style="color:#1a5c2a;border-color:#86efac;margin-top:14px;">📑 दस्तावेज़</div>
-      <a href="ngodarpan.pdf" download class="rti-abtn" style="background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
-        ⬇️ NGO Darpan PDF डाउनलोड करें
-      </a>
-      <a href="https://ngodarpan.gov.in" target="_blank" class="rti-abtn" style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;margin-top:8px;">
-        🌐 NGO Darpan Portal पर देखें
-      </a>
+      <a href="ngodarpan.pdf" download class="rti-abtn" style="background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">⬇️ NGO Darpan PDF डाउनलोड करें</a>
+      <a href="https://ngodarpan.gov.in" target="_blank" class="rti-abtn" style="background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;margin-top:8px;">🌐 NGO Darpan Portal पर देखें</a>
     </div>
   </div>
 </div>
@@ -463,17 +463,19 @@
   </div>
 </div>
 
-<!-- Balance Sheet Modal -->
-<div id="balMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
+<!-- ══════ UNIFIED DOC LOGIN MODAL ══════ -->
+<div id="docLoginMod" class="mod-ov" onclick="if(event.target===this)closeDocLogin()">
   <div class="mod-box">
-    <button class="mod-x" onclick="document.getElementById('balMod').classList.remove('on')">✕</button>
-    <h3>🔐 Admin Login<br/><small style="font-size:.72rem;color:var(--tm);">बैलेंस शीट देखने हेतु</small></h3>
-    <div class="mod-err" id="lerr">❌ गलत Email या Password</div>
-    <input type="email" id="aemail" class="mod-inp" placeholder="Admin Email"/>
-    <input type="password" id="apass" class="mod-inp" placeholder="Password"/>
-    <button onclick="doLogin()" class="cbtn">🔓 Login करें</button>
+    <button class="mod-x" onclick="closeDocLogin()">✕</button>
+    <h3>🔐 Admin Login<br/><small style="font-size:.72rem;color:var(--tm);">दस्तावेज़ देखने हेतु</small></h3>
+    <div class="mod-err" id="docErr">❌ गलत Email या Password</div>
+    <input type="email" id="docEmail" class="mod-inp" placeholder="Admin Email"/>
+    <input type="password" id="docPass" class="mod-inp" placeholder="Password"/>
+    <button onclick="doDocLogin()" class="cbtn" id="docLoginBtn">🔓 Login करें</button>
   </div>
 </div>
+
+<!-- Balance Sheet View Modal (after login) -->
 <div id="bsMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="mod-box" style="max-width:480px;">
     <button class="mod-x" onclick="document.getElementById('bsMod').classList.remove('on')">✕</button>
@@ -489,34 +491,81 @@
 </div>
 
 <script>
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){
-    ['rtiOv','darpanOv','balMod','bsMod'].forEach(function(id){document.getElementById(id).classList.remove('on')});
+// ── Pending action after login ──
+var _pendingTarget = null;
+var _pendingType = null;  // 'open' | 'panel' | 'modal'
+
+function openDocLock(target, type) {
+  // Check if already logged in via Firebase
+  var user = firebase.auth().currentUser;
+  if (user) {
+    executeDocAction(target, type);
+    return;
   }
-});
-function doLogin(){
-  var e=document.getElementById('aemail').value.trim();
-  var p=document.getElementById('apass').value.trim();
-  var btn=document.querySelector('#balMod .cbtn');
-  if(!e||!p){document.getElementById('lerr').classList.add('on');return;}
-  if(btn){btn.textContent='⏳ Login हो रहा है...';}
-  firebase.auth().signInWithEmailAndPassword(e,p)
-    .then(function(){
-      document.getElementById('balMod').classList.remove('on');
-      document.getElementById('bsMod').classList.add('on');
-      document.getElementById('lerr').classList.remove('on');
-      if(btn){btn.textContent='🔓 Login करें';}
+  // Not logged in — show login modal
+  _pendingTarget = target;
+  _pendingType = type;
+  document.getElementById('docErr').classList.remove('on');
+  document.getElementById('docEmail').value = '';
+  document.getElementById('docPass').value = '';
+  document.getElementById('docLoginBtn').textContent = '🔓 Login करें';
+  document.getElementById('docLoginMod').classList.add('on');
+}
+
+function closeDocLogin() {
+  document.getElementById('docLoginMod').classList.remove('on');
+  _pendingTarget = null;
+  _pendingType = null;
+}
+
+function doDocLogin() {
+  var e = document.getElementById('docEmail').value.trim();
+  var p = document.getElementById('docPass').value.trim();
+  var btn = document.getElementById('docLoginBtn');
+  if (!e || !p) { document.getElementById('docErr').classList.add('on'); return; }
+  btn.textContent = '⏳ Login हो रहा है...';
+  firebase.auth().signInWithEmailAndPassword(e, p)
+    .then(function() {
+      document.getElementById('docLoginMod').classList.remove('on');
+      document.getElementById('docErr').classList.remove('on');
+      btn.textContent = '🔓 Login करें';
+      if (_pendingTarget) {
+        executeDocAction(_pendingTarget, _pendingType);
+        _pendingTarget = null;
+        _pendingType = null;
+      }
     })
-    .catch(function(){
-      document.getElementById('lerr').classList.add('on');
-      if(btn){btn.textContent='🔓 Login करें';}
+    .catch(function() {
+      document.getElementById('docErr').classList.add('on');
+      btn.textContent = '🔓 Login करें';
     });
 }
+
+function executeDocAction(target, type) {
+  if (type === 'open') {
+    window.open(target, '_blank');
+  } else if (type === 'panel') {
+    document.getElementById(target).classList.add('on');
+  } else if (type === 'modal') {
+    document.getElementById(target).classList.add('on');
+  }
+}
+
+// Escape key closes all overlays
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    ['rtiOv','darpanOv','bsMod','docLoginMod'].forEach(function(id) {
+      document.getElementById(id).classList.remove('on');
+    });
+  }
+});
+
 // Protect org name from wrong translation
 document.addEventListener('DOMContentLoaded', function() {
   var orgElements = document.querySelectorAll('[translate="no"], .notranslate');
   orgElements.forEach(function(el) { el.setAttribute('translate','no'); });
 });
+
 function googleTranslateElementInit(){
   new google.translate.TranslateElement({pageLanguage:'hi',includedLanguages:'en,hi,pa,gu,mr,bn,ta,te,kn,ml,ur',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'gte');
 }
