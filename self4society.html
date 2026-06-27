@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Self4Society | MyGov अभियान | उन्नति स्वयं सहायता समिति</title>
-<meta name="description" content="उन्नति स्वयं सहायता समिति द्वारा Self4Society / MyGov प्लेटफॉर्म पर सरकारी जन-जागरूकता अभियानों में सहभागिता।">
+<title>Self4Society | MyGov Corona Warrior | उन्नति स्वयं सहायता समिति</title>
+<meta name="description" content="उन्नति स्वयं सहायता समिति की भारत सरकार Self4Society/MyGov पर 4 आधिकारिक Corona Warrior Stories — नैनीताल, उत्तराखंड 2020।">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root{--gold:#d4af37;--dark:#071b34;--red:#4a0404;--red2:#2f0303}
+  :root{--gold:#d4af37;--red:#4a0404;--red2:#2f0303}
   *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
   body{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;min-height:100vh}
 
@@ -17,27 +17,48 @@
   .back-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:rgba(255,255,255,.1);color:var(--gold);border-radius:50px;text-decoration:none;font-weight:700;border:1px solid var(--gold);margin-top:10px;font-size:.82rem;transition:.3s}
   .back-btn:hover{background:var(--gold);color:#1b2430}
 
-  .sec{max-width:860px;margin:0 auto;padding:28px 14px}
-  .sec-title{text-align:center;color:var(--gold);font-size:clamp(1rem,3.5vw,1.4rem);margin:0 0 20px;text-shadow:0 0 10px gold}
+  .sec{max-width:900px;margin:0 auto;padding:28px 14px}
+  .sec-title{text-align:center;color:var(--gold);font-size:clamp(1rem,3.5vw,1.45rem);margin:0 0 20px;text-shadow:0 0 10px gold}
+
+  .badge-strip{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:22px}
+  .badge{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.5);color:var(--gold);padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:700}
 
   .intro-box{background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:18px 20px;color:#ccc;font-size:.88rem;line-height:1.9;margin-bottom:28px;text-align:center}
   .intro-box strong{color:var(--gold)}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-
-  .card{background:rgba(255,255,255,.07);border:1px solid rgba(212,175,55,.35);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:.3s}
-  .card:hover{background:rgba(255,255,255,.12);border-color:var(--gold);transform:translateY(-3px)}
-  .card-icon{font-size:2rem;text-align:center}
-  .card h3{color:var(--gold);font-size:.95rem;text-align:center}
-  .card p{color:#bbb;font-size:.82rem;line-height:1.7;flex:1}
-  .card-slogan{background:rgba(212,175,55,.12);border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 8px 8px 0;color:var(--gold);font-size:.8rem;font-weight:700;font-style:italic}
-
-  .btn{display:block;text-align:center;padding:10px 16px;border-radius:8px;font-size:.84rem;font-weight:700;text-decoration:none;transition:.2s;margin-top:4px;color:#fff}
-  .btn-green{background:linear-gradient(135deg,#1a5c2a,#2d8a45)}
+  /* STORY CARDS */
+  .story-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:16px;margin-bottom:30px}
+  .story-card{background:rgba(255,255,255,.08);border:2px solid rgba(212,175,55,.45);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:11px;transition:.3s}
+  .story-card:hover{background:rgba(255,255,255,.13);border-color:var(--gold);transform:translateY(-4px)}
+  .story-top{display:flex;align-items:flex-start;gap:10px}
+  .story-num{background:var(--gold);color:#1b2430;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.88rem;flex-shrink:0;margin-top:2px}
+  .story-card h3{color:var(--gold);font-size:.93rem;line-height:1.45}
+  .story-meta{display:flex;flex-direction:column;gap:5px}
+  .story-row{display:flex;gap:8px;font-size:.79rem}
+  .story-lbl{color:#999;min-width:68px;flex-shrink:0}
+  .story-val{color:#eee;font-weight:600}
+  .story-slogan{background:rgba(212,175,55,.12);border-left:3px solid var(--gold);padding:9px 13px;border-radius:0 8px 8px 0;color:var(--gold);font-size:.82rem;font-weight:700;font-style:italic;line-height:1.5}
+  .btn{display:block;text-align:center;padding:11px 14px;border-radius:9px;font-size:.84rem;font-weight:700;text-decoration:none;transition:.2s;margin-top:4px}
   .btn-gold{background:linear-gradient(135deg,#c8860a,var(--gold));color:#1b2430}
+  .btn-green{background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff}
   .btn:hover{opacity:.85}
 
-  .disclaimer{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:16px 18px;color:#aaa;font-size:.8rem;line-height:1.7;margin-top:28px}
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:28px}
+  .stat{background:rgba(255,255,255,.07);border:1px solid var(--gold);border-radius:12px;padding:14px;text-align:center}
+  .stat h2{color:var(--gold);font-size:1.5rem}
+  .stat p{color:#ccc;font-size:.74rem;margin-top:3px}
+
+  /* AWARENESS */
+  .aw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+  .aw-card{background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.25);border-radius:12px;padding:16px;text-align:center}
+  .aw-icon{font-size:1.7rem;margin-bottom:7px}
+  .aw-card h4{color:var(--gold);font-size:.86rem;margin-bottom:5px}
+  .aw-card p{color:#bbb;font-size:.77rem;line-height:1.6}
+
+  .all-btn-wrap{text-align:center;margin-bottom:28px}
+
+  .disclaimer{background:rgba(0,0,0,.3);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:16px 18px;color:#aaa;font-size:.8rem;line-height:1.7}
   .disclaimer strong{color:var(--gold)}
 
   footer{text-align:center;padding:24px 14px;color:#aaa;font-size:.8rem;border-top:1px solid rgba(212,175,55,.25);margin-top:16px}
@@ -47,78 +68,126 @@
 <body>
 
 <div class="hdr">
-  <h1>🌐 Self4Society — MyGov अभियान</h1>
-  <p>उन्नति स्वयं सहायता समिति — सरकारी जन-जागरूकता अभियान</p>
+  <h1>🌐 Self4Society — MyGov Corona Warrior</h1>
+  <p>उन्नति स्वयं सहायता समिति — भारत सरकार द्वारा प्रमाणित 4 Official Stories</p>
   <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> होम पेज पर वापस जाएं</a>
 </div>
 
 <div class="sec">
 
-  <div class="intro-box">
-    उन्नति स्वयं सहायता समिति ने भारत सरकार के <strong>Self4Society / MyGov</strong> प्लेटफॉर्म पर
-    सरकारी जन-जागरूकता अभियानों में सक्रिय भागीदारी की।<br>
-    इन अभियानों के माध्यम से कोरोना जागरूकता, मास्क वितरण, स्वच्छता एवं राष्ट्रीय संकल्प हेतु
-    जनसमुदाय को जोड़ा गया।
+  <div class="badge-strip">
+    <span class="badge">🏛️ भारत सरकार — MyGov</span>
+    <span class="badge">🦠 4 Corona Warrior Stories</span>
+    <span class="badge">📍 नैनीताल, उत्तराखंड</span>
+    <span class="badge">📅 सितम्बर–दिसम्बर 2020</span>
+    <span class="badge">✅ Self4Society पर प्रकाशित</span>
   </div>
 
-  <h2 class="sec-title">🏛️ सरकारी जन-जागरूकता अभियान</h2>
+  <div class="intro-box">
+    <strong>उन्नति स्वयं सहायता समिति</strong> की <strong>4 आधिकारिक Corona Warrior Stories</strong>
+    भारत सरकार के <strong>Self4Society / MyGov</strong> पोर्टल पर प्रकाशित हैं।<br>
+    नैनीताल, उत्तराखंड — सितम्बर से दिसम्बर 2020 तक कोरोना जागरूकता, मास्क वितरण
+    एवं राष्ट्रीय अभियान में सक्रिय भागीदारी।
+  </div>
 
-  <div class="grid">
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><h2>4</h2><p>Official Stories<br>MyGov पर</p></div>
+    <div class="stat"><h2>2020</h2><p>Corona Warrior<br>वर्ष</p></div>
+    <div class="stat"><h2>5+</h2><p>YouTube Videos<br>प्रकाशित</p></div>
+    <div class="stat"><h2>NIC</h2><p>National<br>Informatics</p></div>
+  </div>
 
-    <div class="card">
-      <div class="card-icon">😷</div>
-      <h3>कोरोना जागरूकता एवं मास्क वितरण अभियान</h3>
-      <p>COVID-19 से बचाव हेतु जन-जागरूकता, स्वास्थ्य शिक्षा एवं मास्क वितरण कार्यक्रम। समाज के हर वर्ग तक कोरोना से सुरक्षा के उपाय पहुँचाए गए।</p>
-      <div class="card-slogan">"मास्क को बनाओ ढाल — हमें जीतना है हर हाल"</div>
-      <a class="btn btn-green" href="https://www.mygov.in/campaigns/" target="_blank" rel="noopener">🌐 MyGov पोर्टल देखें</a>
+  <!-- 4 STORIES -->
+  <h2 class="sec-title">⭐ 4 Official Corona Warrior Stories — MyGov / Self4Society</h2>
+  <div class="story-grid">
+
+    <div class="story-card">
+      <div class="story-top">
+        <div class="story-num">1</div>
+        <h3>ध्यान रहे मास्क को बना कर ढाल — हमें जीतना है हर हाल</h3>
+      </div>
+      <div class="story-meta">
+        <div class="story-row"><span class="story-lbl">दिनांक</span><span class="story-val">6 सितम्बर 2020</span></div>
+        <div class="story-row"><span class="story-lbl">स्थान</span><span class="story-val">नैनीताल, उत्तराखंड</span></div>
+        <div class="story-row"><span class="story-lbl">Content</span><span class="story-val">4 Photos + YouTube Video</span></div>
+      </div>
+      <div class="story-slogan">"मास्क को बनाओ ढाल — हमें जीतना है हर हाल"</div>
+      <a class="btn btn-gold" href="https://self4society.mygov.in/story/%e0%a4%a7%e0%a5%8d%e0%a4%af%e0%a4%be%e0%a4%a8-%e0%a4%b0%e0%a4%b9%e0%a5%87-%e0%a4%ae%e0%a4%be%e0%a4%b8%e0%a5%8d%e0%a4%95-%e0%a4%95%e0%a5%8b-%e0%a4%ac%e0%a4%a8%e0%a4%be-%e0%a4%95%e0%a4%b0-%e0%a4%a2/" target="_blank" rel="noopener">⭐ Official Story देखें — MyGov</a>
     </div>
 
-    <div class="card">
-      <div class="card-icon">🛡️</div>
-      <h3>मास्क सुरक्षा — "टोकेंगे रोकेंगे" अभियान</h3>
-      <p>मास्क पहनने के लिए नागरिकों को प्रेरित करने हेतु जन-भागीदारी अभियान। सार्वजनिक स्थानों पर मास्क अनिवार्यता हेतु जागरूकता।</p>
-      <div class="card-slogan">"दो गज की दूरी है बहुत जरूरी"</div>
-      <a class="btn btn-green" href="https://www.mygov.in/campaigns/" target="_blank" rel="noopener">🌐 अभियान देखें</a>
+    <div class="story-card">
+      <div class="story-top">
+        <div class="story-num">2</div>
+        <h3>दो गज की दूरी है बहुत जरूरी — जब तक दवाई नहीं तब तक ढीलाई नहीं</h3>
+      </div>
+      <div class="story-meta">
+        <div class="story-row"><span class="story-lbl">दिनांक</span><span class="story-val">10 अक्टूबर 2020</span></div>
+        <div class="story-row"><span class="story-lbl">स्थान</span><span class="story-val">नैनीताल, उत्तराखंड</span></div>
+        <div class="story-row"><span class="story-lbl">Content</span><span class="story-val">1 Photo + YouTube Video</span></div>
+      </div>
+      <div class="story-slogan">"दो गज की दूरी है बहुत जरूरी"</div>
+      <a class="btn btn-gold" href="https://self4society.mygov.in/story/%e0%a4%a6%e0%a5%8b-%e0%a4%97%e0%a4%9c-%e0%a4%95%e0%a5%80-%e0%a4%a6%e0%a5%82%e0%a4%b0%e0%a5%80-%e0%a4%b9%e0%a5%88-%e0%a4%ac%e0%a4%b9%e0%a5%81%e0%a4%a4-%e0%a4%9c%e0%a4%b0%e0%a5%82%e0%a4%b0%e0%a5%80/" target="_blank" rel="noopener">⭐ Official Story देखें — MyGov</a>
     </div>
 
-    <div class="card">
-      <div class="card-icon">💉</div>
-      <h3>देश को जितायेंगे — संकल्प अभियान</h3>
-      <p>राष्ट्रीय जागरूकता अभियान जिसमें जिम्मेदार नागरिक व्यवहार, स्वास्थ्य सुरक्षा एवं सामुदायिक भागीदारी को बढ़ावा दिया गया।</p>
-      <div class="card-slogan">"जब तक दवाई नहीं — तब तक ढिलाई नहीं"</div>
-      <a class="btn btn-green" href="https://www.mygov.in/" target="_blank" rel="noopener">🌐 Self4Society Portal</a>
+    <div class="story-card">
+      <div class="story-top">
+        <div class="story-num">3</div>
+        <h3>जब तक दवाई नहीं तब तक डीलाई नहीं — 2 गज की दूरी और मास्क है जरूरी</h3>
+      </div>
+      <div class="story-meta">
+        <div class="story-row"><span class="story-lbl">दिनांक</span><span class="story-val">23 अक्टूबर 2020</span></div>
+        <div class="story-row"><span class="story-lbl">स्थान</span><span class="story-val">नैनीताल, उत्तराखंड</span></div>
+        <div class="story-row"><span class="story-lbl">Content</span><span class="story-val">1 Photo + YouTube Video</span></div>
+      </div>
+      <div class="story-slogan">"2 गज की दूरी और मास्क है जरूरी"</div>
+      <a class="btn btn-gold" href="https://self4society.mygov.in/story/%e0%a4%9c%e0%a4%ac-%e0%a4%a4%e0%a4%95-%e0%a4%a6%e0%a4%b5%e0%a4%be%e0%a4%88-%e0%a4%a8%e0%a4%b9%e0%a5%80%e0%a4%82-%e0%a4%a4%e0%a4%ac-%e0%a4%a4%e0%a4%95-%e0%a4%a1%e0%a5%80%e0%a4%b2%e0%a4%be%e0%a4%88/" target="_blank" rel="noopener">⭐ Official Story देखें — MyGov</a>
     </div>
 
-    <div class="card">
-      <div class="card-icon">🌿</div>
-      <h3>स्वच्छ भारत एवं पर्यावरण अभियान</h3>
-      <p>स्वच्छ भारत मिशन एवं पर्यावरण संरक्षण हेतु MyGov प्लेटफॉर्म पर नागरिक भागीदारी। वृक्षारोपण, स्वच्छता एवं जल संरक्षण जागरूकता।</p>
-      <div class="card-slogan">"स्वच्छ भारत — स्वस्थ भारत"</div>
-      <a class="btn btn-green" href="https://www.mygov.in/campaigns/" target="_blank" rel="noopener">🌐 अभियान देखें</a>
+    <div class="story-card">
+      <div class="story-top">
+        <div class="story-num">4</div>
+        <h3>Jab Tak Dawai Nahin — Tab Tak Dhilai Nahin</h3>
+      </div>
+      <div class="story-meta">
+        <div class="story-row"><span class="story-lbl">दिनांक</span><span class="story-val">31 दिसम्बर 2020</span></div>
+        <div class="story-row"><span class="story-lbl">स्थान</span><span class="story-val">नैनीताल, उत्तराखंड</span></div>
+        <div class="story-row"><span class="story-lbl">Content</span><span class="story-val">YouTube Video</span></div>
+      </div>
+      <div class="story-slogan">"जब तक दवाई नहीं — तब तक ढिलाई नहीं"</div>
+      <a class="btn btn-gold" href="https://self4society.mygov.in/story/jab-tak-dawai-nahin-tab-tak-dhilai-nahin/" target="_blank" rel="noopener">⭐ Official Story देखें — MyGov</a>
     </div>
 
-    <div class="card">
-      <div class="card-icon">🤝</div>
-      <h3>Self4Society — MyGov मुख्य पोर्टल</h3>
-      <p>भारत सरकार के MyGov प्लेटफॉर्म पर उन्नति स्वयं सहायता समिति की आधिकारिक सहभागिता। सभी सरकारी अभियानों की जानकारी यहाँ उपलब्ध है।</p>
-      <div class="card-slogan">"नागरिक भागीदारी — राष्ट्र निर्माण"</div>
-      <a class="btn btn-gold" href="https://www.mygov.in/" target="_blank" rel="noopener">🌐 MyGov.in पर जाएं</a>
-    </div>
+  </div>
 
+  <!-- AWARENESS ACTIVITIES -->
+  <h2 class="sec-title">🏃 अभियान गतिविधियाँ</h2>
+  <div class="aw-grid">
+    <div class="aw-card"><div class="aw-icon">😷</div><h4>मास्क वितरण</h4><p>COVID-19 बचाव हेतु नि:शुल्क मास्क वितरण एवं जन-जागरूकता</p></div>
+    <div class="aw-card"><div class="aw-icon">📏</div><h4>दो गज दूरी</h4><p>सार्वजनिक स्थानों पर सामाजिक दूरी का पालन एवं जागरूकता</p></div>
+    <div class="aw-card"><div class="aw-icon">🧼</div><h4>स्वच्छता अभियान</h4><p>हाथ धोने, सैनिटाइजर उपयोग एवं स्वच्छता हेतु जागरूकता</p></div>
+    <div class="aw-card"><div class="aw-icon">🎥</div><h4>YouTube जागरूकता</h4><p>5+ COVID जागरूकता वीडियो — MyGov YouTube चैनल पर प्रकाशित</p></div>
+  </div>
+
+  <!-- ALL STORIES LINK -->
+  <div class="all-btn-wrap">
+    <a class="btn btn-green" style="display:inline-block;max-width:400px;" href="https://self4society.mygov.in/corona-warriors/" target="_blank" rel="noopener">
+      🌐 Self4Society — सभी Corona Warriors देखें
+    </a>
   </div>
 
   <div class="disclaimer">
-    <strong>📌 अस्वीकरण (Disclaimer):</strong><br>
-    Self4Society भारत सरकार की MyGov पहल से संबद्ध एक जन-भागीदारी कार्यक्रम है।
-    यह पृष्ठ केवल सूचनात्मक उद्देश्यों हेतु आधिकारिक सरकारी अभियानों का संदर्भ प्रदान करता है।
-    पूर्ण एवं अद्यतन जानकारी के लिए कृपया <a href="https://www.mygov.in/" target="_blank" style="color:var(--gold)">mygov.in</a> पर जाएं।
+    <strong>📌 अस्वीकरण:</strong> यह पृष्ठ भारत सरकार के MyGov / Self4Society पोर्टल पर प्रकाशित
+    उन्नति स्वयं सहायता समिति की आधिकारिक Corona Warrior Stories का संदर्भ प्रदान करता है।
+    Platform: NIC (National Informatics Centre) | Ministry of Electronics & IT, Government of India.
+    पूर्ण जानकारी हेतु <a href="https://self4society.mygov.in/" target="_blank">self4society.mygov.in</a> पर जाएं।
   </div>
 
 </div>
 
 <footer>
   <p>© 2026 उन्नति स्वयं सहायता समिति (Unnati Sawaye Sahayta Samiti)</p>
-  <p style="margin-top:5px;">NGO Darpan: <a href="https://ngodarpan.gov.in" target="_blank">UA/2016/0108273</a> | CSR: CSR00102587</p>
+  <p style="margin-top:5px;">NGO Darpan: <a href="https://ngodarpan.gov.in" target="_blank">UA/2016/0108273</a> | CSR: CSR00102587 | PAN: AAATU7133Q</p>
   <p style="margin-top:5px;">📱 <a href="tel:+919410332400">9410332400</a> | 📧 <a href="mailto:unnatiselfhelpgroup@gmail.com">unnatiselfhelpgroup@gmail.com</a></p>
   <p style="margin-top:10px;"><a href="index.html">← होम पेज पर वापस जाएं</a></p>
 </footer>
