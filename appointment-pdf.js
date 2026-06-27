@@ -132,4 +132,3 @@ window.generateAppointmentPDF = function (data) {
 
     html2pdf().set(opt).from(element).save();
 };
-

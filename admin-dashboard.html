@@ -5,152 +5,210 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | उन्नति स्वयं सहायता समिति</title>
     <meta name="robots" content="noindex, nofollow">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', Arial, sans-serif; background: #071b34; color: white; padding: 20px; }
-        h1 { text-align: center; margin-bottom: 24px; font-size: 1.6rem; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px; padding: 0 0 24px;
-        }
-        .card {
-            background: rgba(255,255,255,0.08);
-            padding: 20px; border-radius: 15px;
-            text-align: center;
-            border: 1px solid #d4af37;
-            transition: background 0.2s;
-        }
-        .card:hover { background: rgba(255,255,255,0.14); }
-        .card a { color: white; text-decoration: none; font-weight: bold; display: block; }
-        .card h3 { font-size: 0.9rem; color: #d4af37; margin-bottom: 6px; }
-        .card h2 { font-size: 2rem; }
-        h2.section-title { text-align: center; margin: 32px 0 16px; font-size: 1.3rem; }
-        .table-wrap { overflow-x: auto; border-radius: 12px; }
-        table { width: 100%; border-collapse: collapse; background: white; color: black; border-radius: 12px; overflow: hidden; min-width: 500px; }
-        th { background: #1b2430; color: white; padding: 13px 12px; font-size: 0.9rem; }
-        td { padding: 11px 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; text-align: center; }
-        tr:last-child td { border-bottom: none; }
-        .btn { padding: 6px 14px; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; font-size: 0.82rem; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.85; }
-        .approve { background: #00a651; color: white; }
-        .reject  { background: #ff4d4d; color: white; }
-        #loadingMsg { text-align: center; color: #d4af37; padding: 20px; }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Segoe UI',Arial,sans-serif;background:#071b34;color:white;padding:20px;min-height:100vh}
+        h1{text-align:center;margin-bottom:24px;font-size:1.5rem;color:#d4af37}
+        .logout-btn{position:fixed;top:14px;right:16px;background:#c0392b;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.85rem;z-index:99}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;padding:0 0 24px}
+        .stat-card{background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;text-align:center;border:1px solid #d4af37}
+        .stat-card h3{font-size:0.85rem;color:#d4af37;margin-bottom:6px}
+        .stat-card h2{font-size:2rem;font-weight:700}
+        .section-title{text-align:center;margin:28px 0 14px;font-size:1.1rem;color:#d4af37}
+        .table-wrap{overflow-x:auto;border-radius:10px;margin-bottom:30px}
+        table{width:100%;border-collapse:collapse;min-width:500px;font-size:0.85rem}
+        th{background:#0f2d54;color:#d4af37;padding:10px 12px;text-align:left;font-size:0.82rem}
+        td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:middle}
+        tr:hover td{background:rgba(255,255,255,0.05)}
+        .status{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.75rem;font-weight:700}
+        .status.pending{background:#ffa500;color:#000}
+        .status.approved{background:#27ae60;color:#fff}
+        .status.rejected{background:#c0392b;color:#fff}
+        .btn{padding:5px 12px;border:none;border-radius:6px;cursor:pointer;font-size:0.78rem;font-weight:700;transition:opacity 0.2s}
+        .btn:hover{opacity:0.85}
+        .btn:disabled{opacity:0.4;cursor:not-allowed}
+        .btn.approve{background:#27ae60;color:#fff}
+        .btn.reject{background:#c0392b;color:#fff;margin-left:5px}
+        .loading{text-align:center;padding:20px;color:#aaa;font-size:0.9rem}
+        .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;justify-content:center}
+        .tab{padding:8px 18px;background:rgba(255,255,255,0.1);border:1px solid #d4af37;border-radius:20px;cursor:pointer;font-size:0.85rem;transition:all 0.2s}
+        .tab.active,.tab:hover{background:#d4af37;color:#071b34;font-weight:700}
     </style>
 </head>
 <body>
-<header><h1>🔐 Admin Dashboard</h1></header>
+<button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+<h1>🛡️ Admin Dashboard — उन्नति स्वयं सहायता समिति</h1>
 
-<main>
-  <section aria-label="Stats Overview">
-    <div class="grid">
-        <div class="card"><h3>स्वयंसेवक</h3><h2 id="totalVolunteers">—</h2></div>
-        <div class="card"><h3>प्रमाण पत्र</h3><h2 id="totalCertificates">—</h2></div>
-        <div class="card"><h3>ID कार्ड</h3><h2 id="totalIDCards">—</h2></div>
-        <div class="card"><h3>रिपोर्ट</h3><h2 id="totalReports">—</h2></div>
-        <div class="card"><a href="admin-appointment.html">📄 Appointment Requests</a></div>
-        <div class="card"><a href="certificate.html">📜 Certificate Applications</a></div>
-        <div class="card"><a href="id-card.html">🪪 ID Card Applications</a></div>
-        <div class="card"><a href="daily-report.html">📊 Daily Reports</a></div>
-        <div class="card"><a href="volunteer-management.html">👥 Volunteer Management</a></div>
+<div class="grid">
+    <div class="stat-card"><h3>📋 Appointments</h3><h2 id="totalAppointments">...</h2></div>
+    <div class="stat-card"><h3>🪪 ID Cards</h3><h2 id="totalIDCards">...</h2></div>
+    <div class="stat-card"><h3>📜 Certificates</h3><h2 id="totalCertificates">...</h2></div>
+    <div class="stat-card"><h3>👥 Volunteers</h3><h2 id="totalVolunteers">...</h2></div>
+    <div class="stat-card"><h3>📝 Reports</h3><h2 id="totalReports">...</h2></div>
+    <div class="stat-card"><h3>🎓 Students</h3><h2 id="totalStudents">...</h2></div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" onclick="showTab('appointments')">📋 Appointments</div>
+    <div class="tab" onclick="showTab('idcards')">🪪 ID Cards</div>
+    <div class="tab" onclick="showTab('students')">🎓 Students</div>
+</div>
+
+<div id="tab-appointments">
+    <h2 class="section-title">नियुक्ति आवेदन</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>राशि</th><th>स्थिति</th><th>Action</th></tr></thead>
+            <tbody id="appointmentBody"><tr><td colspan="6" class="loading">लोड हो रहा है...</td></tr></tbody>
+        </table>
     </div>
-  </section>
+</div>
 
-  <h2 class="section-title">छात्र पंजीकरण (Internship)</h2>
-  <div class="table-wrap">
-    <table id="studentTable" aria-label="छात्र पंजीकरण सूची">
-        <thead>
-            <tr><th>नाम</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr>
-        </thead>
-        <tbody id="studentBody">
-            <tr><td colspan="4" id="loadingMsg">डेटा लोड हो रहा है...</td></tr>
-        </tbody>
-    </table>
-  </div>
-</main>
+<div id="tab-idcards" style="display:none">
+    <h2 class="section-title">ID Card आवेदन</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr></thead>
+            <tbody id="idcardBody"><tr><td colspan="5" class="loading">लोड हो रहा है...</td></tr></tbody>
+        </table>
+    </div>
+</div>
+
+<div id="tab-students" style="display:none">
+    <h2 class="section-title">छात्र पंजीकरण</h2>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>नाम</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr></thead>
+            <tbody id="studentBody"><tr><td colspan="4" class="loading">लोड हो रहा है...</td></tr></tbody>
+        </table>
+    </div>
+</div>
 
 <script type="module">
-    import { auth, db } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-    import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) { window.location.href = "admin-login.html"; return; }
-        loadDashboard();
-    });
+const firebaseConfig = {
+    apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+    authDomain: "ngo-certificate-system.firebaseapp.com",
+    projectId: "ngo-certificate-system",
+    storageBucket: "ngo-certificate-system.firebasestorage.app",
+    messagingSenderId: "664351169113",
+    appId: "1:664351169113:web:3c476e199d369615c6ef48"
+};
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
 
-    async function loadDashboard() {
-        const collections = [
-            { id: "totalVolunteers",    name: "Volunteers" },
-            { id: "totalCertificates",  name: "Certificates" },
-            { id: "totalIDCards",       name: "IDcard" },
-            { id: "totalReports",       name: "DailyReports" }
-        ];
-        await Promise.all(collections.map(async (col) => {
-            try {
-                const snap = await getDocs(collection(db, col.name));
-                document.getElementById(col.id).innerText = snap.size;
-            } catch { document.getElementById(col.id).innerText = "—"; }
-        }));
+function esc(s){ return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function statusBadge(s){ const cls=s==="Approved"?"approved":s==="Rejected"?"rejected":"pending"; return `<span class="status ${cls}">${esc(s||"Pending")}</span>`; }
 
-        try {
-            const studentSnap = await getDocs(collection(db, "StudentRegistrations"));
-            const body = document.getElementById("studentBody");
-            body.innerHTML = "";
-            if (studentSnap.empty) {
-                body.innerHTML = "<tr><td colspan='4'>कोई पंजीकरण नहीं मिला।</td></tr>";
-                return;
-            }
-            studentSnap.forEach((docSnap) => {
-                const d = docSnap.data();
-                const safeId    = CSS.escape(docSnap.id);
-                const safeName  = (d.name  || "").replace(/['"<>&]/g, c => ({'\'':'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-                const safeEmail = (d.email || "").replace(/['"<>&]/g, c => ({'\'':'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${safeName || "—"}</td>
-                    <td>${d.mobile || "—"}</td>
-                    <td>${d.status || "Pending"}</td>
-                    <td>
-                        <button class="btn approve" data-id="${docSnap.id}" data-name="${safeName}" data-email="${safeEmail}" data-action="approve">Approve</button>
-                        <button class="btn reject"  data-id="${docSnap.id}" data-name="${safeName}" data-action="reject">Reject</button>
-                    </td>`;
-                body.appendChild(row);
+onAuthStateChanged(auth, user => {
+    if (!user) { window.location.href = "admin-login.html"; return; }
+    loadAll();
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth).then(() => window.location.href = "admin-login.html"));
+
+async function countCol(colName, elId) {
+    try { const s = await getDocs(collection(db, colName)); document.getElementById(elId).textContent = s.size; }
+    catch { document.getElementById(elId).textContent = "—"; }
+}
+
+async function loadAll() {
+    countCol("Appointments", "totalAppointments");
+    countCol("IDcard",       "totalIDCards");
+    countCol("Certificates", "totalCertificates");
+    countCol("Volunteers",   "totalVolunteers");
+    countCol("DailyReports", "totalReports");
+    countCol("StudentRegistrations", "totalStudents");
+    loadAppointments();
+    loadIDCards();
+    loadStudents();
+}
+
+async function loadAppointments() {
+    const body = document.getElementById("appointmentBody");
+    try {
+        const snap = await getDocs(collection(db, "Appointments"));
+        if (snap.empty) { body.innerHTML = "<tr><td colspan='6'>कोई आवेदन नहीं।</td></tr>"; return; }
+        body.innerHTML = "";
+        snap.forEach(d => {
+            const x = d.data();
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${esc(x.fee)}</td><td>${statusBadge(x.status)}</td>
+            <td><button class="btn approve" data-col="Appointments" data-id="${d.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅ Approve</button>
+                <button class="btn reject"  data-col="Appointments" data-id="${d.id}" data-action="Rejected">❌ Reject</button></td>`;
+            body.appendChild(row);
+        });
+    } catch(e) { body.innerHTML = `<tr><td colspan='6'>त्रुटि: ${esc(e.message)}</td></tr>`; }
+}
+
+async function loadIDCards() {
+    const body = document.getElementById("idcardBody");
+    try {
+        const snap = await getDocs(collection(db, "IDcard"));
+        if (snap.empty) { body.innerHTML = "<tr><td colspan='5'>कोई आवेदन नहीं।</td></tr>"; return; }
+        body.innerHTML = "";
+        snap.forEach(d => {
+            const x = d.data();
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${statusBadge(x.status)}</td>
+            <td><button class="btn approve" data-col="IDcard" data-id="${d.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅ Approve</button>
+                <button class="btn reject"  data-col="IDcard" data-id="${d.id}" data-action="Rejected">❌ Reject</button></td>`;
+            body.appendChild(row);
+        });
+    } catch(e) { body.innerHTML = `<tr><td colspan='5'>त्रुटि: ${esc(e.message)}</td></tr>`; }
+}
+
+async function loadStudents() {
+    const body = document.getElementById("studentBody");
+    try {
+        const snap = await getDocs(collection(db, "StudentRegistrations"));
+        if (snap.empty) { body.innerHTML = "<tr><td colspan='4'>कोई पंजीकरण नहीं।</td></tr>"; return; }
+        body.innerHTML = "";
+        snap.forEach(d => {
+            const x = d.data();
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td>${statusBadge(x.status)}</td>
+            <td><button class="btn approve" data-col="StudentRegistrations" data-id="${d.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅ Approve</button>
+                <button class="btn reject"  data-col="StudentRegistrations" data-id="${d.id}" data-action="Rejected">❌ Reject</button></td>`;
+            body.appendChild(row);
+        });
+    } catch(e) { body.innerHTML = `<tr><td colspan='4'>त्रुटि: ${esc(e.message)}</td></tr>`; }
+}
+
+// Action buttons
+document.body.addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+    const { col, id, name, email, action } = btn.dataset;
+    if (!confirm(`क्या आप "${name || id}" को ${action} करना चाहते हैं?`)) return;
+    btn.disabled = true;
+    try {
+        await updateDoc(doc(db, col, id), { status: action });
+        if (action === "Approved" && email && typeof emailjs !== "undefined") {
+            await emailjs.send("service_63pefgf", "template_wvzbj7p", {
+                user_name: name, user_email: email, name, email,
+                designation: col + " — Approved", doc_id: id, type: col
             });
-        } catch(err) {
-            document.getElementById("studentBody").innerHTML = `<tr><td colspan='4'>त्रुटि: ${err.message}</td></tr>`;
         }
-    }
+        alert("✅ स्थिति अपडेट हो गई: " + action);
+        location.reload();
+    } catch(err) { alert("❌ त्रुटि: " + err.message); btn.disabled = false; }
+});
 
-    document.getElementById("studentBody").addEventListener("click", async (e) => {
-        const btn = e.target.closest("button[data-action]");
-        if (!btn) return;
-        const { id, name, email, action } = btn.dataset;
-        const status = action === "approve" ? "Approved" : "Rejected";
-        btn.disabled = true;
-        try {
-            await updateDoc(doc(db, "StudentRegistrations", id), { status });
-            if (status === "Approved") {
-                await emailjs.send("service_63pefgf", "template_wvzbj7p", {
-                    user_name: name, user_email: email,
-                    name, mobile: "", email,
-                    designation: "छात्र पंजीकरण स्वीकृत",
-                    doc_id: id, type: "StudentRegistrations"
-                });
-            }
-            alert("स्थिति अपडेट: " + status);
-            location.reload();
-        } catch(err) {
-            alert("त्रुटि: " + err.message);
-            btn.disabled = false;
-        }
+window.showTab = function(tab) {
+    ["appointments","idcards","students"].forEach(t => {
+        document.getElementById("tab-"+t).style.display = t===tab ? "block" : "none";
     });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        if (typeof emailjs !== "undefined") emailjs.init("AvD_f76bB4qJYnGb0");
+    document.querySelectorAll(".tab").forEach((el,i) => {
+        el.classList.toggle("active", ["appointments","idcards","students"][i]===tab);
     });
+};
 </script>
 </body>
 </html>

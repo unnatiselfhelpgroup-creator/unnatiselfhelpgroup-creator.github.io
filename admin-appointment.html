@@ -3,100 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment Admin | उन्नति स्वयं सहायता समिति</title>
+    <title>Appointments Admin | उन्नति स्वयं सहायता समिति</title>
     <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: #001a33; margin: 0; padding: 20px; }
-        h1 { text-align: center; color: white; margin-bottom: 24px; font-size: 1.5rem; }
-        #list { max-width: 1100px; margin: auto; }
-        .card {
-            background: white; border-radius: 16px;
-            padding: 22px 25px; margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-        }
-        .card p { margin: 4px 0; font-size: 0.95rem; }
-        .card-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .card button { border: none; padding: 9px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.88rem; transition: opacity 0.2s; }
-        .card button:hover { opacity: 0.85; }
-        .approve { background: #28a745; color: white; }
-        .reject  { background: #dc3545; color: white; }
-        .pdf-btn { background: #1b2430; color: white; }
-        #loading { text-align: center; color: #d4af37; padding: 30px; font-size: 1rem; }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Segoe UI',Arial,sans-serif;background:#071b34;color:#fff;padding:20px;min-height:100vh}
+        h1{text-align:center;color:#d4af37;margin-bottom:20px;font-size:1.3rem}
+        .back{color:#d4af37;text-decoration:none;font-size:0.9rem;display:inline-block;margin-bottom:16px}
+        .table-wrap{overflow-x:auto;border-radius:10px}
+        table{width:100%;border-collapse:collapse;min-width:600px;font-size:0.85rem}
+        th{background:#0f2d54;color:#d4af37;padding:10px 12px;text-align:left}
+        td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:middle}
+        tr:hover td{background:rgba(255,255,255,0.05)}
+        .status{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.75rem;font-weight:700}
+        .status.pending{background:#ffa500;color:#000}
+        .status.approved{background:#27ae60;color:#fff}
+        .status.rejected{background:#c0392b;color:#fff}
+        .btn{padding:5px 12px;border:none;border-radius:6px;cursor:pointer;font-size:0.78rem;font-weight:700;margin:2px}
+        .btn.approve{background:#27ae60;color:#fff}
+        .btn.reject{background:#c0392b;color:#fff}
+        .btn.pdf{background:#d4af37;color:#071b34}
+        .btn:disabled{opacity:0.4;cursor:not-allowed}
+        .loading{text-align:center;padding:30px;color:#aaa}
+        .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+        .filter-bar select,.filter-bar input{padding:7px 12px;border-radius:8px;border:1px solid #d4af37;background:#0f2d54;color:#fff;font-size:0.85rem}
+        .count-badge{background:#d4af37;color:#071b34;padding:3px 10px;border-radius:20px;font-size:0.8rem;font-weight:700}
     </style>
 </head>
 <body>
-    <h1>📋 Appointment Applications</h1>
-    <div id="list"><p id="loading">डेटा लोड हो रहा है...</p></div>
+<a class="back" href="admin-dashboard.html">⬅ Dashboard पर जाएं</a>
+<h1>📋 नियुक्ति आवेदन प्रबंधन</h1>
 
-    <script type="module">
-        import { auth, db } from "./firebase-config.js";
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-        import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+<div class="filter-bar">
+    <select id="statusFilter">
+        <option value="">सभी स्थिति</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="नाम / मोबाइल खोजें...">
+    <span class="count-badge" id="countBadge">लोड...</span>
+</div>
 
-        const recordsById = new Map();
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>ईमेल</th><th>राशि</th><th>स्थिति</th><th>Action</th></tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr><td colspan="7" class="loading">डेटा लोड हो रहा है...</td></tr>
+        </tbody>
+    </table>
+</div>
 
-        onAuthStateChanged(auth, (user) => {
-            if (!user) { window.location.href = "admin-login.html"; return; }
-            loadData();
-        });
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        function escapeHtml(s) {
-            return String(s || "").replace(/[&<>"']/g, c =>
-                ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const firebaseConfig = {
+    apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+    authDomain: "ngo-certificate-system.firebaseapp.com",
+    projectId: "ngo-certificate-system",
+    storageBucket: "ngo-certificate-system.firebasestorage.app",
+    messagingSenderId: "664351169113",
+    appId: "1:664351169113:web:3c476e199d369615c6ef48"
+};
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
+const auth = getAuth(app);
+
+let allData = [];
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function statusBadge(s){ const cls=s==="Approved"?"approved":s==="Rejected"?"rejected":"pending"; return `<span class="status ${cls}">${esc(s||"Pending")}</span>`; }
+
+onAuthStateChanged(auth, user => {
+    if (!user) { window.location.href = "admin-login.html"; return; }
+    loadData();
+});
+
+async function loadData() {
+    const body = document.getElementById("tableBody");
+    try {
+        const snap = await getDocs(collection(db, "Appointments"));
+        allData = [];
+        snap.forEach(d => allData.push({ id: d.id, ...d.data() }));
+        renderTable(allData);
+    } catch(e) {
+        body.innerHTML = `<tr><td colspan="7" class="loading">त्रुटि: ${esc(e.message)}</td></tr>`;
+    }
+}
+
+function renderTable(data) {
+    const body = document.getElementById("tableBody");
+    document.getElementById("countBadge").textContent = "कुल: " + data.length;
+    if (!data.length) { body.innerHTML = "<tr><td colspan='7' class='loading'>कोई रिकॉर्ड नहीं मिला।</td></tr>"; return; }
+    body.innerHTML = "";
+    data.forEach(x => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${esc(x.name)}</td>
+            <td>${esc(x.designation)}</td>
+            <td>${esc(x.mobile)}</td>
+            <td style="font-size:0.75rem">${esc(x.email)}</td>
+            <td>${esc(x.fee)}</td>
+            <td>${statusBadge(x.status)}</td>
+            <td>
+                <button class="btn approve" data-id="${x.id}" data-name="${esc(x.name)}" data-email="${esc(x.email)}" data-action="Approved">✅</button>
+                <button class="btn reject"  data-id="${x.id}" data-action="Rejected">❌</button>
+            </td>`;
+        body.appendChild(row);
+    });
+}
+
+// फ़िल्टर
+function applyFilter() {
+    const status = document.getElementById("statusFilter").value;
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = allData.filter(x => {
+        const matchStatus = !status || (x.status || "Pending") === status;
+        const matchSearch = !search || (x.name||"").toLowerCase().includes(search) || (x.mobile||"").includes(search);
+        return matchStatus && matchSearch;
+    });
+    renderTable(filtered);
+}
+document.getElementById("statusFilter").addEventListener("change", applyFilter);
+document.getElementById("searchInput").addEventListener("input", applyFilter);
+
+// Action
+document.getElementById("tableBody").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+    const { id, name, email, action } = btn.dataset;
+    if (!confirm(`"${name || id}" को ${action} करें?`)) return;
+    btn.disabled = true;
+    try {
+        await updateDoc(doc(db, "Appointments", id), { status: action });
+        if (action === "Approved" && email && typeof emailjs !== "undefined") {
+            await emailjs.send("service_63pefgf", "template_wvzbj7p", {
+                user_name: name, user_email: email, name, email,
+                designation: "नियुक्ति Approved", doc_id: id, type: "Appointments"
+            });
         }
-
-        async function loadData() {
-            try {
-                const snap = await getDocs(collection(db, "Appointments"));
-                const list = document.getElementById("list");
-                list.innerHTML = "";
-                recordsById.clear();
-
-                if (snap.empty) { list.innerHTML = "<p style='color:white;text-align:center'>कोई आवेदन नहीं मिला।</p>"; return; }
-
-                snap.forEach(docItem => {
-                    const d = docItem.data();
-                    recordsById.set(docItem.id, d);
-                    const card = document.createElement("div");
-                    card.className = "card";
-                    card.innerHTML = `
-                        <p><b>नाम:</b> ${escapeHtml(d.name)}</p>
-                        <p><b>पद:</b> ${escapeHtml(d.designation)}</p>
-                        <p><b>मोबाइल:</b> ${escapeHtml(d.mobile)}</p>
-                        <p><b>स्थिति:</b> ${escapeHtml(d.status || "Pending")}</p>
-                        <div class="card-actions">
-                            <button class="approve" data-action="approve" data-id="${docItem.id}">✅ Approve</button>
-                            <button class="reject"  data-action="reject"  data-id="${docItem.id}">❌ Reject</button>
-                            <button class="pdf-btn" data-action="pdf"     data-id="${docItem.id}">📄 PDF</button>
-                        </div>`;
-                    list.appendChild(card);
-                });
-            } catch(err) {
-                document.getElementById("list").innerHTML = `<p style='color:red'>त्रुटि: ${err.message}</p>`;
-            }
-        }
-
-        document.getElementById("list").addEventListener("click", async (e) => {
-            const btn = e.target.closest("button[data-action]");
-            if (!btn) return;
-            const { action, id } = btn.dataset;
-            if (action === "approve") { btn.disabled = true; await updateStatus(id, "Verified"); }
-            else if (action === "reject") { btn.disabled = true; await updateStatus(id, "Rejected"); }
-            else if (action === "pdf") {
-                const data = recordsById.get(id);
-                if (data) window.generateAppointmentPDF(data);
-            }
-        });
-
-        async function updateStatus(id, status) {
-            try {
-                await updateDoc(doc(db, "Appointments", id), { status });
-                location.reload();
-            } catch(err) { alert("त्रुटि: " + err.message); }
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" defer></script>
-    <script src="appointment-pdf.js" defer></script>
+        alert("✅ " + action);
+        loadData();
+    } catch(err) { alert("❌ " + err.message); btn.disabled = false; }
+});
+</script>
 </body>
 </html>
