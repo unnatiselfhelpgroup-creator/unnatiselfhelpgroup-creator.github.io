@@ -17,7 +17,6 @@
   <meta name="twitter:description" content="गौ सेवा, RTI अभियान — NGO Darpan: UA/2016/0108273 | CSR: CSR00102587" />
   <link rel="canonical" href="https://unnatiselfhelpgroup-creator.github.io/" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"NGO","name":"Unnati Sawaye Sahayta Samiti","alternateName":"उन्नति स्वयं सहायता समिति","url":"https://unnatiselfhelpgroup-creator.github.io/","logo":"https://unnatiselfhelpgroup-creator.github.io/ngologo.png","description":"गौ सेवा, RTI अभियान, समाज सेवा। CSR पंजीकृत NGO, उत्तराखंड।","address":{"@type":"PostalAddress","streetAddress":"Vill-Halduchaur Deena","addressLocality":"Lalkuan","addressRegion":"Uttarakhand","postalCode":"263139","addressCountry":"IN"},"telephone":"+919410332400","email":"unnatiselfhelpgroup@gmail.com","foundingDate":"2016","identifier":[{"@type":"PropertyValue","name":"NGO Darpan ID","value":"UA/2016/0108273"},{"@type":"PropertyValue","name":"CSR Registration","value":"CSR00102587"},{"@type":"PropertyValue","name":"PAN","value":"AAATU7133Q"}]}</script>
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script>
@@ -37,36 +36,26 @@
     html{scroll-behavior:smooth}
     body{font-family:'Noto Sans Devanagari','Mangal',Arial,sans-serif;background:var(--primary);color:var(--tw);line-height:1.6;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
-
-    /* HEADER */
     header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));position:sticky;top:0;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,.5);border-bottom:2px solid var(--gold)}
     .h-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px 18px}
     .h-logo{width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);object-fit:contain;background:var(--gold-pale);flex-shrink:0}
     .h-txt h1{font-size:clamp(.95rem,3vw,1.45rem);font-weight:700;color:var(--gold-light);line-height:1.2}
     .h-txt p{font-size:.72rem;color:var(--tm)}
     #gte{flex-shrink:0}
-
-    /* HERO */
     .hero{text-align:center;padding:36px 18px 28px;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 100%)}
     .hero-logo{width:95px;height:95px;border-radius:50%;border:3px solid var(--gold);object-fit:contain;background:var(--gold-pale);margin-bottom:14px;box-shadow:0 0 28px rgba(200,134,10,.35)}
     .hero h2{font-size:clamp(1.3rem,5vw,1.9rem);color:var(--gold-light);margin-bottom:8px}
     .hero p{color:var(--tl);font-size:.87rem;margin-bottom:18px}
     .hero-btn{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#2a0a0a;padding:11px 26px;border-radius:30px;font-weight:700;font-size:.9rem;box-shadow:0 4px 16px rgba(200,134,10,.4);transition:transform .2s}
     .hero-btn:hover{transform:translateY(-2px)}
-
-    /* SECTION */
     .sec{max-width:1200px;margin:0 auto;padding:28px 14px}
     .sec-title{text-align:center;font-size:clamp(1.1rem,4vw,1.5rem);color:var(--gold-light);margin-bottom:22px;padding-bottom:10px;border-bottom:2px solid var(--border)}
-
-    /* GRID */
     .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
     .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
     .g6{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     @media(max-width:768px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
     @media(max-width:480px){.g3,.g2,.g4,.g6{grid-template-columns:1fr}}
-
-    /* CARD */
     .card{background:var(--cbg);border-radius:16px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:170px;position:relative;overflow:hidden;transition:transform .2s,background .2s;border:1px solid var(--border)}
     .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
     .card:hover{transform:translateY(-4px);background:var(--chov)}
@@ -75,17 +64,11 @@
     .card p{color:var(--tm);font-size:.78rem;line-height:1.5;flex:1}
     .cbtn{display:block;margin-top:12px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#2a0a0a;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;border:none;cursor:pointer;text-align:center;width:100%;transition:opacity .2s;font-family:inherit}
     .cbtn:hover{opacity:.88}
-
-    /* RTI SPECIAL CARD */
     .rti-card{background:var(--cbg);border-radius:16px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:170px;position:relative;overflow:hidden;transition:transform .2s,background .2s;border:2px solid var(--gold);box-shadow:0 0 16px rgba(200,134,10,.28)}
     .rti-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
     .rti-card:hover{transform:translateY(-4px);background:var(--chov)}
     .rti-new{position:absolute;top:9px;right:9px;background:var(--gold);color:#2a0a0a;font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px}
-
-    /* LOCK BADGE */
-    .lock-badge{position:absolute;top:9px;right:9px;background:#4a0404;border:1px solid var(--gold);color:var(--gold-light);font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px;display:flex;align-items:center;gap:3px}
-
-    /* RTI OVERLAY */
+    .lock-badge{position:absolute;top:9px;right:9px;background:#2d0202;border:1px solid var(--gold);color:var(--gold-light);font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px}
     .rti-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
     .rti-ov.on{display:flex}
     .rti-pan{background:#fff;color:#1c1c1c;width:100%;max-width:540px;max-height:90vh;border-radius:22px 22px 0 0;overflow:hidden;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 40px rgba(0,0,0,.5)}
@@ -115,13 +98,9 @@
     .rti-abtn:hover{opacity:.88}
     .rti-dl{background:linear-gradient(135deg,#6b1010,#c8860a);color:#fff}
     .rti-vw{background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff}
-
-    /* STATS */
     .stat-card{background:var(--cbg);border-radius:14px;padding:18px;text-align:center;border:1px solid var(--border)}
     .stat-n{font-size:1.8rem;font-weight:700;color:var(--gold-light)}
     .stat-l{font-size:.76rem;color:var(--tm);margin-top:4px}
-
-    /* MODAL */
     .mod-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:8888;align-items:center;justify-content:center;padding:18px}
     .mod-ov.on{display:flex}
     .mod-box{background:var(--primary);border:2px solid var(--gold);border-radius:16px;padding:26px;max-width:400px;width:100%;position:relative}
@@ -131,8 +110,6 @@
     .mod-inp::placeholder{color:rgba(255,255,255,.38)}
     .mod-err{color:#ff6b6b;font-size:.78rem;margin-bottom:9px;display:none}
     .mod-err.on{display:block}
-
-    /* FOOTER */
     footer{background:var(--primary-dark);border-top:2px solid var(--gold);padding:28px 18px 18px;text-align:center}
     .ft-logo{width:65px;height:65px;border-radius:50%;border:2px solid var(--gold);object-fit:contain;background:var(--gold-pale);margin-bottom:10px}
     .ft-t{color:var(--gold-light);font-size:1.05rem;font-weight:700;margin-bottom:5px}
@@ -147,7 +124,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="h-inner">
     <img src="ngologo.png" alt="Logo" class="h-logo"/>
@@ -159,7 +135,6 @@
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <img src="ngologo.png" alt="उन्नति स्वयं सहायता समिति" class="hero-logo"/>
   <h2 translate="no">उन्नति स्वयं सहायता समिति</h2>
@@ -169,7 +144,6 @@
 
 <main id="main-content">
 
-<!-- त्वरित सेवाएँ -->
 <div class="sec">
   <h2 class="sec-title">⚡ त्वरित सेवाएँ (Quick Services)</h2>
   <div class="g3">
@@ -182,33 +156,29 @@
   </div>
 </div>
 
-<!-- महत्वपूर्ण दस्तावेज़ -->
+<!-- महत्वपूर्ण दस्तावेज़ — सभी 6 LOCKED -->
 <div class="sec">
   <h2 class="sec-title">📑 संस्था के महत्वपूर्ण दस्तावेज</h2>
   <div class="g3">
 
-    <!-- 1. CSR-1 Registration — LOCKED -->
     <div class="card">
       <span class="lock-badge">🔒 Admin Only</span>
       <div><div class="ci">📋</div><h3>CSR-1 Registration</h3><p>संस्था का CSR-1 पंजीकरण प्रमाणपत्र।</p></div>
-      <button onclick="openDocLock('CSR-1Registration.pdf','open')" class="cbtn">🔒 Open PDF</button>
+      <button onclick="requireLogin('CSR-1Registration.pdf','open')" class="cbtn">🔒 Open PDF</button>
     </div>
 
-    <!-- 2. NGO PAN Card — LOCKED -->
     <div class="card">
       <span class="lock-badge">🔒 Admin Only</span>
       <div><div class="ci">🪪</div><h3>NGO PAN Card</h3><p>संस्था का पैन कार्ड दस्तावेज।</p></div>
-      <button onclick="openDocLock('ngopancard.pdf','open')" class="cbtn">🔒 Open PDF</button>
+      <button onclick="requireLogin('ngopancard.pdf','open')" class="cbtn">🔒 Open PDF</button>
     </div>
 
-    <!-- 3. Registration Certificate — LOCKED -->
     <div class="card">
       <span class="lock-badge">🔒 Admin Only</span>
       <div><div class="ci">📃</div><h3>Registration Certificate</h3><p>संस्था का पंजीकरण प्रमाणपत्र।</p></div>
-      <button onclick="openDocLock('ngorc.jpg','open')" class="cbtn">🔒 View</button>
+      <button onclick="requireLogin('ngorc.jpg','open')" class="cbtn">🔒 View</button>
     </div>
 
-    <!-- 4. NGO Darpan — LOCKED -->
     <div class="rti-card" style="border-color:#2d8a45;box-shadow:0 0 16px rgba(45,138,69,.28);">
       <span class="rti-new" style="background:#2d8a45;">Active</span>
       <div>
@@ -216,12 +186,11 @@
         <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">NGO Darpan / नीति आयोग</h3>
         <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">DARPAN ID: <strong style="color:var(--gold-light);">UA/2016/0108273</strong><br>स्थिति: <strong style="color:#4ade80;">Active ✓</strong></p>
       </div>
-      <button onclick="openDocLock('darpanOv','panel')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
+      <button onclick="requireLogin('darpanOv','panel')" class="cbtn" style="margin-top:12px;background:linear-gradient(135deg,#1a5c2a,#2d8a45);color:#fff;">
         🔒 NGO Darpan विवरण देखें ›
       </button>
     </div>
 
-    <!-- 5. RTI — LOCKED -->
     <div class="rti-card">
       <span class="rti-new">नया</span>
       <div>
@@ -229,22 +198,20 @@
         <h3 style="color:var(--gold-light);font-size:.9rem;font-weight:700;margin:0 0 7px;">सूचना का अधिकार (RTI)</h3>
         <p style="color:var(--tm);font-size:.77rem;line-height:1.5;">RTI अधिनियम 2005 के अंतर्गत दायर आवेदन एवं द्वितीय अपील के दस्तावेज़ यहाँ देखें।</p>
       </div>
-      <button onclick="openDocLock('rtiOv','panel')" class="cbtn" style="margin-top:12px;">
+      <button onclick="requireLogin('rtiOv','panel')" class="cbtn" style="margin-top:12px;">
         🔒 RTI दस्तावेज़ देखें ›
       </button>
     </div>
 
-    <!-- 6. Balance Sheet — LOCKED (already was) -->
     <div class="card">
       <span class="lock-badge">🔒 Admin Only</span>
       <div><div class="ci">📊</div><h3>📊 बैलेंस शीट एवं ऑडिट रिपोर्ट</h3><p>वार्षिक वित्तीय विवरण एवं CA ऑडिट रिपोर्ट। वर्ष 2022, 2023, 2024, 2025</p></div>
-      <button onclick="openDocLock('bsMod','modal')" class="cbtn">🔒 Open Balance Sheet</button>
+      <button onclick="requireLogin('bsMod','modal')" class="cbtn">🔒 Open Balance Sheet</button>
     </div>
 
   </div>
 </div>
 
-<!-- ऑनलाइन पोर्टल -->
 <div class="sec">
   <h2 class="sec-title">🌐 ऑनलाइन पोर्टल</h2>
   <div class="g3">
@@ -256,7 +223,6 @@
   </div>
 </div>
 
-<!-- About -->
 <div class="sec" id="about">
   <h2 class="sec-title">🌸 संस्था के बारे में</h2>
   <div class="card" style="min-height:auto;">
@@ -264,7 +230,6 @@
   </div>
 </div>
 
-<!-- गौ माता आंदोलन -->
 <div class="sec">
   <h2 class="sec-title">🐄 गौ माता राष्ट्रमाता संघर्ष यात्रा</h2>
   <div class="g2">
@@ -273,7 +238,6 @@
   </div>
 </div>
 
-<!-- Gallery -->
 <div class="sec">
   <h2 class="sec-title">📸 सेवा कार्य एवं जनआंदोलन गैलरी</h2>
   <div class="g4">
@@ -296,7 +260,6 @@
   </div>
 </div>
 
-<!-- Stats -->
 <div class="sec">
   <h2 class="sec-title">🏆 प्रमुख उपलब्धियाँ</h2>
   <div class="g6">
@@ -309,7 +272,6 @@
   </div>
 </div>
 
-<!-- Social -->
 <div class="sec">
   <h2 class="sec-title">🌐 हमसे जुड़ें</h2>
   <div class="g4">
@@ -320,7 +282,6 @@
   </div>
 </div>
 
-<!-- Donate -->
 <div class="sec">
   <h2 class="sec-title">💰 दान एवं सहयोग</h2>
   <div class="g2">
@@ -329,25 +290,18 @@
   </div>
 </div>
 
-<!-- Policy -->
 <div class="sec">
   <h2 class="sec-title">📜 महत्वपूर्ण नीतियाँ</h2>
   <div class="g3">
     <div class="card" style="min-height:auto;"><h3>Privacy Policy</h3><p>गोपनीयता एवं डेटा सुरक्षा संबंधी नीति।</p><a href="privacy.html" class="cbtn">Open</a></div>
     <div class="card" style="min-height:auto;"><h3>Refund Policy</h3><p>दान एवं भुगतान वापसी संबंधी नियम।</p><a href="refund.html" class="cbtn">Open</a></div>
-    <div class="card" style="min-height:auto;"><h3>Terms & Conditions</h3><p>वेबसाइट उपयोग के नियम एवं शर्तें।</p><a href="terms.html" class="cbtn">Open</a></div>
+    <div class="card" style="min-height:auto;"><h3>Terms &amp; Conditions</h3><p>वेबसाइट उपयोग के नियम एवं शर्तें।</p><a href="terms.html" class="cbtn">Open</a></div>
     <div class="card" style="min-height:auto;"><h3>Disclaimer</h3><p>वेबसाइट एवं संस्था संबंधी अस्वीकरण।</p><a href="disclaimer.html" class="cbtn">Open</a></div>
     <div class="card" style="min-height:auto;"><h3>Donation Policy</h3><p>दान की शर्तें एवं उपयोग संबंधी नीति।</p><a href="donation.html" class="cbtn">Open</a></div>
-    <div class="card" style="min-height:auto;">
-      <div class="ci">🌐</div>
-      <h3>self4society.html</h3>
-      <p>सरकारी जन-जागरूकता अभियानों एवं MyGov भागीदारी का विवरण।</p>
-      <a href="self4society.html" class="cbtn">विवरण देखें</a>
-    </div>
+    <div class="card" style="min-height:auto;"><div class="ci">🌐</div><h3>self4society.html</h3><p>सरकारी जन-जागरूकता अभियानों एवं MyGov भागीदारी का विवरण।</p><a href="self4society.html" class="cbtn">विवरण देखें</a></div>
   </div>
 </div>
 
-<!-- Gau Samman -->
 <div class="sec">
   <h2 class="sec-title">🐄 गौ गौरव एवं गौ माता महिमा</h2>
   <div class="g2">
@@ -356,7 +310,6 @@
   </div>
 </div>
 
-<!-- Contact -->
 <div class="sec">
   <h2 class="sec-title">📞 संपर्क करें</h2>
   <div class="card" style="min-height:auto;text-align:center;">
@@ -372,10 +325,10 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   <img src="ngologo.png" alt="Logo" class="ft-logo"/>
-  <div class="ft-t" translate="no">उन्नति स्वयं सहायता समिति</div><div style="color:rgba(255,255,255,.6);font-size:.78rem;margin-bottom:6px;" translate="no">(Unnati Sawaye Sahayta Samiti)</div>
+  <div class="ft-t" translate="no">उन्नति स्वयं सहायता समिति</div>
+  <div style="color:rgba(255,255,255,.6);font-size:.78rem;margin-bottom:6px;" translate="no">(Unnati Sawaye Sahayta Samiti)</div>
   <div class="ft-s" translate="no">गौ सेवा | समाज सेवा | पर्यावरण संरक्षण | मानव सेवा</div>
   <div class="ft-i">
     NGO Darpan ID : UA/2016/0108273 | PAN : AAATU7133Q<br>Reg No : UK0660892021006667 | Validity : 30-01-2031<br>
@@ -386,7 +339,7 @@
   <div class="ft-c" translate="no">© 2026 उन्नति स्वयं सहायता समिति (Unnati Sawaye Sahayta Samiti) | सर्वाधिकार सुरक्षित</div>
 </footer>
 
-<!-- ══════ NGO DARPAN SLIDING PANEL ══════ -->
+<!-- NGO DARPAN PANEL -->
 <div id="darpanOv" class="rti-ov" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="rti-pan">
     <div class="rti-ph" style="background:linear-gradient(135deg,#1a5c2a,#2d8a45);">
@@ -433,7 +386,7 @@
   </div>
 </div>
 
-<!-- ══════ RTI SLIDING PANEL ══════ -->
+<!-- RTI PANEL -->
 <div id="rtiOv" class="rti-ov" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="rti-pan">
     <div class="rti-ph">
@@ -463,19 +416,19 @@
   </div>
 </div>
 
-<!-- ══════ UNIFIED DOC LOGIN MODAL ══════ -->
-<div id="docLoginMod" class="mod-ov" onclick="if(event.target===this)closeDocLogin()">
+<!-- SECURE LOGIN MODAL -->
+<div id="docLoginMod" class="mod-ov">
   <div class="mod-box">
     <button class="mod-x" onclick="closeDocLogin()">✕</button>
-    <h3>🔐 Admin Login<br/><small style="font-size:.72rem;color:var(--tm);">दस्तावेज़ देखने हेतु</small></h3>
+    <h3>🔐 Admin Login<br/><small style="font-size:.72rem;color:var(--tm);">दस्तावेज़ देखने हेतु लॉगिन आवश्यक है</small></h3>
     <div class="mod-err" id="docErr">❌ गलत Email या Password</div>
-    <input type="email" id="docEmail" class="mod-inp" placeholder="Admin Email"/>
-    <input type="password" id="docPass" class="mod-inp" placeholder="Password"/>
+    <input type="email" id="docEmail" class="mod-inp" placeholder="Admin Email" autocomplete="email"/>
+    <input type="password" id="docPass" class="mod-inp" placeholder="Password" autocomplete="current-password"/>
     <button onclick="doDocLogin()" class="cbtn" id="docLoginBtn">🔓 Login करें</button>
   </div>
 </div>
 
-<!-- Balance Sheet View Modal (after login) -->
+<!-- BALANCE SHEET MODAL (shown after login) -->
 <div id="bsMod" class="mod-ov" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="mod-box" style="max-width:480px;">
     <button class="mod-x" onclick="document.getElementById('bsMod').classList.remove('on')">✕</button>
@@ -491,79 +444,97 @@
 </div>
 
 <script>
-// ── Pending action after login ──
-var _pendingTarget = null;
-var _pendingType = null;  // 'open' | 'panel' | 'modal'
+// ═══════════════════════════════════════════════
+//  SECURE DOC LOCK  —  Bug-fixed version
+//  KEY FIX: isAuthVerified flag. Content is NEVER
+//  shown unless Firebase confirms auth = true.
+//  Closing modal does NOT set isAuthVerified.
+// ═══════════════════════════════════════════════
 
-function openDocLock(target, type) {
-  // Check if already logged in via Firebase
-  var user = firebase.auth().currentUser;
-  if (user) {
-    executeDocAction(target, type);
+var _pendingTarget = null;
+var _pendingType   = null;
+var isAuthVerified = false;   // ← ONLY set true after Firebase success
+
+// Called by every locked button
+function requireLogin(target, type) {
+  if (isAuthVerified) {
+    // Already verified this session — open directly
+    executeAction(target, type);
     return;
   }
-  // Not logged in — show login modal
+  // Store what to open AFTER login
   _pendingTarget = target;
-  _pendingType = type;
+  _pendingType   = type;
+  // Reset & show login modal
   document.getElementById('docErr').classList.remove('on');
-  document.getElementById('docEmail').value = '';
-  document.getElementById('docPass').value = '';
+  document.getElementById('docEmail').value  = '';
+  document.getElementById('docPass').value   = '';
   document.getElementById('docLoginBtn').textContent = '🔓 Login करें';
   document.getElementById('docLoginMod').classList.add('on');
 }
 
+// ✕ button — clears pending, does NOT set isAuthVerified
 function closeDocLogin() {
   document.getElementById('docLoginMod').classList.remove('on');
   _pendingTarget = null;
-  _pendingType = null;
+  _pendingType   = null;
+  document.getElementById('docErr').classList.remove('on');
 }
 
+// Login button click
 function doDocLogin() {
-  var e = document.getElementById('docEmail').value.trim();
-  var p = document.getElementById('docPass').value.trim();
+  var e   = document.getElementById('docEmail').value.trim();
+  var p   = document.getElementById('docPass').value.trim();
   var btn = document.getElementById('docLoginBtn');
-  if (!e || !p) { document.getElementById('docErr').classList.add('on'); return; }
+  var err = document.getElementById('docErr');
+  if (!e || !p) { err.classList.add('on'); return; }
+  err.classList.remove('on');
   btn.textContent = '⏳ Login हो रहा है...';
+  btn.disabled = true;
+
   firebase.auth().signInWithEmailAndPassword(e, p)
     .then(function() {
+      isAuthVerified = true;   // ← Only set here, after Firebase confirms
       document.getElementById('docLoginMod').classList.remove('on');
-      document.getElementById('docErr').classList.remove('on');
       btn.textContent = '🔓 Login करें';
+      btn.disabled = false;
       if (_pendingTarget) {
-        executeDocAction(_pendingTarget, _pendingType);
+        var t = _pendingTarget, tp = _pendingType;
         _pendingTarget = null;
-        _pendingType = null;
+        _pendingType   = null;
+        executeAction(t, tp);
       }
     })
     .catch(function() {
-      document.getElementById('docErr').classList.add('on');
+      isAuthVerified = false;
+      err.classList.add('on');
       btn.textContent = '🔓 Login करें';
+      btn.disabled = false;
     });
 }
 
-function executeDocAction(target, type) {
-  if (type === 'open') {
-    window.open(target, '_blank');
-  } else if (type === 'panel') {
-    document.getElementById(target).classList.add('on');
-  } else if (type === 'modal') {
-    document.getElementById(target).classList.add('on');
-  }
+// Actually open the content — ONLY called after auth confirmed
+function executeAction(target, type) {
+  if (type === 'open')  { window.open(target, '_blank'); }
+  if (type === 'panel') { document.getElementById(target).classList.add('on'); }
+  if (type === 'modal') { document.getElementById(target).classList.add('on'); }
 }
 
-// Escape key closes all overlays
+// Escape key
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    ['rtiOv','darpanOv','bsMod','docLoginMod'].forEach(function(id) {
+    ['rtiOv','darpanOv','bsMod'].forEach(function(id){
       document.getElementById(id).classList.remove('on');
     });
+    closeDocLogin();
   }
 });
 
-// Protect org name from wrong translation
+// Protect org name translation
 document.addEventListener('DOMContentLoaded', function() {
-  var orgElements = document.querySelectorAll('[translate="no"], .notranslate');
-  orgElements.forEach(function(el) { el.setAttribute('translate','no'); });
+  document.querySelectorAll('[translate="no"]').forEach(function(el){
+    el.setAttribute('translate','no');
+  });
 });
 
 function googleTranslateElementInit(){
