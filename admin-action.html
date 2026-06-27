@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Processing | उन्नति स्वयं सहायता समिति</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 60px 20px; background: #071b34; color: white; }
+        h2 { font-size: 1.3rem; margin-bottom: 16px; }
+        button { padding: 14px 30px; background: #d4af37; border: none; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 20px; transition: background 0.3s; }
+        button:hover { background: #f2ce63; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <h2 id="statusMsg">प्रक्रिया जारी है...</h2>
+    <div id="actionArea"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+            authDomain: "ngo-certificate-system.firebaseapp.com",
+            projectId: "ngo-certificate-system",
+            storageBucket: "ngo-certificate-system.firebasestorage.app",
+            messagingSenderId: "664351169113",
+            appId: "1:664351169113:web:3c476e199d369615c6ef48"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        const params  = new URLSearchParams(window.location.search);
+        const id      = params.get("id");
+        const status  = params.get("status");
+        const type    = params.get("type");
+
+        const ALLOWED_STATUS      = ["Approved", "Rejected", "Verified"];
+        const ALLOWED_COLLECTIONS = ["Appointments", "Certificates", "DailyReports", "IDcard", "StudentRegistrations"];
+
+        const msgEl  = document.getElementById("statusMsg");
+        const areaEl = document.getElementById("actionArea");
+
+        function setMsg(text) { msgEl.innerText = text; }
+
+        async function performUpdate() {
+            onAuthStateChanged(auth, async (user) => {
+                if (!user) {
+                    setMsg("कृपया पहले एडमिन लॉगिन करें...");
+                    setTimeout(() => { window.location.href = "admin-login.html"; }, 2000);
+                    return;
+                }
+                try {
+                    await updateDoc(doc(db, type, id), { status, actionType: type || "General" });
+                    setMsg('✅ सफलतापूर्वक आवेदन को "' + status + '" कर दिया गया है!');
+                    areaEl.innerHTML = "";
+                } catch(e) {
+                    setMsg("❌ त्रुटि हुई: " + e.message);
+                }
+            });
+        }
+
+        function init() {
+            if (!id || !status) { setMsg("❌ गलत लिंक!"); return; }
+            if (!ALLOWED_STATUS.includes(status)) { setMsg("❌ अमान्य status।"); return; }
+            if (!ALLOWED_COLLECTIONS.includes(type)) { setMsg("❌ अमान्य type।"); return; }
+            setMsg('क्या आप इस आवेदन को "' + status + '" करना चाहते हैं?');
+            const btn = document.createElement("button");
+            btn.innerText = "हाँ, " + status + " करें";
+            btn.addEventListener("click", () => { btn.disabled = true; btn.innerText = "प्रक्रिया जारी है..."; performUpdate(); });
+            areaEl.appendChild(btn);
+        }
+        init();
+    </script>
+</body>
+</html>
 
