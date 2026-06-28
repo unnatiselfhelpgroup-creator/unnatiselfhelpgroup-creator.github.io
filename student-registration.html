@@ -3,264 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NGO Internship Certificate Online — BSW, MSW, Social Work Internship। Free Volunteer Certificate for Students. Haldwani, Uttarakhand.">
+<meta name="keywords" content="NGO internship certificate online, social work internship, free NGO internship students, BSW internship NGO, volunteer certificate India">
+<meta name="robots" content="index, follow">
 <title>NGO Internship Registration | उन्नति स्वयं सहायता समिति</title>
-<meta name="description" content="NGO Internship Certificate Online — उन्नति स्वयं सहायता समिति में BSW, MSW, Social Work Internship के लिए पंजीकरण करें।">
-<link rel="icon" href="https://unnatiselfhelpgroup-creator.github.io/ngologo.png">
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',sans-serif;background:#f0f7f0;color:#1a2d1a;min-height:100vh}
-  .header{background:linear-gradient(135deg,#1a5c1a,#2e7d32);color:#fff;text-align:center;padding:24px 16px}
-  .header img{width:70px;height:70px;border-radius:50%;border:3px solid #ffd700;margin-bottom:10px}
-  .header h1{font-size:1.3rem;font-weight:700;margin-bottom:4px}
-  .header p{font-size:0.83rem;opacity:0.9}
-  .badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:10px}
-  .badge{background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:0.75rem;border:1px solid rgba(255,255,255,0.4)}
-  .container{max-width:600px;margin:0 auto;padding:20px 16px 40px}
-  .duration-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
-  @media(max-width:480px){.duration-cards{grid-template-columns:repeat(2,1fr)}}
-  .dur-card{background:#fff;border:2px solid #ddd;border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s}
-  .dur-card:hover{border-color:#2e7d32;background:#f0f7f0}
-  .dur-card.selected{border-color:#2e7d32;background:#e8f5e9}
-  .dur-card .days{font-size:1.4rem;font-weight:700;color:#2e7d32}
-  .dur-card .label{font-size:0.7rem;color:#666;margin-top:2px}
-  .card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 20px rgba(46,125,50,0.1);margin-top:0}
-  .card h2{color:#1a5c1a;font-size:1.1rem;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #ffd700;display:flex;align-items:center;gap:8px}
-  .form-group{margin-bottom:15px}
-  .form-group label{display:block;font-size:0.84rem;font-weight:600;color:#1a5c1a;margin-bottom:5px}
-  .form-group label span{color:#c0392b}
-  .form-group input,.form-group select,.form-group textarea{
-    width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;
-    font-size:0.95rem;font-family:inherit;background:#fafafa;color:#1a2d1a;
-    transition:border-color 0.2s
-  }
-  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-    outline:none;border-color:#2e7d32;box-shadow:0 0 0 3px rgba(46,125,50,0.1);background:#fff
-  }
-  .form-group textarea{resize:vertical;min-height:75px}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:480px){.row{grid-template-columns:1fr}}
-  .fee-box{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1.5px solid #ffd700;border-radius:10px;padding:16px;margin:16px 0}
-  .fee-box h3{color:#1a5c1a;font-size:0.95rem;margin-bottom:10px}
-  .fee-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.82rem}
-  .fee-item{display:flex;align-items:center;gap:6px;color:#444}
-  .fee-item::before{content:"✓";color:#27ae60;font-weight:700}
-  .fee-amount{margin-top:12px;text-align:center;font-size:1.4rem;font-weight:700;color:#1a5c1a}
-  .fee-note{font-size:0.75rem;color:#666;text-align:center;margin-top:4px}
-  .checkbox-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;background:#f0f7f0;padding:12px;border-radius:8px}
-  .checkbox-group input[type="checkbox"]{width:18px;height:18px;margin-top:2px;cursor:pointer;accent-color:#2e7d32;flex-shrink:0}
-  .checkbox-group label{font-size:0.82rem;color:#555;cursor:pointer}
-  .btn-submit{
-    width:100%;background:linear-gradient(135deg,#1a5c1a,#2e7d32);color:#fff;
-    border:none;padding:14px;border-radius:10px;font-size:1rem;font-weight:700;
-    cursor:pointer;transition:all 0.2s
-  }
-  .btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(46,125,50,0.35)}
-  .btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-  .success-msg{background:#e8f5e9;border:1.5px solid #27ae60;border-radius:12px;padding:24px;text-align:center;display:none}
-  .success-msg .icon{font-size:2.5rem;margin-bottom:8px}
-  .success-msg h3{color:#1b5e20;margin-bottom:6px}
-  .success-msg p{color:#2e7d32;font-size:0.88rem;margin-top:6px}
-  .error-msg{background:#fdecea;border:1.5px solid #c0392b;border-radius:10px;padding:12px;margin-bottom:14px;font-size:0.85rem;color:#c0392b;display:none}
-  .pay-btn{display:block;width:100%;background:#27ae60;color:#fff;border:none;padding:13px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-top:10px}
-  .back-link{text-align:center;margin-top:20px}
-  .back-link a{color:#1a5c1a;text-decoration:none;font-size:0.9rem;font-weight:600}
-  .loader{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:6px}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .hidden-dur{display:none}
-</style>
+<link rel="stylesheet" href="common.css">
 </head>
 <body>
-<div class="header">
+
+<div class="page-header">
   <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
   <h1>🎓 युवा सामाजिक सारथी — इंटर्नशिप</h1>
-  <p>उन्नति स्वयं सहायता समिति, हल्द्वानी, उत्तराखंड</p>
-  <div class="badges">
-    <span class="badge">BSW</span>
-    <span class="badge">MSW</span>
-    <span class="badge">College Volunteer</span>
-    <span class="badge">NGO Certificate</span>
-  </div>
+  <p>NGO Internship Certificate | BSW | MSW | College Volunteer</p>
 </div>
 
-<div class="container">
-  <!-- Duration selector -->
-  <div style="background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 4px 20px rgba(46,125,50,0.1)">
-    <h3 style="color:#1a5c1a;font-size:0.95rem;margin-bottom:12px;text-align:center">📅 इंटर्नशिप अवधि चुनें <span style="color:#c0392b">*</span></h3>
-    <div class="duration-cards">
-      <div class="dur-card" onclick="selectDur(this,'15 दिन')">
-        <div class="days">15</div>
-        <div class="label">दिन</div>
-      </div>
-      <div class="dur-card" onclick="selectDur(this,'30 दिन')">
-        <div class="days">30</div>
-        <div class="label">दिन</div>
-      </div>
-      <div class="dur-card" onclick="selectDur(this,'60 दिन')">
-        <div class="days">60</div>
-        <div class="label">दिन</div>
-      </div>
-      <div class="dur-card" onclick="selectDur(this,'90 दिन')">
-        <div class="days">90</div>
-        <div class="label">दिन</div>
-      </div>
-    </div>
-  </div>
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-title">📋 इंटर्नशिप पंजीकरण फॉर्म</div>
 
-  <div class="card">
-    <h2>📝 पंजीकरण फॉर्म</h2>
+    <form id="studentForm" novalidate>
 
-    <div class="error-msg" id="errorMsg"></div>
-
-    <div class="success-msg" id="successMsg">
-      <div class="icon">🎓</div>
-      <h3>पंजीकरण सफलतापूर्वक हुआ!</h3>
-      <p>आपका आवेदन प्राप्त हो गया है।</p>
-      <p>📧 आपके Email पर confirmation भेजा गया है।</p>
-      <p style="margin-top:10px;font-weight:600">अब भुगतान (₹700) करें:</p>
-      <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" class="pay-btn" target="_blank">
-        💳 ₹700 का भुगतान करें →
-      </a>
-      <p style="font-size:0.75rem;color:#888;margin-top:8px">भुगतान के बाद ID Card व Certificate जारी होगा।</p>
-    </div>
-
-    <form id="studentForm">
-      <input type="hidden" name="इंटर्नशिप अवधि" id="hiddenDur" value="">
-
-      <div class="row">
-        <div class="form-group">
-          <label>पूरा नाम <span>*</span></label>
-          <input type="text" name="पूरा नाम" placeholder="अपना पूरा नाम" required>
-        </div>
-        <div class="form-group">
-          <label>पिता/पति का नाम <span>*</span></label>
-          <input type="text" name="पिता/पति का नाम" placeholder="पिता या पति का नाम" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label>मोबाइल नंबर <span>*</span></label>
-          <input type="tel" name="मोबाइल नंबर" placeholder="10 अंकों का नंबर" pattern="[6-9][0-9]{9}" required>
-        </div>
-        <div class="form-group">
-          <label>ईमेल आईडी <span>*</span></label>
-          <input type="email" name="ईमेल" placeholder="your@email.com" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label>कॉलेज / संस्था का नाम <span>*</span></label>
-          <input type="text" name="कॉलेज/संस्था" placeholder="College का नाम" required>
-        </div>
-        <div class="form-group">
-          <label>कोर्स / कक्षा <span>*</span></label>
-          <input type="text" name="कोर्स/कक्षा" placeholder="जैसे: BSW, B.Com 2nd Year" required>
-        </div>
+      <div class="form-group">
+        <label>पूरा नाम <span class="required-star">*</span></label>
+        <input type="text" id="name" placeholder="अपना पूरा नाम लिखें" required>
       </div>
 
       <div class="form-group">
-        <label>पूरा पता <span>*</span></label>
-        <textarea name="पूरा पता" placeholder="गाँव/शहर, तहसील, जिला, राज्य, PIN" required></textarea>
+        <label>पिता/पति का नाम <span class="required-star">*</span></label>
+        <input type="text" id="fatherName" placeholder="पिता/पति का नाम" required>
       </div>
 
       <div class="form-group">
-        <label>सामाजिक कार्य का क्षेत्र <span>*</span></label>
-        <select name="कार्य क्षेत्र" required>
+        <label>ईमेल आईडी <span class="required-star">*</span></label>
+        <input type="email" id="email" placeholder="yourname@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>मोबाइल नंबर <span class="required-star">*</span></label>
+        <input type="tel" id="mobile" placeholder="10 अंकों का मोबाइल नंबर" maxlength="10" required>
+      </div>
+
+      <div class="form-group">
+        <label>कॉलेज / संस्था का नाम <span class="required-star">*</span></label>
+        <input type="text" id="college" placeholder="जैसे: Kumaun University, Nainital" required>
+      </div>
+
+      <div class="form-group">
+        <label>कोर्स / कक्षा <span class="required-star">*</span></label>
+        <input type="text" id="course" placeholder="जैसे: BSW Final Year, 12th, B.A." required>
+      </div>
+
+      <div class="form-group">
+        <label>पूरा पता <span class="required-star">*</span></label>
+        <textarea id="address" placeholder="गाँव, तहसील, जिला, राज्य" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>सामाजिक कार्य का क्षेत्र <span class="required-star">*</span></label>
+        <select id="area" required>
           <option value="">कार्य चुनें</option>
-          <option>गौ सेवा</option>
-          <option>वृक्षारोपण</option>
-          <option>स्वच्छ भारत अभियान</option>
-          <option>रक्तदान</option>
-          <option>आपदा राहत</option>
-          <option>शिक्षा एवं साक्षरता</option>
-          <option>पर्यावरण संरक्षण</option>
-          <option>महिला सशक्तिकरण</option>
-          <option>अन्य सामाजिक सेवा</option>
+          <option value="गौ सेवा">गौ सेवा</option>
+          <option value="वृक्षारोपण">वृक्षारोपण</option>
+          <option value="स्वच्छ भारत अभियान">स्वच्छ भारत अभियान</option>
+          <option value="रक्तदान">रक्तदान</option>
+          <option value="आपदा राहत">आपदा राहत</option>
+          <option value="शिक्षा एवं साक्षरता">शिक्षा एवं साक्षरता</option>
+          <option value="पर्यावरण संरक्षण">पर्यावरण संरक्षण</option>
+          <option value="महिला सशक्तिकरण">महिला सशक्तिकरण</option>
         </select>
       </div>
 
-      <div class="fee-box">
-        <h3>💰 प्रशासनिक शुल्क — ₹700 (Non-Refundable)</h3>
-        <div class="fee-grid">
-          <div class="fee-item">ID Card निर्माण</div>
-          <div class="fee-item">डिजिटल Certificate</div>
-          <div class="fee-item">NGO Dashboard Access</div>
-          <div class="fee-item">प्रशिक्षण सामग्री</div>
+      <div class="form-group">
+        <label>इंटर्नशिप अवधि <span class="required-star">*</span></label>
+        <select id="duration" required onchange="updateFee()">
+          <option value="">अवधि चुनें</option>
+          <option value="15 दिन" data-fee="300">15 दिन — ₹300</option>
+          <option value="30 दिन" data-fee="500">30 दिन — ₹500</option>
+          <option value="60 दिन" data-fee="600">60 दिन — ₹600</option>
+          <option value="90 दिन" data-fee="700">90 दिन — ₹700</option>
+        </select>
+      </div>
+
+      <!-- Fee Box -->
+      <div id="feeBox" style="display:none;background:#fff3cd;border-radius:10px;padding:14px;margin:12px 0;border-left:4px solid var(--gold);">
+        <div style="font-size:0.8rem;font-weight:600;color:#7a5500;margin-bottom:6px;">💰 प्रशासनिक शुल्क</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:0.75rem;color:#555;">✅ ID Card &nbsp;✅ Certificate &nbsp;✅ Digital Dashboard</div>
+          <div style="font-size:1.3rem;font-weight:900;color:var(--maroon);" id="feeAmt">—</div>
         </div>
-        <div class="fee-amount">₹700 एकमुश्त</div>
-        <div class="fee-note">भुगतान आवेदन जमा होने के बाद करें</div>
+        <div style="font-size:0.68rem;color:#888;margin-top:4px;">Non-Refundable</div>
       </div>
 
-      <div class="checkbox-group">
+      <div class="check-wrap">
         <input type="checkbox" id="agree" required>
-        <label for="agree">मैं संस्था के नियमों, शर्तों एवं Refund Policy से सहमत हूँ। दी गई जानकारी सत्य है।</label>
+        <label for="agree">मैं संस्था के नियमों, शर्तों एवं Refund Policy से सहमत हूँ।</label>
       </div>
 
-      <button type="submit" class="btn-submit" id="submitBtn">
-        🎓 भुगतान के लिए आगे बढ़ें (₹700) →
+      <div class="msg-box msg-error" id="errorMsg"></div>
+
+      <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:14px;">
+        भुगतान के लिए आगे बढ़ें →
       </button>
     </form>
   </div>
+</div>
 
-  <div class="back-link">
-    <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
-  </div>
+<div class="back-link">
+  <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
 </div>
 
 <script>
-const FORMSPREE_ID = "mwvdonbl"; // ← Formspree ID यहाँ डालें
+const FORMSPREE = "https://formspree.io/f/xdkgnpqv";
+const WHATSAPP  = "919410332400";
 
-function selectDur(el, val) {
-  document.querySelectorAll('.dur-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('hiddenDur').value = val;
+function updateFee() {
+  const sel = document.getElementById('duration');
+  const opt = sel.options[sel.selectedIndex];
+  const fee = opt.dataset && opt.dataset.fee;
+  if (fee) {
+    document.getElementById('feeBox').style.display = 'block';
+    document.getElementById('feeAmt').textContent = '₹' + fee;
+  } else {
+    document.getElementById('feeBox').style.display = 'none';
+  }
 }
 
-document.getElementById("studentForm").addEventListener("submit", async function(e) {
+document.getElementById('studentForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const btn = document.getElementById("submitBtn");
-  const errorMsg = document.getElementById("errorMsg");
-  const successMsg = document.getElementById("successMsg");
-  errorMsg.style.display = "none";
 
-  if (!document.getElementById('hiddenDur').value) {
-    errorMsg.textContent = "❌ कृपया इंटर्नशिप अवधि चुनें।";
-    errorMsg.style.display = "block";
-    window.scrollTo({top:0,behavior:'smooth'});
-    return;
+  const name       = document.getElementById('name').value.trim();
+  const fatherName = document.getElementById('fatherName').value.trim();
+  const email      = document.getElementById('email').value.trim();
+  const mobile     = document.getElementById('mobile').value.trim();
+  const college    = document.getElementById('college').value.trim();
+  const course     = document.getElementById('course').value.trim();
+  const address    = document.getElementById('address').value.trim();
+  const area       = document.getElementById('area').value;
+  const duration   = document.getElementById('duration').value;
+  const agree      = document.getElementById('agree').checked;
+
+  const sel = document.getElementById('duration');
+  const fee = sel.options[sel.selectedIndex].dataset && sel.options[sel.selectedIndex].dataset.fee || '';
+
+  if (!name||!fatherName||!email||!mobile||!college||!course||!address||!area||!duration) {
+    showError('❌ कृपया सभी आवश्यक फ़ील्ड भरें।'); return;
   }
-
-  const mobile = this.querySelector('[name="मोबाइल नंबर"]').value;
-  if (!/^[6-9][0-9]{9}$/.test(mobile)) {
-    errorMsg.textContent = "❌ कृपया सही 10 अंकों का मोबाइल नंबर डालें।";
-    errorMsg.style.display = "block";
-    return;
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    showError('❌ मोबाइल नंबर 10 अंकों का होना चाहिए।'); return;
   }
+  if (!agree) { showError('❌ कृपया नियम एवं शर्तें स्वीकार करें।'); return; }
 
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<span class="spinner"></span> जमा हो रहा है...';
   btn.disabled = true;
-  btn.innerHTML = '<span class="loader"></span> जमा हो रहा है...';
 
-  const formData = new FormData(this);
-  formData.append("_subject", "नया स्टूडेंट इंटर्नशिप आवेदन — उन्नति स्वयं सहायता समिति");
-  formData.append("_language", "hi");
+  const data = {
+    form_type: 'Student Internship Registration',
+    नाम: name, 'पिता/पति': fatherName, ईमेल: email,
+    मोबाइल: mobile, कॉलेज: college, कोर्स: course,
+    पता: address, 'कार्य क्षेत्र': area, अवधि: duration,
+    शुल्क: fee ? `₹${fee}` : 'N/A',
+    समय: new Date().toLocaleString('hi-IN')
+  };
 
   try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method: "POST", body: formData, headers: { Accept: "application/json" }
+    const res = await fetch(FORMSPREE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
     });
-    if (res.ok) {
-      this.style.display = "none";
-      successMsg.style.display = "block";
-      successMsg.scrollIntoView({ behavior: "smooth" });
-    } else { throw new Error(); }
-  } catch {
-    errorMsg.textContent = "❌ त्रुटि हुई। पुनः प्रयास करें या 9410332400 पर संपर्क करें।";
-    errorMsg.style.display = "block";
-    btn.disabled = false;
-    btn.innerHTML = "🎓 भुगतान के लिए आगे बढ़ें (₹700) →";
-  }
+    // Redirect to payment regardless
+  } catch(e) {}
+
+  sessionStorage.setItem('student', JSON.stringify({ name, mobile, email, college, duration, fee }));
+  btn.innerHTML = 'भुगतान के लिए आगे बढ़ें →';
+  btn.disabled = false;
+
+  window.location.href = `appointment-payment.html?name=${encodeURIComponent(name)}&fee=${encodeURIComponent(fee)}&cat=${encodeURIComponent('Internship '+duration)}`;
 });
+
+function showError(msg) {
+  const e = document.getElementById('errorMsg');
+  e.textContent = msg; e.style.display = 'block';
+  e.scrollIntoView({ behavior: 'smooth' });
+}
 </script>
 </body>
 </html>

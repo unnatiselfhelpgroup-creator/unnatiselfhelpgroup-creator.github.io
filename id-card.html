@@ -3,356 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="उन्नति स्वयं सहायता समिति — आधिकारिक सदस्यता पहचान पत्र (ID Card) आवेदन।">
+<meta name="robots" content="index, follow">
 <title>ID Card आवेदन | उन्नति स्वयं सहायता समिति</title>
-<meta name="description" content="उन्नति स्वयं सहायता समिति का आधिकारिक सदस्य ID Card प्राप्त करें।">
-<link rel="icon" href="https://unnatiselfhelpgroup-creator.github.io/ngologo.png">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#fef9f0;color:#2d1700;min-height:100vh}
-.header{background:linear-gradient(135deg,#4a0404,#8b1a1a);color:#fff;text-align:center;padding:24px 16px}
-.header img{width:70px;height:70px;border-radius:50%;border:3px solid #ffd700;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto}
-.header h1{font-size:1.25rem;font-weight:700;margin-bottom:4px}
-.header p{font-size:0.83rem;opacity:0.9}
-.ngo-id{display:inline-block;background:rgba(255,215,0,0.25);border:1px solid rgba(255,215,0,0.6);padding:3px 12px;border-radius:20px;font-size:0.75rem;margin-top:6px}
-.container{max-width:600px;margin:0 auto;padding:20px 16px 40px}
-.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 4px 20px rgba(74,4,4,0.1);margin-bottom:16px}
-.card h2{color:#4a0404;font-size:1.05rem;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #ffd700;display:flex;align-items:center;gap:8px}
-.photo-upload{border:2px dashed #ffd700;border-radius:12px;padding:20px;text-align:center;cursor:pointer;background:#fffdf0;margin-bottom:8px;transition:all 0.2s;position:relative}
-.photo-upload:hover{border-color:#4a0404;background:#fff8e1}
-.photo-upload input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.photo-upload .icon{font-size:2rem;margin-bottom:6px}
-.photo-upload p{font-size:0.85rem;color:#666}
-.photo-upload small{font-size:0.75rem;color:#999}
-#photoPreview{width:90px;height:110px;object-fit:cover;border-radius:6px;border:2px solid #ffd700;margin:0 auto 8px;display:none}
-.photo-note{font-size:0.75rem;color:#888;text-align:center;margin-bottom:14px}
-.form-group{margin-bottom:15px}
-.form-group label{display:block;font-size:0.84rem;font-weight:600;color:#4a0404;margin-bottom:5px}
-.form-group label span{color:#c0392b}
-.form-group input,.form-group select,.form-group textarea{
-  width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;
-  font-size:0.95rem;font-family:inherit;background:#fafafa;color:#2d1700;transition:border-color 0.2s
-}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-  outline:none;border-color:#4a0404;box-shadow:0 0 0 3px rgba(74,4,4,0.08);background:#fff
-}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:480px){.row{grid-template-columns:1fr}}
-
-/* फीस बॉक्स — पद के हिसाब से दिखेगा */
-.fee-box{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1.5px solid #ffd700;border-radius:10px;padding:14px;margin:14px 0;display:none}
-.fee-box.show{display:block}
-.fee-box h3{color:#4a0404;font-size:0.9rem;margin-bottom:8px}
-.fee-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:0.82rem;margin-bottom:8px}
-.fee-item::before{content:"✓ ";color:#27ae60;font-weight:700}
-.fee-item{color:#444}
-.fee-amount{font-size:1.3rem;font-weight:700;color:#4a0404;text-align:center;background:#fff;padding:8px;border-radius:8px;border:1px solid #ffd700}
-
-.checkbox-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;background:#fdf6ee;padding:12px;border-radius:8px}
-.checkbox-group input[type="checkbox"]{width:18px;height:18px;margin-top:2px;cursor:pointer;accent-color:#4a0404;flex-shrink:0}
-.checkbox-group label{font-size:0.82rem;color:#555;cursor:pointer}
-.btn-submit{width:100%;background:linear-gradient(135deg,#4a0404,#8b1a1a);color:#fff;border:none;padding:14px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s}
-.btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(74,4,4,0.35)}
-.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-.success-msg{background:#e8f5e9;border:1.5px solid #27ae60;border-radius:12px;padding:24px;text-align:center;display:none}
-.success-msg h3{color:#1b5e20;margin-bottom:6px}
-.success-msg p{color:#2e7d32;font-size:0.88rem;margin-top:6px}
-.pay-btn{display:block;width:100%;background:#27ae60;color:#fff;border:none;padding:13px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-top:10px}
-.error-msg{background:#fdecea;border:1.5px solid #c0392b;border-radius:10px;padding:12px;margin-bottom:14px;font-size:0.85rem;color:#c0392b;display:none}
-.back-link{text-align:center;margin-top:20px}
-.back-link a{color:#4a0404;text-decoration:none;font-size:0.9rem;font-weight:600}
-
-    /* ══ 3D BUTTONS ══ */
-    .btn,button[type="submit"],.btn-submit,.pay-link,.tab,.logout-btn,.modal-close{
-        position:relative;cursor:pointer;border:none;font-weight:700;letter-spacing:0.3px;
-        transition:all 0.08s ease!important;user-select:none;-webkit-user-select:none;
-        transform:translateY(-3px);
-        box-shadow:0 6px 0 rgba(0,0,0,0.35),0 8px 12px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.25)!important;
-    }
-    .btn:active,button[type="submit"]:active,.btn-submit:active,.pay-link:active{
-        box-shadow:0 1px 0 rgba(0,0,0,0.35),inset 0 2px 4px rgba(0,0,0,0.2)!important;
-        transform:translateY(4px)!important;
-    }
-    .btn:hover,button[type="submit"]:hover,.btn-submit:hover,.pay-link:hover{
-        transform:translateY(-5px)!important;filter:brightness(1.08);
-        box-shadow:0 9px 0 rgba(0,0,0,0.35),0 14px 22px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.3)!important;
-    }
-    .btn:disabled,button:disabled{transform:translateY(0)!important;box-shadow:0 2px 0 rgba(0,0,0,0.2)!important;filter:grayscale(0.5);cursor:not-allowed!important}
-    .btn.approve{background:linear-gradient(145deg,#2ecc71,#27ae60)!important;box-shadow:0 6px 0 #1a7a43,0 8px 12px rgba(39,174,96,0.4),inset 0 1px 0 rgba(255,255,255,0.3)!important}
-    .btn.approve:active{box-shadow:0 1px 0 #1a7a43,inset 0 2px 4px rgba(0,0,0,0.2)!important;transform:translateY(4px)!important}
-    .btn.approve:hover{box-shadow:0 8px 0 #1a7a43,0 12px 20px rgba(39,174,96,0.5),inset 0 1px 0 rgba(255,255,255,0.35)!important}
-    .btn.reject{background:linear-gradient(145deg,#e74c3c,#c0392b)!important;box-shadow:0 6px 0 #8c1a12,0 8px 12px rgba(192,57,43,0.4),inset 0 1px 0 rgba(255,255,255,0.25)!important}
-    .btn.reject:active{box-shadow:0 1px 0 #8c1a12,inset 0 2px 4px rgba(0,0,0,0.2)!important;transform:translateY(4px)!important}
-    .btn.reject:hover{box-shadow:0 8px 0 #8c1a12,0 12px 20px rgba(192,57,43,0.5),inset 0 1px 0 rgba(255,255,255,0.3)!important}
-    .btn.pdf{background:linear-gradient(145deg,#f4d03f,#d4af37)!important;color:#071b34!important;box-shadow:0 6px 0 #9a7d1a,0 8px 12px rgba(212,175,55,0.4),inset 0 1px 0 rgba(255,255,255,0.4)!important}
-    .btn.pdf:active{box-shadow:0 1px 0 #9a7d1a,inset 0 2px 4px rgba(0,0,0,0.15)!important;transform:translateY(4px)!important}
-    .btn.pdf:hover{box-shadow:0 8px 0 #9a7d1a,0 12px 20px rgba(212,175,55,0.5),inset 0 1px 0 rgba(255,255,255,0.45)!important}
-    .btn.idpdf{background:linear-gradient(145deg,#2980b9,#1565c0)!important;box-shadow:0 6px 0 #0a3d6b,0 8px 12px rgba(21,101,192,0.4),inset 0 1px 0 rgba(255,255,255,0.25)!important}
-    .btn.idpdf:active{box-shadow:0 1px 0 #0a3d6b,inset 0 2px 4px rgba(0,0,0,0.2)!important;transform:translateY(4px)!important}
-    .btn-submit,button[type="submit"]{
-        background:linear-gradient(145deg,#8b1a1a,#4a0404)!important;color:#fff!important;
-        box-shadow:0 7px 0 #2a0000,0 10px 16px rgba(74,4,4,0.45),inset 0 1px 0 rgba(255,255,255,0.15)!important;
-    }
-    .btn-submit:active,button[type="submit"]:active{box-shadow:0 2px 0 #2a0000,inset 0 3px 6px rgba(0,0,0,0.3)!important;transform:translateY(5px)!important}
-    .pay-link{background:linear-gradient(145deg,#1976d2,#0d47a1)!important;box-shadow:0 7px 0 #062d6e,0 10px 16px rgba(13,71,161,0.45),inset 0 1px 0 rgba(255,255,255,0.2)!important}
-    .tab{box-shadow:0 5px 0 rgba(0,0,0,0.3),0 6px 10px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.15)!important;transform:translateY(-2px)}
-    .tab:active{box-shadow:0 1px 0 rgba(0,0,0,0.3)!important;transform:translateY(3px)!important}
-    .tab.active{box-shadow:0 5px 0 #9a7d1a,0 8px 14px rgba(212,175,55,0.4),inset 0 1px 0 rgba(255,255,255,0.3)!important}
-    .logout-btn{box-shadow:0 5px 0 #7a0000,0 8px 14px rgba(192,57,43,0.4),inset 0 1px 0 rgba(255,255,255,0.2)!important;transform:translateY(-2px)}
-    .logout-btn:active{box-shadow:0 1px 0 #7a0000!important;transform:translateY(3px)!important}
-    .modal-close{box-shadow:0 4px 0 #8c1a12,0 6px 10px rgba(192,57,43,0.35),inset 0 1px 0 rgba(255,255,255,0.2)!important;transform:translateY(-2px)}
-    .modal-close:active{box-shadow:0 1px 0 #8c1a12!important;transform:translateY(2px)!important}
-    .back-link a{display:inline-block;background:linear-gradient(145deg,#5a1010,#3a0000);color:#ffd700!important;padding:10px 20px;border-radius:10px;text-decoration:none!important;box-shadow:0 5px 0 #1a0000,0 8px 12px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.15)!important;transform:translateY(-2px);transition:all 0.08s ease}
-    .back-link a:active{box-shadow:0 1px 0 #1a0000!important;transform:translateY(3px)!important}
-    /* ══ END 3D BUTTONS ══ */
-
-</style>
+<link rel="stylesheet" href="common.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"ID Card आवेदन","url":"https://unnatiselfhelpgroup-creator.github.io/id-card.html","isPartOf":{"@type":"WebSite","name":"उन्नति स्वयं सहायता समिति","url":"https://unnatiselfhelpgroup-creator.github.io/"}}
+</script>
 </head>
 <body>
-<div class="header">
+
+<div class="page-header">
   <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
   <h1>उन्नति स्वयं सहायता समिति</h1>
-  <p>आधिकारिक सदस्य पहचान पत्र हेतु आवेदन</p>
-  <span class="ngo-id">नीति आयोग ID: UA/2016/0108273</span>
+  <p>NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q</p>
 </div>
 
-<div class="container">
-  <div class="card">
-    <h2>🪪 ID Card आवेदन फॉर्म</h2>
-    <div class="error-msg" id="errorMsg"></div>
-    <div class="success-msg" id="successMsg">
-      <div style="font-size:2.5rem">🪪</div>
-      <h3>आवेदन सफलतापूर्वक जमा हुआ!</h3>
-      <p>आपका ID Card आवेदन प्राप्त हो गया है।</p>
-      <p>📧 आपके Email पर confirmation आएगा।</p>
-      <p style="margin-top:10px;font-weight:600">अब ID Card शुल्क का भुगतान करें:</p>
-      <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" class="pay-btn" target="_blank" rel="noopener">💳 भुगतान करें →</a>
-      <p style="font-size:0.75rem;color:#888;margin-top:8px">भुगतान के बाद ID Card 3-5 कार्यदिवस में जारी होगा।</p>
-    </div>
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-title">🪪 आधिकारिक सदस्यता पहचान पत्र (ID Card) आवेदन</div>
 
     <form id="idCardForm" novalidate>
 
-      <!-- फोटो अपलोड -->
-      <div class="photo-upload" id="photoBox">
-        <input type="file" id="photoInput" accept="image/*" aria-label="पासपोर्ट साइज फोटो">
-        <img id="photoPreview" alt="Photo Preview">
-        <div id="photoPlaceholder">
-          <div class="icon">📷</div>
-          <p><strong>पासपोर्ट साइज फोटो अपलोड करें</strong></p>
-          <small>JPG/PNG • अधिकतम 2MB</small>
-        </div>
-      </div>
-      <p class="photo-note">⚠️ फोटो बाद में WhatsApp 9410332400 पर भी भेज सकते हैं।</p>
-
-      <div class="row">
-        <div class="form-group">
-          <label for="idName">पूरा नाम <span>*</span></label>
-          <input type="text" id="idName" name="पूरा नाम" placeholder="जैसे ID पर चाहते हैं" required>
-        </div>
-        <div class="form-group">
-          <label for="idFather">पिता/पति का नाम <span>*</span></label>
-          <input type="text" id="idFather" name="पिता/पति का नाम" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label for="idDob">जन्म तिथि <span>*</span></label>
-          <input type="date" id="idDob" name="जन्म तिथि" required max="2007-01-01">
-        </div>
-        <div class="form-group">
-          <label for="idBlood">रक्त समूह</label>
-          <select id="idBlood" name="Blood Group">
-            <option value="">चुनें</option>
-            <option>A+</option><option>A-</option>
-            <option>B+</option><option>B-</option>
-            <option>AB+</option><option>AB-</option>
-            <option>O+</option><option>O-</option>
-            <option>पता नहीं</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label for="idMobile">मोबाइल नंबर <span>*</span></label>
-          <input type="tel" id="idMobile" name="मोबाइल नंबर" placeholder="10 अंकों का नंबर" pattern="[6-9][0-9]{9}" maxlength="10" required>
-        </div>
-        <div class="form-group">
-          <label for="idEmail">ईमेल आईडी <span>*</span></label>
-          <input type="email" id="idEmail" name="ईमेल" placeholder="your@email.com" required>
-        </div>
+      <div class="form-group">
+        <label>पूरा नाम <span class="required-star">*</span></label>
+        <input type="text" id="name" placeholder="अपना पूरा नाम लिखें" required>
       </div>
 
       <div class="form-group">
-        <label for="idAddress">पूरा पता <span>*</span></label>
-        <textarea id="idAddress" name="पूरा पता" placeholder="गाँव/शहर, तहसील, जिला, राज्य, PIN Code" required style="min-height:70px"></textarea>
-      </div>
-
-      <div class="row">
-        <div class="form-group">
-          <label for="idCategory">सदस्य श्रेणी <span>*</span></label>
-          <select id="idCategory" name="सदस्य श्रेणी" required>
-            <option value="">श्रेणी चुनें</option>
-            <option>Volunteer (स्वयंसेवक)</option>
-            <option>पदाधिकारी</option>
-            <option>सक्रिय सदस्य</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="idDesig">पद (Designation) <span>*</span></label>
-          <select id="idDesig" name="पद" required>
-            <option value="">पद चुनें</option>
-            <option>Volunteer (स्वयंसेवक)</option>
-            <option>ग्राम गौ-संयोजक</option>
-            <option>ब्लॉक गौ-प्रभारी</option>
-            <option>जिला गौ-समन्वयक</option>
-            <option>प्रदेश कार्यकारिणी सदस्य</option>
-            <option>राष्ट्रीय गौ-पदाधिकारी</option>
-          </select>
-        </div>
+        <label>पिता/पति का नाम <span class="required-star">*</span></label>
+        <input type="text" id="fatherName" placeholder="पिता/पति का नाम" required>
       </div>
 
       <div class="form-group">
-        <label for="idAadhar">आधार नंबर (अंतिम 4 अंक)</label>
-        <input type="text" id="idAadhar" name="आधार अंतिम 4 अंक" placeholder="XXXX" pattern="[0-9]{4}" maxlength="4">
+        <label>मोबाइल नंबर <span class="required-star">*</span></label>
+        <input type="tel" id="mobile" placeholder="10 अंकों का मोबाइल नंबर" maxlength="10" required>
       </div>
 
-      <!-- फीस बॉक्स — पद चुनने पर दिखेगा -->
-      <div class="fee-box" id="feeBox">
-        <h3>💰 ID Card शुल्क विवरण</h3>
-        <div class="fee-grid">
-          <div class="fee-item">लेमिनेटेड ID Card</div>
-          <div class="fee-item">NGO प्रमाणपत्र</div>
-          <div class="fee-item">डिजिटल ID</div>
-          <div class="fee-item">कोरियर (यदि लागू)</div>
-        </div>
-        <div class="fee-amount" id="feeAmount">—</div>
-        <p style="font-size:0.75rem;color:#888;margin-top:6px;text-align:center">* भुगतान अगले चरण में करना होगा।</p>
+      <div class="form-group">
+        <label>ईमेल आईडी <span class="required-star">*</span></label>
+        <input type="email" id="email" placeholder="yourname@email.com" required>
       </div>
 
-      <div class="checkbox-group">
+      <div class="form-group">
+        <label>जन्म तिथि <span class="required-star">*</span></label>
+        <input type="date" id="dob" required>
+      </div>
+
+      <div class="form-group">
+        <label>पूरा पता <span class="required-star">*</span></label>
+        <textarea id="address" placeholder="गाँव, तहसील, जिला, राज्य" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>सदस्य श्रेणी <span class="required-star">*</span></label>
+        <select id="category" required>
+          <option value="">श्रेणी चुनें</option>
+          <option value="Volunteer (स्वयंसेवक)">Volunteer (स्वयंसेवक)</option>
+          <option value="पदाधिकारी">पदाधिकारी</option>
+          <option value="सक्रिय सदस्य">सक्रिय सदस्य</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>पद (Designation) <span class="required-star">*</span></label>
+        <select id="designation" required>
+          <option value="">पद चुनें</option>
+          <option value="Volunteer (स्वयंसेवक)">Volunteer (स्वयंसेवक)</option>
+          <option value="ग्राम गौ-संयोजक">ग्राम गौ-संयोजक</option>
+          <option value="ब्लॉक गौ-प्रभारी">ब्लॉक गौ-प्रभारी</option>
+          <option value="जिला गौ-समन्वयक">जिला गौ-समन्वयक</option>
+          <option value="प्रदेश कार्यकारिणी सदस्य">प्रदेश कार्यकारिणी सदस्य</option>
+          <option value="राष्ट्रीय गौ-पदाधिकारी">राष्ट्रीय गौ-पदाधिकारी</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>पासपोर्ट साइज फोटो</label>
+        <input type="file" id="photo" accept="image/*">
+        <p class="hint">JPG/PNG, अधिकतम 2MB</p>
+      </div>
+
+      <div class="check-wrap">
         <input type="checkbox" id="agree" required>
-        <label for="agree">मैं संस्था की नियम एवं शर्तों, शुल्क नीति तथा सदस्यता नियमों से सहमत हूँ। दी गई जानकारी सत्य है।</label>
+        <label for="agree">मैं संस्था की नियम एवं शर्तों, शुल्क नीति तथा सदस्यता नियमों से सहमत हूँ।</label>
       </div>
 
-      <button type="submit" class="btn-submit" id="submitBtn">🪪 ID Card हेतु आवेदन करें</button>
-    </form>
-  </div>
+      <div class="msg-box msg-success" id="successMsg">
+        ✅ आपका ID Card आवेदन सफलतापूर्वक जमा हो गया! शीघ्र ही आपसे संपर्क किया जाएगा।
+      </div>
+      <div class="msg-box msg-error" id="errorMsg">
+        ❌ कुछ गड़बड़ हुई। कृपया पुनः प्रयास करें या WhatsApp करें: 9410332400
+      </div>
 
-  <div class="back-link">
-    <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+      <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:16px;">
+        🪪 आईडी कार्ड हेतु आवेदन करें
+      </button>
+    </form>
   </div>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<div class="back-link">
+  <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+</div>
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
-    authDomain: "ngo-certificate-system.firebaseapp.com",
-    projectId: "ngo-certificate-system",
-    storageBucket: "ngo-certificate-system.firebasestorage.app",
-    messagingSenderId: "664351169113",
-    appId: "1:664351169113:web:3c476e199d369615c6ef48"
-};
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+<script>
+const FORMSPREE = "https://formspree.io/f/xdkgnpqv";
+const WHATSAPP  = "919410332400";
 
-// पद → फीस
-const FEE = {
-  "Volunteer (स्वयंसेवक)":    "₹700",
-  "ग्राम गौ-संयोजक":          "₹150",
-  "ब्लॉक गौ-प्रभारी":         "₹500",
-  "जिला गौ-समन्वयक":          "₹1,100",
-  "प्रदेश कार्यकारिणी सदस्य": "₹2,500",
-  "राष्ट्रीय गौ-पदाधिकारी":   "₹5,100 – ₹11,000"
-};
-
-// पद चुनने पर फीस दिखाएं
-document.getElementById("idDesig").addEventListener("change", function() {
-  const feeBox = document.getElementById("feeBox");
-  const feeAmt = document.getElementById("feeAmount");
-  if (this.value && FEE[this.value]) {
-    feeAmt.textContent = FEE[this.value];
-    feeBox.classList.add("show");
-  } else {
-    feeBox.classList.remove("show");
-  }
-});
-
-// फोटो preview
-document.getElementById("photoInput").addEventListener("change", function() {
-  const file = this.files[0];
-  if (!file) return;
-  if (file.size > 2097152) { alert("फोटो 2MB से कम होनी चाहिए।"); this.value = ""; return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    const prev = document.getElementById("photoPreview");
-    prev.src = e.target.result;
-    prev.style.display = "block";
-    document.getElementById("photoPlaceholder").style.display = "none";
-  };
-  reader.readAsDataURL(file);
-});
-
-// Form Submit
-document.getElementById("idCardForm").addEventListener("submit", async function(e) {
+document.getElementById('idCardForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const errorMsg = document.getElementById("errorMsg");
-  errorMsg.style.display = "none";
 
-  const mobile = document.getElementById("idMobile").value.trim();
-  const desig  = document.getElementById("idDesig").value;
-  if (!/^[6-9][0-9]{9}$/.test(mobile)) {
-    errorMsg.textContent = "❌ सही 10 अंकों का मोबाइल नंबर डालें।";
-    errorMsg.style.display = "block"; return;
+  const name        = document.getElementById('name').value.trim();
+  const fatherName  = document.getElementById('fatherName').value.trim();
+  const mobile      = document.getElementById('mobile').value.trim();
+  const email       = document.getElementById('email').value.trim();
+  const dob         = document.getElementById('dob').value;
+  const address     = document.getElementById('address').value.trim();
+  const category    = document.getElementById('category').value;
+  const designation = document.getElementById('designation').value;
+  const agree       = document.getElementById('agree').checked;
+
+  // Validation
+  if (!name || !fatherName || !mobile || !email || !dob || !address || !category || !designation) {
+    showMsg('error', '❌ कृपया सभी आवश्यक फ़ील्ड भरें।'); return;
+  }
+  if (!/^[0-9]{10}$/.test(mobile)) {
+    showMsg('error', '❌ मोबाइल नंबर 10 अंकों का होना चाहिए।'); return;
+  }
+  if (!agree) {
+    showMsg('error', '❌ कृपया नियम एवं शर्तें स्वीकार करें।'); return;
   }
 
-  const btn = document.getElementById("submitBtn");
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<span class="spinner"></span> जमा हो रहा है...';
   btn.disabled = true;
-  btn.textContent = "⏳ जमा हो रहा है...";
+
+  const data = {
+    form_type: 'ID Card आवेदन',
+    नाम: name,
+    'पिता/पति': fatherName,
+    मोबाइल: mobile,
+    ईमेल: email,
+    'जन्म तिथि': dob,
+    पता: address,
+    श्रेणी: category,
+    पद: designation,
+    समय: new Date().toLocaleString('hi-IN')
+  };
 
   try {
-    const data = {
-      name:        document.getElementById("idName").value.trim(),
-      fatherName:  document.getElementById("idFather").value.trim(),
-      dob:         document.getElementById("idDob").value,
-      bloodGroup:  document.getElementById("idBlood").value,
-      mobile,
-      email:       document.getElementById("idEmail").value.trim(),
-      address:     document.getElementById("idAddress").value.trim(),
-      category:    document.getElementById("idCategory").value,
-      designation: desig,
-      fee:         FEE[desig] || "—",
-      status:      "Pending",
-      createdAt:   serverTimestamp()
-    };
-    const docRef = await addDoc(collection(db, "IDcard"), data);
-
-    if (typeof emailjs !== "undefined") {
-      await emailjs.send("service_63pefgf", "template_wvzbj7p", {
-        user_name: data.name, user_email: data.email,
-        name: data.name, mobile: data.mobile, email: data.email,
-        designation: data.designation + " | शुल्क: " + data.fee,
-        doc_id: docRef.id, type: "IDcard"
-      });
-    }
-
-    this.style.display = "none";
-    document.getElementById("successMsg").style.display = "block";
-    document.getElementById("successMsg").scrollIntoView({ behavior: "smooth" });
+    const res = await fetch(FORMSPREE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      showMsg('success');
+      document.getElementById('idCardForm').reset();
+    } else { throw new Error('formspree'); }
   } catch(err) {
-    errorMsg.textContent = "❌ त्रुटि: " + (err.message || "पुनः प्रयास करें।");
-    errorMsg.style.display = "block";
-    btn.disabled = false;
-    btn.textContent = "🪪 ID Card हेतु आवेदन करें";
+    // WhatsApp fallback
+    const msg = encodeURIComponent(`🪪 ID Card आवेदन\nनाम: ${name}\nमोबाइल: ${mobile}\nपद: ${designation}\nश्रेणी: ${category}\nपता: ${address}`);
+    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
+    showMsg('success', '✅ आवेदन WhatsApp पर भेजा गया! संस्था शीघ्र संपर्क करेगी।');
+    document.getElementById('idCardForm').reset();
   }
-});
-</script>
 
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
+  btn.innerHTML = '🪪 आईडी कार्ड हेतु आवेदन करें';
+  btn.disabled = false;
+});
+
+function showMsg(type, text) {
+  const s = document.getElementById('successMsg');
+  const e = document.getElementById('errorMsg');
+  s.style.display = 'none'; e.style.display = 'none';
+  if (type === 'success') {
+    if (text) s.textContent = text;
+    s.style.display = 'block';
+    s.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    if (text) e.textContent = text;
+    e.style.display = 'block';
+    e.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+</script>
 </body>
 </html>

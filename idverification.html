@@ -1,44 +1,139 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ID कार्ड सत्यापन | उन्नति स्वयं सहायता समिति</title>
-
-    <style>
-        body { font-family: 'Poppins', sans-serif; background: #071b34; color: white; text-align: center; padding: 20px; margin: 0; }
-        .box { max-width: 650px; margin: auto; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 2px solid #d4af37; box-shadow: 0 0 15px rgba(212,175,55,0.4); }
-        .logo { width: 90px; margin-bottom: 15px; }
-        h2 { color: #d4af37; }
-        input { width: 90%; padding: 14px; border-radius: 12px; border: none; margin-top: 20px; text-align: center; font-size: 16px; box-sizing: border-box; }
-        button { margin-top: 20px; padding: 12px 35px; background: #d4af37; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px; }
-        button:hover { background: #f2ce63; }
-        .result { margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.08); border-radius: 15px; display: none; text-align: left; line-height: 1.8; }
-        a { color: #d4af37; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="उन्नति स्वयं सहायता समिति के ID Card का ऑनलाइन सत्यापन करें।">
+<title>ID Card सत्यापन | उन्नति स्वयं सहायता समिति</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.result-card { border-radius: 14px; padding: 20px; margin-top: 16px; display: none; }
+.result-valid { background: #d4edda; border: 2px solid #28a745; }
+.result-invalid { background: #f8d7da; border: 2px solid #dc3545; }
+.id-preview { background: linear-gradient(135deg, #4a0404 0%, #2a0202 100%); color: white; border-radius: 14px; padding: 20px; margin-top: 14px; }
+.id-preview .id-name { font-size: 1.1rem; font-weight: 900; color: #f0b429; }
+.id-preview .id-field { font-size: 0.75rem; color: rgba(255,255,255,0.8); margin-top: 4px; }
+.id-preview .id-no { font-family: monospace; font-size: 0.8rem; color: #f0b429; margin-top: 8px; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; display: inline-block; }
+</style>
 </head>
-
 <body>
 
-<div class="box">
-    <img src="ngologo.png" class="logo" alt="NGO Logo">
-    <h2>🪪 ID कार्ड सत्यापन</h2>
-    <p>अपनी वॉलंटियर ID दर्ज करें।</p>
-
-    <input type="text" id="idInput" placeholder="उदाहरण : USS-VOL-1001">
-    <br>
-    <button onclick="verifyID()">सत्यापित करें</button>
-
-    <div id="resultBox" class="result"></div>
-
-    <br>
-    <a href="index.html">⬅ मुख्य पृष्ठ पर जाएँ</a>
+<div class="page-header">
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+  <h1>🪪 ID Card सत्यापन</h1>
+  <p>उन्नति स्वयं सहायता समिति — NGO Darpan: UA/2016/0108273</p>
 </div>
 
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="idcard-pdf.js"></script>
-<script type="module" src="idverification.js"></script>
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-title">🔍 सदस्य ID सत्यापन</div>
+    <p style="font-size:0.8rem;color:#666;margin-bottom:16px;">अपनी वॉलंटियर ID दर्ज करें और तुरंत सत्यापित करें।</p>
 
+    <div class="form-group">
+      <label>सदस्य / वॉलंटियर ID <span class="required-star">*</span></label>
+      <input type="text" id="memberId" placeholder="जैसे: USHG-MEM-2024-001" style="text-transform:uppercase;">
+      <p class="hint">ID Card पर छपा नंबर दर्ज करें</p>
+    </div>
+
+    <button class="btn btn-primary btn-block" id="verifyBtn" onclick="verifyId()">
+      🔍 सत्यापित करें
+    </button>
+
+    <!-- Valid -->
+    <div class="result-card result-valid" id="validResult">
+      <div style="text-align:center;font-size:2rem;margin-bottom:8px;">✅</div>
+      <h3 style="color:#155724;text-align:center;font-size:1rem;">ID Card वैध है!</h3>
+      <div class="id-preview">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo" style="width:40px;border-radius:50%;border:1px solid #f0b429;">
+          <div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.7);">उन्नति स्वयं सहायता समिति</div>
+            <div style="font-size:0.65rem;color:rgba(255,255,255,0.5);">NGO Darpan: UA/2016/0108273</div>
+          </div>
+        </div>
+        <div class="id-name" id="r-name">—</div>
+        <div class="id-field">पद: <span id="r-role">—</span></div>
+        <div class="id-field">पिता/पति: <span id="r-father">—</span></div>
+        <div class="id-field">मोबाइल: <span id="r-mobile">—</span></div>
+        <div class="id-no" id="r-id">—</div>
+        <div style="font-size:0.65rem;color:rgba(255,255,255,0.5);margin-top:8px;">जारी तिथि: <span id="r-issued">—</span> | वैध: <span id="r-valid">—</span></div>
+      </div>
+    </div>
+
+    <!-- Invalid -->
+    <div class="result-card result-invalid" id="invalidResult">
+      <div style="text-align:center;font-size:2rem;margin-bottom:8px;">❌</div>
+      <h3 style="color:#721c24;text-align:center;font-size:1rem;">ID Card नहीं मिला</h3>
+      <p style="font-size:0.8rem;color:#721c24;text-align:center;margin-top:8px;">
+        यह ID हमारे रिकॉर्ड में नहीं है।<br>
+        कृपया सही ID दर्ज करें या संपर्क करें:<br><br>
+        📱 <a href="tel:+919410332400" style="color:#721c24;font-weight:700;">9410332400</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="back-link">
+  <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+</div>
+
+<script>
+// Demo ID database (sync with Firebase when configured)
+const ID_DB = {
+  "USHG-MEM-2024-001": { name:"राहुल कुमार शर्मा", role:"ग्राम गौ-संयोजक", father:"रमेश शर्मा", mobile:"98XXXXXX01", issued:"15 मार्च 2024", valid:"14 मार्च 2025" },
+  "USHG-MEM-2024-002": { name:"सुरेश पंत", role:"ब्लॉक गौ-प्रभारी", father:"गोपाल पंत", mobile:"94XXXXXX02", issued:"01 अप्रैल 2024", valid:"31 मार्च 2025" },
+  "USHG-MEM-2024-003": { name:"मीना जोशी", role:"Volunteer", father:"हरि जोशी", mobile:"70XXXXXX03", issued:"10 मई 2024", valid:"09 मई 2025" },
+  "USHG-MEM-2024-004": { name:"सविता रावत", role:"जिला गौ-समन्वयक", father:"भुवन रावत", mobile:"91XXXXXX04", issued:"20 जून 2024", valid:"19 जून 2025" },
+  "USHG-INT-2024-001": { name:"प्रिया देवी", role:"Intern (30 दिन)", father:"सुरेश देवी", mobile:"85XXXXXX05", issued:"05 जुलाई 2024", valid:"04 अगस्त 2024" },
+};
+
+async function verifyId() {
+  const idVal = document.getElementById('memberId').value.trim().toUpperCase();
+  if (!idVal) { alert('कृपया ID दर्ज करें।'); return; }
+
+  const btn = document.getElementById('verifyBtn');
+  btn.innerHTML = '<span class="spinner"></span> खोज रहे हैं...';
+  btn.disabled = true;
+
+  document.getElementById('validResult').style.display = 'none';
+  document.getElementById('invalidResult').style.display = 'none';
+
+  let found = null;
+
+  // Try Firebase
+  try {
+    if (typeof firebase !== 'undefined') {
+      const db = firebase.firestore();
+      const doc = await db.collection('members').doc(idVal).get();
+      if (doc.exists) found = doc.data();
+    }
+  } catch(e) {}
+
+  // Fallback to local
+  if (!found) found = ID_DB[idVal] || null;
+
+  await new Promise(r => setTimeout(r, 500));
+
+  if (found) {
+    document.getElementById('r-name').textContent   = found.name || '—';
+    document.getElementById('r-role').textContent   = found.role || '—';
+    document.getElementById('r-father').textContent = found.father || '—';
+    document.getElementById('r-mobile').textContent = found.mobile || '—';
+    document.getElementById('r-id').textContent     = idVal;
+    document.getElementById('r-issued').textContent = found.issued || '—';
+    document.getElementById('r-valid').textContent  = found.valid || '—';
+    document.getElementById('validResult').style.display = 'block';
+    document.getElementById('validResult').scrollIntoView({ behavior:'smooth' });
+  } else {
+    document.getElementById('invalidResult').style.display = 'block';
+    document.getElementById('invalidResult').scrollIntoView({ behavior:'smooth' });
+  }
+
+  btn.innerHTML = '🔍 सत्यापित करें';
+  btn.disabled = false;
+}
+
+document.getElementById('memberId').addEventListener('keydown', e => { if(e.key==='Enter') verifyId(); });
+</script>
 </body>
 </html>

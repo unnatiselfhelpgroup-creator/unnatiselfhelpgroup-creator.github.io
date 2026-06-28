@@ -1,83 +1,207 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>प्रमाणपत्र सत्यापन | उन्नति स्वयं सहायता समिति | Volunteer Certificate Verification</title>
-    <meta name="description" content="उन्नति स्वयं सहायता समिति का स्वयंसेवी प्रमाणपत्र सत्यापन करें। Verify your NGO volunteer certificate online — Unnati Sawaye Sahayta Samiti, Haldwani, Uttarakhand. CSR00102587.">
-    <meta name="keywords" content="certificate verification NGO, प्रमाणपत्र सत्यापन, volunteer certificate Unnati, Unnati Sawaye Sahayta Samiti certificate, NGO certificate verify Haldwani, CSR00102587, AAATU7133Q">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="उन्नति स्वयं सहायता समिति">
-    <link rel="canonical" href="https://unnatiselfhelpgroup-creator.github.io/certificate-verification.html">
-    <meta property="og:title" content="प्रमाणपत्र सत्यापन — उन्नति स्वयं सहायता समिति">
-    <meta property="og:description" content="अपना स्वयंसेवी प्रमाणपत्र नंबर दर्ज करें और तुरंत सत्यापन करें। Unnati NGO Haldwani Uttarakhand.">
-    <meta property="og:url" content="https://unnatiselfhelpgroup-creator.github.io/certificate-verification.html">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="hi_IN">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "प्रमाणपत्र सत्यापन",
-      "description": "उन्नति स्वयं सहायता समिति — ऑनलाइन प्रमाणपत्र सत्यापन सेवा। CSR00102587",
-      "url": "https://unnatiselfhelpgroup-creator.github.io/certificate-verification.html",
-      "inLanguage": "hi"
-    }
-    </script>
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', Arial, sans-serif; background: #071b34; color: white; text-align: center; padding: 30px 16px; min-height: 100vh; }
-        .box {
-            max-width: 640px; margin: 0 auto;
-            background: rgba(255,255,255,0.06);
-            padding: 36px 30px; border-radius: 20px;
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212,175,55,0.35);
-        }
-        .logo { width: 85px; margin-bottom: 14px; border-radius: 50%; }
-        h1 { color: #d4af37; font-size: 1.5rem; margin-bottom: 8px; }
-        p { color: #ccc; font-size: 0.95rem; margin-bottom: 16px; }
-        .input-wrap { position: relative; margin: 20px 0 12px; }
-        #certInput {
-            width: 100%; padding: 14px 16px; border-radius: 12px; border: 2px solid #d4af37;
-            font-size: 1rem; text-align: center; background: rgba(255,255,255,0.08);
-            color: white; outline: none; transition: background 0.3s;
-        }
-        #certInput::placeholder { color: rgba(255,255,255,0.45); }
-        #certInput:focus { background: rgba(255,255,255,0.14); }
-        button {
-            padding: 12px 38px; background: #d4af37; border: none;
-            border-radius: 12px; cursor: pointer; font-weight: bold;
-            font-size: 1rem; color: #1b2430; transition: background 0.3s, transform 0.1s;
-        }
-        button:hover { background: #f2ce63; }
-        button:active { transform: scale(0.97); }
-        #resultBox {
-            margin-top: 24px; padding: 20px; background: rgba(255,255,255,0.08);
-            border-radius: 14px; display: none; text-align: left; line-height: 1.9;
-        }
-        #resultBox.valid   { border-left: 5px solid #00ff7f; }
-        #resultBox.invalid { border-left: 5px solid #ff4d4d; }
-        .back-link { color: #d4af37; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 24px; font-size: 0.95rem; }
-        .back-link:hover { text-decoration: underline; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="उन्नति स्वयं सहायता समिति का स्वयंसेवी प्रमाणपत्र सत्यापन करें। Verify your NGO volunteer certificate online.">
+<meta name="keywords" content="certificate verification NGO, प्रमाणपत्र सत्यापन, volunteer certificate Unnati, Unnati Sawaye Sahayta Samiti certificate">
+<meta name="robots" content="index, follow">
+<title>प्रमाणपत्र सत्यापन | उन्नति स्वयं सहायता समिति</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.result-card { border-radius: 14px; padding: 20px; margin-top: 16px; display: none; }
+.result-valid { background: #d4edda; border: 2px solid #28a745; }
+.result-invalid { background: #f8d7da; border: 2px solid #dc3545; }
+.result-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; }
+.result-card .field { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 0.82rem; }
+.result-card .field:last-child { border-bottom: none; }
+.result-card .field span:first-child { color: #555; font-weight: 600; }
+.cert-badge { text-align: center; font-size: 2rem; margin-bottom: 8px; }
+</style>
 </head>
 <body>
-<main>
-  <div class="box" role="main">
-    <img src="ngologo.png" class="logo" alt="उन्नति स्वयं सहायता समिति लोगो">
-    <h1>📜 प्रमाणपत्र सत्यापन</h1>
-    <p>अपना प्रमाण पत्र नंबर दर्ज करें और तुरंत सत्यापित करें।</p>
 
-    <div class="input-wrap">
-        <input type="text" id="certInput" placeholder="उदाहरण: CERT-1753194785" aria-label="प्रमाण पत्र नंबर">
+<div class="page-header">
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+  <h1>उन्नति स्वयं सहायता समिति</h1>
+  <p>NGO Darpan: UA/2016/0108273 | CSR: CSR00102587</p>
+</div>
+
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-title">📜 प्रमाणपत्र सत्यापन</div>
+    <p style="font-size:0.8rem;color:#666;margin-bottom:16px;">अपना प्रमाण पत्र नंबर दर्ज करें और तुरंत सत्यापित करें।</p>
+
+    <div class="form-group">
+      <label>प्रमाणपत्र नंबर <span class="required-star">*</span></label>
+      <input type="text" id="certNo" placeholder="जैसे: USHG-2024-VOL-001" style="text-transform:uppercase;">
+      <p class="hint">प्रमाणपत्र पर छपा नंबर दर्ज करें</p>
     </div>
-    <button onclick="checkCert()" type="button">🔍 सत्यापित करें</button>
 
-    <div id="resultBox" role="status" aria-live="polite"></div>
-    <a href="index.html" class="back-link">⬅ मुख्य पृष्ठ पर जाएँ</a>
+    <div class="form-group">
+      <label>स्वयंसेवक का नाम (वैकल्पिक)</label>
+      <input type="text" id="certName" placeholder="नाम से भी खोज सकते हैं">
+    </div>
+
+    <button class="btn btn-primary btn-block" id="verifyBtn" onclick="verifyCertificate()">
+      🔍 सत्यापित करें
+    </button>
+
+    <!-- Valid Result -->
+    <div class="result-card result-valid" id="validResult">
+      <div class="cert-badge">✅</div>
+      <h3 style="color:#155724;text-align:center;">प्रमाणपत्र वैध है!</h3>
+      <div class="field"><span>नाम</span><span id="r-name">—</span></div>
+      <div class="field"><span>प्रमाणपत्र नं.</span><span id="r-certno">—</span></div>
+      <div class="field"><span>प्रकार</span><span id="r-type">—</span></div>
+      <div class="field"><span>अवधि</span><span id="r-duration">—</span></div>
+      <div class="field"><span>जारी तिथि</span><span id="r-date">—</span></div>
+      <div class="field"><span>स्थिति</span><span style="color:#155724;font-weight:700;">✅ Verified</span></div>
+      <div style="text-align:center;margin-top:14px;">
+        <button class="btn btn-green" onclick="downloadVerify()">⬇️ Verification Letter Download</button>
+      </div>
+    </div>
+
+    <!-- Invalid Result -->
+    <div class="result-card result-invalid" id="invalidResult">
+      <div class="cert-badge">❌</div>
+      <h3 style="color:#721c24;text-align:center;">प्रमाणपत्र नहीं मिला</h3>
+      <p style="font-size:0.8rem;color:#721c24;text-align:center;">
+        यह नंबर हमारे रिकॉर्ड में नहीं है। कृपया जाँचें या संपर्क करें।<br><br>
+        📱 <a href="tel:+919410332400" style="color:#721c24;font-weight:700;">9410332400</a><br>
+        📧 <a href="mailto:unnatiselfhelpgroup@gmail.com" style="color:#721c24;">unnatiselfhelpgroup@gmail.com</a>
+      </p>
+    </div>
   </div>
-</main>
-<script type="module" src="certificate-check.js"></script>
+
+  <!-- Info box -->
+  <div style="background:white;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(74,4,4,0.08);">
+    <div style="font-size:0.82rem;font-weight:700;color:var(--maroon);margin-bottom:8px;">ℹ️ प्रमाणपत्र नंबर कैसा दिखता है?</div>
+    <div style="font-size:0.75rem;color:#555;line-height:1.8;">
+      • Volunteer Certificate: <strong>USHG-2024-VOL-001</strong><br>
+      • Student Internship: <strong>USHG-2024-INT-001</strong><br>
+      • Service Certificate: <strong>USHG-2024-SER-001</strong><br>
+      • ID Card Number: <strong>USHG-MEM-2024-001</strong>
+    </div>
+  </div>
+</div>
+
+<div class="back-link">
+  <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+</div>
+
+<script>
+// Demo certificate database (replace with Firebase when ready)
+const CERT_DB = {
+  "USHG-2024-VOL-001": { name: "राहुल कुमार", type: "Volunteer Certificate", duration: "30 दिन", date: "15 मार्च 2024" },
+  "USHG-2024-INT-001": { name: "प्रिया शर्मा", type: "Internship Certificate", duration: "60 दिन", date: "01 जनवरी 2024" },
+  "USHG-2024-SER-001": { name: "सुरेश पंत", type: "Service Certificate", duration: "90 दिन", date: "10 फरवरी 2024" },
+  "USHG-MEM-2024-001": { name: "मीना जोशी", type: "Membership Certificate", duration: "वार्षिक", date: "05 मार्च 2024" },
+};
+
+// Try Firebase
+let db = null;
+try {
+  if (typeof firebase !== 'undefined') {
+    db = firebase.firestore();
+  }
+} catch(e) {}
+
+async function verifyCertificate() {
+  const certNo = document.getElementById('certNo').value.trim().toUpperCase();
+  const certName = document.getElementById('certName').value.trim().toLowerCase();
+
+  if (!certNo && !certName) {
+    alert('कृपया प्रमाणपत्र नंबर या नाम दर्ज करें।'); return;
+  }
+
+  const btn = document.getElementById('verifyBtn');
+  btn.innerHTML = '<span class="spinner"></span> खोज रहे हैं...';
+  btn.disabled = true;
+
+  document.getElementById('validResult').style.display = 'none';
+  document.getElementById('invalidResult').style.display = 'none';
+
+  let found = null;
+  let foundNo = certNo;
+
+  // Try Firebase first
+  if (db && certNo) {
+    try {
+      const doc = await db.collection('certificates').doc(certNo).get();
+      if (doc.exists) { found = doc.data(); }
+    } catch(e) { console.warn('Firebase error, using local DB'); }
+  }
+
+  // Fallback to local DB
+  if (!found && certNo && CERT_DB[certNo]) {
+    found = CERT_DB[certNo];
+  }
+
+  // Search by name if no certNo match
+  if (!found && certName) {
+    for (const [no, data] of Object.entries(CERT_DB)) {
+      if (data.name.toLowerCase().includes(certName)) {
+        found = data; foundNo = no; break;
+      }
+    }
+  }
+
+  await new Promise(r => setTimeout(r, 600)); // slight delay for UX
+
+  if (found) {
+    document.getElementById('r-name').textContent    = found.name || '—';
+    document.getElementById('r-certno').textContent  = foundNo;
+    document.getElementById('r-type').textContent    = found.type || '—';
+    document.getElementById('r-duration').textContent= found.duration || '—';
+    document.getElementById('r-date').textContent    = found.date || '—';
+    document.getElementById('validResult').style.display = 'block';
+    document.getElementById('validResult').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    document.getElementById('invalidResult').style.display = 'block';
+    document.getElementById('invalidResult').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  btn.innerHTML = '🔍 सत्यापित करें';
+  btn.disabled = false;
+}
+
+function downloadVerify() {
+  const name   = document.getElementById('r-name').textContent;
+  const certno = document.getElementById('r-certno').textContent;
+  const type   = document.getElementById('r-type').textContent;
+  const date   = document.getElementById('r-date').textContent;
+  const today  = new Date().toLocaleDateString('hi-IN');
+
+  const content = `उन्नति स्वयं सहायता समिति
+NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q
+
+प्रमाणपत्र सत्यापन पत्र
+
+यह प्रमाणित किया जाता है कि:
+
+नाम: ${name}
+प्रमाणपत्र संख्या: ${certno}
+प्रमाणपत्र प्रकार: ${type}
+जारी तिथि: ${date}
+
+यह प्रमाणपत्र उन्नति स्वयं सहायता समिति के रिकॉर्ड में वैध है।
+
+सत्यापन तिथि: ${today}
+वेबसाइट: https://unnatiselfhelpgroup-creator.github.io/
+
+संपर्क: 9410332400 | unnatiselfhelpgroup@gmail.com`;
+
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `Verification_${certno}.txt`;
+  a.click();
+}
+
+// Enter key support
+document.getElementById('certNo').addEventListener('keydown', e => { if(e.key==='Enter') verifyCertificate(); });
+document.getElementById('certName').addEventListener('keydown', e => { if(e.key==='Enter') verifyCertificate(); });
+</script>
 </body>
 </html>

@@ -3,76 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="उन्नति स्वयं सहायता समिति के सक्रिय स्वयंसेवकों की सूची।">
+<meta name="robots" content="index, follow">
 <title>स्वयंसेवक सूची | उन्नति स्वयं सहायता समिति</title>
+<link rel="stylesheet" href="common.css">
 <style>
-body{
-font-family:Poppins,sans-serif;
-background:#071b34;
-color:white;
-padding:20px;
-}
-.box{
-max-width:900px;
-margin:auto;
-background:rgba(255,255,255,.05);
-padding:30px;
-border-radius:20px;
-border:1px solid #d4af37;
-}
-h2{
-text-align:center;
-color:#ffd56a;
-}
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-th,td{
-padding:12px;
-border:1px solid #d4af37;
-text-align:center;
-}
-th{
-background:#d4af37;
-color:#000;
-}
-.btn{
-display:inline-block;
-margin-top:25px;
-padding:12px 25px;
-background:#d4af37;
-color:#000;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-}
+.vol-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.vol-table th { background: var(--maroon); color: white; padding: 10px 8px; text-align: left; font-size: 0.78rem; }
+.vol-table td { padding: 10px 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
+.vol-table tr:nth-child(even) { background: #fff9f0; }
+.vol-table tr:hover { background: #fff3e0; }
+.status-badge { padding: 3px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700; }
+.status-active { background: #d4edda; color: #155724; }
+.status-intern { background: #cce5ff; color: #004085; }
+.search-box { width: 100%; padding: 10px 12px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 0.88rem; margin-bottom: 14px; outline: none; }
+.search-box:focus { border-color: var(--maroon); }
+.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+.stat-mini { background: white; border-radius: 10px; text-align: center; padding: 12px 8px; box-shadow: 0 2px 8px rgba(74,4,4,0.08); border-top: 3px solid var(--gold); }
+.stat-mini .n { font-size: 1.3rem; font-weight: 900; color: var(--maroon); }
+.stat-mini .l { font-size: 0.65rem; color: #666; }
 </style>
 </head>
 <body>
-<div class="box">
-  <h2>🎓 स्वयंसेवक सूची</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>नाम</th>
-        <th>वॉलंटियर ID</th>
-        <th>स्थिति</th>
-      </tr>
-    </thead>
-    <tbody id="volunteerBody">
-      <tr>
-        <td colspan="3">डेटा लोड हो रहा है...</td>
-      </tr>
-    </tbody>
-  </table>
-  <center>
-    <a href="index.html" class="btn">⬅ मुख्य पृष्ठ</a>
-  </center>
+
+<div class="page-header">
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+  <h1>👥 स्वयंसेवक सूची</h1>
+  <p>उन्नति स्वयं सहायता समिति — सक्रिय सदस्य एवं स्वयंसेवक</p>
 </div>
 
-<!-- ✅ volunteers.js खुद firebase-config.js import करता है — यहाँ duplicate नहीं चाहिए -->
-<script type="module" src="volunteers.js"></script>
+<div style="max-width:600px;margin:0 auto;padding:20px 16px;">
+
+  <div class="stats-row">
+    <div class="stat-mini"><div class="n" id="totalCount">—</div><div class="l">कुल सदस्य</div></div>
+    <div class="stat-mini"><div class="n" id="activeCount">—</div><div class="l">सक्रिय</div></div>
+    <div class="stat-mini"><div class="n" id="internCount">—</div><div class="l">इंटर्न</div></div>
+  </div>
+
+  <input type="text" class="search-box" id="searchInput" placeholder="🔍 नाम या ID से खोजें..." oninput="filterVolunteers()">
+
+  <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(74,4,4,0.1);">
+    <table class="vol-table" id="volTable">
+      <thead>
+        <tr>
+          <th>नाम</th>
+          <th>वॉलंटियर ID</th>
+          <th>पद</th>
+          <th>स्थिति</th>
+        </tr>
+      </thead>
+      <tbody id="volBody">
+        <tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">
+          <span class="spinner" style="border-top-color:var(--maroon);border-color:rgba(74,4,4,0.2);"></span>
+          डेटा लोड हो रहा है...
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:12px;text-align:center;font-size:0.72rem;color:#888;" id="showCount"></div>
+</div>
+
+<div class="back-link">
+  <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+</div>
+
+<script>
+// Demo data — replace Firebase query below with real data when Firebase is configured
+const DEMO_VOLUNTEERS = [
+  { name: "राहुल कुमार शर्मा", id: "USHG-MEM-2024-001", role: "ग्राम गौ-संयोजक", status: "active" },
+  { name: "प्रिया देवी", id: "USHG-INT-2024-001", role: "Volunteer", status: "intern" },
+  { name: "सुरेश पंत", id: "USHG-MEM-2024-002", role: "ब्लॉक गौ-प्रभारी", status: "active" },
+  { name: "मीना जोशी", id: "USHG-MEM-2024-003", role: "Volunteer", status: "active" },
+  { name: "अनिल बिष्ट", id: "USHG-INT-2024-002", role: "Intern (30 दिन)", status: "intern" },
+  { name: "सविता रावत", id: "USHG-MEM-2024-004", role: "जिला गौ-समन्वयक", status: "active" },
+  { name: "दीपक नेगी", id: "USHG-INT-2024-003", role: "Intern (60 दिन)", status: "intern" },
+  { name: "कमला देवी", id: "USHG-MEM-2024-005", role: "Volunteer", status: "active" },
+  { name: "विक्रम सिंह", id: "USHG-MEM-2024-006", role: "ग्राम गौ-संयोजक", status: "active" },
+  { name: "रेखा पाठक", id: "USHG-INT-2024-004", role: "Intern (15 दिन)", status: "intern" },
+];
+
+let volunteers = [...DEMO_VOLUNTEERS];
+
+function renderTable(data) {
+  const tbody = document.getElementById('volBody');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">कोई परिणाम नहीं मिला।</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(v => `
+    <tr>
+      <td><strong>${v.name}</strong></td>
+      <td style="font-family:monospace;font-size:0.72rem;">${v.id}</td>
+      <td>${v.role}</td>
+      <td><span class="status-badge ${v.status==='active'?'status-active':'status-intern'}">${v.status==='active'?'✅ सक्रिय':'🎓 इंटर्न'}</span></td>
+    </tr>`).join('');
+  document.getElementById('showCount').textContent = `${data.length} सदस्य दिख रहे हैं`;
+}
+
+function updateStats() {
+  document.getElementById('totalCount').textContent = volunteers.length;
+  document.getElementById('activeCount').textContent = volunteers.filter(v=>v.status==='active').length;
+  document.getElementById('internCount').textContent = volunteers.filter(v=>v.status==='intern').length;
+}
+
+function filterVolunteers() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = volunteers.filter(v =>
+    v.name.toLowerCase().includes(q) || v.id.toLowerCase().includes(q) || v.role.toLowerCase().includes(q)
+  );
+  renderTable(filtered);
+}
+
+// Try Firebase, fall back to demo data
+async function loadVolunteers() {
+  try {
+    if (typeof firebase !== 'undefined') {
+      const db = firebase.firestore();
+      const snap = await db.collection('volunteers').orderBy('name').get();
+      if (!snap.empty) {
+        volunteers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      }
+    }
+  } catch(e) { console.warn('Firebase not available, using demo data'); }
+
+  updateStats();
+  renderTable(volunteers);
+}
+
+loadVolunteers();
+</script>
 </body>
 </html>
-
