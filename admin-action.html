@@ -12,7 +12,52 @@
         button { padding: 14px 30px; background: #d4af37; border: none; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 20px; transition: background 0.3s; }
         button:hover { background: #f2ce63; }
         button:disabled { opacity: 0.6; cursor: not-allowed; }
-    </style>
+    
+    /* ══ 3D BUTTONS ══ */
+    .btn,button[type="submit"],.btn-submit,.pay-link,.tab,.logout-btn,.modal-close{
+        position:relative;cursor:pointer;border:none;font-weight:700;letter-spacing:0.3px;
+        transition:all 0.08s ease!important;user-select:none;-webkit-user-select:none;
+        transform:translateY(-3px);
+        box-shadow:0 6px 0 rgba(0,0,0,0.35),0 8px 12px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.25)!important;
+    }
+    .btn:active,button[type="submit"]:active,.btn-submit:active,.pay-link:active{
+        box-shadow:0 1px 0 rgba(0,0,0,0.35),inset 0 2px 4px rgba(0,0,0,0.2)!important;
+        transform:translateY(4px)!important;
+    }
+    .btn:hover,button[type="submit"]:hover,.btn-submit:hover,.pay-link:hover{
+        transform:translateY(-5px)!important;filter:brightness(1.08);
+        box-shadow:0 9px 0 rgba(0,0,0,0.35),0 14px 22px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.3)!important;
+    }
+    .btn:disabled,button:disabled{transform:translateY(0)!important;box-shadow:0 2px 0 rgba(0,0,0,0.2)!important;filter:grayscale(0.5);cursor:not-allowed!important}
+    .btn.approve{background:linear-gradient(145deg,#2ecc71,#27ae60)!important;box-shadow:0 6px 0 #1a7a43,0 8px 12px rgba(39,174,96,0.4),inset 0 1px 0 rgba(255,255,255,0.3)!important}
+    .btn.approve:active{box-shadow:0 1px 0 #1a7a43,inset 0 2px 4px rgba(0,0,0,0.2)!important;transform:translateY(4px)!important}
+    .btn.approve:hover{box-shadow:0 8px 0 #1a7a43,0 12px 20px rgba(39,174,96,0.5),inset 0 1px 0 rgba(255,255,255,0.35)!important}
+    .btn.reject{background:linear-gradient(145deg,#e74c3c,#c0392b)!important;box-shadow:0 6px 0 #8c1a12,0 8px 12px rgba(192,57,43,0.4),inset 0 1px 0 rgba(255,255,255,0.25)!important}
+    .btn.reject:active{box-shadow:0 1px 0 #8c1a12,inset 0 2px 4px rgba(0,0,0,0.2)!important;transform:translateY(4px)!important}
+    .btn.reject:hover{box-shadow:0 8px 0 #8c1a12,0 12px 20px rgba(192,57,43,0.5),inset 0 1px 0 rgba(255,255,255,0.3)!important}
+    .btn.pdf{background:linear-gradient(145deg,#f4d03f,#d4af37)!important;color:#071b34!important;box-shadow:0 6px 0 #9a7d1a,0 8px 12px rgba(212,175,55,0.4),inset 0 1px 0 rgba(255,255,255,0.4)!important}
+    .btn.pdf:active{box-shadow:0 1px 0 #9a7d1a,inset 0 2px 4px rgba(0,0,0,0.15)!important;transform:translateY(4px)!important}
+    .btn.pdf:hover{box-shadow:0 8px 0 #9a7d1a,0 12px 20px rgba(212,175,55,0.5),inset 0 1px 0 rgba(255,255,255,0.45)!important}
+    .btn.idpdf{background:linear-gradient(145deg,#2980b9,#1565c0)!important;box-shadow:0 6px 0 #0a3d6b,0 8px 12px rgba(21,101,192,0.4),inset 0 1px 0 rgba(255,255,255,0.25)!important}
+    .btn.idpdf:active{box-shadow:0 1px 0 #0a3d6b,inset 0 2px 4px rgba(0,0,0,0.2)!important;transform:translateY(4px)!important}
+    .btn-submit,button[type="submit"]{
+        background:linear-gradient(145deg,#8b1a1a,#4a0404)!important;color:#fff!important;
+        box-shadow:0 7px 0 #2a0000,0 10px 16px rgba(74,4,4,0.45),inset 0 1px 0 rgba(255,255,255,0.15)!important;
+    }
+    .btn-submit:active,button[type="submit"]:active{box-shadow:0 2px 0 #2a0000,inset 0 3px 6px rgba(0,0,0,0.3)!important;transform:translateY(5px)!important}
+    .pay-link{background:linear-gradient(145deg,#1976d2,#0d47a1)!important;box-shadow:0 7px 0 #062d6e,0 10px 16px rgba(13,71,161,0.45),inset 0 1px 0 rgba(255,255,255,0.2)!important}
+    .tab{box-shadow:0 5px 0 rgba(0,0,0,0.3),0 6px 10px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.15)!important;transform:translateY(-2px)}
+    .tab:active{box-shadow:0 1px 0 rgba(0,0,0,0.3)!important;transform:translateY(3px)!important}
+    .tab.active{box-shadow:0 5px 0 #9a7d1a,0 8px 14px rgba(212,175,55,0.4),inset 0 1px 0 rgba(255,255,255,0.3)!important}
+    .logout-btn{box-shadow:0 5px 0 #7a0000,0 8px 14px rgba(192,57,43,0.4),inset 0 1px 0 rgba(255,255,255,0.2)!important;transform:translateY(-2px)}
+    .logout-btn:active{box-shadow:0 1px 0 #7a0000!important;transform:translateY(3px)!important}
+    .modal-close{box-shadow:0 4px 0 #8c1a12,0 6px 10px rgba(192,57,43,0.35),inset 0 1px 0 rgba(255,255,255,0.2)!important;transform:translateY(-2px)}
+    .modal-close:active{box-shadow:0 1px 0 #8c1a12!important;transform:translateY(2px)!important}
+    .back-link a{display:inline-block;background:linear-gradient(145deg,#5a1010,#3a0000);color:#ffd700!important;padding:10px 20px;border-radius:10px;text-decoration:none!important;box-shadow:0 5px 0 #1a0000,0 8px 12px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.15)!important;transform:translateY(-2px);transition:all 0.08s ease}
+    .back-link a:active{box-shadow:0 1px 0 #1a0000!important;transform:translateY(3px)!important}
+    /* ══ END 3D BUTTONS ══ */
+
+</style>
 </head>
 <body>
     <h2 id="statusMsg">प्रक्रिया जारी है...</h2>
