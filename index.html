@@ -102,7 +102,7 @@ body {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   position: relative; overflow: hidden;
-  padding: 100px 24px 60px;
+  padding: 80px 24px 40px;
   text-align: center;
 }
 
@@ -735,8 +735,26 @@ footer {
   position: absolute; top: 16px; right: 20px; background: none;
   border: none; color: var(--text-muted); font-size: 22px; cursor: pointer;
 }
-.modal-error { color: #ff6b6b; font-size: 12px; margin-top: 8px; }
-.modal-loading { color: var(--text-muted); font-size: 13px; margin-top: 8px; }
+/* ── GOOGLE TRANSLATE ── */
+#google_translate_element {
+  position: fixed; top: 14px; right: 130px; z-index: 1001;
+}
+#google_translate_element select {
+  background: rgba(13,5,0,0.9);
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+}
+@media(max-width:480px){
+  #google_translate_element { right: 110px; top: 16px; }
+  #google_translate_element select { font-size: 10px; padding: 5px 8px; }
+}
+.goog-te-banner-frame { display: none !important; }
+body { top: 0 !important; }
 </style>
 </head>
 <body>
@@ -751,8 +769,21 @@ footer {
     </div>
   </a>
   <span class="nav-tagline">🐄 गौ माता राष्ट्रमाता</span>
+  <div id="google_translate_element"></div>
   <a href="https://unnatiselfhelpgroup-creator.github.io/Donate.html" class="nav-donate">🙏 दान करें</a>
 </nav>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'hi',
+    includedLanguages: 'en,hi',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- HERO -->
 <section id="hero" aria-label="Hero">
@@ -888,13 +919,13 @@ footer {
       <div class="doc-sub">संस्था का पंजीकरण प्रमाणपत्र</div>
       <div class="doc-lock">🔒 Admin Only</div>
     </div>
-    <div class="doc-card reveal" onclick="window.open('https://ngodarpan.gov.in','_blank')" style="cursor:pointer;">
+    <div class="doc-card reveal" onclick="window.open('https://unnatiselfhelpgroup-creator.github.io/ngodarpan.pdf','_blank')" style="cursor:pointer;">
       <span class="doc-icon">🏛️</span>
       <div class="doc-title">NGO Darpan / नीति आयोग</div>
       <div class="doc-sub">DARPAN ID: UA/2016/0108273 <span style="color:#6dba5c">Active ✓</span></div>
       <span class="doc-open">NGO Darpan देखें ›</span>
     </div>
-    <div class="doc-card reveal" onclick="window.open('https://unnatiselfhelpgroup-creator.github.io/RTI.html','_blank')" style="cursor:pointer;">
+    <div class="doc-card reveal" onclick="window.open('https://unnatiselfhelpgroup-creator.github.io/rti_document.pdf','_blank')" style="cursor:pointer;">
       <span class="doc-icon">📋</span>
       <div class="doc-title">RTI — सूचना का अधिकार</div>
       <div class="doc-sub">RTI अधिनियम 2005 — द्वितीय अपील दस्तावेज़</div>
