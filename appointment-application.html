@@ -1,232 +1,311 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="उन्नति स्वयं सहायता समिति में सदस्य, पदाधिकारी अथवा स्वयंसेवक बनने हेतु आवेदन करें।">
-<meta name="robots" content="index, follow">
-<title>नियुक्ति आवेदन | उन्नति स्वयं सहायता समिति</title>
-<link rel="stylesheet" href="common.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="उन्नति स्वयं सहायता समिति में सदस्य, पदाधिकारी अथवा स्वयंसेवक बनने हेतु आवेदन करें।" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://unnatiselfhelpgroup-creator.github.io/appointment-application.html" />
+  <title>नियुक्ति आवेदन | उन्नति स्वयं सहायता समिति</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f4ef; color: #222; }
+    header { background: #4a0404; color: #fff; text-align: center; padding: 18px 12px 14px; }
+    header img { height: 64px; margin-bottom: 8px; display: block; margin-left: auto; margin-right: auto; }
+    header h1 { font-size: 1.15rem; font-weight: 700; }
+    header p { font-size: 0.8rem; opacity: 0.85; margin-top: 5px; }
+    .container { max-width: 600px; margin: 28px auto 48px; background: #fff; border-radius: 14px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.10); padding: 28px 24px 32px; }
+    h2 { font-size: 1.05rem; color: #4a0404; border-bottom: 2px solid #f0e0c0;
+      padding-bottom: 9px; margin-bottom: 20px; text-align: center; }
+    label { display: block; font-size: 0.87rem; font-weight: 600; color: #444;
+      margin-bottom: 4px; margin-top: 15px; }
+    .required { color: #c00; }
+    input, select, textarea {
+      width: 100%; padding: 9px 12px; border: 1px solid #ccc; border-radius: 7px;
+      font-size: 0.93rem; background: #fafafa; font-family: inherit; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #4a0404; background: #fff; }
+    .fee-section { background: #fff8e1; border: 1.5px solid #f5c518;
+      border-radius: 10px; padding: 16px 18px; margin-top: 24px; }
+    .fee-section h3 { font-size: 0.92rem; color: #4a0404; margin-bottom: 12px; }
+    .fee-row { display: flex; justify-content: space-between; font-size: 0.87rem; padding: 4px 0; color: #555; }
+    .fee-divider { border: none; border-top: 1px dashed #e0c060; margin: 10px 0; }
+    .fee-total { display: flex; justify-content: space-between;
+      font-size: 1.1rem; font-weight: 800; color: #4a0404; padding-top: 4px; }
+    .fee-includes { margin-top: 12px; }
+    .fee-includes p { font-size: 0.78rem; color: #666; font-weight: 600; margin-bottom: 5px; }
+    .fee-includes ul { list-style: none; padding: 0; }
+    .fee-includes ul li { font-size: 0.82rem; color: #555; padding: 2px 0; }
+    .fee-includes ul li::before { content: "✓ "; color: #4a0404; font-weight: bold; }
+    .fee-note { margin-top: 10px; font-size: 0.78rem; color: #999; }
+    .fee-chart { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.82rem; }
+    .fee-chart th { background: #4a0404; color: #fff; padding: 7px 10px; text-align: left; }
+    .fee-chart td { padding: 6px 10px; border-bottom: 1px solid #f0e0c0; }
+    .fee-chart tr:nth-child(even) td { background: #fffbef; }
+    .fee-chart .active-row td { background: #fff3cd; font-weight: 700; color: #4a0404; }
+    .rules-box { background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;
+      padding: 14px 16px; margin-top: 20px; }
+    .rules-box summary { font-weight: 700; color: #4a0404; cursor: pointer; font-size: 0.9rem; }
+    .rules-content { margin-top: 12px; font-size: 0.82rem; color: #444; line-height: 1.6; }
+    .rules-content .sec-title { font-weight: 700; color: #4a0404; margin-top: 10px; margin-bottom: 3px; }
+    .rules-content ol { padding-left: 18px; }
+    .rules-content ol li { margin-bottom: 4px; }
+    .checkbox-row { display: flex; align-items: flex-start; gap: 10px;
+      margin-top: 18px; font-size: 0.84rem; color: #555; }
+    .checkbox-row input[type=checkbox] { width: auto; margin-top: 3px; accent-color: #4a0404; flex-shrink: 0; }
+    .checkbox-row a { color: #4a0404; }
+    .btn { display: block; width: 100%; margin-top: 22px; padding: 14px;
+      background: #4a0404; color: #fff; font-size: 1rem; font-weight: 700;
+      border: none; border-radius: 9px; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #6b0606; }
+    .back-link { display: block; text-align: center; margin-top: 18px;
+      font-size: 0.85rem; color: #4a0404; text-decoration: none; }
+  </style>
 </head>
 <body>
 
-<div class="page-header">
-  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+<header>
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="उन्नति स्वयं सहायता समिति" />
   <h1>उन्नति स्वयं सहायता समिति</h1>
-  <p>NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q</p>
-</div>
+  <p>NGO Darpan: UA/2016/0108273 &nbsp;|&nbsp; PAN: AAATU7133Q &nbsp;|&nbsp; CSR: CSR00102587</p>
+</header>
 
-<div class="form-wrap">
-  <div class="form-card">
-    <div class="form-title">📄 नियुक्ति हेतु आवेदन</div>
+<div class="container">
+  <h2>📄 नियुक्ति हेतु आवेदन</h2>
 
-    <form id="appointmentForm" novalidate>
+  <label for="fullname">पूरा नाम <span class="required">*</span></label>
+  <input type="text" id="fullname" placeholder="जैसा आधार कार्ड पर है" required />
 
-      <div class="form-group">
-        <label>पूरा नाम <span class="required-star">*</span></label>
-        <input type="text" id="name" placeholder="अपना पूरा नाम लिखें" required>
-      </div>
+  <label for="father">पिता / पति का नाम <span class="required">*</span></label>
+  <input type="text" id="father" placeholder="पूरा नाम लिखें" required />
 
-      <div class="form-group">
-        <label>पिता/पति का नाम <span class="required-star">*</span></label>
-        <input type="text" id="fatherName" placeholder="पिता/पति का नाम" required>
-      </div>
+  <label for="mobile">मोबाइल नंबर <span class="required">*</span></label>
+  <input type="tel" id="mobile" placeholder="10 अंकों का मोबाइल नंबर" maxlength="10" required />
 
-      <div class="form-group">
-        <label>मोबाइल नंबर <span class="required-star">*</span></label>
-        <input type="tel" id="mobile" placeholder="10 अंकों का मोबाइल नंबर" maxlength="10" required>
-      </div>
+  <label for="email">ईमेल आईडी <span class="required">*</span></label>
+  <input type="email" id="email" placeholder="yourname@email.com" required />
 
-      <div class="form-group">
-        <label>ईमेल आईडी <span class="required-star">*</span></label>
-        <input type="email" id="email" placeholder="yourname@email.com" required>
-      </div>
+  <label for="address">पूरा पता <span class="required">*</span></label>
+  <textarea id="address" rows="3" placeholder="ग्राम / मोहल्ला, तहसील, जिला, पिन कोड" required></textarea>
 
-      <div class="form-group">
-        <label>पूरा पता <span class="required-star">*</span></label>
-        <textarea id="address" placeholder="गाँव, तहसील, जिला, राज्य" required></textarea>
-      </div>
+  <label for="category">सदस्य श्रेणी <span class="required">*</span></label>
+  <select id="category" onchange="onCategoryChange()" required>
+    <option value="">श्रेणी चुनें</option>
+    <option value="volunteer">Volunteer (स्वयंसेवक)</option>
+    <option value="officer">पदाधिकारी</option>
+    <option value="active">सक्रिय सदस्य</option>
+  </select>
 
-      <div class="form-group">
-        <label>सदस्य श्रेणी <span class="required-star">*</span></label>
-        <select id="category" required onchange="updateFee()">
-          <option value="">श्रेणी चुनें</option>
-          <option value="Volunteer (स्वयंसेवक)" data-fee="500">Volunteer (स्वयंसेवक) — ₹500</option>
-          <option value="पदाधिकारी" data-fee="1000">पदाधिकारी — ₹1000</option>
-          <option value="सक्रिय सदस्य" data-fee="700">सक्रिय सदस्य — ₹700</option>
-        </select>
-      </div>
+  <label for="designation">पद (Designation) <span class="required">*</span></label>
+  <select id="designation" onchange="updateFee()" required>
+    <option value="">— पहले श्रेणी चुनें —</option>
+  </select>
 
-      <div class="form-group">
-        <label>पद (Designation) <span class="required-star">*</span></label>
-        <select id="designation" required>
-          <option value="">पद चुनें</option>
-          <option value="Volunteer (स्वयंसेवक)">Volunteer (स्वयंसेवक)</option>
-          <option value="ग्राम गौ-संयोजक">ग्राम गौ-संयोजक</option>
-          <option value="ब्लॉक गौ-प्रभारी">ब्लॉक गौ-प्रभारी</option>
-          <option value="जिला गौ-समन्वयक">जिला गौ-समन्वयक</option>
-          <option value="प्रदेश कार्यकारिणी सदस्य">प्रदेश कार्यकारिणी सदस्य</option>
-          <option value="राष्ट्रीय गौ-पदाधिकारी">राष्ट्रीय गौ-पदाधिकारी</option>
-        </select>
-      </div>
+  <label for="education">शैक्षिक योग्यता</label>
+  <input type="text" id="education" placeholder="उदाहरण: 12वीं, Graduation, B.A. आदि" />
 
-      <div class="form-group">
-        <label>शैक्षिक योग्यता</label>
-        <input type="text" id="education" placeholder="जैसे: B.A., M.A., 12वीं आदि">
-      </div>
+  <label for="interest">सेवा कार्य में रुचि</label>
+  <select id="interest">
+    <option value="">क्षेत्र चुनें</option>
+    <option>गौ सेवा</option>
+    <option>पर्यावरण संरक्षण</option>
+    <option>रक्तदान</option>
+    <option>शिक्षा जागरूकता</option>
+    <option>महिला सशक्तिकरण</option>
+    <option>स्वच्छ भारत अभियान</option>
+    <option>अन्य सामाजिक सेवा</option>
+  </select>
 
-      <div class="form-group">
-        <label>सेवा कार्य में रुचि</label>
-        <select id="interest">
-          <option value="">क्षेत्र चुनें</option>
-          <option value="गौ सेवा">गौ सेवा</option>
-          <option value="पर्यावरण संरक्षण">पर्यावरण संरक्षण</option>
-          <option value="रक्तदान">रक्तदान</option>
-          <option value="शिक्षा जागरूकता">शिक्षा जागरूकता</option>
-          <option value="महिला सशक्तिकरण">महिला सशक्तिकरण</option>
-          <option value="स्वच्छ भारत अभियान">स्वच्छ भारत अभियान</option>
-          <option value="अन्य सामाजिक सेवा">अन्य सामाजिक सेवा</option>
-        </select>
-      </div>
+  <!-- Fee Section -->
+  <div class="fee-section">
+    <h3>💰 सदस्यता शुल्क विवरण</h3>
+    <div class="fee-row">
+      <span>चयनित पद</span>
+      <span id="feeDesig" style="font-weight:600;color:#333;">— पद चुनें —</span>
+    </div>
+    <div class="fee-row">
+      <span>प्रशासनिक सहयोग राशि</span>
+      <span id="feeAmount" style="font-weight:700;color:#4a0404;font-size:1rem;">—</span>
+    </div>
+    <hr class="fee-divider"/>
+    <div class="fee-total">
+      <span>कुल देय राशि</span>
+      <span id="totalFee">—</span>
+    </div>
+    <div class="fee-includes">
+      <p>इसमें शामिल है:</p>
+      <ul>
+        <li>आधिकारिक सदस्य ID Card</li>
+        <li>नियुक्ति पत्र (Appointment Letter)</li>
+        <li>डिजिटल प्रमाणपत्र</li>
+        <li>NGO डैशबोर्ड एक्सेस</li>
+      </ul>
+    </div>
 
-      <!-- Fee Box -->
-      <div id="feeBox" style="display:none;background:#fff3cd;border-radius:10px;padding:14px;margin:14px 0;border-left:4px solid var(--gold);">
-        <div style="font-size:0.82rem;font-weight:600;color:#7a5500;margin-bottom:8px;">💰 सदस्यता शुल्क विवरण</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:0.78rem;color:#555;">
-            ✅ आधिकारिक ID Card<br>
-            ✅ नियुक्ति पत्र<br>
-            ✅ डिजिटल प्रमाणपत्र<br>
-            ✅ NGO Dashboard Access
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:1.4rem;font-weight:900;color:var(--maroon);" id="feeAmount">—</div>
-            <div style="font-size:0.68rem;color:#888;">Non-Refundable</div>
-          </div>
-        </div>
-      </div>
+    <!-- Fee Chart -->
+    <table class="fee-chart" id="feeChart">
+      <tr><th>पद</th><th>शुल्क</th></tr>
+      <tr><td>Volunteer (स्वयंसेवक)</td><td>₹151</td></tr>
+      <tr><td>ग्राम गौ-संयोजक</td><td>₹151</td></tr>
+      <tr><td>ब्लॉक गौ-प्रभारी</td><td>₹351</td></tr>
+      <tr><td>जिला गौ-समन्वयक</td><td>₹551</td></tr>
+      <tr><td>प्रदेश कार्यकारिणी सदस्य</td><td>₹751</td></tr>
+      <tr><td>राष्ट्रीय गौ-पदाधिकारी</td><td>₹1001</td></tr>
+    </table>
 
-      <!-- Terms -->
-      <details style="margin:14px 0;border:1px solid #eee;border-radius:8px;overflow:hidden;">
-        <summary style="padding:12px;font-size:0.82rem;font-weight:600;color:var(--maroon);cursor:pointer;background:#fafafa;">
-          📜 संस्था के नियम, शर्तें एवं दायित्व ▼
-        </summary>
-        <div style="padding:12px;font-size:0.75rem;color:#555;line-height:1.8;">
-          <strong>1. सदस्यता नियम</strong><br>
-          • सदस्य की आयु न्यूनतम 18 वर्ष होनी चाहिए।<br>
-          • दी गई जानकारी सत्य एवं प्रामाणिक होनी चाहिए।<br>
-          • असत्य जानकारी देने पर सदस्यता तत्काल निरस्त की जाएगी।<br><br>
-          <strong>2. शुल्क नीति</strong><br>
-          • प्रशासनिक सहयोग राशि Non-Refundable है।<br>
-          • भुगतान के बाद ही ID Card एवं प्रमाणपत्र जारी होंगे।<br><br>
-          <strong>3. सदस्य दायित्व</strong><br>
-          • गौ सेवा, पर्यावरण एवं समाज सेवा में सक्रिय भागीदारी।<br>
-          • ID Card का दुरुपयोग दंडनीय अपराध है।<br><br>
-          <strong>4. विवाद क्षेत्र:</strong> हल्द्वानी, नैनीताल, उत्तराखंड
-        </div>
-      </details>
-
-      <div class="check-wrap">
-        <input type="checkbox" id="agree" required>
-        <label for="agree">मैं संस्था की उपरोक्त नियम एवं शर्तों, शुल्क नीति तथा सदस्यता नियमों से सहमत हूँ। मैं घोषणा करता/करती हूँ कि दी गई जानकारी सत्य है।</label>
-      </div>
-
-      <div class="msg-box msg-error" id="errorMsg"></div>
-
-      <button type="submit" class="btn btn-primary btn-block" id="submitBtn" style="margin-top:16px;">
-        📤 आवेदन जमा करें एवं भुगतान हेतु आगे बढ़ें
-      </button>
-    </form>
+    <p class="fee-note">* यह राशि Non-Refundable है। अगले चरण में Razorpay द्वारा भुगतान करना होगा।</p>
   </div>
-</div>
 
-<div class="back-link">
-  <a href="https://unnatiselfhelpgroup-creator.github.io/">⬅ मुख्य पृष्ठ पर जाएँ</a>
+  <!-- Rules -->
+  <div class="rules-box">
+    <details>
+      <summary>📜 संस्था के नियम, शर्तें एवं दायित्व ▼</summary>
+      <div class="rules-content">
+        <p class="sec-title">1. सदस्यता एवं नियुक्ति संबंधी नियम</p>
+        <ol>
+          <li>सदस्य की आयु न्यूनतम 18 वर्ष होनी चाहिए।</li>
+          <li>दी गई समस्त जानकारी सत्य एवं प्रामाणिक होनी चाहिए।</li>
+          <li>नियुक्ति पत्र एवं ID Card केवल संस्था के सेवा कार्यों हेतु उपयोग किया जाना चाहिए।</li>
+          <li>सदस्य किसी भी अवैध, असामाजिक, या राष्ट्रविरोधी कार्य में संलग्न नहीं होंगे।</li>
+        </ol>
+        <p class="sec-title">2. शुल्क नीति</p>
+        <ol>
+          <li>प्रशासनिक सहयोग राशि Non-Refundable है।</li>
+          <li>भुगतान के उपरांत ही नियुक्ति पत्र, ID Card एवं डिजिटल प्रमाणपत्र जारी किए जाएंगे।</li>
+          <li>किसी भी प्रकार की धनराशि वापसी का दावा मान्य नहीं होगा।</li>
+        </ol>
+        <p class="sec-title">3. सदस्य के दायित्व</p>
+        <ol>
+          <li>सदस्य अपने क्षेत्र में गौ सेवा, पर्यावरण एवं समाज सेवा के कार्यों में सक्रिय भागीदारी करेंगे।</li>
+          <li>नियुक्ति पत्र का दुरुपयोग दंडनीय अपराध होगा।</li>
+          <li>संस्था का ID Card किसी अन्य व्यक्ति को हस्तांतरित नहीं किया जा सकता।</li>
+        </ol>
+        <p class="sec-title">4. संवैधानिक दायरा</p>
+        <ol>
+          <li>संस्था भारतीय संविधान एवं कानून के अंतर्गत कार्य करती है।</li>
+          <li>किसी भी विवाद की स्थिति में न्यायालय क्षेत्र हल्द्वानी, नैनीताल, उत्तराखंड होगा।</li>
+        </ol>
+        <p class="sec-title">5. सदस्यता निरस्तीकरण</p>
+        <ol>
+          <li>संस्था को उचित कारण होने पर किसी भी सदस्य की नियुक्ति निरस्त करने का अधिकार है।</li>
+          <li>निरस्तीकरण की स्थिति में दी गई राशि वापस नहीं होगी।</li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <div class="checkbox-row">
+    <input type="checkbox" id="agree" required />
+    <label for="agree" style="margin:0;font-weight:400;">
+      मैं संस्था की उपरोक्त नियम एवं शर्तों,
+      <a href="https://unnatiselfhelpgroup-creator.github.io/refund.html" target="_blank">शुल्क नीति</a>
+      तथा सदस्यता नियमों से सहमत हूँ। मैं घोषणा करता/करती हूँ कि दी गई जानकारी सत्य है।
+    </label>
+  </div>
+
+  <button class="btn" onclick="submitForm()">
+    📤 आवेदन जमा करें एवं भुगतान हेतु आगे बढ़ें
+  </button>
+
+  <a href="https://unnatiselfhelpgroup-creator.github.io/" class="back-link">⬅ मुख्य पृष्ठ पर जाएँ</a>
 </div>
 
 <script>
-const FORMSPREE = "https://formspree.io/f/xdkgnpqv";
-const WHATSAPP  = "919410332400";
-const PAYMENT_PAGE = "https://unnatiselfhelpgroup-creator.github.io/appointment-payment.html";
-
-function updateFee() {
-  const sel = document.getElementById('category');
-  const opt = sel.options[sel.selectedIndex];
-  const fee = opt.dataset.fee;
-  if (fee) {
-    document.getElementById('feeBox').style.display = 'block';
-    document.getElementById('feeAmount').textContent = '₹' + fee;
-  } else {
-    document.getElementById('feeBox').style.display = 'none';
-  }
-}
-
-document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const name        = document.getElementById('name').value.trim();
-  const fatherName  = document.getElementById('fatherName').value.trim();
-  const mobile      = document.getElementById('mobile').value.trim();
-  const email       = document.getElementById('email').value.trim();
-  const address     = document.getElementById('address').value.trim();
-  const category    = document.getElementById('category').value;
-  const designation = document.getElementById('designation').value;
-  const education   = document.getElementById('education').value.trim();
-  const interest    = document.getElementById('interest').value;
-  const agree       = document.getElementById('agree').checked;
-
-  const sel = document.getElementById('category');
-  const fee = sel.options[sel.selectedIndex].dataset.fee || '';
-
-  if (!name || !fatherName || !mobile || !email || !address || !category || !designation) {
-    showError('❌ कृपया सभी आवश्यक फ़ील्ड भरें।'); return;
-  }
-  if (!/^[0-9]{10}$/.test(mobile)) {
-    showError('❌ मोबाइल नंबर 10 अंकों का होना चाहिए।'); return;
-  }
-  if (!agree) {
-    showError('❌ कृपया नियम एवं शर्तें स्वीकार करें।'); return;
-  }
-
-  const btn = document.getElementById('submitBtn');
-  btn.innerHTML = '<span class="spinner"></span> जमा हो रहा है...';
-  btn.disabled = true;
-
-  const data = {
-    form_type: 'नियुक्ति आवेदन',
-    नाम: name, 'पिता/पति': fatherName, मोबाइल: mobile,
-    ईमेल: email, पता: address, श्रेणी: category,
-    पद: designation, शिक्षा: education, रुचि: interest,
-    शुल्क: fee ? `₹${fee}` : 'N/A',
-    समय: new Date().toLocaleString('hi-IN')
+  const designationMap = {
+    volunteer: [
+      { label: 'Volunteer (स्वयंसेवक)', fee: 151 }
+    ],
+    officer: [
+      { label: 'ग्राम गौ-संयोजक',            fee: 151  },
+      { label: 'ब्लॉक गौ-प्रभारी',           fee: 351  },
+      { label: 'जिला गौ-समन्वयक',            fee: 551  },
+      { label: 'प्रदेश कार्यकारिणी सदस्य',   fee: 751  },
+      { label: 'राष्ट्रीय गौ-पदाधिकारी',    fee: 1001 },
+    ],
+    active: [
+      { label: 'Volunteer (स्वयंसेवक)',       fee: 151  },
+      { label: 'ग्राम गौ-संयोजक',            fee: 151  },
+      { label: 'ब्लॉक गौ-प्रभारी',           fee: 351  },
+      { label: 'जिला गौ-समन्वयक',            fee: 551  },
+      { label: 'प्रदेश कार्यकारिणी सदस्य',   fee: 751  },
+      { label: 'राष्ट्रीय गौ-पदाधिकारी',    fee: 1001 },
+    ],
   };
 
-  // Save data first
-  let saved = false;
-  try {
-    const res = await fetch(FORMSPREE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
+  function onCategoryChange() {
+    const cat = document.getElementById('category').value;
+    const sel = document.getElementById('designation');
+    sel.innerHTML = '';
+    if (!cat || !designationMap[cat]) {
+      sel.innerHTML = '<option value="">— पहले श्रेणी चुनें —</option>';
+      resetFee(); return;
+    }
+    sel.innerHTML = '<option value="">पद चुनें</option>';
+    designationMap[cat].forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d.label;
+      opt.dataset.fee = d.fee;
+      opt.textContent = d.label + '  —  ₹' + d.fee;
+      sel.appendChild(opt);
     });
-    if (res.ok) saved = true;
-  } catch(err) { /* continue to payment anyway */ }
+    if (designationMap[cat].length === 1) {
+      sel.selectedIndex = 1;
+      updateFee();
+    } else {
+      resetFee();
+    }
+    highlightFeeChart();
+  }
 
-  btn.innerHTML = '📤 आवेदन जमा करें एवं भुगतान हेतु आगे बढ़ें';
-  btn.disabled = false;
+  function updateFee() {
+    const sel = document.getElementById('designation');
+    const opt = sel.options[sel.selectedIndex];
+    if (!opt || !opt.dataset.fee) { resetFee(); return; }
+    const fee = parseInt(opt.dataset.fee);
+    document.getElementById('feeDesig').textContent = opt.value;
+    document.getElementById('feeAmount').textContent = '₹' + fee;
+    document.getElementById('totalFee').textContent = '₹' + fee;
+    highlightFeeChart(opt.value);
+  }
 
-  // Store in sessionStorage for payment page
-  sessionStorage.setItem('applicant', JSON.stringify({ name, mobile, email, category, designation, fee }));
+  function resetFee() {
+    document.getElementById('feeDesig').textContent = '— पद चुनें —';
+    document.getElementById('feeAmount').textContent = '—';
+    document.getElementById('totalFee').textContent = '—';
+    highlightFeeChart('');
+  }
 
-  // Redirect to payment page
-  window.location.href = PAYMENT_PAGE + '?name=' + encodeURIComponent(name) + '&fee=' + encodeURIComponent(fee) + '&cat=' + encodeURIComponent(category);
-});
+  function highlightFeeChart(selectedLabel) {
+    const rows = document.querySelectorAll('#feeChart tr');
+    rows.forEach(r => {
+      r.classList.remove('active-row');
+      if (selectedLabel && r.cells[0] && r.cells[0].textContent.trim() === selectedLabel) {
+        r.classList.add('active-row');
+      }
+    });
+  }
 
-function showError(msg) {
-  const e = document.getElementById('errorMsg');
-  e.textContent = msg; e.style.display = 'block';
-  e.scrollIntoView({ behavior: 'smooth' });
-}
+  function submitForm() {
+    const checks = [
+      [document.getElementById('fullname').value.trim(), 'कृपया पूरा नाम भरें।'],
+      [document.getElementById('father').value.trim(), 'कृपया पिता/पति का नाम भरें।'],
+      [document.getElementById('address').value.trim(), 'कृपया पूरा पता भरें।'],
+      [document.getElementById('category').value, 'कृपया सदस्य श्रेणी चुनें।'],
+      [document.getElementById('designation').value, 'कृपया पद चुनें।'],
+    ];
+    const mob = document.getElementById('mobile').value.trim();
+    if (!mob || mob.length !== 10) { alert('कृपया सही 10 अंकों का मोबाइल नंबर भरें।'); return; }
+    const email = document.getElementById('email').value.trim();
+    if (!email) { alert('कृपया ईमेल आईडी भरें।'); return; }
+    for (const [val, msg] of checks) {
+      if (!val) { alert(msg); return; }
+    }
+    if (!document.getElementById('agree').checked) {
+      alert('कृपया नियम एवं शर्तों से सहमति दें।'); return;
+    }
+    window.location.href = 'https://razorpay.me/@wwwunnatiselfhelpgroupcom';
+  }
 </script>
+
 </body>
 </html>
