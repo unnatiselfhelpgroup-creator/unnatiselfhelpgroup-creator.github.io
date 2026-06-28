@@ -154,21 +154,9 @@ tr:hover td{background:rgba(255,255,255,0.04)}
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const FB = {
-  apiKey:"AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
-  authDomain:"ngo-certificate-system.firebaseapp.com",
-  projectId:"ngo-certificate-system",
-  storageBucket:"ngo-certificate-system.firebasestorage.app",
-  messagingSenderId:"664351169113",
-  appId:"1:664351169113:web:3c476e199d369615c6ef48"
-};
-const app  = initializeApp(FB);
-const db   = getFirestore(app);
-const auth = getAuth(app);
+import { db, auth } from "./firebase-config.js";
+import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const LOGO = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
 const SIGN = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
