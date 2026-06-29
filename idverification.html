@@ -486,7 +486,13 @@
         const snap3 = await getDocs(q3);
         if (!snap3.empty) { data = snap3.docs[0].data(); found = true; }
       }
-
+// Search in AppointmentLetter collection
+        if (!found) {
+          const alRef = collection(db, 'AppointmentLetter');
+          const q4 = query(alRef, where('volunteer_id', '==', input));
+          const snap4 = await getDocs(q4);
+          if (!snap4.empty) { data = snap4.docs[0].data(); found = true; }
+        }
       statusMsg.innerHTML = '';
       btn.disabled = false;
 
