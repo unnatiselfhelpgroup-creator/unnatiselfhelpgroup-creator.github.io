@@ -1,1 +1,237 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Processing | उन्नति स्वयं सहायता समिति</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;text-align:center;padding:60px 20px;background:#071b34;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+        .card{background:#0d2545;border:2px solid rgba(212,175,55,0.3);border-radius:18px;padding:40px 32px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+        .logo{font-size:0.9rem;color:#b8a87a;margin-bottom:24px;line-height:1.6}
+        .logo strong{display:block;color:#d4af37;font-size:1.05rem;margin-bottom:4px}
+        h2{font-size:1.15rem;margin-bottom:8px;line-height:1.5}
+        .sub{font-size:0.85rem;color:#b8a87a;margin-bottom:28px}
+        .info-box{background:#071b34;border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:14px 18px;margin-bottom:24px;text-align:left;font-size:0.88rem;line-height:1.8}
+        .info-box .lbl{color:#b8a87a;font-size:0.78rem}
+        .info-box .val{color:#e8e0cc;font-weight:600}
+        .status-badge{display:inline-block;padding:3px 14px;border-radius:20px;font-size:0.8rem;font-weight:700;margin-left:6px}
+        .Approved{background:#0d2b1a;color:#2ecc71;border:1px solid #27ae60}
+        .Rejected{background:#2b0d0d;color:#e74c3c;border:1px solid #c0392b}
+        .Verified{background:#0d1e2b;color:#3498db;border:1px solid #1565c0}
+        .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+        button{padding:13px 28px;border:none;border-radius:10px;font-weight:bold;font-size:0.95rem;cursor:pointer;
+            position:relative;transition:all 0.08s;transform:translateY(-3px);
+            box-shadow:0 6px 0 rgba(0,0,0,0.35),0 8px 12px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.25)}
+        button:active{box-shadow:0 1px 0 rgba(0,0,0,0.35)!important;transform:translateY(3px)!important}
+        button:hover:not(:disabled){transform:translateY(-5px)!important;filter:brightness(1.08)}
+        button:disabled{transform:translateY(0)!important;box-shadow:0 2px 0 rgba(0,0,0,0.2)!important;opacity:0.5;cursor:not-allowed}
+        .btn-confirm{background:linear-gradient(145deg,#d4af37,#9a7d1a);color:#071b34;
+            box-shadow:0 6px 0 #6b5610,0 8px 12px rgba(212,175,55,0.4),inset 0 1px 0 rgba(255,255,255,0.4)}
+        .btn-back{background:linear-gradient(145deg,#5a1010,#3a0000);color:#ffd700;
+            box-shadow:0 6px 0 #1a0000,0 8px 12px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.15)}
+        .spinner{width:32px;height:32px;border:3px solid rgba(212,175,55,0.2);border-top-color:#d4af37;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 16px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .step{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:0.88rem;color:#b8a87a;border-bottom:1px solid rgba(212,175,55,0.1)}
+        .step:last-child{border-bottom:none}
+        .step .icon{font-size:1.1rem;width:24px;text-align:center}
+        .step.done{color:#2ecc71}
+        .step.fail{color:#e74c3c}
+        .step.active{color:#d4af37}
+        #progressBox{display:none;margin-top:20px;background:#071b34;border-radius:10px;padding:12px 16px;text-align:left}
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">
+        <strong>🏛️ उन्नति स्वयं सहायता समिति</strong>
+        Admin Action Panel
+    </div>
+
+    <div id="mainContent">
+        <div class="spinner"></div>
+        <h2 id="statusMsg">जानकारी लोड हो रही है...</h2>
+    </div>
+</div>
+
+<script type="module">
+import { db, auth } from "./firebase-config.js";
+import { doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// ══ EmailJS CONFIG — अपनी IDs यहाँ डालें ══
+emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+const EJS_SERVICE   = "YOUR_SERVICE_ID";
+const EJS_TEMPLATE  = "template_user_notify"; // applicant को जाने वाला template
+
+// ══ URL PARAMS ══
+const params = new URLSearchParams(window.location.search);
+const id     = params.get("id");
+const status = params.get("status");
+const type   = params.get("type");
+
+const ALLOWED_STATUS = ["Approved","Rejected","Verified"];
+const ALLOWED_COLS   = ["Appointments","Certificates","DailyReports","IDcard","StudentRegistrations"];
+
+const mainEl = document.getElementById("mainContent");
+
+function setHTML(html){ mainEl.innerHTML = html; }
+
+// ══ STEP PROGRESS UI ══
+function makeProgress(steps){
+    return `<div id="progressBox" style="display:block;margin-top:20px;background:#071b34;border-radius:10px;padding:12px 16px;text-align:left">
+        ${steps.map((s,i)=>`<div class="step" id="step-${i}"><span class="icon">⏳</span>${s}</div>`).join("")}
+    </div>`;
+}
+function setStep(i, state, icon){
+    const el = document.getElementById("step-"+i);
+    if(!el) return;
+    el.className = "step "+state;
+    el.querySelector(".icon").textContent = icon;
+}
+
+// ══ AUTH CHECK ══
+onAuthStateChanged(auth, async user => {
+    if(!user){
+        setHTML(`<h2 id="statusMsg">⚠️ Admin Login जरूरी है</h2><p style="color:#b8a87a;margin:12px 0 20px;font-size:0.9rem">पहले Admin Login करें</p>
+        <div class="btn-row"><button class="btn-confirm" onclick="location.href='admin-login.html'">🔐 Login करें</button></div>`);
+        return;
+    }
+
+    if(!id || !status){ showError("❌ गलत लिंक — ID या Status missing है।"); return; }
+    if(!ALLOWED_STATUS.includes(status)){ showError("❌ अमान्य Status: "+status); return; }
+    if(!ALLOWED_COLS.includes(type)){ showError("❌ अमान्य Collection Type: "+type); return; }
+
+    // Load record preview
+    try {
+        const snap = await getDoc(doc(db, type, id));
+        if(!snap.exists()){ showError("❌ यह रिकॉर्ड Firebase में नहीं मिला।"); return; }
+        const data = snap.data();
+        showConfirm(data, user.email);
+    } catch(e){
+        showError("❌ Firebase Error: "+e.message);
+    }
+});
+
+// ══ CONFIRM SCREEN ══
+function showConfirm(data, adminEmail){
+    const name  = data.name || data.reporterName || "—";
+    const email = data.email || "—";
+    const post  = data.post || data.certificateType || data.reportDate || "—";
+    const colorMap = {Approved:"#2ecc71", Rejected:"#e74c3c", Verified:"#3498db"};
+    const color = colorMap[status]||"#d4af37";
+
+    setHTML(`
+        <h2 id="statusMsg">आवेदन <span class="status-badge ${status}">${status}</span> करें?</h2>
+        <p class="sub" style="margin-top:8px">नीचे विवरण confirm करके आगे बढ़ें</p>
+
+        <div class="info-box">
+            <div><span class="lbl">नाम: </span><span class="val">${name}</span></div>
+            <div><span class="lbl">Email: </span><span class="val">${email}</span></div>
+            <div><span class="lbl">पद/प्रकार: </span><span class="val">${post}</span></div>
+            <div><span class="lbl">Collection: </span><span class="val">${type}</span></div>
+            <div><span class="lbl">Action: </span><span class="val" style="color:${color};font-size:1rem">● ${status}</span></div>
+        </div>
+
+        ${makeProgress(["Firebase में Status Update", "Applicant को Email Notification", "Action Complete"])}
+
+        <div class="btn-row" style="margin-top:20px">
+            <button class="btn-back" onclick="history.back()">← वापस</button>
+            <button class="btn-confirm" id="confirmBtn" onclick="performAction(${JSON.stringify(data).replace(/"/g,'&quot;')})">
+                हाँ, ${status} करें ✓
+            </button>
+        </div>
+    `);
+}
+
+// ══ PERFORM ACTION ══
+window.performAction = async function(data){
+    const btn = document.getElementById("confirmBtn");
+    if(btn){ btn.disabled=true; btn.textContent="प्रक्रिया जारी है..."; }
+
+    // Step 0 — Firebase Update
+    setStep(0,"active","⏳");
+    try {
+        await updateDoc(doc(db, type, id), {
+            status,
+            actionType : type,
+            actionAt   : serverTimestamp(),
+            actionBy   : "admin"
+        });
+        setStep(0,"done","✅");
+    } catch(e){
+        setStep(0,"fail","❌");
+        showFinalError("Firebase update failed: "+e.message);
+        return;
+    }
+
+    // Step 1 — Email to Applicant
+    setStep(1,"active","📧");
+    const recipientEmail = data.email || "";
+    if(recipientEmail && recipientEmail.includes("@")){
+        try {
+            await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+                to_name   : data.name || data.reporterName || "आवेदक",
+                to_email  : recipientEmail,
+                doc_type  : getTypeLabel(type),
+                status    : status,
+                post      : data.post || data.certificateType || data.reportDate || "",
+                district  : data.district || "",
+                org_name  : "उन्नति स्वयं सहायता समिति",
+                message   : status==="Approved"
+                    ? "आपका आवेदन स्वीकृत हो गया है। जल्द ही आपको आपका Document मिलेगा।"
+                    : "खेद है, आपका आवेदन अस्वीकृत कर दिया गया है। अधिक जानकारी के लिए संपर्क करें।"
+            });
+            setStep(1,"done","✅");
+        } catch(e){
+            setStep(1,"fail","⚠️");
+            console.warn("Email failed:", e);
+            // don't block — email failure is non-critical
+        }
+    } else {
+        setStep(1,"fail","⚠️");
+        // no email on record
+    }
+
+    // Step 2 — Done
+    setStep(2,"done","🎉");
+    showSuccess(data);
+}
+
+// ══ SUCCESS ══
+function showSuccess(data){
+    const name = data.name || data.reporterName || "आवेदक";
+    const emailSent = (data.email||"").includes("@");
+    const colorMap = {Approved:"#2ecc71",Rejected:"#e74c3c",Verified:"#3498db"};
+
+    setTimeout(()=>{
+        mainEl.insertAdjacentHTML("beforeend", `
+            <div style="margin-top:20px;padding:16px;background:#0d2b1a;border:1px solid #27ae60;border-radius:12px">
+                <div style="font-size:1.5rem;margin-bottom:8px">${status==="Approved"?"🎉":status==="Verified"?"✔️":"❌"}</div>
+                <div style="font-size:1rem;font-weight:700;color:${colorMap[status]||"#d4af37"}">"${name}" को ${status} कर दिया गया!</div>
+                ${emailSent ? `<div style="font-size:0.82rem;color:#b8a87a;margin-top:6px">📧 ${data.email} पर notification भेजी गई</div>` : `<div style="font-size:0.82rem;color:#f39c12;margin-top:6px">⚠️ इस record में email नहीं है — notification नहीं गई</div>`}
+            </div>
+            <div class="btn-row" style="margin-top:20px">
+                <button class="btn-confirm" onclick="location.href='admin-panel.html'">📋 Admin Panel</button>
+            </div>
+        `);
+    }, 300);
+}
+
+function showError(msg){
+    setHTML(`<h2 id="statusMsg" style="color:#e74c3c">${msg}</h2>
+    <div class="btn-row" style="margin-top:24px"><button class="btn-back" onclick="history.back()">← वापस</button></div>`);
+}
+function showFinalError(msg){
+    mainEl.insertAdjacentHTML("beforeend",`<p style="color:#e74c3c;margin-top:16px;font-size:0.88rem">❌ ${msg}</p>`);
+}
+
+function getTypeLabel(t){
+    return {Appointments:"नियुक्ति पत्र",Certificates:"Certificate",DailyReports:"Daily Report",IDcard:"ID Card",StudentRegistrations:"Student Registration"}[t]||t;
+}
+</script>
+</body>
+</html>
 
