@@ -62,9 +62,9 @@ import { doc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // ══ EmailJS CONFIG — अपनी IDs यहाँ डालें ══
-emailjs.init("AvD_f76bB4qjYnGb0");
-const EJS_SERVICE  = "service_63pefgf";
-const EJS_TEMPLATE = "template_xq7uilj";
+emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+const EJS_SERVICE   = "YOUR_SERVICE_ID";
+const EJS_TEMPLATE  = "template_user_notify"; // applicant को जाने वाला template
 
 // ══ URL PARAMS ══
 const params = new URLSearchParams(window.location.search);
@@ -234,4 +234,3 @@ function getTypeLabel(t){
 </script>
 </body>
 </html>
-
