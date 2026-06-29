@@ -13,13 +13,9 @@
   --red:#4a0404;--red2:#8b1a1a;--green:#27ae60;--text:#e8e0cc;
 }
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--text);min-height:100vh;padding:20px}
-
-/* HEADER */
 .header{text-align:center;padding:20px 0 28px;border-bottom:2px solid rgba(212,175,55,0.3);margin-bottom:28px}
 .header h1{color:var(--gold);font-size:1.3rem;margin-bottom:4px}
 .header p{color:#b8a87a;font-size:0.85rem}
-
-/* TYPE SELECTOR */
 .type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
 .type-card{background:#0d2545;border:2px solid rgba(212,175,55,0.2);border-radius:14px;padding:20px 12px;text-align:center;cursor:pointer;transition:all 0.15s}
 .type-card:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -27,8 +23,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
 .type-card .icon{font-size:2rem;margin-bottom:8px}
 .type-card .label{font-size:0.85rem;font-weight:700;color:var(--gold)}
 .type-card .sub{font-size:0.72rem;color:#b8a87a;margin-top:3px}
-
-/* FORM */
 .form-card{background:#0d2545;border:1px solid rgba(212,175,55,0.2);border-radius:14px;padding:24px;margin-bottom:20px}
 .form-card h3{color:var(--gold);font-size:1rem;margin-bottom:18px;display:flex;align-items:center;gap:8px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -44,16 +38,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
 .field select option{background:#071b34}
 .field textarea{resize:vertical;min-height:70px}
-
-/* PHOTO UPLOAD */
 .photo-wrap{display:flex;align-items:center;gap:14px}
 .photo-preview{width:80px;height:90px;border:2px dashed rgba(212,175,55,0.4);border-radius:8px;
   display:flex;align-items:center;justify-content:center;font-size:1.8rem;background:#071b34;overflow:hidden;flex-shrink:0}
 .photo-preview img{width:100%;height:100%;object-fit:cover}
 .photo-upload-btn{background:#122e55;border:1.5px solid rgba(212,175,55,0.3);color:var(--gold);
   padding:9px 16px;border-radius:8px;cursor:pointer;font-size:0.82rem;font-weight:600}
-
-/* BUTTONS */
 .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
 .btn{padding:13px 28px;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;
   position:relative;transition:all 0.08s;transform:translateY(-2px);
@@ -66,13 +56,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
   box-shadow:0 5px 0 #062d6e,0 7px 12px rgba(13,71,161,0.4),inset 0 1px 0 rgba(255,255,255,0.2)}
 .btn.back{background:linear-gradient(145deg,var(--red2),var(--red));color:#fff;
   box-shadow:0 5px 0 #2a0000,0 7px 12px rgba(74,4,4,0.4),inset 0 1px 0 rgba(255,255,255,0.15)}
-
-/* PREVIEW CARD */
 .preview-wrap{background:#0d2545;border:1px solid rgba(212,175,55,0.2);border-radius:14px;padding:20px;margin-bottom:20px;display:none}
 .preview-wrap.show{display:block}
 .preview-wrap h3{color:var(--gold);margin-bottom:14px}
-
-/* ID CARD PREVIEW */
 .id-card{width:100%;max-width:340px;margin:0 auto;background:linear-gradient(135deg,#071b34,#0d2545);
   border:3px solid var(--gold);border-radius:14px;padding:18px;font-family:Arial,sans-serif;
   box-shadow:0 8px 30px rgba(0,0,0,0.5)}
@@ -80,7 +66,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
 .id-card-logo{width:42px;height:42px;border-radius:50%;border:2px solid var(--gold)}
 .id-card-org{font-size:0.72rem;color:var(--gold);font-weight:700;line-height:1.3}
 .id-card-body{display:flex;gap:12px;align-items:flex-start}
-.id-card-photo{width:70px;height:80px;border:2px solid var(--gold);border-radius:6px;object-fit:cover;flex-shrink:0;background:#122e55;display:flex;align-items:center;justify-content:center;color:#b8a87a;font-size:1.5rem}
 .id-card-info{flex:1}
 .id-card-name{font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:4px}
 .id-card-post{font-size:0.75rem;color:var(--gold);margin-bottom:8px;font-weight:600}
@@ -90,13 +75,16 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
   display:flex;justify-content:space-between;align-items:flex-end}
 .id-card-id{font-size:0.65rem;color:#b8a87a}
 .id-card-sig{text-align:right;font-size:0.6rem;color:#b8a87a}
-
-/* TOAST */
+/* Image status indicator */
+.img-status{text-align:center;margin-bottom:12px;font-size:0.8rem;padding:8px;border-radius:8px;background:#071b34;border:1px solid rgba(212,175,55,0.2)}
+.img-status.ok{border-color:#27ae60;color:#2ecc71}
+.img-status.loading{color:#f39c12}
 .toast{position:fixed;bottom:20px;right:20px;background:#0d2545;border:1px solid var(--gold3);
   color:var(--text);padding:12px 20px;border-radius:10px;font-size:0.88rem;
   box-shadow:0 8px 24px rgba(0,0,0,0.5);z-index:999;transform:translateY(80px);opacity:0;transition:all 0.3s}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.success{border-color:#27ae60;background:#0d2b1a}
+.toast.error{border-color:#c0392b;background:#2b0d0d}
 </style>
 </head>
 <body>
@@ -106,7 +94,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
   <p>उन्नति स्वयं सहायता समिति — ID Card | नियुक्ति पत्र | Certificate</p>
 </div>
 
-<!-- TYPE SELECTOR -->
+<div class="img-status loading" id="imgStatus">⏳ Logo और Signature लोड हो रहे हैं...</div>
+
 <div class="type-grid">
   <div class="type-card active" onclick="setType('idcard',this)">
     <div class="icon">🪪</div>
@@ -243,23 +232,91 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--navy);color:var(--
 <div class="toast" id="toast"></div>
 
 <script>
-const LOGO = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
-const SIGN = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
+// ══════════════════════════════════════════════
+// IMAGE LOADER — CORS-safe, always works
+// ══════════════════════════════════════════════
+const BASE = "https://unnatiselfhelpgroup-creator.github.io/";
+let LOGO_B64 = null;
+let SIGN_B64 = null;
+let imagesReady = false;
+
+async function imgToBase64(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = function() {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+      } catch(e) { resolve(null); }
+    };
+    img.onerror = () => resolve(null);
+    // Add timestamp to bust cache
+    img.src = url + "?v=" + Date.now();
+  });
+}
+
+async function loadImages() {
+  const statusEl = document.getElementById("imgStatus");
+  statusEl.className = "img-status loading";
+  statusEl.textContent = "⏳ Logo और Signature लोड हो रहे हैं...";
+
+  const [logo, sign] = await Promise.all([
+    imgToBase64(BASE + "ngologo.png"),
+    imgToBase64(BASE + "signature.png")
+  ]);
+
+  LOGO_B64 = logo;
+  SIGN_B64 = sign;
+  imagesReady = true;
+
+  if (logo && sign) {
+    statusEl.className = "img-status ok";
+    statusEl.textContent = "✅ Logo और Signature लोड हो गए — PDF में दिखेंगे";
+  } else if (logo || sign) {
+    statusEl.className = "img-status loading";
+    statusEl.textContent = "⚠️ " + (!logo?"Logo":"Signature") + " लोड नहीं हुआ — बाकी ठीक है";
+  } else {
+    statusEl.className = "img-status";
+    statusEl.textContent = "⚠️ Images लोड नहीं हुईं — PDF text के साथ बनेगा";
+  }
+}
+
+// Load on page load
+window.addEventListener("load", loadImages);
+
+// ══════════════════════════════════════════════
+// Helper: safely add image to PDF
+// ══════════════════════════════════════════════
+function pdfAddImage(doc, b64, fmt, x, y, w, h) {
+  if (!b64) return false;
+  try {
+    doc.addImage(b64, fmt || "PNG", x, y, w, h, undefined, "FAST");
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
 let currentType = "idcard";
 let photoDataURL = null;
 
-function setType(type, el){
+function setType(type, el) {
   currentType = type;
-  document.querySelectorAll(".type-card").forEach(c=>c.classList.remove("active"));
+  document.querySelectorAll(".type-card").forEach(c => c.classList.remove("active"));
   el.classList.add("active");
-  ["idcard","appointment","certificate"].forEach(t=>{
-    document.getElementById("form-"+t).style.display = t===type?"block":"none";
+  ["idcard","appointment","certificate"].forEach(t => {
+    document.getElementById("form-"+t).style.display = t===type ? "block" : "none";
   });
-  document.getElementById("preview-btn").style.display = type==="idcard"?"inline-flex":"none";
+  document.getElementById("preview-btn").style.display = type==="idcard" ? "inline-flex" : "none";
   document.getElementById("preview-wrap").classList.remove("show");
 }
 
-function previewPhoto(input, previewId){
+function previewPhoto(input, previewId) {
   const file = input.files[0]; if(!file) return;
   const reader = new FileReader();
   reader.onload = e => {
@@ -270,22 +327,26 @@ function previewPhoto(input, previewId){
   reader.readAsDataURL(file);
 }
 
-function showPreview(){
-  const name   = document.getElementById("ic-name").value || "नाम";
-  const post   = document.getElementById("ic-post").value || "पद";
-  const mobile = document.getElementById("ic-mobile").value || "—";
+function showPreview() {
+  const name     = document.getElementById("ic-name").value || "नाम";
+  const post     = document.getElementById("ic-post").value || "पद";
+  const mobile   = document.getElementById("ic-mobile").value || "—";
   const district = document.getElementById("ic-district").value || "—";
-  const blood  = document.getElementById("ic-blood").value || "—";
-  const valid  = document.getElementById("ic-valid").value ? new Date(document.getElementById("ic-valid").value).toLocaleDateString("hi-IN") : "31-01-2031";
-  const idNo   = "USS/" + String(Date.now()).slice(-8);
+  const blood    = document.getElementById("ic-blood").value || "—";
+  const valid    = document.getElementById("ic-valid").value
+    ? new Date(document.getElementById("ic-valid").value).toLocaleDateString("hi-IN") : "31-01-2031";
+  const idNo = "USS/" + String(Date.now()).slice(-8);
   const photoHTML = photoDataURL
     ? `<img src="${photoDataURL}" style="width:70px;height:80px;object-fit:cover;border:2px solid #d4af37;border-radius:6px">`
     : `<div style="width:70px;height:80px;border:2px dashed #d4af37;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#b8a87a">👤</div>`;
+  const logoHTML = LOGO_B64
+    ? `<img src="${LOGO_B64}" style="width:42px;height:42px;border-radius:50%;border:2px solid #d4af37">`
+    : `<div style="width:42px;height:42px;border-radius:50%;border:2px solid #d4af37;background:#122e55;display:flex;align-items:center;justify-content:center;font-size:1.2rem">🏛️</div>`;
 
   document.getElementById("preview-content").innerHTML = `
     <div class="id-card">
       <div class="id-card-header">
-        <img src="${LOGO}" class="id-card-logo" onerror="this.style.display='none'">
+        ${logoHTML}
         <div class="id-card-org">उन्नति स्वयं सहायता समिति<br><span style="font-size:0.62rem;color:#b8a87a">IDENTITY CARD</span></div>
       </div>
       <div class="id-card-body">
@@ -300,21 +361,22 @@ function showPreview(){
       </div>
       <div class="id-card-footer">
         <div class="id-card-id">ID: ${idNo}<br>Valid: ${valid}</div>
-        <div class="id-card-sig">अधिकृत हस्ताक्षर<br>राष्ट्रीय सचिव</div>
+        <div class="id-card-sig">${SIGN_B64?'<img src="'+SIGN_B64+'" style="height:22px;display:block;margin-bottom:2px">':''}अधिकृत हस्ताक्षर</div>
       </div>
     </div>`;
   document.getElementById("preview-wrap").classList.add("show");
 }
 
-// ══ PDF GENERATION ══
-function generatePDF(){
-  if(currentType==="idcard")      genIDCardPDF();
-  else if(currentType==="appointment") genAppointmentPDF();
-  else                             genCertificatePDF();
+function generatePDF() {
+  if (currentType === "idcard")           genIDCardPDF();
+  else if (currentType === "appointment") genAppointmentPDF();
+  else                                    genCertificatePDF();
 }
 
-// ── ID CARD PDF ──
-function genIDCardPDF(){
+// ══════════════════════════════════════════════
+// ID CARD PDF
+// ══════════════════════════════════════════════
+function genIDCardPDF() {
   const name     = document.getElementById("ic-name").value;
   const post     = document.getElementById("ic-post").value;
   const mobile   = document.getElementById("ic-mobile").value;
@@ -322,122 +384,102 @@ function genIDCardPDF(){
   const address  = document.getElementById("ic-address").value;
   const blood    = document.getElementById("ic-blood").value;
   const validRaw = document.getElementById("ic-valid").value;
-  if(!name||!post){ showToast("❌ नाम और पद जरूरी हैं!",""); return; }
+  if (!name || !post) { showToast("❌ नाम और पद जरूरी हैं!", "error"); return; }
 
   const { jsPDF } = window.jspdf;
-  // CR80 card size: 85.6 × 54mm (landscape)
-  const doc = new jsPDF({orientation:"landscape",unit:"mm",format:[85.6,54]});
+  const doc = new jsPDF({orientation:"landscape", unit:"mm", format:[85.6,54]});
 
-  // ── FRONT ──
-  // Background gradient simulation
-  doc.setFillColor(7,27,52);
-  doc.rect(0,0,85.6,54,"F");
-  doc.setFillColor(13,45,85);
-  doc.rect(0,0,85.6,14,"F");
-
-  // Gold border
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.8);
+  // ── FRONT PAGE ──
+  // Background
+  doc.setFillColor(7,27,52); doc.rect(0,0,85.6,54,"F");
+  // Left strip
+  doc.setFillColor(13,46,85); doc.rect(0,0,22,54,"F");
+  doc.setDrawColor(212,175,55); doc.setLineWidth(0.3);
+  doc.line(22,0,22,54);
+  // Outer gold border
+  doc.setDrawColor(212,175,55); doc.setLineWidth(0.8);
   doc.rect(1,1,83.6,52,"S");
 
-  // Logo area (left strip)
-  doc.setFillColor(18,46,85);
-  doc.rect(0,0,22,54,"F");
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.3);
-  doc.line(22,0,22,54);
-
-  // Logo
-  try {
-    doc.addImage(LOGO,"PNG",3,2,16,16,undefined,"FAST");
-  } catch(e){}
+  // LOGO in left strip — always show (fallback to text)
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", 3, 2, 16, 16);
+  } else {
+    doc.setFontSize(5); doc.setTextColor(212,175,55);
+    doc.text("🏛️", 11, 12, {align:"center"});
+  }
 
   // Org name in left strip (rotated)
-  doc.setFontSize(4.5);
-  doc.setTextColor(212,175,55);
-  doc.setFont("helvetica","bold");
-  doc.text("उन्नति स्वयं सहायता समिति",11,47,{angle:90,align:"center"});
-  doc.setFontSize(3.5);
-  doc.setTextColor(184,168,122);
-  doc.text("NGO Darpan: UA/2016/0108273",11,26,{angle:90,align:"center"});
+  doc.setFontSize(4.5); doc.setTextColor(212,175,55); doc.setFont("helvetica","bold");
+  doc.text("उन्नति स्वयं सहायता समिति", 11, 47, {angle:90, align:"center"});
+  doc.setFontSize(3.5); doc.setTextColor(184,168,122);
+  doc.text("NGO Darpan: UA/2016/0108273", 11, 26, {angle:90, align:"center"});
 
-  // IDENTITY CARD header
-  doc.setFillColor(212,175,55);
-  doc.rect(22,0,63.6,7,"F");
-  doc.setFontSize(7);
-  doc.setTextColor(7,27,52);
-  doc.setFont("helvetica","bold");
-  doc.text("IDENTITY CARD / पहचान पत्र",54.8,4.8,{align:"center"});
+  // IDENTITY CARD header banner
+  doc.setFillColor(212,175,55); doc.rect(22,0,63.6,7,"F");
+  doc.setFontSize(7); doc.setTextColor(7,27,52); doc.setFont("helvetica","bold");
+  doc.text("IDENTITY CARD / पहचान पत्र", 54.8, 4.8, {align:"center"});
 
   // Photo box
   const photoX=25, photoY=9, photoW=18, photoH=22;
-  if(photoDataURL){
-    try{ doc.addImage(photoDataURL,"JPEG",photoX,photoY,photoW,photoH); }catch(e){}
+  if (photoDataURL) {
+    pdfAddImage(doc, photoDataURL, "JPEG", photoX, photoY, photoW, photoH);
   }
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.4);
-  doc.rect(photoX,photoY,photoW,photoH,"S");
+  doc.setDrawColor(212,175,55); doc.setLineWidth(0.4);
+  doc.rect(photoX, photoY, photoW, photoH, "S");
+  if (!photoDataURL) {
+    doc.setFontSize(5); doc.setTextColor(184,168,122);
+    doc.text("फोटो", photoX+photoW/2, photoY+photoH/2, {align:"center"});
+  }
 
   // Name & Post
-  doc.setFontSize(8.5);
-  doc.setTextColor(255,255,255);
-  doc.setFont("helvetica","bold");
-  doc.text(name,46,13,{maxWidth:38});
-
-  doc.setFontSize(6);
-  doc.setTextColor(212,175,55);
-  doc.text(post,46,18,{maxWidth:38});
+  doc.setFontSize(8.5); doc.setTextColor(255,255,255); doc.setFont("helvetica","bold");
+  doc.text(name, 46, 13, {maxWidth:38});
+  doc.setFontSize(6); doc.setTextColor(212,175,55);
+  doc.text(post, 46, 18, {maxWidth:38});
 
   // Info rows
-  const infoY = 23;
   const rows = [
-    ["📱",mobile||"—"],
-    ["📍",district||"—"],
-    ["🩸",blood||"—"],
-    ["🏠",(address||"—").substring(0,28)],
+    ["📱", mobile||"—"],
+    ["📍", district||"—"],
+    ["🩸", blood||"—"],
+    ["🏠", (address||"—").substring(0,28)],
   ];
   doc.setFont("helvetica","normal");
-  rows.forEach((r,i)=>{
-    doc.setFontSize(5.2);
-    doc.setTextColor(184,168,122);
-    doc.text(r[0],46,infoY+i*4.5);
+  rows.forEach((r,i) => {
+    doc.setFontSize(5.2); doc.setTextColor(184,168,122);
+    doc.text(r[0], 46, 23+i*4.5);
     doc.setTextColor(232,224,204);
-    doc.text(r[1],50,infoY+i*4.5,{maxWidth:34});
+    doc.text(r[1], 50, 23+i*4.5, {maxWidth:34});
   });
 
   // ID & Valid
   const idNo = "USS/"+String(Date.now()).slice(-8);
   const validStr = validRaw ? new Date(validRaw).toLocaleDateString("en-IN") : "31-01-2031";
-  doc.setFontSize(4.5);
-  doc.setTextColor(184,168,122);
-  doc.text("ID: "+idNo,25,43);
-  doc.text("Valid: "+validStr,25,46.5);
+  doc.setFontSize(4.5); doc.setTextColor(184,168,122);
+  doc.text("ID: "+idNo, 25, 43);
+  doc.text("Valid: "+validStr, 25, 46.5);
 
-  // Signature line
-  doc.setDrawColor(184,168,122);
-  doc.setLineWidth(0.2);
-  doc.line(55,46,83,46);
-  doc.setFontSize(4);
-  doc.setTextColor(184,168,122);
-  doc.text("अधिकृत हस्ताक्षर / Authorised Signatory",69,49,{align:"center"});
+  // SIGNATURE — always in bottom right
+  if (SIGN_B64) {
+    pdfAddImage(doc, SIGN_B64, "PNG", 56, 38, 22, 8);
+  }
+  doc.setDrawColor(184,168,122); doc.setLineWidth(0.2);
+  doc.line(55,47,83,47);
+  doc.setFontSize(4); doc.setTextColor(184,168,122);
+  doc.text("अधिकृत हस्ताक्षर / Authorised Signatory", 69, 50, {align:"center"});
 
   // Helpline
-  doc.setFontSize(3.8);
-  doc.setTextColor(212,175,55);
-  doc.text("Helpline: 9410332400",25,50);
+  doc.setFontSize(3.8); doc.setTextColor(212,175,55);
+  doc.text("Helpline: 9410332400", 25, 50);
 
   // ── BACK PAGE ──
   doc.addPage([85.6,54],"landscape");
-  doc.setFillColor(7,27,52);
-  doc.rect(0,0,85.6,54,"F");
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.8);
+  doc.setFillColor(7,27,52); doc.rect(0,0,85.6,54,"F");
+  doc.setDrawColor(212,175,55); doc.setLineWidth(0.8);
   doc.rect(1,1,83.6,52,"S");
 
-  doc.setFontSize(6);
-  doc.setTextColor(212,175,55);
-  doc.setFont("helvetica","bold");
-  doc.text("नियम एवं शर्तें / Terms & Conditions",42.8,8,{align:"center"});
+  doc.setFontSize(6); doc.setTextColor(212,175,55); doc.setFont("helvetica","bold");
+  doc.text("नियम एवं शर्तें / Terms & Conditions", 42.8, 8, {align:"center"});
 
   const terms = [
     "1. यह पहचान पत्र केवल संस्था के सेवा कार्यों हेतु है।",
@@ -446,32 +488,31 @@ function genIDCardPDF(){
     "4. This card is non-transferable.",
     "5. Valid only with official stamp & signature.",
   ];
-  doc.setFont("helvetica","normal");
-  doc.setFontSize(4.5);
-  doc.setTextColor(184,168,122);
-  terms.forEach((t,i)=> doc.text(t,8,16+i*5.5,{maxWidth:70}));
+  doc.setFont("helvetica","normal"); doc.setFontSize(4.5); doc.setTextColor(184,168,122);
+  terms.forEach((t,i) => doc.text(t, 8, 16+i*5.5, {maxWidth:70}));
 
-  // QR placeholder
-  doc.setFillColor(255,255,255);
-  doc.rect(62,28,18,18,"F");
-  doc.setFontSize(3.5);
-  doc.setTextColor(100,100,100);
-  doc.text("Verify QR",71,49,{align:"center"});
+  // Logo on back too
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", 62, 28, 18, 18);
+  } else {
+    doc.setFillColor(255,255,255); doc.rect(62,28,18,18,"F");
+    doc.setFontSize(3.5); doc.setTextColor(100,100,100);
+    doc.text("Verify QR", 71, 49, {align:"center"});
+  }
 
   // Footer
-  doc.setFillColor(212,175,55);
-  doc.rect(0,47,85.6,7,"F");
-  doc.setFontSize(4.5);
-  doc.setTextColor(7,27,52);
-  doc.setFont("helvetica","bold");
-  doc.text("unnatiselfhelpgroup@gmail.com | 9410332400 | unnatiselfhelpgroup-creator.github.io",42.8,51.5,{align:"center"});
+  doc.setFillColor(212,175,55); doc.rect(0,47,85.6,7,"F");
+  doc.setFontSize(4.5); doc.setTextColor(7,27,52); doc.setFont("helvetica","bold");
+  doc.text("unnatiselfhelpgroup@gmail.com | 9410332400", 42.8, 51.5, {align:"center"});
 
   doc.save("IDCard_"+name.replace(/\s+/g,"_")+".pdf");
-  showToast("✅ ID Card PDF तैयार है!","success");
+  showToast("✅ ID Card PDF तैयार है!", "success");
 }
 
-// ── APPOINTMENT PDF ──
-function genAppointmentPDF(){
+// ══════════════════════════════════════════════
+// APPOINTMENT LETTER PDF
+// ══════════════════════════════════════════════
+function genAppointmentPDF() {
   const name   = document.getElementById("ap-name").value;
   const father = document.getElementById("ap-father").value;
   const post   = document.getElementById("ap-post").value;
@@ -481,94 +522,82 @@ function genAppointmentPDF(){
   const fee    = document.getElementById("ap-fee").value;
   const edu    = document.getElementById("ap-edu").value;
   const addr   = document.getElementById("ap-address").value;
-  if(!name||!post){ showToast("❌ नाम और पद जरूरी हैं!",""); return; }
+  if (!name || !post) { showToast("❌ नाम और पद जरूरी हैं!", "error"); return; }
 
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({orientation:"portrait",unit:"mm",format:"a4"});
+  const doc = new jsPDF({orientation:"portrait", unit:"mm", format:"a4"});
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
   const letterNo = "USS/APP/"+now.getFullYear()+"/"+String(Date.now()).slice(-6);
 
-  // Header BG
+  // ── HEADER (Navy background) ──
   doc.setFillColor(7,27,52);
-  doc.rect(0,0,210,42,"F");
+  doc.rect(0,0,210,45,"F");
 
-  // Logo
-  try{ doc.addImage(LOGO,"PNG",15,6,24,24,undefined,"FAST"); }catch(e){}
+  // Logo — TOP LEFT, always
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", 12, 8, 28, 28);
+  } else {
+    doc.setFontSize(22); doc.setTextColor(212,175,55);
+    doc.text("🏛️", 26, 26, {align:"center"});
+  }
 
-  // Org text
-  doc.setFontSize(16);
-  doc.setTextColor(212,175,55);
-  doc.setFont("helvetica","bold");
-  doc.text("उन्नति स्वयं सहायता समिति",105,14,{align:"center"});
-  doc.setFontSize(9);
-  doc.setTextColor(184,168,122);
-  doc.setFont("helvetica","normal");
-  doc.text("गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • राष्ट्र सेवा",105,20,{align:"center"});
+  // Org name center
+  doc.setFontSize(17); doc.setTextColor(212,175,55); doc.setFont("helvetica","bold");
+  doc.text("उन्नति स्वयं सहायता समिति", 105, 16, {align:"center"});
+  doc.setFontSize(9); doc.setTextColor(184,168,122); doc.setFont("helvetica","normal");
+  doc.text("गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • राष्ट्र सेवा", 105, 23, {align:"center"});
   doc.setFontSize(7.5);
-  doc.text("NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q | Reg: UK0660892021006667",105,26,{align:"center"});
-  doc.text("Halduchaur Deena, Lalkuan, Nainital-263139 | 📱 9410332400",105,31,{align:"center"});
+  doc.text("NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q | Reg: UK0660892021006667", 105, 29, {align:"center"});
+  doc.text("Halduchaur Deena, Lalkuan, Nainital-263139 | 📱 9410332400", 105, 35, {align:"center"});
 
-  // Gold banner
+  // ── GOLD BANNER ──
   doc.setFillColor(212,175,55);
-  doc.rect(0,42,210,11,"F");
-  doc.setFontSize(12);
-  doc.setTextColor(7,27,52);
-  doc.setFont("helvetica","bold");
-  doc.text("नियुक्ति पत्र  /  APPOINTMENT LETTER",105,50,{align:"center"});
+  doc.rect(0,45,210,12,"F");
+  doc.setFontSize(13); doc.setTextColor(7,27,52); doc.setFont("helvetica","bold");
+  doc.text("नियुक्ति पत्र  /  APPOINTMENT LETTER", 105, 54, {align:"center"});
 
   // Letter No & Date
-  doc.setFontSize(9);
-  doc.setTextColor(50,50,50);
-  doc.setFont("helvetica","normal");
-  doc.text("पत्र संख्या: "+letterNo,18,62);
-  doc.text("दिनांक: "+dateStr,192,62,{align:"right"});
-  doc.setDrawColor(200,200,200);
-  doc.setLineWidth(0.3);
-  doc.line(18,65,192,65);
+  doc.setFontSize(9); doc.setTextColor(50,50,50); doc.setFont("helvetica","normal");
+  doc.text("पत्र संख्या: "+letterNo, 18, 66);
+  doc.text("दिनांक: "+dateStr, 192, 66, {align:"right"});
+  doc.setDrawColor(200,200,200); doc.setLineWidth(0.3);
+  doc.line(18,69,192,69);
 
   // Details box
-  doc.setFillColor(255,248,225);
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.5);
-  doc.roundedRect(15,68,180,70,3,3,"FD");
-
-  doc.setFontSize(9);
-  doc.setTextColor(74,4,4);
-  doc.setFont("helvetica","bold");
-  doc.text("नियुक्त व्यक्ति का विवरण",105,75,{align:"center"});
-  doc.setLineWidth(0.3);
-  doc.setDrawColor(212,175,55);
-  doc.line(30,77,180,77);
+  doc.setFillColor(255,248,225); doc.setDrawColor(212,175,55); doc.setLineWidth(0.5);
+  doc.roundedRect(15,72,180,68,3,3,"FD");
+  doc.setFontSize(9); doc.setTextColor(74,4,4); doc.setFont("helvetica","bold");
+  doc.text("नियुक्त व्यक्ति का विवरण", 105, 79, {align:"center"});
+  doc.setLineWidth(0.3); doc.setDrawColor(212,175,55);
+  doc.line(30,81,180,81);
 
   const fields = [
-    ["नाम (Name)",name],["पिता/पति का नाम",father||"—"],
-    ["पद (Designation)",post],["मोबाइल",mobile||"—"],
-    ["ईमेल",email||"—"],["जिला",dist||"—"],
-    ["सहयोग राशि",fee||"—"],["शैक्षिक योग्यता",edu||"—"],
-    ["पता",addr||"—"],
+    ["नाम (Name)", name],
+    ["पिता/पति का नाम", father||"—"],
+    ["पद (Designation)", post],
+    ["मोबाइल", mobile||"—"],
+    ["ईमेल", email||"—"],
+    ["जिला", dist||"—"],
+    ["सहयोग राशि", fee||"—"],
+    ["शैक्षिक योग्यता", edu||"—"],
+    ["पता", addr||"—"],
   ];
   doc.setFont("helvetica","normal");
-  let fy = 82;
-  fields.forEach((f,i)=>{
-    if(i%2===0) doc.setFillColor(255,253,240);
-    else        doc.setFillColor(255,248,225);
+  let fy = 86;
+  fields.forEach((f,i) => {
+    if(i%2===0) doc.setFillColor(255,253,240); else doc.setFillColor(255,248,225);
     doc.rect(16,fy-3.5,178,6.5,"F");
-    doc.setFontSize(8.5);
-    doc.setTextColor(74,4,4);
-    doc.setFont("helvetica","bold");
-    doc.text(f[0]+":",20,fy);
-    doc.setTextColor(30,30,30);
-    doc.setFont("helvetica","normal");
-    doc.text(String(f[1]).substring(0,80),82,fy);
+    doc.setFontSize(8.5); doc.setTextColor(74,4,4); doc.setFont("helvetica","bold");
+    doc.text(f[0]+":", 20, fy);
+    doc.setTextColor(30,30,30); doc.setFont("helvetica","normal");
+    doc.text(String(f[1]).substring(0,80), 82, fy);
     fy += 7;
   });
 
   // Body text
-  const bodyY = 144;
-  doc.setFontSize(9.5);
-  doc.setTextColor(30,30,30);
-  doc.setFont("helvetica","normal");
+  const bodyY = 148;
+  doc.setFontSize(9.5); doc.setTextColor(30,30,30); doc.setFont("helvetica","normal");
   const body = [
     "महोदय/महोदया,",
     "",
@@ -581,38 +610,48 @@ function genAppointmentPDF(){
     "",
     "महत्वपूर्ण: इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु किया जाए।",
   ];
-  body.forEach((line,i) => doc.text(line,18,bodyY+i*6));
+  body.forEach((line,i) => doc.text(line, 18, bodyY+i*6));
 
-  // Signature area
-  const sigY = 222;
-  doc.setDrawColor(150,150,150);
-  doc.setLineWidth(0.3);
-  doc.line(18,sigY,80,sigY);
-  doc.line(130,sigY,192,sigY);
-  doc.setFontSize(8);
-  doc.setTextColor(80,80,80);
-  doc.text("नियुक्त व्यक्ति के हस्ताक्षर",18,sigY+5);
-  try{ doc.addImage(SIGN,"PNG",140,sigY-18,45,16,undefined,"FAST"); }catch(e){}
-  doc.text("अधिकृत हस्ताक्षर",192,sigY+5,{align:"right"});
-  doc.setFontSize(7);
-  doc.text("राष्ट्रीय सचिव — उन्नति स्वयं सहायता समिति",192,sigY+10,{align:"right"});
+  // ── SIGNATURE AREA — ALWAYS AT FIXED POSITION ──
+  const sigY = 225;
 
-  // Footer
+  // Left line (applicant)
+  doc.setDrawColor(150,150,150); doc.setLineWidth(0.3);
+  doc.line(18, sigY, 80, sigY);
+  doc.setFontSize(8); doc.setTextColor(80,80,80);
+  doc.text("नियुक्त व्यक्ति के हस्ताक्षर", 18, sigY+5);
+
+  // Right signature image — ALWAYS VISIBLE
+  if (SIGN_B64) {
+    pdfAddImage(doc, SIGN_B64, "PNG", 138, sigY-18, 48, 16);
+  }
+  doc.setDrawColor(150,150,150); doc.setLineWidth(0.3);
+  doc.line(130, sigY, 192, sigY);
+  doc.setFontSize(8); doc.setTextColor(80,80,80);
+  doc.text("अधिकृत हस्ताक्षर", 192, sigY+5, {align:"right"});
+  doc.setFontSize(7); doc.setTextColor(74,4,4); doc.setFont("helvetica","bold");
+  doc.text("राष्ट्रीय सचिव — उन्नति स्वयं सहायता समिति", 192, sigY+11, {align:"right"});
+
+  // ── FOOTER ──
   doc.setFillColor(7,27,52);
-  doc.rect(0,270,210,27,"F");
-  doc.setFontSize(7.5);
-  doc.setTextColor(184,168,122);
-  doc.text("Reg: UK0660892021006667 | Valid: 30-01-2031 | NGO Darpan: UA/2016/0108273",105,278,{align:"center"});
-  doc.setTextColor(212,175,55);
-  doc.setFont("helvetica","bold");
-  doc.text("unnatiselfhelpgroup-creator.github.io | unnatiselfhelpgroup@gmail.com | 9410332400",105,285,{align:"center"});
+  doc.rect(0,272,210,25,"F");
+  // Logo small in footer
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", 8, 275, 14, 14);
+  }
+  doc.setFontSize(7.5); doc.setTextColor(184,168,122); doc.setFont("helvetica","normal");
+  doc.text("Reg: UK0660892021006667 | Valid: 30-01-2031 | NGO Darpan: UA/2016/0108273", 105, 280, {align:"center"});
+  doc.setTextColor(212,175,55); doc.setFont("helvetica","bold");
+  doc.text("unnatiselfhelpgroup-creator.github.io | unnatiselfhelpgroup@gmail.com | 9410332400", 105, 288, {align:"center"});
 
   doc.save("NiyuktiPatra_"+name.replace(/\s+/g,"_")+".pdf");
-  showToast("✅ नियुक्ति पत्र PDF तैयार है!","success");
+  showToast("✅ नियुक्ति पत्र PDF तैयार है!", "success");
 }
 
-// ── CERTIFICATE PDF ──
-function genCertificatePDF(){
+// ══════════════════════════════════════════════
+// CERTIFICATE PDF
+// ══════════════════════════════════════════════
+function genCertificatePDF() {
   const name   = document.getElementById("ct-name").value;
   const type   = document.getElementById("ct-type").value;
   const post   = document.getElementById("ct-post").value;
@@ -620,148 +659,130 @@ function genCertificatePDF(){
   const to     = document.getElementById("ct-to").value;
   const dist   = document.getElementById("ct-district").value;
   const contrib= document.getElementById("ct-contrib").value;
-  if(!name||!type){ showToast("❌ नाम और Certificate प्रकार जरूरी हैं!",""); return; }
+  if (!name || !type) { showToast("❌ नाम और Certificate प्रकार जरूरी हैं!", "error"); return; }
 
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
+  const doc = new jsPDF({orientation:"landscape", unit:"mm", format:"a4"});
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
   const certNo = "USS/CERT/"+now.getFullYear()+"/"+String(Date.now()).slice(-6);
-
   const W=297, H=210;
 
   // Background
-  doc.setFillColor(255,253,240);
-  doc.rect(0,0,W,H,"F");
+  doc.setFillColor(255,253,240); doc.rect(0,0,W,H,"F");
 
-  // Outer border (double)
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(3);
+  // Double border
+  doc.setDrawColor(212,175,55); doc.setLineWidth(3);
   doc.rect(8,8,W-16,H-16,"S");
   doc.setLineWidth(1);
   doc.rect(11,11,W-22,H-22,"S");
 
   // Corner ornaments
-  const corners=[[14,14],[W-14,14],[14,H-14],[W-14,H-14]];
-  corners.forEach(([cx,cy])=>{
-    doc.setFillColor(212,175,55);
-    doc.circle(cx,cy,3,"F");
+  [[14,14],[W-14,14],[14,H-14],[W-14,H-14]].forEach(([cx,cy]) => {
+    doc.setFillColor(212,175,55); doc.circle(cx,cy,3,"F");
   });
 
-  // Header area
-  doc.setFillColor(7,27,52);
-  doc.rect(11,11,W-22,40,"F");
+  // ── HEADER (Navy) ──
+  doc.setFillColor(7,27,52); doc.rect(11,11,W-22,42,"F");
 
-  // Logo
-  try{ doc.addImage(LOGO,"PNG",18,14,28,28,undefined,"FAST"); }catch(e){}
+  // Logo TOP LEFT — always
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", 18, 15, 30, 30);
+  } else {
+    doc.setFontSize(20); doc.setTextColor(212,175,55);
+    doc.text("🏛️", 33, 34, {align:"center"});
+  }
 
-  // Org name
-  doc.setFontSize(18);
-  doc.setTextColor(212,175,55);
-  doc.setFont("helvetica","bold");
-  doc.text("उन्नति स्वयं सहायता समिति",W/2,24,{align:"center"});
-  doc.setFontSize(9);
-  doc.setTextColor(184,168,122);
-  doc.setFont("helvetica","normal");
-  doc.text("गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • राष्ट्र सेवा",W/2,31,{align:"center"});
+  // Logo TOP RIGHT too (symmetric)
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", W-48, 15, 30, 30);
+  }
+
+  // Org name center
+  doc.setFontSize(19); doc.setTextColor(212,175,55); doc.setFont("helvetica","bold");
+  doc.text("उन्नति स्वयं सहायता समिति", W/2, 25, {align:"center"});
+  doc.setFontSize(9); doc.setTextColor(184,168,122); doc.setFont("helvetica","normal");
+  doc.text("गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • राष्ट्र सेवा", W/2, 33, {align:"center"});
   doc.setFontSize(7.5);
-  doc.text("NGO Darpan: UA/2016/0108273 | Reg: UK0660892021006667 | 9410332400",W/2,38,{align:"center"});
+  doc.text("NGO Darpan: UA/2016/0108273 | Reg: UK0660892021006667 | 9410332400", W/2, 40, {align:"center"});
+  doc.setFontSize(7);
+  doc.text("Halduchaur Deena, Lalkuan, Nainital-263139, Uttarakhand", W/2, 47, {align:"center"});
 
-  // Certificate type banner
-  doc.setFillColor(212,175,55);
-  doc.rect(11,51,W-22,14,"F");
-  doc.setFontSize(16);
-  doc.setTextColor(7,27,52);
-  doc.setFont("helvetica","bold");
-  doc.text(type.toUpperCase() + " / CERTIFICATE",W/2,61,{align:"center"});
+  // ── GOLD BANNER ──
+  doc.setFillColor(212,175,55); doc.rect(11,53,W-22,14,"F");
+  doc.setFontSize(16); doc.setTextColor(7,27,52); doc.setFont("helvetica","bold");
+  doc.text(type.toUpperCase()+" / CERTIFICATE", W/2, 63, {align:"center"});
 
   // Cert No & Date
-  doc.setFontSize(8);
-  doc.setTextColor(80,80,80);
-  doc.setFont("helvetica","normal");
-  doc.text("प्रमाण पत्र संख्या: "+certNo,20,74);
-  doc.text("दिनांक: "+dateStr,W-20,74,{align:"right"});
+  doc.setFontSize(8); doc.setTextColor(80,80,80); doc.setFont("helvetica","normal");
+  doc.text("प्रमाण पत्र संख्या: "+certNo, 20, 76);
+  doc.text("दिनांक: "+dateStr, W-20, 76, {align:"right"});
 
   // THIS IS TO CERTIFY
-  doc.setFontSize(10);
-  doc.setTextColor(50,50,50);
-  doc.setFont("helvetica","italic");
-  doc.text("This is to certify that / यह प्रमाणित किया जाता है कि",W/2,84,{align:"center"});
+  doc.setFontSize(10); doc.setTextColor(50,50,50); doc.setFont("helvetica","italic");
+  doc.text("This is to certify that / यह प्रमाणित किया जाता है कि", W/2, 86, {align:"center"});
 
   // Name (big)
-  doc.setFontSize(26);
-  doc.setTextColor(74,4,4);
-  doc.setFont("helvetica","bold");
-  doc.text(name,W/2,97,{align:"center"});
-
+  doc.setFontSize(28); doc.setTextColor(74,4,4); doc.setFont("helvetica","bold");
+  doc.text(name, W/2, 100, {align:"center"});
   // Underline
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.8);
-  const nameW = doc.getTextWidth(name);
-  doc.line(W/2-nameW/2-5, 100, W/2+nameW/2+5, 100);
+  doc.setDrawColor(212,175,55); doc.setLineWidth(0.8);
+  const nw = doc.getTextWidth(name);
+  doc.line(W/2-nw/2-5, 103, W/2+nw/2+5, 103);
 
   // Body text
-  doc.setFontSize(10);
-  doc.setTextColor(30,30,30);
-  doc.setFont("helvetica","normal");
+  doc.setFontSize(10); doc.setTextColor(30,30,30); doc.setFont("helvetica","normal");
   const fromStr = from ? new Date(from).toLocaleDateString("en-IN",{month:"long",year:"numeric"}) : "—";
   const toStr   = to   ? new Date(to).toLocaleDateString("en-IN",{month:"long",year:"numeric"})   : "—";
-  const bodyText = `ने उन्नति स्वयं सहायता समिति में ${post||"सदस्य"} के रूप में ${fromStr} से ${toStr} तक`;
-  const bodyText2 = (dist?"जिला "+dist+" में ":"")+"सक्रिय रूप से सेवा कार्य किया है।";
-  doc.text(bodyText,W/2,110,{align:"center"});
-  doc.text(bodyText2,W/2,118,{align:"center"});
+  doc.text(`ने उन्नति स्वयं सहायता समिति में ${post||"सदस्य"} के रूप में ${fromStr} से ${toStr} तक`, W/2, 113, {align:"center"});
+  doc.text((dist?"जिला "+dist+" में ":"")+"सक्रिय रूप से सेवा कार्य किया है।", W/2, 121, {align:"center"});
 
-  if(contrib){
-    doc.setFontSize(9);
-    doc.setTextColor(80,80,80);
-    doc.setFont("helvetica","italic");
-    doc.text(contrib,W/2,127,{align:"center",maxWidth:220});
+  if (contrib) {
+    doc.setFontSize(9); doc.setTextColor(80,80,80); doc.setFont("helvetica","italic");
+    doc.text(contrib, W/2, 130, {align:"center", maxWidth:220});
   }
 
   // Gold divider
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(0.5);
-  doc.line(40,138,W-40,138);
+  doc.setDrawColor(212,175,55); doc.setLineWidth(0.5);
+  doc.line(40,140,W-40,140);
 
-  // Signature area
-  const sigY=148;
-  try{ doc.addImage(SIGN,"PNG",W/2-22,sigY,44,18,undefined,"FAST"); }catch(e){}
-  doc.setDrawColor(100,100,100);
-  doc.setLineWidth(0.3);
-  doc.line(W/2-35,sigY+20,W/2+35,sigY+20);
-  doc.setFontSize(8);
-  doc.setTextColor(74,4,4);
-  doc.setFont("helvetica","bold");
-  doc.text("राष्ट्रीय सचिव",W/2,sigY+25,{align:"center"});
-  doc.setFont("helvetica","normal");
-  doc.setTextColor(80,80,80);
-  doc.text("उन्नति स्वयं सहायता समिति",W/2,sigY+30,{align:"center"});
+  // ── SIGNATURE — CENTER, ALWAYS ──
+  const sigY = 148;
+  if (SIGN_B64) {
+    pdfAddImage(doc, SIGN_B64, "PNG", W/2-24, sigY, 48, 18);
+  }
+  doc.setDrawColor(100,100,100); doc.setLineWidth(0.3);
+  doc.line(W/2-38, sigY+20, W/2+38, sigY+20);
+  doc.setFontSize(9); doc.setTextColor(74,4,4); doc.setFont("helvetica","bold");
+  doc.text("राष्ट्रीय सचिव", W/2, sigY+26, {align:"center"});
+  doc.setFont("helvetica","normal"); doc.setTextColor(80,80,80);
+  doc.text("उन्नति स्वयं सहायता समिति", W/2, sigY+32, {align:"center"});
 
-  // Seal circle placeholder
-  doc.setDrawColor(212,175,55);
-  doc.setLineWidth(1);
-  doc.circle(55,sigY+15,15,"S");
-  doc.setFontSize(5);
-  doc.setTextColor(212,175,55);
-  doc.text("OFFICIAL",55,sigY+13,{align:"center"});
-  doc.text("SEAL",55,sigY+17,{align:"center"});
+  // Seal circle
+  doc.setDrawColor(212,175,55); doc.setLineWidth(1);
+  doc.circle(55, sigY+15, 16, "S");
+  doc.setFontSize(5.5); doc.setTextColor(212,175,55);
+  doc.text("OFFICIAL", 55, sigY+13, {align:"center"});
+  doc.text("SEAL", 55, sigY+18, {align:"center"});
 
-  // Footer
-  doc.setFillColor(7,27,52);
-  doc.rect(11,H-22,W-22,11,"F");
-  doc.setFontSize(7);
-  doc.setTextColor(184,168,122);
-  doc.text("unnatiselfhelpgroup-creator.github.io | unnatiselfhelpgroup@gmail.com | 9410332400",W/2,H-14,{align:"center"});
+  // ── FOOTER ──
+  doc.setFillColor(7,27,52); doc.rect(11,H-22,W-22,11,"F");
+  // Logo in footer left
+  if (LOGO_B64) {
+    pdfAddImage(doc, LOGO_B64, "PNG", 14, H-21, 9, 9);
+  }
+  doc.setFontSize(7.5); doc.setTextColor(184,168,122); doc.setFont("helvetica","normal");
+  doc.text("unnatiselfhelpgroup-creator.github.io | unnatiselfhelpgroup@gmail.com | 9410332400", W/2, H-14, {align:"center"});
 
   doc.save("Certificate_"+name.replace(/\s+/g,"_")+"_"+type.replace(/\s+/g,"_")+".pdf");
-  showToast("✅ Certificate PDF तैयार है!","success");
+  showToast("✅ Certificate PDF तैयार है!", "success");
 }
 
-function showToast(msg, type){
+function showToast(msg, type) {
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.className = "toast show "+(type||"");
-  setTimeout(()=>t.classList.remove("show"),3500);
+  setTimeout(()=>t.classList.remove("show"), 3500);
 }
 
 // Show preview button for ID card
