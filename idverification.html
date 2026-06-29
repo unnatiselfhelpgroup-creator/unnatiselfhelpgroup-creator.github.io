@@ -474,7 +474,7 @@
       // Search in IDcard collection
       if (!found) {
         const idRef = collection(db, 'IDcard');
-        const q2 = query(idRef, where('volunteer_id', '==', input));
+        const q2 = query(idRef, where('volunteer-id', '==', input));
         const snap2 = await getDocs(q2);
         if (!snap2.empty) { data = snap2.docs[0].data(); found = true; }
       }
