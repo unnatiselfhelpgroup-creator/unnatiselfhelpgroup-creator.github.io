@@ -165,8 +165,39 @@ function safeAddImage(doc,b64,fmt,x,y,w,h){
 window.addEventListener("load", loadPDFImages);
 </script>
 
+<!-- ══ AUTH GATE — blocks ALL page content until login is verified ══ -->
+<style>
+  body.auth-pending #appContent{display:none!important}
+  #authGateOverlay{
+    position:fixed;inset:0;background:#071b34;z-index:99999;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  }
+  #authGateOverlay .spin{width:38px;height:38px;border:4px solid rgba(212,175,55,0.25);border-top-color:#d4af37;border-radius:50%;animation:authspin 0.8s linear infinite}
+  @keyframes authspin{to{transform:rotate(360deg)}}
+  #authGateOverlay p{color:#d4af37;font-size:0.9rem;font-family:Arial,sans-serif}
+</style>
+<script>
+  // Mark body as locked BEFORE anything renders
+  document.documentElement.classList.add("auth-pending");
+  // Safety net: if Firebase/auth module fails to load within 8s (network issue,
+  // ad-blocker, etc.), don't leave the gate stuck — send to login instead of
+  // ever exposing dashboard content.
+  window._authGateTimeout = setTimeout(function(){
+    if(document.documentElement.classList.contains("auth-pending")){
+      window.location.replace("admin-login.html");
+    }
+  }, 8000);
+</script>
+
 </head>
-<body>
+<body class="auth-pending">
+
+<div id="authGateOverlay">
+  <div class="spin"></div>
+  <p>🔒 लॉगिन सत्यापित किया जा रहा है...</p>
+</div>
+
+<div id="appContent">
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -295,12 +326,19 @@ window._data = { idcard:[], appointment:[], certificate:[], daily:[] };
 window._currentRecord = null;
 window._currentType   = null;
 
-// ── AUTH GUARD ──
+// ── AUTH GUARD — runs before content is revealed ──
 onAuthStateChanged(auth, user => {
   if(!user){
-    window.location.href = "admin-login.html";
+    // Not logged in — redirect immediately, content stays hidden the whole time
+    window.location.replace("admin-login.html");
     return;
   }
+  // Logged in — verified, now reveal the dashboard
+  if(window._authGateTimeout) clearTimeout(window._authGateTimeout);
+  document.documentElement.classList.remove("auth-pending");
+  document.body.classList.remove("auth-pending");
+  const overlay = document.getElementById("authGateOverlay");
+  if(overlay) overlay.remove();
   document.getElementById("adminEmail").textContent = "👤 " + user.email;
   loadAll();
 });
@@ -711,5 +749,6 @@ document.getElementById("detailModal").addEventListener("click", e=>{
   if(e.target===e.currentTarget) closeModal();
 });
 </script>
+</div><!-- /#appContent -->
 </body>
 </html>

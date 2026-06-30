@@ -607,13 +607,15 @@ function genAppointmentPDF(){
     "संस्था के अंतर्गत  "+post+"  पद पर तत्काल प्रभाव से नियुक्त किया जाता है।",
     "",
     "आप अपने क्षेत्र में गौ सेवा, घायल गोवंश सहायता, पर्यावरण संरक्षण एवं समाज सेवा में",
-    "सक्रिय एवं उत्साहपूर्वक भूमिका निभाएंगे। आपके अधिकार एवं दायित्व अगले पृष्ठ पर",
-    "उल्लिखित नियम एवं शर्तों के अनुसार सुरक्षित रहेंगे।",
+    "सक्रिय एवं उत्साहपूर्वक भूमिका निभाएंगे।",
+    "",
+    "⚠ महत्वपूर्ण: इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु करें।",
+    "   किसी से धन/सहयोग की मांग करना दंडनीय है।",
   ];
   bodyLines.forEach((l,i)=>doc.text(l,15,bY+8+i*5.8));
 
   // ── SIGNATURE SECTION ──
-  const sigY=218;
+  const sigY=228;
   // Left signature (applicant)
   doc.setDrawColor(150,150,150); doc.setLineWidth(0.4);
   doc.line(15,sigY,82,sigY);
@@ -637,11 +639,7 @@ function genAppointmentPDF(){
   doc.text("OFFICIAL",105,sigY-5,{align:"center"});
   doc.text("SEAL",105,sigY,{align:"center"});
 
-  // Note pointing to page 2
-  doc.setFontSize(7.5); doc.setTextColor(19,136,8); doc.setFont("helvetica","bolditalic");
-  doc.text("➜ नियम, शर्तें एवं कानूनी सुरक्षा प्रावधान अगले पृष्ठ पर देखें / See Terms & Conditions on Page 2",105,247,{align:"center"});
-
-  // ── TRICOLOR FOOTER (page 1) ──
+  // ── TRICOLOR FOOTER ──
   doc.setFillColor(7,27,52); doc.rect(0,258,210,39,"F");
   doc.setFillColor(255,107,0); doc.rect(0,258,70,4,"F");
   doc.setFillColor(255,255,255); doc.rect(70,258,70,4,"F");
@@ -654,109 +652,8 @@ function genAppointmentPDF(){
   doc.setFontSize(7); doc.setTextColor(255,149,0);
   doc.text("यह एक Computer Generated Document है। इसकी सत्यता हेतु QR/Cert No. से verify करें।",105,285,{align:"center"});
 
-  // ════════════════════════════════════════
-  // ── PAGE 2: नियम, शर्तें एवं संवैधानिक सुरक्षा ──
-  // ════════════════════════════════════════
-  doc.addPage("a4","portrait");
-
-  // Tricolor top strip
-  doc.setFillColor(255,107,0); doc.rect(0,0,70,5,"F");
-  doc.setFillColor(255,255,255); doc.rect(70,0,70,5,"F");
-  doc.setFillColor(19,136,8); doc.rect(140,0,70,5,"F");
-
-  // Header (compact navy)
-  doc.setFillColor(7,27,52); doc.rect(0,5,210,22,"F");
-  if(LOGO_B64){ safeImg(doc,LOGO_B64,"PNG",8,7,17,17); }
-  doc.setFontSize(13); doc.setTextColor(242,206,99); doc.setFont("helvetica","bold");
-  doc.text("उन्नति स्वयं सहायता समिति",105,14,{align:"center"});
-  doc.setFontSize(8); doc.setTextColor(255,149,0); doc.setFont("helvetica","normal");
-  doc.text("नियम, शर्तें एवं संवैधानिक सुरक्षा प्रावधान",105,21,{align:"center"});
-
-  // Saffron sub-band
-  doc.setFillColor(255,107,0); doc.rect(0,27,210,8,"F");
-  doc.setFontSize(10); doc.setTextColor(255,255,255); doc.setFont("helvetica","bold");
-  doc.text("TERMS, CONDITIONS & MEMBER PROTECTION CLAUSES",105,32.5,{align:"center"});
-
-  let ty=42;
-
-  // ── SECTION A: आचरण नियम (Conduct Rules) ──
-  doc.setFillColor(255,248,231); doc.setDrawColor(200,150,12); doc.setLineWidth(0.3);
-  doc.roundedRect(12,ty,186,58,3,3,"FD");
-  doc.setFillColor(200,150,12); doc.roundedRect(12,ty,186,7,3,3,"F"); doc.rect(12,ty+3.5,186,3.5,"F");
-  doc.setFontSize(9.5); doc.setTextColor(255,255,255); doc.setFont("helvetica","bold");
-  doc.text("📋  खंड (A) — सदस्य / स्वयंसेवक आचरण नियम (Code of Conduct)",105,ty+5,{align:"center"});
-
-  const conductRules = [
-    "1. प्रत्येक सदस्य/स्वयंसेवक को संस्था के उद्देश्यों — गौ सेवा, मानव सेवा, पर्यावरण संरक्षण",
-    "    एवं राष्ट्र सेवा — के प्रति पूर्ण निष्ठा एवं ईमानदारी से कार्य करना होगा।",
-    "2. किसी भी व्यक्ति से संस्था के नाम पर अनधिकृत रूप से धन, चंदा या सहयोग राशि की",
-    "    मांग करना सख्त वर्जित है। ऐसा पाए जाने पर सदस्यता तत्काल निरस्त कर दी जाएगी।",
-    "3. सदस्य अपने क्षेत्र में गौ सेवा एवं समाज सेवा कार्यों में सक्रिय भागीदारी सुनिश्चित करेगा।",
-    "4. संस्था की छवि को क्षति पहुँचाने वाला कोई भी कार्य/बयान/पोस्ट अनुशासनात्मक",
-    "    कार्यवाही का आधार होगा।",
-    "5. यह नियुक्ति पत्र/ID पूर्णतः अहस्तांतरणीय (Non-transferable) है एवं केवल संस्था के",
-    "    सेवा कार्यों हेतु ही मान्य है।",
-  ];
-  doc.setFontSize(7.8); doc.setTextColor(40,30,10); doc.setFont("helvetica","normal");
-  conductRules.forEach((l,i)=>doc.text(l,16,ty+13+i*4.6));
-
-  ty += 64;
-
-  // ── SECTION B: कानूनी सुरक्षा (Legal Protection) ──
-  doc.setFillColor(240,248,236); doc.setDrawColor(19,136,8); doc.setLineWidth(0.3);
-  doc.roundedRect(12,ty,186,72,3,3,"FD");
-  doc.setFillColor(19,136,8); doc.roundedRect(12,ty,186,7,3,3,"F"); doc.rect(12,ty+3.5,186,3.5,"F");
-  doc.setFontSize(9.5); doc.setTextColor(255,255,255); doc.setFont("helvetica","bold");
-  doc.text("🛡️  खंड (B) — सदस्य सुरक्षा एवं कानूनी प्रावधान (Member Protection & Legal Safeguards)",105,ty+5,{align:"center"});
-
-  const legalClauses = [
-    "1. प्रत्येक पंजीकृत सदस्य/स्वयंसेवक को संस्था की गतिविधियों में भाग लेते समय भारतीय",
-    "    संविधान एवं प्रचलित कानूनों के तहत समान सुरक्षा एवं सम्मान प्राप्त होगा।",
-    "2. किसी सदस्य के विरुद्ध कोई भी शिकायत/विवाद होने पर उसे अपना पक्ष रखने का",
-    "    पूर्ण अवसर दिया जाएगा; एकतरफा कार्यवाही नहीं की जाएगी (Principle of Natural",
-    "    Justice)।",
-    "3. गौ सेवा कार्यों के दौरान सदस्य को धमकी, उत्पीड़न या हिंसा का सामना करना पड़े,",
-    "    तो संस्था आवश्यक कानूनी एवं प्रशासनिक सहयोग प्रदान करेगी।",
-    "4. यह ID/नियुक्ति पत्र किसी सरकारी पद, अधिकार या वर्दी समकक्ष सुविधा प्रदान नहीं",
-    "    करता — यह केवल संस्थागत पहचान हेतु है (RTI Act एवं संबंधित कानूनों के अंतर्गत)।",
-    "5. सदस्य की व्यक्तिगत जानकारी (मोबाइल, पता, फोटो आदि) का उपयोग केवल संस्था के",
-    "    आंतरिक रिकॉर्ड हेतु होगा; बिना अनुमति किसी तीसरे पक्ष को साझा नहीं किया जाएगा।",
-    "6. यह नियुक्ति पत्र किसी भी समय परस्पर सहमति या नियमों के उल्लंघन की स्थिति में",
-    "    निरस्त किया जा सकता है — सूचना सदस्य को लिखित रूप में दी जाएगी।",
-  ];
-  doc.setFontSize(7.8); doc.setTextColor(15,40,10); doc.setFont("helvetica","normal");
-  legalClauses.forEach((l,i)=>doc.text(l,16,ty+13+i*4.6));
-
-  ty += 78;
-
-  // ── Acknowledgement line ──
-  doc.setDrawColor(200,150,12); doc.setLineWidth(0.3);
-  doc.line(12,ty,198,ty);
-  doc.setFontSize(8); doc.setTextColor(80,80,80); doc.setFont("helvetica","italic");
-  doc.text("मैंने उपरोक्त समस्त नियम, शर्तें एवं सुरक्षा प्रावधान पढ़ एवं समझ लिए हैं तथा इनका पालन करने हेतु सहमत हूँ।",105,ty+7,{align:"center"});
-
-  ty += 14;
-  doc.setDrawColor(150,150,150); doc.setLineWidth(0.3);
-  doc.line(20,ty+10,90,ty+10);
-  doc.setFontSize(7.5); doc.setTextColor(80,80,80); doc.setFont("helvetica","normal");
-  doc.text("सदस्य के हस्ताक्षर / दिनांक",55,ty+15,{align:"center"});
-
-  if(SIGN_B64){ safeImg(doc,SIGN_B64,"PNG",148,ty-8,42,15); }
-  doc.line(120,ty+10,190,ty+10);
-  doc.text("अधिकृत हस्ताक्षर — राष्ट्रीय सचिव",155,ty+15,{align:"center"});
-
-  // ── Footer page 2 ──
-  doc.setFillColor(7,27,52); doc.rect(0,272,210,25,"F");
-  doc.setFillColor(255,107,0); doc.rect(0,272,70,3,"F");
-  doc.setFillColor(255,255,255); doc.rect(70,272,70,3,"F");
-  doc.setFillColor(19,136,8); doc.rect(140,272,70,3,"F");
-  doc.setFontSize(7.5); doc.setTextColor(184,168,122); doc.setFont("helvetica","normal");
-  doc.text("उन्नति स्वयं सहायता समिति | Reg: UK0660892021006667 | NGO Darpan: UA/2016/0108273",105,282,{align:"center"});
-  doc.setFontSize(7); doc.setTextColor(255,149,0);
-  doc.text("9410332400  |  unnatiselfhelpgroup@gmail.com  |  unnatiselfhelpgroup-creator.github.io",105,289,{align:"center"});
-
   doc.save("NiyuktiPatra_"+name.replace(/\s+/g,"_")+".pdf");
-  showToast("✅ नियुक्ति पत्र (नियम सहित) तैयार है!","success");
+  showToast("✅ नियुक्ति पत्र तैयार है!","success");
 }
 
 // ════════════════════════════════════════════

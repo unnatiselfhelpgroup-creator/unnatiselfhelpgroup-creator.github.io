@@ -92,9 +92,37 @@ tr:hover td{background:rgba(255,255,255,0.04)}
     .back-link a:active{box-shadow:0 1px 0 #1a0000!important;transform:translateY(3px)!important}
     /* ══ END 3D BUTTONS ══ */
 
+/* ══ AUTH GATE — blocks ALL page content until login is verified ══ */
+html.auth-pending #appContent{display:none!important}
+#authGateOverlay{
+  position:fixed;inset:0;background:#071b34;z-index:99999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+}
+#authGateOverlay .spin{width:38px;height:38px;border:4px solid rgba(212,175,55,0.25);border-top-color:#d4af37;border-radius:50%;animation:authspin 0.8s linear infinite}
+@keyframes authspin{to{transform:rotate(360deg)}}
+#authGateOverlay p{color:#d4af37;font-size:0.9rem;font-family:Arial,sans-serif}
 </style>
+<script>
+  // Lock content BEFORE anything renders — runs synchronously, before <body>
+  document.documentElement.classList.add("auth-pending");
+  // Safety net: if Firebase fails to load (network issue, blocked script, etc.)
+  // never leave the gate stuck open — send to login instead.
+  window._authGateTimeout = setTimeout(function(){
+    if(document.documentElement.classList.contains("auth-pending")){
+      window.location.replace("admin-login.html");
+    }
+  }, 8000);
+</script>
 </head>
 <body>
+
+<div id="authGateOverlay">
+  <div class="spin"></div>
+  <p>🔒 लॉगिन सत्यापित किया जा रहा है...</p>
+</div>
+
+<div id="appContent">
+
 <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
 <h1>🛡️ Admin Dashboard<br><span style="font-size:0.9rem">उन्नति स्वयं सहायता समिति</span></h1>
 
@@ -153,6 +181,8 @@ tr:hover td{background:rgba(255,255,255,0.04)}
   </div>
 </div>
 
+</div><!-- /#appContent -->
+
 <script type="module">
 import { db, auth } from "./firebase-config.js";
 import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -164,13 +194,22 @@ const SIGN = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
 function esc(s){return String(s||"—").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function badge(s){const c=s==="Approved"?"approved":s==="Rejected"?"rejected":"pending";return`<span class="badge ${c}">${esc(s||"Pending")}</span>`}
 
-// Auth check
+// ── AUTH GUARD — runs before content is revealed ──
 onAuthStateChanged(auth,user=>{
-  if(!user){window.location.href="admin-login.html";return}
+  if(!user){
+    // Not logged in — redirect immediately, content never shown
+    window.location.replace("admin-login.html");
+    return;
+  }
+  // Logged in — verified, reveal dashboard
+  if(window._authGateTimeout) clearTimeout(window._authGateTimeout);
+  document.documentElement.classList.remove("auth-pending");
+  const overlay = document.getElementById("authGateOverlay");
+  if(overlay) overlay.remove();
   loadAll();
 });
 
-document.getElementById("logoutBtn").addEventListener("click",()=>signOut(auth).then(()=>window.location.href="admin-login.html"));
+document.getElementById("logoutBtn").addEventListener("click",()=>signOut(auth).then(()=>window.location.replace("admin-login.html")));
 
 // Count collections
 async function cnt(col,el){
@@ -230,232 +269,60 @@ window.openApp=function(id){
   document.getElementById("modalBg").classList.add("show");
 };
 
-window.genAppPDF=function(id){
-  const x=window._appData[id]; if(!x) return;
-  const now=new Date();
-  const dateStr=now.toLocaleDateString("hi-IN",{day:"2-digit",month:"long",year:"numeric"});
-  const letterNo="USS/APP/"+now.getFullYear()+"/"+String(Date.now()).slice(-6);
-  const FEE={
-    "Volunteer (स्वयंसेवक)":"₹700","ग्राम गौ-संयोजक":"₹150","ब्लॉक गौ-प्रभारी":"₹500",
-    "जिला गौ-समन्वयक":"₹1,100","प्रदेश कार्यकारिणी सदस्य":"₹2,500","राष्ट्रीय गौ-पदाधिकारी":"₹5,100 – ₹11,000"
-  };
-  const fee=x.fee||FEE[x.designation]||"—";
-  const el=document.createElement("div");
-  el.style.cssText="width:794px;padding:0;background:white;font-family:Arial,sans-serif;color:#000";
-  el.innerHTML=`
-  <div style="border:5px double #d4af37;padding:36px;min-height:1100px;position:relative">
-    <div style="text-align:center;margin-bottom:14px">
-      <img src="${LOGO}" crossorigin="anonymous" style="width:75px;height:75px;border-radius:50%;border:3px solid #d4af37;margin-bottom:8px">
-      <h1 style="color:#4a0404;font-size:20px;margin:0">उन्नति स्वयं सहायता समिति</h1>
-      <p style="color:#555;font-size:11px;margin:4px 0">गौ सेवा • मानव सेवा • पर्यावरण संरक्षण • राष्ट्र सेवा</p>
-      <p style="color:#777;font-size:10px;margin:2px 0">NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q | CSR: CSR00102587</p>
-      <p style="color:#777;font-size:10px;margin:2px 0">Reg: UK0660892021006667 | Halduchaur Deena, Lalkuan, Nainital-263139 | 📱 9410332400</p>
-      <hr style="border:2px solid #d4af37;margin:10px 0">
-      <h2 style="color:#4a0404;font-size:15px;letter-spacing:2px;margin:0">नियुक्ति पत्र (APPOINTMENT LETTER)</h2>
-      <hr style="border:1px solid #d4af37;margin:8px 0">
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:#333;margin-bottom:18px">
-      <div><strong>पत्र संख्या:</strong> ${letterNo}</div>
-      <div><strong>दिनांक:</strong> ${dateStr}</div>
-    </div>
-    <div style="background:#fff8e1;border:1.5px solid #ffd700;border-radius:8px;padding:14px;margin-bottom:18px">
-      <h3 style="color:#4a0404;font-size:12px;margin-bottom:10px;border-bottom:1px solid #ffd700;padding-bottom:5px">📋 नियुक्त व्यक्ति का विवरण</h3>
-      <table style="width:100%;font-size:11px;border-collapse:collapse">
-        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404;width:38%">नाम:</td><td style="padding:4px 8px">${x.name||"—"}</td></tr>
-        <tr style="background:#fffef5"><td style="padding:4px 8px;font-weight:700;color:#4a0404">पिता/पति का नाम:</td><td style="padding:4px 8px">${x.fatherName||x.father_name||"—"}</td></tr>
-        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404">मोबाइल:</td><td style="padding:4px 8px">${x.mobile||"—"}</td></tr>
-        <tr style="background:#fffef5"><td style="padding:4px 8px;font-weight:700;color:#4a0404">ईमेल:</td><td style="padding:4px 8px">${x.email||"—"}</td></tr>
-        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404">पता:</td><td style="padding:4px 8px">${x.address||"—"}</td></tr>
-        <tr style="background:#fffef5"><td style="padding:4px 8px;font-weight:700;color:#4a0404">पद (Designation):</td><td style="padding:4px 8px;font-weight:700;color:#4a0404">${x.designation||"—"}</td></tr>
-        <tr><td style="padding:4px 8px;font-weight:700;color:#4a0404">सहयोग राशि:</td><td style="padding:4px 8px;font-weight:700;color:#c0392b">${fee}</td></tr>
-      </table>
-    </div>
-    <div style="font-size:12px;line-height:1.9;color:#222;margin-bottom:18px;text-align:justify">
-      <p>महोदय/महोदया,</p><br>
-      <p>उन्नति स्वयं सहायता समिति आपकी सामाजिक सेवा एवं गौ-संरक्षण के प्रति समर्पण का स्वागत करती है। आपके आवेदन एवं प्रशासनिक सहयोग राशि के भुगतान के पश्चात, आपको संस्था के अंतर्गत <strong style="color:#4a0404">${x.designation||"—"}</strong> पद पर तत्काल प्रभाव से नियुक्त किया जाता है।</p><br>
-      <p>आप अपने क्षेत्र में गौ सेवा, घायल गोवंश सहायता, पर्यावरण संरक्षण एवं समाज सेवा में सक्रिय भूमिका निभाएंगे। गौ माता को राष्ट्रमाता का सम्मान दिलाने के संस्था के उद्देश्य में आपका सहयोग अपेक्षित है।</p><br>
-      <p><strong>महत्वपूर्ण:</strong> इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु किया जाए। किसी से धन की मांग करना या संस्था के नाम पर अवैध कार्य करना दंडनीय अपराध होगा।</p>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:36px">
-      <div style="font-size:10px;color:#555">
-        <p>नियुक्त व्यक्ति के हस्ताक्षर</p>
-        <div style="margin-top:28px;border-top:1px solid #999;width:150px"></div>
-        <p style="margin-top:3px">${x.name||""}</p>
-      </div>
-      <div style="text-align:center">
-        <img src="${SIGN}" crossorigin="anonymous" style="height:55px;max-width:170px;object-fit:contain">
-        <div style="border-top:1px solid #999;margin-top:3px"></div>
-        <p style="font-size:10px;font-weight:700;color:#4a0404;margin-top:3px">अधिकृत हस्ताक्षर</p>
-        <p style="font-size:9px;color:#555">राष्ट्रीय सचिव — उन्नति स्वयं सहायता समिति</p>
-      </div>
-    </div>
-    <div style="margin-top:24px;text-align:center;border-top:1.5px solid #d4af37;padding-top:8px">
-      <p style="font-size:9px;color:#777">Reg: UK0660892021006667 | Valid: 30-01-2031 | NGO Darpan: UA/2016/0108273</p>
-      <p style="font-size:9px;color:#4a0404;font-weight:700">unnatiselfhelpgroup-creator.github.io | unnatiselfhelpgroup@gmail.com | 9410332400</p>
-    </div>
-  </div>`;
-  const opt={margin:4,filename:(x.name||"Appointment")+"-NiyuktiPatra.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,useCORS:true,allowTaint:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};
-  html2pdf().set(opt).from(el).save();
+window.closeModal=function(){ document.getElementById("modalBg").classList.remove("show"); };
+
+window.doAction=async function(col,id,status,name,email){
+  try{
+    await updateDoc(doc(db,col,id),{status});
+    location.reload();
+  }catch(e){ alert("त्रुटि: "+e.message); }
 };
 
-// ─── ID CARDS ───
-window._idData={};
+window.showTab=function(t){
+  document.querySelectorAll(".tab").forEach(el=>el.classList.remove("active"));
+  event.target.classList.add("active");
+  document.getElementById("tab-app").style.display = t==="app" ? "block":"none";
+  document.getElementById("tab-id").style.display  = t==="id"  ? "block":"none";
+  document.getElementById("tab-stu").style.display = t==="stu" ? "block":"none";
+};
+
 async function loadIDCards(){
   const body=document.getElementById("bodyID");
   try{
     const snap=await getDocs(collection(db,"IDcard"));
-    if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई आवेदन नहीं।</td></tr>";return}
+    if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई रिकॉर्ड नहीं।</td></tr>";return}
     body.innerHTML="";
     snap.forEach(d=>{
-      const x=d.data(); window._idData[d.id]=x;
+      const x=d.data();
       const tr=document.createElement("tr");
-      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x.mobile)}</td><td>${badge(x.status)}</td>
-      <td>
-        <button class="btn pdf" onclick="openID('${d.id}')">👁️ देखें</button>
-        <button class="btn approve" onclick="doAction('IDcard','${d.id}','Approved','${esc(x.name)}','${esc(x.email)}')">✅ Approve</button>
-        <button class="btn reject" onclick="doAction('IDcard','${d.id}','Rejected','${esc(x.name)}','')">❌ Reject</button>
-      </td>`;
+      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x['mobile number']||x.mobile)}</td><td>${badge(x.status)}</td>
+      <td><button class="btn approve" onclick="doAction('IDcard','${d.id}','Approved')">✅</button>
+      <button class="btn reject" onclick="doAction('IDcard','${d.id}','Rejected')">❌</button></td>`;
       body.appendChild(tr);
     });
   }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
 }
 
-window.openID=function(id){
-  const x=window._idData[id]; if(!x) return;
-  document.getElementById("modalTitle").textContent="🪪 ID Card आवेदन विवरण";
-  document.getElementById("modalContent").innerHTML=`
-  <table class="detail-table">
-    <tr><td>पूरा नाम</td><td>${esc(x.name)}</td></tr>
-    <tr><td>पद</td><td>${esc(x.designation)}</td></tr>
-    <tr><td>मोबाइल</td><td>${esc(x.mobile)}</td></tr>
-    <tr><td>ईमेल</td><td>${esc(x.email)}</td></tr>
-    <tr><td>पता</td><td>${esc(x.address)}</td></tr>
-    <tr><td>जन्म तिथि</td><td>${esc(x.dob)}</td></tr>
-    <tr><td>Blood Group</td><td>${esc(x.bloodGroup)}</td></tr>
-    <tr><td>शुल्क</td><td><strong>${esc(x.fee)}</strong></td></tr>
-    <tr><td>स्थिति</td><td>${badge(x.status)}</td></tr>
-  </table>`;
-  document.getElementById("modalBtns").innerHTML=`
-    <button class="btn approve" onclick="doAction('IDcard','${id}','Approved','${esc(x.name)}','${esc(x.email)}');closeModal()">✅ Approve</button>
-    <button class="btn reject" onclick="doAction('IDcard','${id}','Rejected','${esc(x.name)}','');closeModal()">❌ Reject</button>
-    <button class="btn idpdf" onclick="genIDCard('${id}')">🪪 ID Card PDF</button>`;
-  document.getElementById("modalBg").classList.add("show");
-};
-
-window.genIDCard=function(id){
-  const x=window._idData[id]; if(!x) return;
-  const vid="USSS-"+String(Date.now()).slice(-7);
-  const el=document.createElement("div");
-  el.style.cssText="width:794px;padding:0;background:white;font-family:Arial,sans-serif";
-  el.innerHTML=`
-  <div style="border:4px double #d4af37;padding:30px;background:#fff">
-    <!-- FRONT -->
-    <div style="border:2px solid #d4af37;border-radius:12px;padding:20px;margin-bottom:20px;background:linear-gradient(135deg,#071b34,#0f2d54);color:#fff">
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:2px solid #d4af37;padding-bottom:12px">
-        <img src="${LOGO}" crossorigin="anonymous" style="width:60px;height:60px;border-radius:50%;border:2px solid #d4af37">
-        <div>
-          <div style="color:#d4af37;font-size:13px;font-weight:700">उन्नति स्वयं सहायता समिति</div>
-          <div style="color:#ccc;font-size:10px">UNNATI SAWAYE SAHAYATA SAMITI</div>
-          <div style="color:#aaa;font-size:9px">NGO Darpan: UA/2016/0108273</div>
-        </div>
-        <div style="margin-left:auto;text-align:center">
-          <div style="background:#d4af37;color:#071b34;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px">MEMBER ID CARD</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:16px">
-        <div style="width:80px;height:100px;border:2px solid #d4af37;border-radius:6px;background:#0a2347;display:flex;align-items:center;justify-content:center;font-size:10px;color:#888;flex-shrink:0">PHOTO</div>
-        <div style="flex:1;font-size:11px">
-          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">नाम:</span> <span style="color:#fff;font-size:12px;font-weight:700">${x.name||"—"}</span></div>
-          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">पद:</span> <span style="color:#fff">${x.designation||"—"}</span></div>
-          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">पिता/पति:</span> <span style="color:#fff">${x.fatherName||x.father_name||"—"}</span></div>
-          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">मोबाइल:</span> <span style="color:#fff">${x.mobile||"—"}</span></div>
-          <div style="margin-bottom:7px"><span style="color:#d4af37;font-weight:700">ID:</span> <span style="color:#d4af37;font-weight:700">${vid}</span></div>
-        </div>
-      </div>
-      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #d4af37;padding-top:10px">
-        <div style="font-size:9px;color:#aaa">${x.address||""}</div>
-        <div style="text-align:center">
-          <img src="${SIGN}" crossorigin="anonymous" style="height:35px;object-fit:contain">
-          <div style="font-size:9px;color:#d4af37;margin-top:2px">अधिकृत हस्ताक्षर</div>
-        </div>
-      </div>
-    </div>
-    <!-- BACK -->
-    <div style="border:2px solid #d4af37;border-radius:12px;padding:20px;background:#071b34;color:#fff">
-      <div style="text-align:center;margin-bottom:14px;border-bottom:2px solid #d4af37;padding-bottom:10px">
-        <div style="color:#d4af37;font-size:14px;font-weight:700">उन्नति स्वयं सहायता समिति</div>
-        <div style="color:#aaa;font-size:10px">Official Member ID Card — Back Side</div>
-      </div>
-      <div style="background:#d4af37;border-radius:8px;padding:10px;text-align:center;margin-bottom:14px">
-        <div style="color:#071b34;font-size:11px;font-weight:700">Volunteer ID</div>
-        <div style="color:#071b34;font-size:18px;font-weight:700;letter-spacing:2px">${vid}</div>
-      </div>
-      <div style="font-size:10px;line-height:1.8;color:#ddd">
-        <p>• यह कार्ड हस्तांतरणीय नहीं है।</p>
-        <p>• इस कार्ड का दुरुपयोग दंडनीय अपराध है।</p>
-        <p>• खोने पर तुरंत संस्था को सूचित करें।</p>
-        <p>• सभी गतिविधियाँ संविधान के दायरे में होंगी।</p>
-        <p>• नियुक्ति पत्र के नियम एवं शर्तें लागू होंगी।</p>
-      </div>
-      <div style="margin-top:14px;text-align:center;border-top:1px solid #d4af37;padding-top:10px;font-size:10px;color:#d4af37">
-        📞 9410332400 | unnatiselfhelpgroup@gmail.com
-      </div>
-    </div>
-  </div>`;
-  const opt={margin:4,filename:(x.name||"Member")+"-IDCard.pdf",image:{type:"jpeg",quality:0.98},html2canvas:{scale:2,useCORS:true,allowTaint:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"}};
-  html2pdf().set(opt).from(el).save();
-};
-
-// ─── STUDENTS ───
-window._stuData={};
 async function loadStudents(){
   const body=document.getElementById("bodyStu");
   try{
     const snap=await getDocs(collection(db,"StudentRegistrations"));
-    if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई पंजीकरण नहीं।</td></tr>";return}
+    if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई रिकॉर्ड नहीं।</td></tr>";return}
     body.innerHTML="";
     snap.forEach(d=>{
-      const x=d.data(); window._stuData[d.id]=x;
+      const x=d.data();
       const tr=document.createElement("tr");
-      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td style="font-size:0.75rem">${esc(x.email)}</td><td>${badge(x.status)}</td>
-      <td>
-        <button class="btn approve" onclick="doAction('StudentRegistrations','${d.id}','Approved','${esc(x.name)}','${esc(x.email)}')">✅ Approve</button>
-        <button class="btn reject" onclick="doAction('StudentRegistrations','${d.id}','Rejected','${esc(x.name)}','')">❌ Reject</button>
-      </td>`;
+      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td>${esc(x.email)}</td><td>${badge(x.status)}</td>
+      <td><button class="btn approve" onclick="doAction('StudentRegistrations','${d.id}','Approved')">✅</button>
+      <button class="btn reject" onclick="doAction('StudentRegistrations','${d.id}','Rejected')">❌</button></td>`;
       body.appendChild(tr);
     });
   }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
 }
 
-// ─── APPROVE / REJECT ───
-window.doAction=async function(col,id,status,name,email){
-  if(!confirm(`"${name}" को ${status} करना चाहते हैं?`)) return;
-  try{
-    await updateDoc(doc(db,col,id),{status});
-    if(status==="Approved"&&email&&typeof emailjs!=="undefined"){
-      await emailjs.send("service_63pefgf","template_wvzbj7p",{
-        user_name:name,user_email:email,name,email,
-        designation:col+" — "+status,doc_id:id,type:col
-      });
-    }
-    alert("✅ "+status+" सफलतापूर्वक हो गया!");
-    loadAll();
-  }catch(err){alert("❌ त्रुटि: "+err.message)}
-};
-
-// ─── TABS ───
-window.showTab=function(tab){
-  ["app","id","stu"].forEach(t=>{
-    document.getElementById("tab-"+t).style.display=t===tab?"block":"none";
-  });
-  document.querySelectorAll(".tab").forEach((el,i)=>{
-    el.classList.toggle("active",["app","id","stu"][i]===tab);
-  });
-};
-
-// ─── MODAL ───
-window.closeModal=function(){document.getElementById("modalBg").classList.remove("show")};
-document.getElementById("modalBg").addEventListener("click",function(e){if(e.target===this)closeModal()});
+document.getElementById("modalBg").addEventListener("click",e=>{
+  if(e.target===e.currentTarget) closeModal();
+});
 </script>
 </body>
 </html>

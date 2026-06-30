@@ -1,5 +1,10 @@
+// =============================================
+// auth.js — उन्नति स्वयं सहायता समिति
+// Shared login/logout helpers
+// Firebase v10.12.2 — matches firebase-config.js across the whole site
+// =============================================
 import { auth } from "./firebase-config.js";
-import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 async function login() {
     const email    = document.getElementById("email")?.value.trim();
@@ -19,12 +24,14 @@ async function login() {
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "admin-dashboard.html";
+        window.location.replace("admin-dashboard.html");
     } catch (error) {
         const msgs = {
             "auth/invalid-credential": "गलत Email या Password।",
             "auth/user-not-found":     "यह Email पंजीकृत नहीं है।",
-            "auth/too-many-requests":  "अधिक प्रयास हो गए। कृपया कुछ देर बाद पुनः प्रयास करें।"
+            "auth/wrong-password":     "गलत Password।",
+            "auth/too-many-requests":  "अधिक प्रयास हो गए। कृपया कुछ देर बाद पुनः प्रयास करें।",
+            "auth/network-request-failed": "Internet connection जांचें।"
         };
         const msg = msgs[error.code] || "Login विफल। कृपया पुनः प्रयास करें।";
         if (errMsg) errMsg.textContent = msg; else alert(msg);
@@ -35,7 +42,7 @@ async function login() {
 async function logout() {
     try {
         await signOut(auth);
-        window.location.href = "admin-login.html";
+        window.location.replace("admin-login.html");
     } catch (error) {
         alert("Logout Error: " + error.message);
     }
