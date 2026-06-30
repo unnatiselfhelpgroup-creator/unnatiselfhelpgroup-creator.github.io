@@ -7,13 +7,25 @@
 <meta name="description" content="उन्नति स्वयं सहायता समिति — Volunteer ID Card online verification. Verify member identity instantly.">
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{--saffron:#FF6B00;--saffron-light:#FF8C00;--green:#138808;--green-light:#1a9e0a;--gold:#C8960C;--dark:#1a0a00;--shadow:0 4px 24px rgba(255,107,0,0.10);}
+:root{
+  --saffron:#FF6B00;--saffron-light:#FF9500;
+  --green:#138808;--green-light:#1AA310;
+  --gold:#C8960C;--gold-light:#F2CE63;
+  --navy:#071b34;--navy2:#0d2545;
+  --maroon:#4a0404;--maroon2:#8B0000;
+  --dark:#1a0a00;
+  --shadow:0 4px 24px rgba(255,107,0,0.10);
+}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#FFF3E0 0%,#F1F8E9 100%);min-height:100vh;color:var(--dark);}
-header{background:linear-gradient(135deg,#4a0404 0%,#8B0000 50%,#4a0404 100%);padding:14px 20px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,0.3);position:relative;}
+
+/* TRICOLOR TOP STRIP */
+.tricolor-top{height:5px;background:linear-gradient(90deg,var(--saffron) 33.3%,#fff 33.3%,#fff 66.6%,var(--green) 66.6%);}
+
+header{background:linear-gradient(135deg,var(--maroon) 0%,var(--maroon2) 50%,var(--maroon) 100%);padding:14px 20px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,0.3);position:relative;}
 header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));}
 .header-inner{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
 header img.hlogo{height:52px;border-radius:50%;border:2px solid var(--gold);}
@@ -22,16 +34,17 @@ header img.hlogo{height:52px;border-radius:50%;border:2px solid var(--gold);}
 main{max-width:520px;margin:0 auto;padding:28px 16px 48px;}
 .page-title{text-align:center;margin-bottom:24px;}
 .page-title .icon{font-size:2.8rem;display:block;margin-bottom:8px;}
-.page-title h2{font-family:'Tiro Devanagari Hindi',serif;font-size:1.5rem;color:#4a0404;margin-bottom:6px;}
+.page-title h2{font-family:'Tiro Devanagari Hindi',serif;font-size:1.5rem;color:var(--maroon);margin-bottom:6px;}
 .page-title p{font-size:0.82rem;color:#666;}
-.search-card{background:#fff;border-radius:16px;padding:24px 20px;box-shadow:var(--shadow);border:1px solid rgba(255,107,0,0.12);margin-bottom:20px;}
-.search-card label{display:block;font-size:0.85rem;font-weight:600;color:#4a0404;margin-bottom:8px;font-family:'Tiro Devanagari Hindi',serif;}
+.search-card{background:#fff;border-radius:16px;padding:24px 20px;box-shadow:var(--shadow);border:1px solid rgba(255,107,0,0.12);margin-bottom:20px;position:relative;overflow:hidden;}
+.search-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));}
+.search-card label{display:block;font-size:0.85rem;font-weight:600;color:var(--maroon);margin-bottom:8px;font-family:'Tiro Devanagari Hindi',serif;}
 .input-wrap{position:relative;margin-bottom:14px;}
 .input-wrap input{width:100%;padding:13px 16px 13px 44px;border:2px solid #e0d5c8;border-radius:10px;font-size:1rem;font-family:'Poppins',sans-serif;letter-spacing:1px;text-transform:uppercase;outline:none;transition:border 0.2s,box-shadow 0.2s;background:#FFFAF5;color:var(--dark);}
 .input-wrap input:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(255,107,0,0.12);background:#fff;}
 .input-wrap .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:1.2rem;}
 .hint{font-size:0.75rem;color:#888;margin-bottom:16px;padding-left:4px;}
-.btn-verify{width:100%;padding:14px;background:linear-gradient(135deg,#4a0404 0%,#8B0000 100%);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(74,4,4,0.35);font-family:'Tiro Devanagari Hindi',serif;}
+.btn-verify{width:100%;padding:14px;background:linear-gradient(135deg,var(--maroon) 0%,var(--maroon2) 100%);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(74,4,4,0.35);font-family:'Tiro Devanagari Hindi',serif;}
 .btn-verify:hover{transform:translateY(-1px);}
 .btn-verify:disabled{opacity:0.7;cursor:not-allowed;transform:none;}
 #status-msg{text-align:center;min-height:24px;margin-top:12px;}
@@ -42,65 +55,74 @@ main{max-width:520px;margin:0 auto;padding:28px 16px 48px;}
 #result-box{display:none;animation:fadeUp 0.4s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* ID CARD */
-.id-card{background:linear-gradient(135deg,#4a0404 0%,#8B0000 40%,#4a0404 100%);border-radius:18px;padding:3px;box-shadow:0 8px 30px rgba(74,4,4,0.3);margin-bottom:16px;}
-.id-card-inner{background:#fff;border-radius:16px;overflow:hidden;}
+/* ═══ ID CARD — Tricolor themed, matches pdf-generator design ═══ */
+.id-card{background:linear-gradient(135deg,#fff8e7,#fff3d0);border:3px solid var(--gold);border-radius:18px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.25);margin-bottom:16px;position:relative;}
+.id-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:6px;background:var(--saffron);}
+.id-card::after{content:'';position:absolute;top:0;right:0;bottom:0;width:6px;background:var(--green);}
 
-/* TOP LOGO SECTION */
-.id-card-top{background:linear-gradient(135deg,#fff8f0,#fff3e0);padding:16px;text-align:center;border-bottom:2px solid var(--gold);}
-.id-card-top img{height:72px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 2px 12px rgba(200,150,12,0.3);}
-.id-card-top .org-name{font-family:'Tiro Devanagari Hindi',serif;font-size:0.95rem;color:#4a0404;font-weight:700;margin-top:6px;line-height:1.3;}
-.id-card-top .org-sub{font-size:0.65rem;color:#888;margin-top:2px;}
+/* HEADER: Navy bg with logo */
+.id-card-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:14px 18px 12px;display:flex;align-items:center;gap:12px;}
+.id-card-top img{height:50px;width:50px;border-radius:50%;border:2px solid var(--gold-light);object-fit:cover;flex-shrink:0;}
+.id-card-top .org-name{font-family:'Tiro Devanagari Hindi',serif;font-size:0.95rem;color:var(--gold-light);font-weight:700;line-height:1.3;}
+.id-card-top .org-sub{font-size:0.62rem;color:var(--saffron-light);margin-top:2px;letter-spacing:0.5px;}
 
-/* HEADER BAR */
-.id-card-header{background:linear-gradient(135deg,#4a0404,#8B0000);padding:10px 16px;text-align:center;}
-.id-card-header h4{color:#fff;font-size:0.82rem;font-family:'Tiro Devanagari Hindi',serif;letter-spacing:0.5px;}
-.id-card-header p{color:var(--gold);font-size:0.62rem;}
+/* Tricolor thin divider */
+.id-card-tricolor{height:4px;display:flex;}
+.id-card-tricolor span{flex:1;}
+.id-card-tricolor span:nth-child(1){background:var(--saffron);}
+.id-card-tricolor span:nth-child(2){background:#fff;}
+.id-card-tricolor span:nth-child(3){background:var(--green);}
 
-/* BODY */
-.id-card-body{padding:18px;display:flex;gap:16px;align-items:flex-start;}
-.member-photo{width:85px;height:95px;border-radius:10px;border:2px solid var(--gold);flex-shrink:0;background:#f0e8e0;display:flex;align-items:center;justify-content:center;font-size:2.2rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+/* TITLE BAR */
+.id-card-header{background:var(--saffron);padding:7px 16px;text-align:center;}
+.id-card-header h4{color:#fff;font-size:0.78rem;font-family:'Tiro Devanagari Hindi',serif;letter-spacing:0.3px;}
+
+/* BODY: photo + details */
+.id-card-body{padding:16px 18px;display:flex;gap:14px;align-items:flex-start;background:#fff;}
+.member-photo{width:78px;height:90px;border-radius:8px;border:2px solid var(--gold);flex-shrink:0;background:#f0e8e0;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
 .member-photo img{width:100%;height:100%;object-fit:cover;}
-.member-details{flex:1;}
-.member-name{font-size:1.05rem;font-weight:700;color:#4a0404;font-family:'Tiro Devanagari Hindi',serif;margin-bottom:4px;text-transform:capitalize;}
-.member-designation{display:inline-block;background:var(--saffron);color:#fff;font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
-.detail-row{display:flex;gap:6px;margin-bottom:5px;font-size:0.78rem;align-items:flex-start;}
-.detail-row .dl{color:#888;min-width:72px;flex-shrink:0;}
-.detail-row .dv{color:var(--dark);font-weight:600;}
+.member-details{flex:1;padding-top:2px;}
+.member-name{font-size:1.05rem;font-weight:700;color:var(--navy);font-family:'Tiro Devanagari Hindi',serif;margin-bottom:4px;}
+.member-designation{display:inline-block;background:var(--saffron);color:#fff;font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:9px;}
+.detail-row{display:flex;gap:6px;margin-bottom:4px;font-size:0.76rem;align-items:flex-start;}
+.detail-row .dl{color:var(--maroon);min-width:64px;flex-shrink:0;font-weight:700;}
+.detail-row .dv{color:var(--dark);font-weight:500;}
 
-/* ID NUMBER BAR */
-.id-number-bar{background:linear-gradient(90deg,#fff8f0,#fff3e0);padding:10px 18px;border-top:1px solid #f0e8e0;border-bottom:1px solid #f0e8e0;display:flex;align-items:center;gap:10px;}
-.id-num-label{font-size:0.65rem;color:#888;text-transform:uppercase;letter-spacing:0.5px;}
-.id-num-value{font-family:'Courier New',monospace;font-weight:700;color:#4a0404;font-size:0.9rem;letter-spacing:1px;}
+/* ID NUMBER bar */
+.id-number-bar{background:linear-gradient(90deg,#fff8e7,#fff3d0);padding:9px 18px;border-top:1px solid #f0e0c0;}
+.id-num-label{font-size:0.62rem;color:#888;text-transform:uppercase;letter-spacing:0.5px;}
+.id-num-value{font-family:'Courier New',monospace;font-weight:700;color:var(--maroon);font-size:0.88rem;letter-spacing:1px;}
 
-/* FOOTER */
-.id-card-footer{padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
-.vol-id-wrap{}
-.vol-id-label{font-size:0.65rem;color:#888;text-transform:uppercase;}
-.vol-id{font-family:'Courier New',monospace;font-weight:700;color:#4a0404;font-size:0.92rem;letter-spacing:1.5px;}
-.verified-stamp{background:var(--green);color:#fff;font-size:0.7rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.5px;}
+/* FOOTER: vol-id + verified stamp */
+.id-card-footer{padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border-top:1px solid #f0e0c0;}
+.vol-id-label{font-size:0.62rem;color:#888;text-transform:uppercase;}
+.vol-id{font-family:'Courier New',monospace;font-weight:700;color:var(--maroon);font-size:0.9rem;letter-spacing:1.5px;}
+.verified-stamp{background:var(--green);color:#fff;font-size:0.68rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.3px;}
 
-/* SIGNATURE SECTION */
-.id-card-signature{border-top:1px dashed #e0d5c8;padding:12px 18px;display:flex;justify-content:flex-end;align-items:flex-end;flex-direction:column;background:linear-gradient(90deg,#fff,#fff8f0);}
-.id-card-signature img{height:44px;opacity:0.9;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));}
-.sig-label{font-size:0.65rem;color:#888;margin-top:4px;text-align:center;border-top:1px solid #ccc;padding-top:3px;width:120px;}
+/* SIGNATURE */
+.id-card-signature{border-top:1px dashed #e0c89a;padding:10px 18px 14px;display:flex;justify-content:flex-end;align-items:flex-end;flex-direction:column;background:linear-gradient(90deg,#fff,#fff8e7);}
+.id-card-signature img{height:38px;opacity:0.92;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));}
+.sig-label{font-size:0.62rem;color:var(--maroon);margin-top:4px;text-align:center;border-top:1px solid #C8960C;padding-top:3px;width:120px;font-weight:600;}
 
 /* EXTRA INFO */
-.extra-info{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--shadow);border:1px solid rgba(19,136,8,0.12);}
+.extra-info{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--shadow);border:1px solid rgba(19,136,8,0.12);position:relative;overflow:hidden;}
+.extra-info::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));}
 .extra-info h4{font-family:'Tiro Devanagari Hindi',serif;font-size:0.9rem;color:var(--green);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9;}
 .extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .extra-item .lbl{font-size:0.68rem;color:#888;text-transform:uppercase;letter-spacing:0.5px;}
 .extra-item .val{font-size:0.85rem;font-weight:600;color:var(--dark);}
 .verify-note{margin-top:14px;background:#F1F8E9;border-radius:10px;padding:10px 14px;font-size:0.75rem;color:#2e7d32;text-align:center;line-height:1.6;border:1px solid #C8E6C9;}
 
-.back-link{display:block;text-align:center;margin-top:28px;color:#4a0404;text-decoration:none;font-size:0.88rem;font-weight:600;padding:10px;border-radius:8px;transition:background 0.2s;}
+.back-link{display:block;text-align:center;margin-top:28px;color:var(--maroon);text-decoration:none;font-size:0.88rem;font-weight:600;padding:10px;border-radius:8px;transition:background 0.2s;}
 .back-link:hover{background:rgba(74,4,4,0.06);}
-footer{background:#4a0404;color:rgba(255,255,255,0.75);text-align:center;padding:16px;font-size:0.75rem;line-height:1.8;}
+footer{background:var(--maroon);color:rgba(255,255,255,0.75);text-align:center;padding:16px;font-size:0.75rem;line-height:1.8;}
 footer strong{color:#FFD700;}
-@media(max-width:360px){.id-card-body{flex-direction:column;align-items:center;}.extra-grid{grid-template-columns:1fr;}}
+@media(max-width:360px){.id-card-body{flex-direction:column;align-items:center;text-align:center;}.id-card-body .member-details{padding-top:0;}.detail-row{justify-content:center;}.extra-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
+
+<div class="tricolor-top"></div>
 
 <header>
   <div class="header-inner">
@@ -146,21 +168,10 @@ footer strong{color:#FFD700;}
   NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q | Reg: UK0660892021006667 (Valid: 30-01-2031)
 </footer>
 
+<!-- Firebase — uses the SAME shared config as the rest of the site -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC6cg_f5WCHmFfMcvO16DXWaZ8yhlHKrOA",
-  authDomain: "ngo-certificate-system.firebaseapp.com",
-  projectId: "ngo-certificate-system",
-  storageBucket: "ngo-certificate-system.appspot.com",
-  messagingSenderId: "664351169113",
-  appId: "1:664351169113:web:3c476e199d369615c6ef48"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { db } from "./firebase-config.js";
+import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 window.verifyID = async function() {
   const input = document.getElementById('id-input').value.trim().toUpperCase();
@@ -233,68 +244,69 @@ window.verifyID = async function() {
 
       resultBox.innerHTML = `
         <div class="id-card">
-          <div class="id-card-inner">
 
-            <!-- TOP: NGO LOGO -->
-            <div class="id-card-top">
-              <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="NGO Logo">
+          <!-- TOP: NGO LOGO + NAME (navy header) -->
+          <div class="id-card-top">
+            <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="NGO Logo">
+            <div>
               <div class="org-name">उन्नति स्वयं सहायता समिति</div>
               <div class="org-sub">NGO Darpan: UA/2016/0108273 | Lalkuan, Uttarakhand</div>
             </div>
-
-            <!-- TITLE BAR -->
-            <div class="id-card-header">
-              <h4>🪪 स्वयंसेवी पहचान पत्र — Volunteer ID Card</h4>
-            </div>
-
-            <!-- PHOTO + DETAILS -->
-            <div class="id-card-body">
-              <div class="member-photo">${photoHtml}</div>
-              <div class="member-details">
-                <div class="member-name">${name}</div>
-                <span class="member-designation">${designation}</span>
-                <div class="detail-row">
-                  <span class="dl">पिता/पति:</span>
-                  <span class="dv">${fatherName}</span>
-                </div>
-                <div class="detail-row">
-                  <span class="dl">मोबाइल:</span>
-                  <span class="dv">${mobile}</span>
-                </div>
-                <div class="detail-row">
-                  <span class="dl">जिला:</span>
-                  <span class="dv">${district}, ${state}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- ID NUMBER -->
-            ${idNumber !== '—' ? `
-            <div class="id-number-bar">
-              <div>
-                <div class="id-num-label">ID Number</div>
-                <div class="id-num-value">${idNumber}</div>
-              </div>
-            </div>` : ''}
-
-            <!-- VOLUNTEER ID + VERIFIED -->
-            <div class="id-card-footer">
-              <div class="vol-id-wrap">
-                <div class="vol-id-label">Volunteer ID</div>
-                <div class="vol-id">${volId}</div>
-              </div>
-              <div class="verified-stamp">✅ VERIFIED</div>
-            </div>
-
-            <!-- DIGITAL SIGNATURE -->
-            <div class="id-card-signature">
-              <img src="https://unnatiselfhelpgroup-creator.github.io/signature.png"
-                   alt="Authorised Signature"
-                   onerror="this.style.display='none'">
-              <div class="sig-label">अधिकृत हस्ताक्षर</div>
-            </div>
-
           </div>
+
+          <!-- TRICOLOR DIVIDER -->
+          <div class="id-card-tricolor"><span></span><span></span><span></span></div>
+
+          <!-- TITLE BAR -->
+          <div class="id-card-header">
+            <h4>🪪 स्वयंसेवी पहचान पत्र — VOLUNTEER ID CARD</h4>
+          </div>
+
+          <!-- PHOTO + DETAILS -->
+          <div class="id-card-body">
+            <div class="member-photo">${photoHtml}</div>
+            <div class="member-details">
+              <div class="member-name">${name}</div>
+              <span class="member-designation">${designation}</span>
+              <div class="detail-row">
+                <span class="dl">पिता/पति:</span>
+                <span class="dv">${fatherName}</span>
+              </div>
+              <div class="detail-row">
+                <span class="dl">मोबाइल:</span>
+                <span class="dv">${mobile}</span>
+              </div>
+              <div class="detail-row">
+                <span class="dl">जिला:</span>
+                <span class="dv">${district}, ${state}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ID NUMBER -->
+          ${idNumber !== '—' ? `
+          <div class="id-number-bar">
+            <div class="id-num-label">ID Number</div>
+            <div class="id-num-value">${idNumber}</div>
+          </div>` : ''}
+
+          <!-- VOLUNTEER ID + VERIFIED -->
+          <div class="id-card-footer">
+            <div>
+              <div class="vol-id-label">Volunteer ID</div>
+              <div class="vol-id">${volId}</div>
+            </div>
+            <div class="verified-stamp">✅ VERIFIED</div>
+          </div>
+
+          <!-- DIGITAL SIGNATURE — always shown, falls back gracefully -->
+          <div class="id-card-signature">
+            <img src="https://unnatiselfhelpgroup-creator.github.io/signature.png"
+                 alt="Authorised Signature"
+                 onerror="this.style.display='none'">
+            <div class="sig-label">अधिकृत हस्ताक्षर</div>
+          </div>
+
         </div>
 
         <!-- EXTRA INFO -->
@@ -337,7 +349,7 @@ window.verifyID = async function() {
 
   } catch (err) {
     btn.disabled = false;
-    statusMsg.innerHTML = '<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।</div>';
+    statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।<br><small>${err.message || ''}</small></div>`;
     console.error(err);
   }
 };

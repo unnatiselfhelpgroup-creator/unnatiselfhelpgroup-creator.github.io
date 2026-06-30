@@ -216,6 +216,7 @@
     padding: 12px 16px;
     font-size: 0.88rem;
     text-align: center;
+    line-height: 1.6;
   }
 
   /* RESULT CARD */
@@ -418,22 +419,10 @@
   NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q | Reg: UK0660892021006667 (Valid: 30-01-2031)
 </footer>
 
-<!-- Firebase -->
+<!-- Firebase — uses the SAME shared config as the rest of the site -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyC6cg_f5WCHmFfMcvO16DXWaZ8yhlHKrOA",
-    authDomain: "ngo-certificate-system.firebaseapp.com",
-    projectId: "ngo-certificate-system",
-    storageBucket: "ngo-certificate-system.appspot.com",
-    messagingSenderId: "664351169113",
-    appId: "1:664351169113:web:3c476e199d369615c6ef48"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  import { db } from "./firebase-config.js";
+  import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   window.verifyCertificate = async function() {
     const input = document.getElementById('cert-input').value.trim().toUpperCase();
@@ -560,7 +549,7 @@
 
     } catch (err) {
       btn.disabled = false;
-      statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।</div>`;
+      statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।<br><small>${err.message || ''}</small></div>`;
       console.error(err);
     }
   };
