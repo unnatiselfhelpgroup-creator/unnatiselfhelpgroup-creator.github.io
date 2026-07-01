@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>भुगतान | उन्नति स्वयं सहायता समिति</title>
+<style>
+  body { font-family: sans-serif; background: #f8f4ef; padding: 20px; text-align: center; }
+  .pay-card { background: white; padding: 25px; border-radius: 16px; max-width: 400px; margin: auto; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+  .pay-amount { font-size: 2rem; font-weight: 900; color: #4a0404; margin: 15px 0; }
+  .btn { display: block; width: 100%; padding: 15px; background: #28a745; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="pay-card">
+  <h3>सदस्यता शुल्क भुगतान</h3>
+  <div id="applicantInfo" style="text-align: left; margin-top: 15px;"></div>
+  <div class="pay-amount" id="payAmount">₹—</div>
+  <a href="#" id="razorpayBtn" class="btn">💳 Razorpay से भुगतान करें</a>
+</div>
+<script>
+  let stored = JSON.parse(sessionStorage.getItem('applicant') || '{}');
+  const infoDiv = document.getElementById('applicantInfo');
+  
+  if (stored.name) {
+    // सुरक्षित तरीका (DOM Manipulation)
+    const p1 = document.createElement('p'); p1.textContent = "आवेदक: " + stored.name;
+    const p2 = document.createElement('p'); p2.textContent = "पद: " + stored.cat;
+    infoDiv.appendChild(p1); infoDiv.appendChild(p2);
+    
+    document.getElementById('payAmount').textContent = '₹' + stored.fee;
+    document.getElementById('razorpayBtn').href = `https://razorpay.me/@wwwunnatiselfhelpgroupcom?amount=${stored.fee * 100}`;
+  } else {
+    infoDiv.textContent = "जानकारी नहीं मिल रही है। कृपया पहले फॉर्म भरें।";
+    document.getElementById('razorpayBtn').style.display = 'none';
+  }
+</script>
+</body>
+</html>
 
