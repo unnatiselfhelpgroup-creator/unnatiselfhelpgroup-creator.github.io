@@ -223,6 +223,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
 const db = getFirestore(app);
 
 // Set today's date
@@ -308,7 +313,7 @@ window.generateCertificate = async function() {
 
     msg.innerHTML = `
       <div class="msg msg-success">
-        ✅ Certificate <strong>${certNo}</strong> सफलतापूर्वक generate हो गया!<br>
+        ✅ Certificate <strong>${escapeHtml(certNo)}</strong> सफलतापूर्वक generate हो गया!<br>
         <small>अब इसे Certificate Verification page पर verify किया जा सकता है।</small>
       </div>`;
 
@@ -333,7 +338,7 @@ window.generateCertificate = async function() {
     document.getElementById('cert-no-display').textContent = nextNo;
 
   } catch (err) {
-    msg.innerHTML = '<div class="msg msg-error">❌ Error: ' + err.message + '</div>';
+    msg.innerHTML = '<div class="msg msg-error">❌ Error: ' + escapeHtml(err.message) + '</div>';
   }
 };
 

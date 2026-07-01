@@ -260,10 +260,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#
 // ══ IMAGE LOADER ══
 const BASE = "https://unnatiselfhelpgroup-creator.github.io/";
 let LOGO_B64=null, SIGN_B64=null;
-function escapeHtml(str){
-  if(str===null||str===undefined)return "";
-  return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
 
 async function imgToBase64(url){
   return new Promise(resolve=>{
@@ -296,6 +292,10 @@ function safeImg(doc,b64,fmt,x,y,w,h){
 }
 
 let currentType="idcard", photoDataURL=null;
+function escapeHtml(str){
+  if(str===null||str===undefined)return "";
+  return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
 
 function setType(type,el){
   currentType=type;
