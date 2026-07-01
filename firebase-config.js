@@ -8,7 +8,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-aut
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCNEZ03VUTOD-eJjPsMP4b0Ykh4eiigqPQ",
+    apiKey: "AIzaSyDU6uqfPXJmMSXhZJhM4sgePHgcZkTx_e8",
     authDomain: "ngo-certificate-system.firebaseapp.com",
     projectId: "ngo-certificate-system",
     storageBucket: "ngo-certificate-system.firebasestorage.app",
