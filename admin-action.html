@@ -235,29 +235,65 @@ function showSuccess(data){
     const emailSent = (data.email||"").includes("@");
     const colorMap = {Approved:"#2ecc71",Rejected:"#e74c3c",Verified:"#3498db"};
 
-    setTimeout(()=>{
-        mainEl.insertAdjacentHTML("beforeend", `
-            <div style="margin-top:20px;padding:16px;background:#0d2b1a;border:1px solid #27ae60;border-radius:12px">
-                <div style="font-size:1.5rem;margin-bottom:8px">${status==="Approved"?"🎉":status==="Verified"?"✔️":"❌"}</div>
-                <div style="font-size:1rem;font-weight:700;color:${colorMap[status]||"#d4af37"}">"${name}" को ${status} कर दिया गया!</div>
-                ${emailSent ? `<div style="font-size:0.82rem;color:#b8a87a;margin-top:6px">📧 ${data.email} पर notification भेजी गई</div>` : `<div style="font-size:0.82rem;color:#f39c12;margin-top:6px">⚠️ इस record में email नहीं है — notification नहीं गई</div>`}
-            </div>
-            <div class="btn-row" style="margin-top:20px">
-                <button class="btn-confirm" onclick="location.href='admin-panel.html'">📋 Admin Panel</button>
-            </div>
-        `);
+  // सुरक्षित showSuccess
+function showSuccess(data) {
+    const status = data.status;
+    const name = data.name || data.reporterName || 'आवेदक';
+    const emailSent = (data.email || "").includes("@");
+    const colorMap = { Approved: "#2ecc71", Rejected: "#e74c3c", Verified: "#3498db" };
+
+    setTimeout(() => {
+        mainEl.innerHTML = '';
+        const div = document.createElement('div');
+        div.style.marginTop = '20px';
+        div.style.padding = '16px';
+        div.style.background = '#0d2b1a';
+        div.style.borderRadius = '12px';
+
+        const h2 = document.createElement('h2');
+        h2.style.fontSize = '1.5rem';
+        h2.textContent = (status === 'Approved' ? '✅' : '❌') + ' स्थिति: ' + status;
+        div.appendChild(h2);
+
+        const p = document.createElement('p');
+        p.textContent = name + ' को ' + status + ' कर दिया गया!';
+        div.appendChild(p);
+
+        if (emailSent) {
+            const pEmail = document.createElement('p');
+            pEmail.style.color = '#b8a87a';
+            pEmail.textContent = '📧 ' + data.email + ' पर सूचना भेजी गई';
+            div.appendChild(pEmail);
+        }
+
+        const btn = document.createElement('button');
+        btn.className = 'btn-confirm';
+        btn.textContent = 'Admin Panel';
+        btn.onclick = () => location.href = 'admin-panel.html';
+        div.appendChild(btn);
+        mainEl.appendChild(div);
     }, 300);
 }
 
-function showError(msg){
-    setHTML(`<h2 id="statusMsg" style="color:#e74c3c">${msg}</h2>
-    <div class="btn-row" style="margin-top:24px"><button class="btn-back" onclick="history.back()">← वापस</button></div>`);
-}
-function showFinalError(msg){
-    mainEl.insertAdjacentHTML("beforeend",`<p style="color:#e74c3c;margin-top:16px;font-size:0.88rem">❌ ${msg}</p>`);
+// सुरक्षित showError
+function showError(msg) {
+    mainEl.innerHTML = '';
+    const h2 = document.createElement('h2');
+    h2.id = 'statusMsg';
+    h2.style.color = '#e74c3c';
+    h2.textContent = msg;
+    mainEl.appendChild(h2);
 }
 
-function getTypeLabel(t){
+// सुरक्षित showFinalError
+function showFinalError(msg) {
+    const p = document.createElement('p');
+    p.style.color = '#e74c3c';
+    p.style.marginTop = '10px';
+    p.textContent = '❌ ' + msg;
+    mainEl.appendChild(p);
+}
+    {
     return {Appointments:"नियुक्ति पत्र",Certificates:"Certificate",DailyReports:"Daily Report",IDcard:"ID Card",StudentRegistrations:"Student Registration"}[t]||t;
 }
 </script>
