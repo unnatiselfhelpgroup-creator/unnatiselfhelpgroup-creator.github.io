@@ -89,15 +89,23 @@ const displayName = name || stored.name || 'आवेदक';
 const displayFee  = fee  || stored.fee  || '';
 const displayCat  = cat  || stored.category || '';
 
-document.getElementById('applicantInfo').innerHTML =
-  const applicantDiv = document.getElementById('applicantInfo');
+const applicantDiv = document.getElementById('applicantInfo');
 applicantDiv.innerHTML = ''; 
 
 const fields = [
     { label: 'आवेदक', value: displayName },
     { label: 'श्रेणी', value: displayCat },
-    { label: 'फीस', value: displayFee || '-' }
+    { label: 'फीस', value: displayFee + ' /-' }
 ];
+
+fields.forEach(field => {
+    const p = document.createElement('p');
+    const strong = document.createElement('strong');
+    strong.textContent = field.label + ': ';
+    p.appendChild(strong);
+    p.appendChild(document.createTextNode(field.value));
+    applicantDiv.appendChild(p);
+});
 
 fields.forEach(field => {
     const p = document.createElement('p');
