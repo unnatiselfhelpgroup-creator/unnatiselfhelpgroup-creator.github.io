@@ -106,15 +106,6 @@ fields.forEach(field => {
     p.appendChild(document.createTextNode(field.value));
     applicantDiv.appendChild(p);
 });
-
-fields.forEach(field => {
-    const p = document.createElement('p');
-    const strong = document.createElement('strong');
-    strong.textContent = field.label + ': ';
-    p.appendChild(strong);
-    p.appendChild(document.createTextNode(field.value));
-    applicantDiv.appendChild(p);
-});
   
 
 const feeNum = parseInt(displayFee, 10);
