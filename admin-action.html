@@ -123,27 +123,56 @@ function showConfirm(data, adminEmail){
     const colorMap = {Approved:"#2ecc71", Rejected:"#e74c3c", Verified:"#3498db"};
     const color = colorMap[status]||"#d4af37";
 
-    setHTML(`
-        <h2 id="statusMsg">आवेदन <span class="status-badge ${status}">${status}</span> करें?</h2>
-        <p class="sub" style="margin-top:8px">नीचे विवरण confirm करके आगे बढ़ें</p>
+        mainEl.innerHTML = '';
+    const h2 = document.createElement('h2');
+    h2.id = 'statusMsg';
+    h2.textContent = 'विवरण पुष्टि करें';
+    mainEl.appendChild(h2);
 
-        <div class="info-box">
-            <div><span class="lbl">नाम: </span><span class="val">${name}</span></div>
-            <div><span class="lbl">Email: </span><span class="val">${email}</span></div>
-            <div><span class="lbl">पद/प्रकार: </span><span class="val">${post}</span></div>
-            <div><span class="lbl">Collection: </span><span class="val">${type}</span></div>
-            <div><span class="lbl">Action: </span><span class="val" style="color:${color};font-size:1rem">● ${status}</span></div>
-        </div>
+    const infoBox = document.createElement('div');
+    infoBox.className = 'info-box';
 
-        ${makeProgress(["Firebase में Status Update", "Applicant को Email Notification", "Action Complete"])}
+    const fields = [
+        { label: 'नाम', value: name },
+        { label: 'Email', value: email },
+        { label: 'पद/प्रकार', value: post },
+        { label: 'Collection', value: data.type || '-' },
+        { label: 'Action', value: status }
+    ];
 
-        <div class="btn-row" style="margin-top:20px">
-            <button class="btn-back" onclick="history.back()">← वापस</button>
-            <button class="btn-confirm" id="confirmBtn" onclick="performAction(${JSON.stringify(data).replace(/"/g,'&quot;')})">
-                हाँ, ${status} करें ✓
-            </button>
-        </div>
-    `);
+    fields.forEach(f => {
+        const div = document.createElement('div');
+        const spanL = document.createElement('span');
+        spanL.className = 'lbl';
+        spanL.textContent = f.label + ': ';
+        const spanV = document.createElement('span');
+        spanV.className = 'val';
+        spanV.textContent = f.value;
+        div.appendChild(spanL);
+        div.appendChild(spanV);
+        infoBox.appendChild(div);
+    });
+    mainEl.appendChild(infoBox);
+
+    const btnRow = document.createElement('div');
+    btnRow.className = 'btn-row';
+    btnRow.style.marginTop = '20px';
+    
+    const btnBack = document.createElement('button');
+    btnBack.className = 'btn-back';
+    btnBack.textContent = 'वापस';
+    btnBack.onclick = () => history.back();
+    
+    const btnConfirm = document.createElement('button');
+    btnConfirm.className = 'btn-confirm';
+    btnConfirm.id = 'confirmBtn';
+    btnConfirm.textContent = 'पुष्टि करें';
+    btnConfirm.onclick = () => window.performAction(JSON.stringify(data));
+
+    btnRow.appendChild(btnBack);
+    btnRow.appendChild(btnConfirm);
+    mainEl.appendChild(btnRow);
+    
 }
 
 // ══ PERFORM ACTION ══
