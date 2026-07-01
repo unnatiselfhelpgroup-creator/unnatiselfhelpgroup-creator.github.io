@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>नियुक्ति आवेदन | उन्नति स्वयं सहायता समिति</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f8f4ef; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: #fff; padding: 25px; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 15px; font-weight: 600; }
+    input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 7px; }
+    .btn { width: 100%; padding: 15px; background: #4a0404; color: #fff; border: none; border-radius: 9px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>📄 नियुक्ति हेतु आवेदन</h2>
+  <label>पूरा नाम *</label>
+  <input type="text" id="fullname" required>
+  <label>सदस्य श्रेणी *</label>
+  <select id="category" onchange="onCategoryChange()">
+    <option value="">श्रेणी चुनें</option>
+    <option value="volunteer">Volunteer (स्वयंसेवक)</option>
+    <option value="officer">पदाधिकारी</option>
+  </select>
+  <label>पद (Designation) *</label>
+  <select id="designation"></select>
+  <button class="btn" onclick="submitForm()">📤 आवेदन जमा करें एवं भुगतान हेतु आगे बढ़ें</button>
+</div>
+<script>
+  const designationMap = {
+    volunteer: [{ label: 'Volunteer (स्वयंसेवक)', fee: 151 }],
+    officer: [{ label: 'ग्राम गौ-संयोजक', fee: 151 }, { label: 'ब्लॉक गौ-प्रभारी', fee: 351 }, { label: 'जिला गौ-समन्वयक', fee: 551 }]
+  };
+  function onCategoryChange() {
+    const cat = document.getElementById('category').value;
+    const sel = document.getElementById('designation');
+    sel.innerHTML = '<option value="">पद चुनें</option>';
+    if (designationMap[cat]) {
+      designationMap[cat].forEach(d => {
+        let opt = document.createElement('option');
+        opt.value = d.label; opt.dataset.fee = d.fee;
+        opt.textContent = `${d.label} — ₹${d.fee}`;
+        sel.appendChild(opt);
+      });
+    }
+  }
+  function submitForm() {
+    const fullname = document.getElementById('fullname').value.trim();
+    const desig = document.getElementById('designation');
+    if (!fullname || !desig.value) { alert('कृपया सभी जानकारी भरें।'); return; }
+    sessionStorage.setItem('applicant', JSON.stringify({ name: fullname, cat: desig.value, fee: desig.options[desig.selectedIndex].dataset.fee }));
+    window.location.href = 'appointment-payment.html';
+  }
+</script>
+</body>
+</html>
 
