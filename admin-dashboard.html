@@ -9,6 +9,7 @@
 <script>(function(){emailjs.init("AvD_f76bB4qJYnGb0");})()</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-3chOMtjYaSa9m2bCC8qGxmEcX449u63D1fMXMQdueS3/XgE12iHQdmZVXVVbhBLc9i7h9WUuuM15B0CCE6Jtvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="appointment-pdf.js" defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#071b34;color:#fff;padding:16px;min-height:100vh}
@@ -265,7 +266,7 @@ window.openApp=function(id){
   document.getElementById("modalBtns").innerHTML=`
     <button class="btn approve" onclick="doAction('Appointments','${id}','Approved','${esc(x.name)}','${esc(x.email)}');closeModal()">✅ Approve करें</button>
     <button class="btn reject" onclick="doAction('Appointments','${id}','Rejected','${esc(x.name)}','');closeModal()">❌ Reject करें</button>
-    <button class="btn pdf" onclick="genAppPDF('${id}')">📄 नियुक्ति पत्र PDF</button>`;
+    <button class="btn pdf" onclick="window.generateAppointmentPDF(window._appData['${id}'])">📄 नियुक्ति पत्र PDF</button>`;
   document.getElementById("modalBg").classList.add("show");
 };
 

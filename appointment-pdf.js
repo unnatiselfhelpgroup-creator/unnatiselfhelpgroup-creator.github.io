@@ -3,7 +3,11 @@
 // Logo और Signature के साथ
 // =============================================
 window.generateAppointmentPDF = function (data) {
-    const volunteerId = data.volunteer_id || data.volunteerId || "-";
+    function escapeHtml(str) {
+        if (str === null || str === undefined) return "";
+        return String(str).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    }
+    const volunteerId = escapeHtml(data.volunteer_id || data.volunteerId || "-");
     const now = new Date();
     const dateStr = now.toLocaleDateString("hi-IN", {day:"2-digit", month:"long", year:"numeric"});
     const letterNo = "USS/APP/" + now.getFullYear() + "/" + Date.now();
@@ -53,31 +57,31 @@ window.generateAppointmentPDF = function (data) {
         <table style="width:100%;font-size:12px;border-collapse:collapse;">
           <tr>
             <td style="padding:5px 8px;font-weight:600;width:40%;color:#4a0404;">नाम:</td>
-            <td style="padding:5px 8px;">${data.name || "-"}</td>
+            <td style="padding:5px 8px;">${escapeHtml(data.name || "-")}</td>
           </tr>
           <tr style="background:#fffef5;">
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">पिता/पति का नाम:</td>
-            <td style="padding:5px 8px;">${data.fatherName || data.father_name || "-"}</td>
+            <td style="padding:5px 8px;">${escapeHtml(data.fatherName || data.father_name || "-")}</td>
           </tr>
           <tr>
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">मोबाइल:</td>
-            <td style="padding:5px 8px;">${data.mobile || "-"}</td>
+            <td style="padding:5px 8px;">${escapeHtml(data.mobile || "-")}</td>
           </tr>
           <tr style="background:#fffef5;">
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">ईमेल:</td>
-            <td style="padding:5px 8px;">${data.email || "-"}</td>
+            <td style="padding:5px 8px;">${escapeHtml(data.email || "-")}</td>
           </tr>
           <tr>
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">पता:</td>
-            <td style="padding:5px 8px;">${data.address || "-"}</td>
+            <td style="padding:5px 8px;">${escapeHtml(data.address || "-")}</td>
           </tr>
           <tr style="background:#fffef5;">
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">पद (Designation):</td>
-            <td style="padding:5px 8px;font-weight:700;color:#4a0404;">${designation}</td>
+            <td style="padding:5px 8px;font-weight:700;color:#4a0404;">${escapeHtml(designation)}</td>
           </tr>
           <tr>
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">सहयोग राशि:</td>
-            <td style="padding:5px 8px;font-weight:700;color:#c0392b;">${fee}</td>
+            <td style="padding:5px 8px;font-weight:700;color:#c0392b;">${escapeHtml(fee)}</td>
           </tr>
           <tr style="background:#fffef5;">
             <td style="padding:5px 8px;font-weight:600;color:#4a0404;">Volunteer / Member ID:</td>
@@ -90,11 +94,11 @@ window.generateAppointmentPDF = function (data) {
       <div style="font-size:13px;line-height:1.8;color:#222;margin-bottom:20px;text-align:justify;">
         <p>महोदय/महोदया,</p>
         <br>
-        <p>उन्नति स्वयं सहायता समिति आपकी सामाजिक सेवा, गौ-संरक्षण एवं राष्ट्र निर्माण के प्रति समर्पण एवं निष्ठा का स्वागत करती है। आपके आवेदन एवं भुगतान के पश्चात, आपको संस्था के अंतर्गत <strong style="color:#4a0404;">${designation}</strong> पद पर तत्काल प्रभाव से नियुक्त किया जाता है।</p>
+        <p>उन्नति स्वयं सहायता समिति आपकी सामाजिक सेवा, गौ-संरक्षण एवं राष्ट्र निर्माण के प्रति समर्पण एवं निष्ठा का स्वागत करती है। आपके आवेदन एवं भुगतान के पश्चात, आपको संस्था के अंतर्गत <strong style="color:#4a0404;">${escapeHtml(designation)}</strong> पद पर तत्काल प्रभाव से नियुक्त किया जाता है।</p>
         <br>
         <p>आप अपने क्षेत्र में गौ सेवा, घायल गोवंश सहायता, पर्यावरण संरक्षण, रक्तदान, जनजागरूकता एवं समाज सेवा के कार्यों में सक्रिय भूमिका निभाएंगे। गौ माता को राष्ट्रमाता एवं राज्यमाता का सम्मान दिलाने के संस्था के उद्देश्य में आपका सहयोग अपेक्षित है।</p>
         <br>
-        <p><strong>महत्वपूर्ण:</strong> प्रशासनिक सहयोग राशि <strong>${fee}</strong> Non-Refundable है तथा ID Card, नियुक्ति पत्र एवं प्रशासनिक सेवाओं हेतु है। इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु किया जाए। किसी से धन की मांग करना या संस्था के नाम पर अवैध कार्य करना दंडनीय अपराध होगा।</p>
+        <p><strong>महत्वपूर्ण:</strong> प्रशासनिक सहयोग राशि <strong>${escapeHtml(fee)}</strong> Non-Refundable है तथा ID Card, नियुक्ति पत्र एवं प्रशासनिक सेवाओं हेतु है। इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु किया जाए। किसी से धन की मांग करना या संस्था के नाम पर अवैध कार्य करना दंडनीय अपराध होगा।</p>
       </div>
 
       <!-- हस्ताक्षर -->
@@ -102,7 +106,7 @@ window.generateAppointmentPDF = function (data) {
         <div style="font-size:11px;color:#555;">
           <p>नियुक्त व्यक्ति के हस्ताक्षर</p>
           <div style="margin-top:30px;border-top:1px solid #999;width:160px;"></div>
-          <p style="margin-top:4px;">${data.name || ""}</p>
+          <p style="margin-top:4px;">${escapeHtml(data.name || "")}</p>
         </div>
         <div style="text-align:center;">
           <img src="${SIGN_URL}" alt="Authorised Signature" style="height:60px;max-width:180px;object-fit:contain;" crossorigin="anonymous">
