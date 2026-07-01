@@ -1,6 +1,11 @@
 import { db } from "./firebase-config.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
+function escapeHtml(str) {
+    if (str === null || str === undefined) return "";
+    return String(str).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
 // ✅ ES Module में window assignment + DOMContentLoaded के बाद button event listener
 async function checkCert() {
     const certInput = document.getElementById("certInput");
@@ -19,14 +24,14 @@ async function checkCert() {
             const d = snap.data();
             result.innerHTML = `
                 <h3 style="color:#00a651">✅ प्रमाण पत्र मान्य है</h3>
-                <p><b>नाम:</b> ${d.name || "—"}</p>
-                <p><b>Volunteer ID:</b> ${d.volunteer_id || "—"}</p>
-                <p><b>पद:</b> ${d.designation || "—"}</p>`;
+                <p><b>नाम:</b> ${escapeHtml(d.name || "—")}</p>
+                <p><b>Volunteer ID:</b> ${escapeHtml(d.volunteer_id || "—")}</p>
+                <p><b>पद:</b> ${escapeHtml(d.designation || "—")}</p>`;
         } else {
             result.innerHTML = `<h3 style="color:#e74c3c">❌ यह प्रमाण पत्र अमान्य है।</h3>`;
         }
     } catch (e) {
-        result.innerHTML = `<p style="color:red">त्रुटि हुई: ${e.message}</p>`;
+        result.innerHTML = `<p style="color:red">त्रुटि हुई: ${escapeHtml(e.message)}</p>`;
     }
 }
 

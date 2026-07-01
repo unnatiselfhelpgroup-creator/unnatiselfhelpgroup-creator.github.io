@@ -424,6 +424,11 @@
   import { db } from "./firebase-config.js";
   import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  function escapeHtml(str){
+    if(str===null||str===undefined)return "";
+    return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
   window.verifyCertificate = async function() {
     const input = document.getElementById('cert-input').value.trim().toUpperCase();
     const statusMsg = document.getElementById('status-msg');
@@ -498,36 +503,36 @@
           <div class="result-body">
             <div class="cert-id-badge">
               <div class="label">Certificate Number</div>
-              <div class="value">${certNo}</div>
+              <div class="value">${escapeHtml(certNo)}</div>
             </div>
             <div class="info-grid">
               <div class="info-item full">
                 <span class="lbl">नाम / Name</span>
-                <span class="val">${name}</span>
+                <span class="val">${escapeHtml(name)}</span>
               </div>
               <div class="info-item">
                 <span class="lbl">पिता / पति का नाम</span>
-                <span class="val">${fatherName}</span>
+                <span class="val">${escapeHtml(fatherName)}</span>
               </div>
               <div class="info-item">
                 <span class="lbl">स्थिति / Status</span>
-                <span class="val"><span class="status-pill ${statusClass}">${statusText}</span></span>
+                <span class="val"><span class="status-pill ${statusClass}">${escapeHtml(statusText)}</span></span>
               </div>
               <div class="info-item">
                 <span class="lbl">कार्य क्षेत्र</span>
-                <span class="val">${workArea}</span>
+                <span class="val">${escapeHtml(workArea)}</span>
               </div>
               <div class="info-item">
                 <span class="lbl">अवधि / Duration</span>
-                <span class="val">${duration}</span>
+                <span class="val">${escapeHtml(duration)}</span>
               </div>
               <div class="info-item">
                 <span class="lbl">जारी दिनांक</span>
-                <span class="val">${issueDate}</span>
+                <span class="val">${escapeHtml(issueDate)}</span>
               </div>
               <div class="info-item full">
                 <span class="lbl">संस्था / Organisation</span>
-                <span class="val">${org}</span>
+                <span class="val">${escapeHtml(org)}</span>
               </div>
             </div>
             <div class="result-footer">
@@ -542,14 +547,14 @@
       } else {
         statusMsg.innerHTML = `
           <div class="msg-error">
-            ❌ <strong>${input}</strong> — यह Certificate Number हमारे रिकॉर्ड में नहीं मिला।<br>
+            ❌ <strong>${escapeHtml(input)}</strong> — यह Certificate Number हमारे रिकॉर्ड में नहीं मिला।<br>
             <small>कृपया सही नंबर दर्ज करें या संस्था से संपर्क करें: 9410332400</small>
           </div>`;
       }
 
     } catch (err) {
       btn.disabled = false;
-      statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।<br><small>${err.message || ''}</small></div>`;
+      statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।<br><small>${escapeHtml(err.message || '')}</small></div>`;
       console.error(err);
     }
   };

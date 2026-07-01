@@ -173,6 +173,11 @@ footer strong{color:#FFD700;}
 import { db } from "./firebase-config.js";
 import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+function escapeHtml(str){
+  if(str===null||str===undefined)return "";
+  return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
 window.verifyID = async function() {
   const input = document.getElementById('id-input').value.trim().toUpperCase();
   const statusMsg = document.getElementById('status-msg');
@@ -239,7 +244,7 @@ window.verifyID = async function() {
       const photo = data.photo || '';
       const statusText = status === 'verified' ? '✅ सत्यापित' : '⏳ प्रक्रियाधीन';
       const photoHtml = (photo && photo !== 'https://your-photo-link')
-        ? `<img src="${photo}" alt="photo" onerror="this.parentElement.innerHTML='👤'">`
+        ? `<img src="${escapeHtml(photo)}" alt="photo" onerror="this.parentElement.innerHTML='👤'">`
         : '👤';
 
       resultBox.innerHTML = `
@@ -266,19 +271,19 @@ window.verifyID = async function() {
           <div class="id-card-body">
             <div class="member-photo">${photoHtml}</div>
             <div class="member-details">
-              <div class="member-name">${name}</div>
-              <span class="member-designation">${designation}</span>
+              <div class="member-name">${escapeHtml(name)}</div>
+              <span class="member-designation">${escapeHtml(designation)}</span>
               <div class="detail-row">
                 <span class="dl">पिता/पति:</span>
-                <span class="dv">${fatherName}</span>
+                <span class="dv">${escapeHtml(fatherName)}</span>
               </div>
               <div class="detail-row">
                 <span class="dl">मोबाइल:</span>
-                <span class="dv">${mobile}</span>
+                <span class="dv">${escapeHtml(mobile)}</span>
               </div>
               <div class="detail-row">
                 <span class="dl">जिला:</span>
-                <span class="dv">${district}, ${state}</span>
+                <span class="dv">${escapeHtml(district)}, ${escapeHtml(state)}</span>
               </div>
             </div>
           </div>
@@ -287,14 +292,14 @@ window.verifyID = async function() {
           ${idNumber !== '—' ? `
           <div class="id-number-bar">
             <div class="id-num-label">ID Number</div>
-            <div class="id-num-value">${idNumber}</div>
+            <div class="id-num-value">${escapeHtml(idNumber)}</div>
           </div>` : ''}
 
           <!-- VOLUNTEER ID + VERIFIED -->
           <div class="id-card-footer">
             <div>
               <div class="vol-id-label">Volunteer ID</div>
-              <div class="vol-id">${volId}</div>
+              <div class="vol-id">${escapeHtml(volId)}</div>
             </div>
             <div class="verified-stamp">✅ VERIFIED</div>
           </div>
@@ -315,19 +320,19 @@ window.verifyID = async function() {
           <div class="extra-grid">
             <div class="extra-item">
               <div class="lbl">नियुक्ति दिनांक</div>
-              <div class="val">${appointDate}</div>
+              <div class="val">${escapeHtml(appointDate)}</div>
             </div>
             <div class="extra-item">
               <div class="lbl">स्थिति</div>
-              <div class="val">${statusText}</div>
+              <div class="val">${escapeHtml(statusText)}</div>
             </div>
             <div class="extra-item" style="grid-column:1/-1">
               <div class="lbl">ईमेल</div>
-              <div class="val">${email}</div>
+              <div class="val">${escapeHtml(email)}</div>
             </div>
             <div class="extra-item" style="grid-column:1/-1">
               <div class="lbl">पूरा पता</div>
-              <div class="val">${address}</div>
+              <div class="val">${escapeHtml(address)}</div>
             </div>
           </div>
           <div class="verify-note">
@@ -342,14 +347,14 @@ window.verifyID = async function() {
     } else {
       statusMsg.innerHTML = `
         <div class="msg-error">
-          ❌ <strong>${input}</strong> — यह ID हमारे रिकॉर्ड में नहीं मिली।<br>
+          ❌ <strong>${escapeHtml(input)}</strong> — यह ID हमारे रिकॉर्ड में नहीं मिली।<br>
           <small>कृपया सही ID दर्ज करें या संस्था से संपर्क करें: 9410332400</small>
         </div>`;
     }
 
   } catch (err) {
     btn.disabled = false;
-    statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।<br><small>${err.message || ''}</small></div>`;
+    statusMsg.innerHTML = `<div class="msg-error">⚠️ सर्वर से कनेक्ट नहीं हो सका। कृपया दोबारा प्रयास करें।<br><small>${escapeHtml(err.message || '')}</small></div>`;
     console.error(err);
   }
 };
