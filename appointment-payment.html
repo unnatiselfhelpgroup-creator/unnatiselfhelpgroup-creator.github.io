@@ -94,14 +94,17 @@ document.getElementById('applicantInfo').innerHTML =
   (displayCat ? `<strong>श्रेणी:</strong> ${displayCat}<br>` : '') +
   `<strong>राशि:</strong> ₹${displayFee || '—'}`;
 
-if (displayFee) {
-  document.getElementById('payAmount').textContent = '₹' + displayFee;
-  // Update Razorpay link with amount note
+const feeNum = parseInt(displayFee, 10);
+if (feeNum > 0) {
+  document.getElementById('payAmount').textContent = '₹' + feeNum;
+  // Razorpay: amount in paise (multiply by 100)
   document.getElementById('razorpayBtn').href =
-    `https://razorpay.me/@wwwunnatiselfhelpgroupcom?amount=${displayFee}00`;
+    `https://razorpay.me/@wwwunnatiselfhelpgroupcom?amount=${feeNum * 100}`;
   // UPI link with amount
   document.getElementById('upiBtn').href =
-    `upi://pay?pa=unnatiselfhelpgroup@upi&pn=Unnati+NGO&am=${displayFee}&cu=INR&tn=Membership+${encodeURIComponent(displayCat)}`;
+    `upi://pay?pa=unnatiselfhelpgroup@upi&pn=Unnati+NGO&am=${feeNum}&cu=INR&tn=${encodeURIComponent('Membership ' + displayCat)}`;
+} else {
+  document.getElementById('payAmount').textContent = '₹—';
 }
 
 function markPaid() {

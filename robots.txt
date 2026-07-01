@@ -8,6 +8,14 @@ Disallow: /volunteer-management.html
 Disallow: /firebase-config.js
 Disallow: /auth.js
 
+Disallow: /admin-panel.html
+Disallow: /config.js
+Disallow: /appointment-payment.html
+Disallow: /payment.html
+Disallow: /certificate-generator.html
+Disallow: /daily-report.html
+Disallow: /volunteer-management.html
+
 Sitemap: https://unnatiselfhelpgroup-creator.github.io/sitemap.xml
 
 User-agent: Googlebot
