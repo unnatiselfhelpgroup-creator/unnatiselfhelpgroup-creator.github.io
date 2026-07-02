@@ -9,6 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
+<!-- Firebase compat SDK (matches firebase-config.js's firebase.initializeApp / firebase.firestore pattern) -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
 <style>
   :root{ --saffron:#FF6B00; --gold:#C8960C; --green:#138808; --maroon:#4a0404; --maroon2:#8B0000; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,6 +74,9 @@
 </footer>
 
 <script>
+  // initFirebase() and saveData() come from firebase-config.js
+  try { initFirebase(); } catch(e) { console.warn('initFirebase not available yet', e); }
+
   function escapeHtml(str){
     if(str===null||str===undefined)return "";
     return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -103,6 +110,8 @@
   const infoDiv = document.getElementById('applicantInfo');
 
   if (stored.name) {
+    const razorpayUrl = (typeof RAZORPAY_URL !== 'undefined') ? RAZORPAY_URL : 'https://razorpay.me/@wwwunnatiselfhelpgroupcom';
+
     infoDiv.innerHTML = `
       <div class="info-box">
         <div class="info-row"><span class="lbl">आवेदक</span><span class="val">${escapeHtml(stored.name)}</span></div>
@@ -116,7 +125,7 @@
         <div class="pay-amount">₹${escapeHtml(stored.fee || '—')}</div>
       </div>
       <div class="step">1️⃣ पहले भुगतान करें:</div>
-      <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="btn" id="payLink">💳 Razorpay से भुगतान करें</a>
+      <a href="${razorpayUrl}" target="_blank" class="btn" id="payLink">💳 Razorpay से भुगतान करें</a>
       <div class="step">2️⃣ भुगतान का स्क्रीनशॉट अपलोड करें (अनिवार्य):</div>
       <input type="file" id="paymentProof" accept="image/*" required>
       <img id="previewImg" alt="Screenshot Preview">
@@ -158,38 +167,41 @@
       document.getElementById('progressFill').style.width = '25%';
 
       try {
-        const [{ db }, { collection, addDoc, serverTimestamp }] = await Promise.all([
-          import('./firebase-config.js'),
-          import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js')
-        ]);
-
         const base64Image = await imageToBase64(fileInput.files[0]);
         document.getElementById('progressFill').style.width = '55%';
-        document.getElementById('progressText').innerText = 'Firestore में save हो रहा है...';
+        document.getElementById('progressText').innerText = 'सेव हो रहा है...';
 
         const data = { ...stored };
         data.paymentStatus = 'Paid (Screenshot Uploaded)';
         data.paymentScreenshotBase64 = base64Image;
         data.status = 'Pending';
-        data.createdAt = serverTimestamp();
         data.submittedAt = new Date().toISOString();
 
-        const docRef = await addDoc(collection(db, 'AppointmentApplications'), data);
+        const formspreeUrl = (typeof FORMSPREE_APPOINTMENT !== 'undefined')
+          ? FORMSPREE_APPOINTMENT
+          : 'https://formspree.io/f/xdkgnpqv';
+
+        const result = await saveData('AppointmentApplications', data, formspreeUrl);
+
         document.getElementById('progressFill').style.width = '80%';
         document.getElementById('progressText').innerText = 'Email भेजी जा रही है...';
 
         if (stored.email) {
-          await emailjs.send('service_63pefgf', 'template_xq7uilj', {
-            to_name: stored.name,
-            to_email: stored.email,
-            name: stored.name,
-            email: stored.email,
-            doc_type: 'नियुक्ति आवेदन',
-            status: 'सबमिट हो गया, सत्यापन हेतु लंबित',
-            post: stored.designation || stored.cat || '-',
-            district: stored.district || '-',
-            message: 'भुगतान प्राप्त हो गया है। संस्था द्वारा सत्यापन के पश्चात नियुक्ति पत्र एवं ID Card जारी किया जाएगा।'
-          });
+          try {
+            await emailjs.send('service_63pefgf', 'template_xq7uilj', {
+              to_name: stored.name,
+              to_email: stored.email,
+              name: stored.name,
+              email: stored.email,
+              doc_type: 'नियुक्ति आवेदन',
+              status: 'सबमिट हो गया, सत्यापन हेतु लंबित',
+              post: stored.designation || stored.cat || '-',
+              district: stored.district || '-',
+              message: 'भुगतान प्राप्त हो गया है। संस्था द्वारा सत्यापन के पश्चात नियुक्ति पत्र एवं ID Card जारी किया जाएगा।'
+            });
+          } catch (mailErr) {
+            console.warn('Email भेजने में समस्या (आवेदन फिर भी सेव हो गया):', mailErr);
+          }
         }
 
         document.getElementById('progressFill').style.width = '100%';
@@ -202,7 +214,6 @@
               <div style="font-size:60px;">✅</div>
               <h3 style="color:var(--green);font-family:'Tiro Devanagari Hindi',serif;">आवेदन सफलतापूर्वक जमा हो गया!</h3>
               <p style="color:#555;margin-top:10px;font-size:0.9rem;">भुगतान स्क्रीनशॉट सुरक्षित रूप से सेव हुआ।<br>एडमिन जांच के बाद ईमेल पर सूचित किया जाएगा।</p>
-              <p style="color:#888;font-size:0.75rem;margin-top:10px;">ID: ${docRef.id}</p>
               <a href="index.html" class="btn" style="margin-top:20px;">🏠 होम पेज</a>
             </div>
           </main>`;
