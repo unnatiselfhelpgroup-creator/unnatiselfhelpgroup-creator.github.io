@@ -187,7 +187,7 @@
         data.createdAt = serverTimestamp();
         data.submittedAt = new Date().toISOString();
 
-        const docRef = await addDoc(collection(db, 'AppointmentApplications'), data);
+        const docRef = await addDoc(collection(db, 'Appointments'), data);
         document.getElementById('progressFill').style.width = '80%';
         document.getElementById('progressText').innerText = 'Email भेजी जा रही है...';
 
