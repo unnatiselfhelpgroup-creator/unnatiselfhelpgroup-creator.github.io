@@ -90,19 +90,23 @@
         const img = new Image();
         img.src = e.target.result;
         img.onload = () => {
-          const canvas = document.createElement("canvas");
-          let w = img.width, h = img.height;
-          if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
-          canvas.width = w; canvas.height = h;
-          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          let b64 = canvas.toDataURL("image/jpeg", quality);
-          if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
-          if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image बहुत बड़ी है।"));
-          else resolve(b64);
+          try {
+            const canvas = document.createElement("canvas");
+            let w = img.width, h = img.height;
+            if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+            canvas.width = w; canvas.height = h;
+            canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+            let b64 = canvas.toDataURL("image/jpeg", quality);
+            if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
+            if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image बहुत बड़ी है, कृपया छोटी स्क्रीनशॉट अपलोड करें।"));
+            else resolve(b64);
+          } catch (canvasErr) {
+            reject(new Error("Image process करने में समस्या हुई: " + (canvasErr && canvasErr.message ? canvasErr.message : "अज्ञात त्रुटि")));
+          }
         };
-        img.onerror = reject;
+        img.onerror = () => reject(new Error("यह फ़ाइल एक वैध image नहीं लग रही, कृपया दूसरी स्क्रीनशॉट चुनें।"));
       };
-      reader.onerror = reject;
+      reader.onerror = () => reject(new Error("फ़ाइल पढ़ने में समस्या हुई, कृपया दोबारा प्रयास करें।"));
     });
   }
 
@@ -167,6 +171,10 @@
       document.getElementById('progressFill').style.width = '25%';
 
       try {
+        if (typeof saveData !== 'function') {
+          throw new Error('साइट सेटअप में समस्या: firebase-config.js ठीक से लोड नहीं हुई (शायद उसमें कोई syntax error है)। कृपया एडमिन को सूचित करें।');
+        }
+
         const base64Image = await imageToBase64(fileInput.files[0]);
         document.getElementById('progressFill').style.width = '55%';
         document.getElementById('progressText').innerText = 'सेव हो रहा है...';
@@ -219,7 +227,8 @@
           </main>`;
       } catch (err) {
         console.error(err);
-        alert('❌ त्रुटि: ' + err.message);
+        const msg = (err && err.message) ? err.message : 'अज्ञात समस्या हुई। कृपया दोबारा प्रयास करें, या पेज को रीलोड करके फिर कोशिश करें।';
+        alert('❌ त्रुटि: ' + msg);
         btn.disabled = false; btn.innerText = '✅ मैंने भुगतान कर दिया है';
         document.getElementById('progressWrap').style.display = 'none';
       }
