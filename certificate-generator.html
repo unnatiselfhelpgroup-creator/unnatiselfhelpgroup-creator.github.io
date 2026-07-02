@@ -1,1 +1,368 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Certificate Generator | उन्नति स्वयं सहायता समिति | उन्नति स्वयं सहायता समिति — हल्द्वानी, उत्तराखंड। गौ माता राष्ट्र माता। NGO Darpan: UA/2016/0108273">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Generator | उन्नति स्वयं सहायता समिति</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--saffron:#FF6B00;--green:#138808;--gold:#C8960C;--dark:#1a0a00;--maroon:#8B0000;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#FFF3E0,#F1F8E9);min-height:100vh;}
+header{background:linear-gradient(135deg,#4a0404,#8B0000,#4a0404);padding:14px 20px;text-align:center;position:relative;}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));}
+.header-inner{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+header img{height:50px;border-radius:50%;border:2px solid var(--gold);}
+.header-text h1{font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;color:#fff;}
+.header-text p{font-size:0.7rem;color:var(--gold);}
+
+/* LOGIN */
+#login-section{max-width:400px;margin:40px auto;padding:0 16px;}
+.login-card{background:#fff;border-radius:16px;padding:28px 24px;box-shadow:0 4px 24px rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.12);}
+.login-card h2{font-family:'Tiro Devanagari Hindi',serif;color:#4a0404;font-size:1.3rem;margin-bottom:6px;text-align:center;}
+.login-card p{font-size:0.8rem;color:#888;text-align:center;margin-bottom:20px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:0.82rem;font-weight:600;color:#4a0404;margin-bottom:6px;}
+.form-group input{width:100%;padding:11px 14px;border:2px solid #e0d5c8;border-radius:10px;font-size:0.95rem;outline:none;transition:border 0.2s;background:#FFFAF5;}
+.form-group input:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(255,107,0,0.1);}
+.btn-primary{width:100%;padding:13px;background:linear-gradient(135deg,#4a0404,#8B0000);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Tiro Devanagari Hindi',serif;margin-top:4px;}
+.btn-primary:hover{opacity:0.9;}
+.btn-saffron{width:100%;padding:13px;background:linear-gradient(135deg,var(--saffron),var(--saffron-light,#FF8C00));color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Tiro Devanagari Hindi',serif;}
+.btn-saffron:hover{opacity:0.9;}
+.btn-green{width:100%;padding:13px;background:linear-gradient(135deg,var(--green),#1a9e0a);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Tiro Devanagari Hindi',serif;margin-top:10px;}
+
+/* GENERATOR */
+#generator-section{display:none;max-width:560px;margin:0 auto;padding:24px 16px 48px;}
+.section-title{text-align:center;margin-bottom:20px;}
+.section-title h2{font-family:'Tiro Devanagari Hindi',serif;color:#4a0404;font-size:1.4rem;}
+.section-title p{font-size:0.8rem;color:#666;margin-top:4px;}
+
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.1);margin-bottom:16px;}
+.card-title{font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;color:#4a0404;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #FFF3E0;display:flex;align-items:center;gap:8px;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-row .full{grid-column:1/-1;}
+.form-group select{width:100%;padding:11px 14px;border:2px solid #e0d5c8;border-radius:10px;font-size:0.95rem;outline:none;background:#FFFAF5;transition:border 0.2s;}
+.form-group select:focus{border-color:var(--saffron);}
+.form-group textarea{width:100%;padding:11px 14px;border:2px solid #e0d5c8;border-radius:10px;font-size:0.9rem;outline:none;background:#FFFAF5;resize:vertical;min-height:70px;font-family:'Poppins',sans-serif;}
+.form-group textarea:focus{border-color:var(--saffron);}
+
+.cert-no-display{background:#FFF3E0;border:2px solid var(--gold);border-radius:10px;padding:12px 16px;text-align:center;margin-bottom:16px;}
+.cert-no-display .label{font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:1px;}
+.cert-no-display .value{font-size:1.3rem;font-weight:700;color:#4a0404;font-family:'Courier New',monospace;letter-spacing:2px;}
+
+.msg{padding:12px 16px;border-radius:10px;font-size:0.85rem;margin-top:12px;text-align:center;}
+.msg-success{background:#E8F5E9;color:#2e7d32;border:1px solid #A5D6A7;}
+.msg-error{background:#FFF3F0;color:#c0392b;border:1px solid #FFB3A0;}
+.msg-loading{background:#FFF8E1;color:#F57F17;border:1px solid #FFE082;}
+
+.spinner{width:16px;height:16px;border:2px solid rgba(255,107,0,0.2);border-top-color:var(--saffron);border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;margin-right:6px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.back-link{display:block;text-align:center;margin-top:20px;color:#4a0404;text-decoration:none;font-size:0.85rem;font-weight:600;}
+footer{background:#4a0404;color:rgba(255,255,255,0.75);text-align:center;padding:14px;font-size:0.72rem;line-height:1.8;}
+footer strong{color:#FFD700;}
+
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.7rem;font-weight:600;}
+.tag-cert{background:#E3F2FD;color:#1565C0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="Logo">
+    <div class="header-text">
+      <h1>उन्नति स्वयं सहायता समिति</h1>
+      <p>Certificate Generator — Admin Panel</p>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<div id="login-section">
+  <div class="login-card">
+    <h2>🔐 Admin Login</h2>
+    <p>Certificate generate करने के लिए login करें</p>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="admin@example.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="••••••••">
+    </div>
+    <div id="login-msg"></div>
+    <button class="btn-primary" onclick="doLogin()" style="margin-top:12px;">🔑 Login करें</button>
+  </div>
+</div>
+
+<!-- GENERATOR -->
+<div id="generator-section">
+  <div class="section-title">
+    <h2>📜 Certificate Generator</h2>
+    <p>नया प्रमाणपत्र जारी करें</p>
+  </div>
+
+  <!-- AUTO CERT NO -->
+  <div class="cert-no-display">
+    <div class="label">Auto Generated Certificate Number</div>
+    <div class="value" id="cert-no-display">CERT-2026-0001</div>
+  </div>
+
+  <!-- PERSONAL INFO -->
+  <div class="card">
+    <div class="card-title">👤 व्यक्तिगत जानकारी</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>नाम (Name) *</label>
+        <input type="text" id="f-name" placeholder="पूरा नाम">
+      </div>
+      <div class="form-group">
+        <label>पिता/पति का नाम *</label>
+        <input type="text" id="f-father" placeholder="पिता/पति का नाम">
+      </div>
+      <div class="form-group">
+        <label>मोबाइल</label>
+        <input type="tel" id="f-mobile" placeholder="10 अंक">
+      </div>
+      <div class="form-group">
+        <label>ईमेल</label>
+        <input type="email" id="f-email" placeholder="email@example.com">
+      </div>
+      <div class="form-group full">
+        <label>पूरा पता</label>
+        <textarea id="f-address" placeholder="ग्राम, पोस्ट, जिला, राज्य"></textarea>
+      </div>
+      <div class="form-group">
+        <label>जिला</label>
+        <input type="text" id="f-district" placeholder="जिला">
+      </div>
+      <div class="form-group">
+        <label>राज्य</label>
+        <input type="text" id="f-state" placeholder="राज्य" value="Uttarakhand">
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATE INFO -->
+  <div class="card">
+    <div class="card-title">📜 प्रमाणपत्र विवरण</div>
+    <div class="form-row">
+      <div class="form-group full">
+        <label>Certificate Type *</label>
+        <select id="f-cert-type">
+          <option value="">-- चुनें --</option>
+          <option value="Volunteer Certificate">Volunteer Certificate — स्वयंसेवी प्रमाणपत्र</option>
+          <option value="Internship Certificate">Internship Certificate — इंटर्नशिप प्रमाणपत्र</option>
+          <option value="Participation Certificate">Participation Certificate — भागीदारी प्रमाणपत्र</option>
+          <option value="Training Certificate">Training Certificate — प्रशिक्षण प्रमाणपत्र</option>
+          <option value="Appreciation Certificate">Appreciation Certificate — सराहना प्रमाणपत्र</option>
+          <option value="Service Certificate">Service Certificate — सेवा प्रमाणपत्र</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>पद / Designation *</label>
+        <input type="text" id="f-designation" placeholder="जैसे: Volunteer">
+      </div>
+      <div class="form-group">
+        <label>Volunteer ID</label>
+        <input type="text" id="f-vol-id" placeholder="USS-2026-XXXX">
+      </div>
+      <div class="form-group">
+        <label>कार्य क्षेत्र</label>
+        <input type="text" id="f-work-area" placeholder="गौ सेवा / RTI / शिक्षा...">
+      </div>
+      <div class="form-group">
+        <label>अवधि (Duration)</label>
+        <input type="text" id="f-duration" placeholder="जैसे: 3 months / 6 माह">
+      </div>
+      <div class="form-group">
+        <label>जारी दिनांक *</label>
+        <input type="date" id="f-issue-date">
+      </div>
+      <div class="form-group">
+        <label>Valid Until</label>
+        <input type="date" id="f-valid-until">
+      </div>
+      <div class="form-group full">
+        <label>विशेष टिप्पणी</label>
+        <textarea id="f-remarks" placeholder="कोई विशेष उपलब्धि या टिप्पणी..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="gen-msg"></div>
+  <button class="btn-green" onclick="generateCertificate()">
+    📜 Certificate Generate करें
+  </button>
+
+  <a href="https://unnatiselfhelpgroup-creator.github.io/index.html" class="back-link">← मुख्य पृष्ठ</a>
+</div>
+
+<footer>
+  <strong>उन्नति स्वयं सहायता समिति</strong> | Lalkuan, Nainital, Uttarakhand<br>
+  NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="certificate-pdf.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC6cg_f5WCHmFfMcvO16DXWaZ8yhlHKrOA",
+  authDomain: "ngo-certificate-system.firebaseapp.com",
+  projectId: "ngo-certificate-system",
+  storageBucket: "ngo-certificate-system.appspot.com",
+  messagingSenderId: "664351169113",
+  appId: "1:664351169113:web:3c476e199d369615c6ef48"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+const db = getFirestore(app);
+
+// Set today's date
+document.getElementById('f-issue-date').value = new Date().toISOString().split('T')[0];
+
+// Get next certificate number
+async function getNextCertNo() {
+  try {
+    const q = query(collection(db, 'Certificates'), orderBy('created_at', 'desc'), limit(1));
+    const snap = await getDocs(q);
+    if (snap.empty) return 'CERT-2026-0001';
+    const last = snap.docs[0].data().certificate_no || 'CERT-2026-0000';
+    const num = parseInt(last.split('-')[2] || '0') + 1;
+    return `CERT-2026-${String(num).padStart(4, '0')}`;
+  } catch { return 'CERT-2026-0001'; }
+}
+
+window.doLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const msg = document.getElementById('login-msg');
+
+  if (!email || !pass) {
+    msg.innerHTML = '<div class="msg msg-error">⚠️ Email और Password दर्ज करें।</div>';
+    return;
+  }
+
+  msg.innerHTML = '<div class="msg msg-loading"><span class="spinner"></span> Login हो रहा है...</div>';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('generator-section').style.display = 'block';
+    const certNo = await getNextCertNo();
+    document.getElementById('cert-no-display').textContent = certNo;
+  } catch (err) {
+    msg.innerHTML = '<div class="msg msg-error">❌ Email या Password गलत है।</div>';
+  }
+};
+
+window.generateCertificate = async function() {
+  const msg = document.getElementById('gen-msg');
+
+  const name = document.getElementById('f-name').value.trim();
+  const father = document.getElementById('f-father').value.trim();
+  const certType = document.getElementById('f-cert-type').value;
+  const designation = document.getElementById('f-designation').value.trim();
+  const issueDate = document.getElementById('f-issue-date').value;
+
+  if (!name || !father || !certType || !designation || !issueDate) {
+    msg.innerHTML = '<div class="msg msg-error">⚠️ * वाले सभी fields भरें।</div>';
+    return;
+  }
+
+  msg.innerHTML = '<div class="msg msg-loading"><span class="spinner"></span> Certificate generate हो रहा है...</div>';
+
+  try {
+    const certNo = document.getElementById('cert-no-display').textContent;
+
+    const certData = {
+      certificate_no: certNo,
+      name: name,
+      father_name: father,
+      mobile: document.getElementById('f-mobile').value.trim(),
+      email: document.getElementById('f-email').value.trim(),
+      address: document.getElementById('f-address').value.trim(),
+      district: document.getElementById('f-district').value.trim(),
+      state: document.getElementById('f-state').value.trim() || 'Uttarakhand',
+      certificate_type: certType,
+      designation: designation,
+      volunteer_id: document.getElementById('f-vol-id').value.trim(),
+      work_area: document.getElementById('f-work-area').value.trim(),
+      duration: document.getElementById('f-duration').value.trim(),
+      issue_date: issueDate,
+      valid_until: document.getElementById('f-valid-until').value,
+      remarks: document.getElementById('f-remarks').value.trim(),
+      organization_name: 'उन्नति स्वयं सहायता समिति',
+      status: 'verified',
+      created_at: serverTimestamp()
+    };
+
+    await addDoc(collection(db, 'Certificates'), certData);
+
+    msg.innerHTML = `
+      <div class="msg msg-success">
+        ✅ Certificate <strong>${escapeHtml(certNo)}</strong> सफलतापूर्वक generate हो गया! PDF डाउनलोड हो रहा है...<br>
+        <small>अब इसे Certificate Verification page पर verify किया जा सकता है।</small>
+      </div>`;
+
+    // असली डिज़ाइन किया हुआ Sacred India थीम सर्टिफिकेट PDF बनाकर डाउनलोड करें
+    if (typeof window.generateCertificatePDF === "function") {
+      try {
+        await window.generateCertificatePDF({
+          ...certData,
+          activity_type: certData.certificate_type,
+          work_details: certData.remarks
+        });
+      } catch (pdfErr) {
+        console.error("Certificate PDF बनाने में त्रुटि:", pdfErr);
+        msg.innerHTML += `<div class="msg msg-error">⚠️ Data सेव हो गया लेकिन PDF डाउनलोड नहीं हो पाया: ${escapeHtml(pdfErr.message)}</div>`;
+      }
+    }
+
+    // Reset form
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-father').value = '';
+    document.getElementById('f-mobile').value = '';
+    document.getElementById('f-email').value = '';
+    document.getElementById('f-address').value = '';
+    document.getElementById('f-district').value = '';
+    document.getElementById('f-cert-type').value = '';
+    document.getElementById('f-designation').value = '';
+    document.getElementById('f-vol-id').value = '';
+    document.getElementById('f-work-area').value = '';
+    document.getElementById('f-duration').value = '';
+    document.getElementById('f-valid-until').value = '';
+    document.getElementById('f-remarks').value = '';
+    document.getElementById('f-issue-date').value = new Date().toISOString().split('T')[0];
+
+    // Next cert no
+    const nextNo = await getNextCertNo();
+    document.getElementById('cert-no-display').textContent = nextNo;
+
+  } catch (err) {
+    msg.innerHTML = '<div class="msg msg-error">❌ Error: ' + escapeHtml(err.message) + '</div>';
+  }
+};
+
+// Enter key for login
+document.getElementById('login-pass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') window.doLogin();
+});
+</script>
+</body>
+</html>
 
