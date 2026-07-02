@@ -7,61 +7,55 @@
 // html2canvas + jsPDF दोनों शामिल हैं:
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 // ============================================================
-window.generateCertificatePDF = async function (data) {
-  function esc(str) {
-    if (str === null || str === undefined) return "";
-    return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  }
 
-  await ensureFontsLoaded();
-  async function ensureFontsLoaded() {
-    if (!document.getElementById("cert-font-link")) {
-      await new Promise((resolve) => {
-        const link = document.createElement("link");
-        link.id = "cert-font-link";
-        link.rel = "stylesheet";
-        link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap";
-        link.onload = () => resolve();
-        link.onerror = () => resolve();
-        document.head.appendChild(link);
-        setTimeout(resolve, 2500);
-      });
-    }
-    if (document.fonts) {
-      try {
-        await Promise.all([
-          document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
-          document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
-          document.fonts.load('700 16px "Cinzel"'),
-          document.fonts.load('900 16px "Cinzel"'),
-          document.fonts.load('400 16px "Poppins"'),
-          document.fonts.load('700 16px "Poppins"')
-        ]);
-        await document.fonts.ready;
-      } catch (e) {}
-    }
-    await new Promise(r => setTimeout(r, 500));
-  }
+function certEsc(str) {
+  if (str === null || str === undefined) return "";
+  return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
 
+async function ensureCertFontsLoaded() {
+  if (!document.getElementById("cert-font-link")) {
+    await new Promise((resolve) => {
+      const link = document.createElement("link");
+      link.id = "cert-font-link";
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap";
+      link.onload = () => resolve();
+      link.onerror = () => resolve();
+      document.head.appendChild(link);
+      setTimeout(resolve, 2500);
+    });
+  }
+  if (document.fonts) {
+    try {
+      await Promise.all([
+        document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
+        document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
+        document.fonts.load('700 16px "Cinzel"'),
+        document.fonts.load('900 16px "Cinzel"'),
+        document.fonts.load('400 16px "Poppins"'),
+        document.fonts.load('700 16px "Poppins"')
+      ]);
+      await document.fonts.ready;
+    } catch (e) {}
+  }
+  await new Promise(r => setTimeout(r, 500));
+}
+
+// सर्टिफिकेट का पूरा markup (style सहित) — PDF और Preview दोनों इसे इस्तेमाल करते हैं
+function buildCertificateMarkup(data, certNo, date) {
   const LOGO_URL = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
   const SIGN_URL = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
-
-  const certNo = data.certificate_no || ("CERT-" + Date.now());
-  const date = new Date().toLocaleDateString("hi-IN", { day: "2-digit", month: "long", year: "numeric" });
 
   const qrData = encodeURIComponent(
     `https://unnatiselfhelpgroup-creator.github.io/certificate-verification.html?cert=${certNo}`
   );
   const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=0&data=${qrData}`;
 
-  const wrap = document.createElement("div");
-  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
-  document.body.appendChild(wrap);
-
-  wrap.innerHTML = `
+  return `
   <style>
     .cert{width:1123px;height:794px;position:relative;background:linear-gradient(135deg,#FFFDF8,#FFF8ED);
-      font-family:'Poppins',sans-serif;overflow:hidden;}
+      font-family:'Poppins',sans-serif;overflow:hidden;margin:0 auto;}
     .cert-outer{position:absolute;inset:14px;border:3px solid #C8960C;}
     .cert-inner{position:absolute;inset:22px;border:1px solid #C8960C;}
     .cert-corner{position:absolute;width:46px;height:46px;border:3px solid #8B0000;}
@@ -88,7 +82,11 @@ window.generateCertificatePDF = async function (data) {
     .cert-details{max-width:800px;margin:14px auto 0;text-align:left;font-size:12px;color:#333;
       display:grid;grid-template-columns:1fr 1fr;gap:5px 30px;font-family:'Poppins',sans-serif;}
     .cert-details b{color:#4a0404;}
-    .cert-sign-row{display:flex;justify-content:space-between;align-items:flex-end;max-width:800px;margin:28px auto 0;}
+    .cert-terms{max-width:800px;margin:12px auto 0;text-align:left;background:#fff3e0;border:1px solid #e0c060;
+      border-left:4px solid #8B0000;border-radius:6px;padding:8px 12px;}
+    .cert-terms p{font-family:'Tiro Devanagari Hindi',serif;font-size:10px;color:#4a0404;font-weight:700;margin-bottom:3px;}
+    .cert-terms span{font-size:9px;color:#555;line-height:1.5;}
+    .cert-sign-row{display:flex;justify-content:space-between;align-items:flex-end;max-width:800px;margin:20px auto 0;}
     .cert-seal{width:84px;height:84px;border-radius:50%;border:3px double #8B0000;display:flex;
       align-items:center;justify-content:center;flex-direction:column;color:#8B0000;transform:rotate(-8deg);flex-shrink:0;}
     .cert-seal span{font-size:8.5px;font-weight:700;line-height:1.3;font-family:'Tiro Devanagari Hindi',serif;}
@@ -98,7 +96,7 @@ window.generateCertificatePDF = async function (data) {
     .cert-sign-block .role{font-size:11px;font-weight:700;color:#4a0404;margin-top:3px;}
     .cert-qr{width:66px;height:66px;border:1.5px solid #C8960C;border-radius:5px;padding:2px;background:#fff;flex-shrink:0;}
     .cert-qr img{width:100%;height:100%;}
-    .cert-footer{position:absolute;bottom:34px;left:90px;right:90px;text-align:center;
+    .cert-footer{position:absolute;bottom:20px;left:90px;right:90px;text-align:center;
       font-size:9.5px;color:#888;border-top:1px solid #eadfc0;padding-top:8px;}
   </style>
 
@@ -119,22 +117,27 @@ window.generateCertificatePDF = async function (data) {
       <div class="cert-title-hi">सामाजिक सेवा एवं अनुभव प्रमाण पत्र</div>
 
       <div class="cert-meta">
-        <span><b>प्रमाण पत्र संख्या:</b> ${esc(certNo)}</span>
+        <span><b>प्रमाण पत्र संख्या:</b> ${certEsc(certNo)}</span>
         <span><b>दिनांक:</b> ${date}</span>
       </div>
 
       <div class="cert-body">
-        यह प्रमाणित किया जाता है कि <span class="cert-name">${esc(data.name || "")}</span>
-        सुपुत्र/सुपुत्री श्री <b>${esc(data.father_name || "")}</b> ने
-        <b>${esc(data.designation || "स्वयंसेवक")}</b> के पद पर रहते हुए
-        <b>${esc(data.duration || "")}</b> की अवधि तक उन्नति स्वयं सहायता समिति के साथ
-        <b>${esc(data.activity_type || "सामाजिक सेवा")}</b> में सक्रिय एवं सराहनीय योगदान दिया है।
-        ${data.work_details ? `<br><span style="font-size:12.5px;font-family:'Poppins',sans-serif;color:#555;">${esc(data.work_details)}</span>` : ""}
+        यह प्रमाणित किया जाता है कि <span class="cert-name">${certEsc(data.name || "")}</span>
+        सुपुत्र/सुपुत्री श्री <b>${certEsc(data.father_name || "")}</b> ने
+        <b>${certEsc(data.designation || "स्वयंसेवक")}</b> के पद पर रहते हुए
+        <b>${certEsc(data.duration || "")}</b> की अवधि तक उन्नति स्वयं सहायता समिति के साथ
+        <b>${certEsc(data.activity_type || "सामाजिक सेवा")}</b> में सक्रिय एवं सराहनीय योगदान दिया है।
+        ${data.work_details ? `<br><span style="font-size:12.5px;font-family:'Poppins',sans-serif;color:#555;">${certEsc(data.work_details)}</span>` : ""}
       </div>
 
       <div class="cert-details">
-        <div><b>Volunteer ID:</b> ${esc(data.volunteer_id || "-")}</div>
-        <div><b>कार्यक्षेत्र:</b> ${esc(data.work_area || data.district || "-")}</div>
+        <div><b>Volunteer ID:</b> ${certEsc(data.volunteer_id || "-")}</div>
+        <div><b>कार्यक्षेत्र:</b> ${certEsc(data.work_area || data.district || "-")}</div>
+      </div>
+
+      <div class="cert-terms">
+        <p>📜 नियम एवं शर्तें</p>
+        <span>यह प्रमाण पत्र उन्नति स्वयं सहायता समिति द्वारा सत्यापन के आधार पर जारी किया गया है तथा केवल सेवा-अनुभव प्रमाण हेतु मान्य है। आवेदक ने संस्था की नियम व शर्तों से सहमति दी है।</span>
       </div>
 
       <div class="cert-sign-row">
@@ -153,6 +156,19 @@ window.generateCertificatePDF = async function (data) {
     </div>
   </div>
   `;
+}
+
+// ── PDF जनरेट करें, डाउनलोड करें और Firestore में सेव करें ──
+window.generateCertificatePDF = async function (data) {
+  await ensureCertFontsLoaded();
+
+  const certNo = data.certificate_no || ("CERT-" + Date.now());
+  const date = new Date().toLocaleDateString("hi-IN", { day: "2-digit", month: "long", year: "numeric" });
+
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
+  document.body.appendChild(wrap);
+  wrap.innerHTML = buildCertificateMarkup(data, certNo, date);
 
   await new Promise(r => setTimeout(r, 400));
 
@@ -189,4 +205,44 @@ window.generateCertificatePDF = async function (data) {
   } catch (err) {
     console.error("Database save error:", err);
   }
+};
+
+// ── नए टैब में Preview खोलें (Print/Download बटन के साथ) ──
+window.previewCertificate = function (data) {
+  const certNo = data.certificate_no || ("CERT-" + Date.now());
+  const date = new Date().toLocaleDateString("hi-IN", { day: "2-digit", month: "long", year: "numeric" });
+  const markup = buildCertificateMarkup(data, certNo, date);
+
+  const win = window.open("", "_blank");
+  if (!win) { alert("⚠️ Popup ब्लॉक हो गया — कृपया popup की अनुमति दें।"); return; }
+
+  win.document.open();
+  win.document.write(`
+  <!DOCTYPE html>
+  <html lang="hi">
+  <head>
+    <meta charset="UTF-8">
+    <title>सर्टिफिकेट Preview — ${certEsc(data.name || "")}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body{background:#e9e9e9;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+      .toolbar{position:sticky;top:0;z-index:10;background:#4a0404;padding:12px 16px;display:flex;gap:10px;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+      .toolbar button{padding:10px 20px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9rem;}
+      .btn-print{background:#138808;color:#fff;}
+      .btn-close{background:#8B0000;color:#fff;}
+      .sheet-wrap{max-width:1160px;margin:24px auto 60px;padding:0 10px;overflow-x:auto;}
+      @media print{ .toolbar{display:none;} body{background:#fff;} .sheet-wrap{margin:0;max-width:100%;} }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="btn-print" onclick="window.print()">🖨️ प्रिंट करें</button>
+      <button class="btn-close" onclick="window.close()">✕ बंद करें</button>
+    </div>
+    <div class="sheet-wrap">${markup}</div>
+  </body>
+  </html>
+  `);
+  win.document.close();
 };
