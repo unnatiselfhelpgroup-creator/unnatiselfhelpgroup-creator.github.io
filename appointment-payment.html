@@ -2,38 +2,91 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>भुगतान | उन्नति स्वयं सहायता समिति</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  body { font-family: sans-serif; background: #f8f4ef; padding: 20px; text-align: center; }
-  .pay-card { background: white; padding: 25px; border-radius: 16px; max-width: 400px; margin: auto; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-  .pay-amount { font-size: 2rem; font-weight: 900; color: #4a0404; margin: 15px 0; }
-  .btn { display: block; width: 100%; padding: 15px; background: #28a745; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+  :root{ --saffron:#FF6B00; --gold:#C8960C; --green:#138808; --maroon:#4a0404; --maroon2:#8B0000; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg,#FFF3E0 0%,#F1F8E9 100%); min-height:100vh; color:#222; }
+  .tricolor-top{height:5px;background:linear-gradient(90deg,var(--saffron) 33.3%,#fff 33.3%,#fff 66.6%,var(--green) 66.6%);}
+  header { background: linear-gradient(135deg,var(--maroon) 0%,var(--maroon2) 50%,var(--maroon) 100%); color:#fff;
+    text-align:center; padding:16px 12px 14px; position:relative; box-shadow:0 3px 12px rgba(0,0,0,0.3); }
+  header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));}
+  header img{height:52px;border-radius:50%;border:2px solid var(--gold);margin-bottom:6px;}
+  header h1{font-family:'Tiro Devanagari Hindi',serif;font-size:1.1rem;}
+  main{max-width:460px;margin:0 auto;padding:28px 16px 48px;}
+  .pay-card { background: #fff; padding: 26px 22px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.10); position:relative; overflow:hidden; }
+  .pay-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold),var(--green));}
+  .pay-card h3 { font-family:'Tiro Devanagari Hindi',serif; color:var(--maroon); font-size:1.1rem; text-align:center; margin-bottom:16px; }
+  .info-box { background:#fff8e7; border:1.5px solid var(--gold); border-radius:10px; padding:14px 16px; margin-top:6px; }
+  .info-row { display:flex; justify-content:space-between; gap:10px; font-size:0.85rem; padding:5px 0; border-bottom:1px dashed #e8d8ad; }
+  .info-row:last-child { border-bottom:none; }
+  .info-row .lbl { color:#888; }
+  .info-row .val { color:var(--maroon); font-weight:600; text-align:right; }
+  .pay-amount-wrap { text-align:center; margin:20px 0 6px; }
+  .pay-amount-wrap .lbl { font-size:0.78rem; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+  .pay-amount { font-size: 2.1rem; font-weight: 900; color: var(--maroon); margin-top:4px; }
+  .btn { display:block; width:100%; padding:15px; background:linear-gradient(135deg,var(--green),#1a9e0a); color:#fff;
+    text-decoration:none; text-align:center; border-radius:10px; font-weight:700; margin-top:14px; box-shadow:0 4px 14px rgba(19,136,8,0.35); }
+  .note { font-size:0.75rem; color:#999; text-align:center; margin-top:14px; line-height:1.6; }
+  .empty-msg { text-align:center; color:#c0392b; font-size:0.9rem; padding:20px 0; }
+  .back-link { display:block; text-align:center; margin-top:20px; color:var(--maroon); text-decoration:none; font-size:0.85rem; font-weight:600; }
+  footer{background:var(--maroon);color:rgba(255,255,255,0.75);text-align:center;padding:16px;font-size:0.72rem;line-height:1.8;}
+  footer strong{color:#FFD700;}
 </style>
 </head>
 <body>
-<div class="pay-card">
-  <h3>सदस्यता शुल्क भुगतान</h3>
-  <div id="applicantInfo" style="text-align: left; margin-top: 15px;"></div>
-  <div class="pay-amount" id="payAmount">₹—</div>
-  <a href="#" id="razorpayBtn" class="btn">💳 Razorpay से भुगतान करें</a>
-</div>
+<div class="tricolor-top"></div>
+<header>
+  <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="NGO Logo">
+  <h1>उन्नति स्वयं सहायता समिति</h1>
+</header>
+
+<main>
+  <div class="pay-card">
+    <h3>💳 सदस्यता शुल्क भुगतान</h3>
+    <div id="applicantInfo"></div>
+  </div>
+  <a href="https://unnatiselfhelpgroup-creator.github.io/appointment-application.html" class="back-link">⬅ फॉर्म पर वापस जाएँ</a>
+</main>
+
+<footer>
+  <strong>उन्नति स्वयं सहायता समिति</strong><br>
+  Lalkuan, Nainital, Uttarakhand — 263139<br>
+  NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q
+</footer>
+
 <script>
-  let stored = JSON.parse(sessionStorage.getItem('applicant') || '{}');
+  function escapeHtml(str){
+    if(str===null||str===undefined)return "";
+    return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  const stored = JSON.parse(sessionStorage.getItem('applicant') || '{}');
   const infoDiv = document.getElementById('applicantInfo');
-  
+
   if (stored.name) {
-    // सुरक्षित तरीका (DOM Manipulation)
-    const p1 = document.createElement('p'); p1.textContent = "आवेदक: " + stored.name;
-    const p2 = document.createElement('p'); p2.textContent = "पद: " + stored.cat;
-    infoDiv.appendChild(p1); infoDiv.appendChild(p2);
-    
-    document.getElementById('payAmount').textContent = '₹' + stored.fee;
-    document.getElementById('razorpayBtn').href = `https://razorpay.me/@wwwunnatiselfhelpgroupcom?amount=${stored.fee * 100}`;
+    infoDiv.innerHTML = `
+      <div class="info-box">
+        <div class="info-row"><span class="lbl">आवेदक</span><span class="val">${escapeHtml(stored.name)}</span></div>
+        ${stored.father_name ? `<div class="info-row"><span class="lbl">पिता/पति</span><span class="val">${escapeHtml(stored.father_name)}</span></div>` : ''}
+        ${stored.mobile ? `<div class="info-row"><span class="lbl">मोबाइल</span><span class="val">${escapeHtml(stored.mobile)}</span></div>` : ''}
+        ${(stored.village || stored.district) ? `<div class="info-row"><span class="lbl">पता</span><span class="val">${escapeHtml([stored.village, stored.district, stored.state].filter(Boolean).join(', '))}</span></div>` : ''}
+        <div class="info-row"><span class="lbl">पद</span><span class="val">${escapeHtml(stored.designation || stored.cat || '-')}</span></div>
+      </div>
+      <div class="pay-amount-wrap">
+        <div class="lbl">कुल देय राशि</div>
+        <div class="pay-amount">₹${escapeHtml(stored.fee || '—')}</div>
+      </div>
+      <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom?amount=${(stored.fee || 0) * 100}" class="btn" id="razorpayBtn">💳 Razorpay से भुगतान करें</a>
+      <p class="note">भुगतान के बाद आपका नियुक्ति पत्र एवं ID Card संस्था द्वारा सत्यापन के पश्चात जारी किया जाएगा।</p>
+    `;
   } else {
-    infoDiv.textContent = "जानकारी नहीं मिल रही है। कृपया पहले फॉर्म भरें।";
-    document.getElementById('razorpayBtn').style.display = 'none';
+    infoDiv.innerHTML = '<p class="empty-msg">⚠️ जानकारी नहीं मिल रही है। कृपया पहले आवेदन फॉर्म भरें।</p>';
   }
 </script>
 </body>
 </html>
-
