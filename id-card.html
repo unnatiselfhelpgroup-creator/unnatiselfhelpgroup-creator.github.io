@@ -59,6 +59,8 @@
     .back-link { display: block; text-align: center; margin-top: 18px;
       font-size: 0.85rem; color: #4a0404; text-decoration: none; }
   </style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">(function(){ emailjs.init("AvD_f76bB4qJYnGb0"); })();</script>
 </head>
 <body>
 <header>
@@ -81,11 +83,12 @@
   <label for="address">पूरा पता <span class="required">*</span></label>
   <textarea id="address" rows="3" placeholder="ग्राम / मोहल्ला, तहसील, जिला, पिन कोड" required></textarea>
   <label>पासपोर्ट साइज फोटो <span class="required">*</span></label>
-  <div class="photo-box" onclick="document.getElementById('photoInput').click()">
-    📷 फोटो अपलोड करने के लिए यहाँ क्लिक करें<br/>
-    <small>(JPG/PNG, अधिकतम 2MB)</small>
-    <input type="file" id="photoInput" accept="image/*" style="display:none" />
+  <div class="photo-box" id="photoBox" onclick="document.getElementById('photoInput').click()" style="cursor:pointer;">
+    <div id="photoPlaceholder">📷 फोटो अपलोड करने के लिए यहाँ क्लिक करें<br/><small>(JPG/PNG, अधिकतम 2MB)</small></div>
+    <img id="photoPreview" style="display:none;max-height:150px;max-width:100%;border-radius:6px;margin-top:8px;" alt="Photo Preview">
+    <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="previewPhoto(this)" />
   </div>
+  <p id="photoError" style="color:#c00;font-size:0.8rem;display:none;margin-top:4px;">⚠️ फोटो अपलोड करना अनिवार्य है।</p>
   <label for="category">सदस्य श्रेणी <span class="required">*</span></label>
   <select id="category" onchange="onCategoryChange()" required>
     <option value="">श्रेणी चुनें</option>
@@ -143,6 +146,25 @@
       { label: 'राष्ट्रीय गौ-पदाधिकारी', fee: 1001 },
     ],
   };
+
+  let photoDataURL = null;
+
+  function previewPhoto(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) { alert("फोटो 2MB से बड़ी नहीं होनी चाहिए।"); input.value = ""; return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      photoDataURL = e.target.result;
+      document.getElementById("photoPreview").src = photoDataURL;
+      document.getElementById("photoPreview").style.display = "block";
+      document.getElementById("photoPlaceholder").style.display = "none";
+      document.getElementById("photoError").style.display = "none";
+      document.getElementById("photoBox").style.borderColor = "#27ae60";
+    };
+    reader.readAsDataURL(file);
+  }
+
   function onCategoryChange() {
     const cat = document.getElementById('category').value;
     const sel = document.getElementById('designation');
@@ -157,6 +179,7 @@
     });
     if (designationMap[cat].length === 1) { sel.selectedIndex = 1; updateFee(); } else resetFee();
   }
+
   function updateFee() {
     const sel = document.getElementById('designation');
     const opt = sel.options[sel.selectedIndex];
@@ -167,28 +190,65 @@
     document.getElementById('totalFee').textContent = '₹' + fee;
     highlightFeeChart(opt.value);
   }
+
   function resetFee() {
     document.getElementById('feeDesig').textContent = '— पद चुनें —';
     document.getElementById('feeAmount').textContent = '—';
     document.getElementById('totalFee').textContent = '—';
     highlightFeeChart('');
   }
+
   function highlightFeeChart(label) {
     document.querySelectorAll('#feeChart tr').forEach(r => {
       r.classList.remove('active-row');
       if (label && r.cells[0] && r.cells[0].textContent.trim() === label) r.classList.add('active-row');
     });
   }
+
   function submitForm() {
-    if (!document.getElementById('fullname').value.trim()) { alert('कृपया पूरा नाम भरें।'); return; }
+    const fullname = document.getElementById('fullname').value.trim();
+    const father = document.getElementById('father').value.trim();
+    const dob = document.getElementById('dob').value;
     const mob = document.getElementById('mobile').value.trim();
-    if (!mob || mob.length !== 10) { alert('कृपया सही मोबाइल नंबर भरें।'); return; }
-    if (!document.getElementById('address').value.trim()) { alert('कृपया पूरा पता भरें।'); return; }
-    if (!document.getElementById('category').value) { alert('कृपया सदस्य श्रेणी चुनें।'); return; }
-    if (!document.getElementById('designation').value) { alert('कृपया पद चुनें।'); return; }
+    const address = document.getElementById('address').value.trim();
+    const category = document.getElementById('category').value;
+    const desig = document.getElementById('designation');
+
+    if (!fullname) { alert('कृपया पूरा नाम भरें।'); return; }
+    if (!father) { alert('कृपया पिता/पति का नाम भरें।'); return; }
+    if (!dob) { alert('कृपया जन्म तिथि भरें।'); return; }
+    if (!mob || mob.length !== 10) { alert('कृपया सही 10 अंकों का मोबाइल नंबर भरें।'); return; }
+    if (!address) { alert('कृपया पूरा पता भरें।'); return; }
+
+    // ✅ PHOTO COMPULSORY CHECK
+    if (!photoDataURL) {
+      document.getElementById('photoError').style.display = 'block';
+      document.getElementById('photoBox').style.borderColor = '#c00';
+      document.getElementById('photoBox').scrollIntoView({behavior:'smooth'});
+      alert('कृपया पासपोर्ट साइज फोटो अपलोड करें।');
+      return;
+    }
+
+    if (!category) { alert('कृपया सदस्य श्रेणी चुनें।'); return; }
+    if (!desig.value) { alert('कृपया पद चुनें।'); return; }
     if (!document.getElementById('agree').checked) { alert('कृपया नियम एवं शर्तों से सहमति दें।'); return; }
-    window.location.href = 'https://razorpay.me/@wwwunnatiselfhelpgroupcom';
+
+    const applicant = {
+      name: fullname,
+      father_name: father,
+      dob: dob,
+      mobile: mob,
+      email: document.getElementById('email').value.trim(),
+      address: address,
+      category: category,
+      designation: desig.value,
+      fee: desig.options[desig.selectedIndex].dataset.fee,
+      photoDataURL: photoDataURL,
+      type: 'IDcard'
+    };
+    sessionStorage.setItem('idCardApplicant', JSON.stringify({...applicant, photoDataURL: null}));
+    sessionStorage.setItem('idCardPhoto', photoDataURL);
+    window.location.href = 'id-card-payment.html';
   }
 </script>
 </body>
-</html>

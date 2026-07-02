@@ -132,9 +132,11 @@
       <p class="note">भुगतान के बाद आपका नियुक्ति पत्र एवं ID Card संस्था द्वारा सत्यापन के पश्चात जारी किया जाएगा।</p>
     `;
 
+    // payLink click - just opens payment, button appears only after screenshot uploaded
     document.getElementById('payLink').addEventListener('click', () => {
-      const btn = document.getElementById('paidBtn');
-      if (document.getElementById('paymentProof').files.length > 0) btn.style.display = 'block';
+      setTimeout(() => {
+        document.querySelector('.step:nth-of-type(2)').scrollIntoView({behavior:'smooth'});
+      }, 1500);
     });
 
     document.getElementById('paymentProof').addEventListener('change', function () {
@@ -191,6 +193,7 @@
         document.getElementById('progressFill').style.width = '80%';
         document.getElementById('progressText').innerText = 'Email भेजी जा रही है...';
 
+        // ── Applicant को email ──
         if (stored.email) {
           try {
             await emailjs.send('service_63pefgf', 'template_xq7uilj', {
@@ -205,8 +208,28 @@
               message: 'भुगतान प्राप्त हो गया है। संस्था द्वारा सत्यापन के पश्चात नियुक्ति पत्र एवं ID Card जारी किया जाएगा।'
             });
           } catch (mailErr) {
-            console.warn('Email भेजने में समस्या (आवेदन फिर भी सेव हो गया):', mailErr);
+            console.warn('Applicant email error:', mailErr);
           }
+        }
+
+        // ── Admin को Notification email ──
+        try {
+          await emailjs.send('service_63pefgf', 'template_wvzbj7p', {
+            to_name: 'Admin',
+            to_email: 'unnatiselfhelpgroup@gmail.com',
+            name: stored.name || '—',
+            mobile: stored.mobile || '—',
+            email: stored.email || '—',
+            designation: stored.designation || stored.cat || '—',
+            district: stored.district || '—',
+            fee: stored.fee || '—',
+            doc_id: docRef.id,
+            type: 'Appointments',
+            title: 'नियुक्ति आवेदन',
+            message: `नया नियुक्ति आवेदन आया है।\nनाम: ${stored.name}\nपद: ${stored.designation || stored.cat}\nमोबाइल: ${stored.mobile}\nशुल्क: ₹${stored.fee}`
+          });
+        } catch (adminErr) {
+          console.warn('Admin email error:', adminErr);
         }
 
         document.getElementById('progressFill').style.width = '100%';

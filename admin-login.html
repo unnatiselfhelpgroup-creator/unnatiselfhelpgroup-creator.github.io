@@ -91,12 +91,11 @@
 import { auth } from "./firebase-config.js";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Safety net: if Firebase check hangs (network issue), still show the form
-// after 5s instead of leaving the user stuck on a blank "checking" screen.
+// Safety net only for genuine network failures (30s)
 const safetyTimer = setTimeout(() => {
-    document.getElementById("checkingOverlay").style.display = "none";
+    document.getElementById("checkingOverlay").innerHTML = '<p style="color:#e74c3c;padding:20px;text-align:center;">⚠️ Firebase से connect नहीं हो सका।<br><a href="admin-login.html" style="color:#d4af37">पेज रीलोड करें</a></p>';
     document.getElementById("loginCard").style.display = "block";
-}, 5000);
+}, 30000);
 
 onAuthStateChanged(auth, user => {
     clearTimeout(safetyTimer);
