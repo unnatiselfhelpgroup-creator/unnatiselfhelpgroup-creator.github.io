@@ -8,19 +8,34 @@ window.generateAppointmentPDF = async function (data) {
         return String(str).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
     }
 
-    if (!document.getElementById("appt-font-link")) {
-        const link = document.createElement("link");
-        link.id = "appt-font-link";
-        link.rel = "stylesheet";
-        link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap";
-        document.head.appendChild(link);
+    async function ensureFontsLoaded() {
+        if (!document.getElementById("appt-font-link")) {
+            await new Promise((resolve) => {
+                const link = document.createElement("link");
+                link.id = "appt-font-link";
+                link.rel = "stylesheet";
+                link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap";
+                link.onload = () => resolve();
+                link.onerror = () => resolve();
+                document.head.appendChild(link);
+                setTimeout(resolve, 2500); // safety net अगर font CDN धीमा हो
+            });
+        }
+        if (document.fonts) {
+            try {
+                await Promise.all([
+                    document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
+                    document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
+                    document.fonts.load('700 16px "Cinzel"'),
+                    document.fonts.load('900 16px "Cinzel"')
+                ]);
+                await document.fonts.ready;
+            } catch (e) {}
+        }
+        // अतिरिक्त सुरक्षा — धीमे मोबाइल नेटवर्क पर font paint होने का समय दें
+        await new Promise(r => setTimeout(r, 500));
     }
-    if (document.fonts && document.fonts.ready) {
-        try {
-            await document.fonts.load('700 20px "Tiro Devanagari Hindi"');
-            await document.fonts.ready;
-        } catch (e) {}
-    }
+    await ensureFontsLoaded();
 
     const volunteerId = escapeHtml(data.volunteer_id || data.volunteerId || "-");
     const now = new Date();

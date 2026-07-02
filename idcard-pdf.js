@@ -14,20 +14,35 @@ window.generateIDCardPDF = async function (data) {
     return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
-  // Google Fonts (Tiro Devanagari Hindi + Poppins) load करें
-  if (!document.getElementById("idc-font-link")) {
-    const link = document.createElement("link");
-    link.id = "idc-font-link";
-    link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap";
-    document.head.appendChild(link);
-  }
-  if (document.fonts && document.fonts.ready) {
-    try {
-      await document.fonts.load('700 16px "Tiro Devanagari Hindi"');
-      await document.fonts.load('700 16px "Poppins"');
-      await document.fonts.ready;
-    } catch (e) {}
+  // Google Fonts (Tiro Devanagari Hindi + Poppins) load करें — पूरा wait करें ताकि
+  // html2canvas खाली/invisible टेक्स्ट का स्नैपशॉट न ले (FOIT bug)
+  await ensureFontsLoaded();
+  async function ensureFontsLoaded() {
+    if (!document.getElementById("idc-font-link")) {
+      await new Promise((resolve) => {
+        const link = document.createElement("link");
+        link.id = "idc-font-link";
+        link.rel = "stylesheet";
+        link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap";
+        link.onload = () => resolve();
+        link.onerror = () => resolve();
+        document.head.appendChild(link);
+        setTimeout(resolve, 2500);
+      });
+    }
+    if (document.fonts) {
+      try {
+        await Promise.all([
+          document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
+          document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
+          document.fonts.load('400 16px "Poppins"'),
+          document.fonts.load('700 16px "Poppins"'),
+          document.fonts.load('800 16px "Poppins"')
+        ]);
+        await document.fonts.ready;
+      } catch (e) {}
+    }
+    await new Promise(r => setTimeout(r, 500));
   }
 
   const LOGO_URL = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
@@ -166,8 +181,8 @@ window.generateIDCardPDF = async function (data) {
   </div>
   `;
 
-  // फॉन्ट/इमेज लोड होने के लिए थोड़ा wait
-  await new Promise(r => setTimeout(r, 350));
+  // इमेज (लोगो/फोटो/QR/हस्ताक्षर) लोड होने के लिए wait
+  await new Promise(r => setTimeout(r, 400));
 
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: [CARD_H_MM, CARD_W_MM] });
