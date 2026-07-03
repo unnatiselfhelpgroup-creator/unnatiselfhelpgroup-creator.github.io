@@ -382,7 +382,11 @@ async function loadIDCards(){
       const x=d.data(); window._idData[d.id]=x;
       const tr=document.createElement("tr");
       tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x['mobile number']||x.mobile)}</td><td>${badge(x.status)}</td>
-      <td><button class="btn pdf" onclick="openIDCard('${d.id}')">👁️ देखें</button></td>`;
+      <td>
+        <button class="btn pdf" onclick="openIDCard('${d.id}')">👁️ देखें</button>
+        <button class="btn approve" onclick="doAction('IDcard','${d.id}','Approved')">✅ Approve</button>
+        <button class="btn reject" onclick="doAction('IDcard','${d.id}','Rejected')">❌ Reject</button>
+      </td>`;
       body.appendChild(tr);
     });
   }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
@@ -448,6 +452,7 @@ window.openCert=function(id){
   document.getElementById("modalBg").classList.add("show");
 };
 
+window._stuData={};
 async function loadStudents(){
   const body=document.getElementById("bodyStu");
   try{
@@ -455,15 +460,41 @@ async function loadStudents(){
     if(snap.empty){body.innerHTML="<tr><td colspan='5' class='loading'>कोई रिकॉर्ड नहीं।</td></tr>";return}
     body.innerHTML="";
     snap.forEach(d=>{
-      const x=d.data();
+      const x=d.data(); window._stuData[d.id]=x;
       const tr=document.createElement("tr");
       tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td>${esc(x.email)}</td><td>${badge(x.status)}</td>
-      <td><button class="btn approve" onclick="doAction('StudentRegistrations','${d.id}','Approved')">✅</button>
-      <button class="btn reject" onclick="doAction('StudentRegistrations','${d.id}','Rejected')">❌</button></td>`;
+      <td>
+        <button class="btn pdf" onclick="openStudent('${d.id}')">👁️ देखें</button>
+        <button class="btn approve" onclick="doAction('StudentRegistrations','${d.id}','Approved')">✅ Approve</button>
+        <button class="btn reject" onclick="doAction('StudentRegistrations','${d.id}','Rejected')">❌ Reject</button>
+      </td>`;
       body.appendChild(tr);
     });
   }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
 }
+
+window.openStudent=function(id){
+  const x=window._stuData[id]; if(!x) return;
+  document.getElementById("modalTitle").textContent="🎓 स्टूडेंट वॉलंटियर विवरण";
+  document.getElementById("modalContent").innerHTML=`
+  <table class="detail-table">
+    <tr><td>पूरा नाम</td><td>${esc(x.name)}</td></tr>
+    <tr><td>पिता/पति का नाम</td><td>${esc(x.fatherName||x.father_name)}</td></tr>
+    <tr><td>मोबाइल</td><td>${esc(x.mobile)}</td></tr>
+    <tr><td>ईमेल</td><td>${esc(x.email)}</td></tr>
+    <tr><td>कॉलेज</td><td>${esc(x.college)}</td></tr>
+    <tr><td>कोर्स</td><td>${esc(x.course)}</td></tr>
+    <tr><td>पता</td><td>${esc(x.address)}</td></tr>
+    <tr><td>कार्य क्षेत्र</td><td>${esc(x.area)}</td></tr>
+    <tr><td>अवधि</td><td>${esc(x.duration)}</td></tr>
+    <tr><td>शुल्क</td><td>${x.fee ? "₹"+esc(x.fee) : "—"}</td></tr>
+    <tr><td>स्थिति</td><td>${badge(x.status)}</td></tr>
+  </table>`;
+  document.getElementById("modalBtns").innerHTML=`
+    <button class="btn approve" onclick="doAction('StudentRegistrations','${id}','Approved');closeModal()">✅ Approve करें</button>
+    <button class="btn reject" onclick="doAction('StudentRegistrations','${id}','Rejected');closeModal()">❌ Reject करें</button>`;
+  document.getElementById("modalBg").classList.add("show");
+};
 
 document.getElementById("modalBg").addEventListener("click",e=>{
   if(e.target===e.currentTarget) closeModal();
