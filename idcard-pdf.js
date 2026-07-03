@@ -204,5 +204,3 @@ window.generateIDCardPDF = async function (data) {
 
   pdf.save((data.name || "Member") + "-ID-Card.pdf");
 };
-
-
