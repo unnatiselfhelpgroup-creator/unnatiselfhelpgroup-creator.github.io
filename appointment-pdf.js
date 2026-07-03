@@ -74,6 +74,8 @@ function buildAppointmentMarkup(data) {
       .apl-tri span{flex:1;} .apl-tri span:nth-child(1){background:#FF6B00;}
       .apl-tri span:nth-child(2){background:#fff;} .apl-tri span:nth-child(3){background:#138808;}
       .apl-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.05;width:420px;pointer-events:none;}
+      .apl-cow-wm{position:absolute;left:-30px;bottom:-30px;font-size:220px;opacity:0.045;transform:rotate(-8deg);pointer-events:none;}
+      .apl-cow-wm2{position:absolute;right:-15px;top:-25px;font-size:180px;opacity:0.04;transform:rotate(10deg);pointer-events:none;}
       .apl-corner{position:absolute;width:34px;height:34px;border:2.5px solid #8B0000;}
       .apl-cc-tl{top:8px;left:8px;border-right:none;border-bottom:none;}
       .apl-cc-tr{top:8px;right:8px;border-left:none;border-bottom:none;}
@@ -86,6 +88,8 @@ function buildAppointmentMarkup(data) {
         <div class="apl-corner apl-cc-tl"></div><div class="apl-corner apl-cc-tr"></div>
         <div class="apl-corner apl-cc-bl"></div><div class="apl-corner apl-cc-br"></div>
         <img class="apl-wm" src="${LOGO_URL}" crossorigin="anonymous">
+        <div class="apl-cow-wm">🐄</div>
+        <div class="apl-cow-wm2">🐄</div>
         <div class="apl-tri"><span></span><span></span><span></span></div>
 
         <!-- शीर्षक -->
@@ -180,7 +184,7 @@ function buildAppointmentMarkup(data) {
 
         <!-- सील + हस्ताक्षर + QR -->
         <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:20px;">
-          <div style="width:74px;height:74px;border-radius:50%;border:3px double #8B0000;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#8B0000;transform:rotate(-8deg);">
+          <div style="width:74px;height:74px;border-radius:50%;border:3px double #8B0000;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#F9DE8E;transform:rotate(-8deg);background:linear-gradient(135deg,#5c0808,#a8420c);box-shadow:0 2px 6px rgba(0,0,0,0.2);">
             <span style="font-family:'Tiro Devanagari Hindi',serif;font-size:7.5px;font-weight:700;line-height:1.25;text-align:center;">उन्नति<br>स्वयं सहायता<br>समिति</span>
           </div>
           <div style="text-align:center;">

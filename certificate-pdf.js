@@ -65,15 +65,20 @@ function buildCertificateMarkup(data, certNo, date) {
     .cc-br{bottom:26px;right:26px;border-left:none;border-top:none;}
     .cert-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.055;}
     .cert-wm img{width:420px;}
+    .cert-cow-wm{position:absolute;left:-30px;bottom:-40px;font-size:280px;opacity:0.05;transform:rotate(-8deg);pointer-events:none;}
+    .cert-cow-wm2{position:absolute;right:-20px;top:-30px;font-size:220px;opacity:0.045;transform:rotate(12deg);pointer-events:none;}
+    .cert-mission-band{display:inline-block;background:linear-gradient(120deg,#5c0808,#a8420c);color:#F9DE8E;
+      font-family:'Tiro Devanagari Hindi',serif;font-size:11px;font-weight:700;padding:4px 22px;border-radius:14px;
+      margin-top:8px;box-shadow:0 2px 5px rgba(0,0,0,0.15);}
     .cert-tri{position:absolute;top:14px;left:14px;right:14px;height:5px;display:flex;}
     .cert-tri span{flex:1;} .cert-tri span:nth-child(1){background:#FF6B00;}
     .cert-tri span:nth-child(2){background:#fff;} .cert-tri span:nth-child(3){background:#138808;}
-    .cert-content{position:relative;text-align:center;padding:44px 90px 0;}
+    .cert-content{position:relative;text-align:center;padding:36px 90px 0;}
     .cert-content img.logo{height:74px;width:74px;border-radius:50%;border:3px solid #C8960C;object-fit:cover;}
     .cert-org{font-family:'Tiro Devanagari Hindi',serif;font-size:27px;font-weight:700;color:#4a0404;margin-top:8px;}
     .cert-org-en{font-size:11.5px;letter-spacing:3px;color:#8B6B00;margin-top:2px;text-transform:uppercase;}
     .cert-reg{font-size:9.5px;color:#888;margin-top:4px;}
-    .cert-divider{width:180px;height:2px;background:linear-gradient(90deg,transparent,#C8960C,transparent);margin:14px auto;}
+    .cert-divider{width:180px;height:2px;background:linear-gradient(90deg,transparent,#C8960C,transparent);margin:10px auto;}
     .cert-title{font-family:'Cinzel',serif;font-size:25px;font-weight:900;color:#8B0000;letter-spacing:2px;margin-top:4px;}
     .cert-title-hi{font-family:'Tiro Devanagari Hindi',serif;font-size:14.5px;color:#666;margin-top:3px;}
     .cert-meta{display:flex;justify-content:space-between;max-width:760px;margin:18px auto 0;font-size:11px;color:#555;}
@@ -88,7 +93,8 @@ function buildCertificateMarkup(data, certNo, date) {
     .cert-terms span{font-size:9px;color:#555;line-height:1.5;}
     .cert-sign-row{display:flex;justify-content:space-between;align-items:flex-end;max-width:800px;margin:20px auto 0;}
     .cert-seal{width:84px;height:84px;border-radius:50%;border:3px double #8B0000;display:flex;
-      align-items:center;justify-content:center;flex-direction:column;color:#8B0000;transform:rotate(-8deg);flex-shrink:0;}
+      align-items:center;justify-content:center;flex-direction:column;color:#F9DE8E;transform:rotate(-8deg);flex-shrink:0;
+      background:linear-gradient(135deg,#5c0808,#a8420c);box-shadow:0 2px 6px rgba(0,0,0,0.2);}
     .cert-seal span{font-size:8.5px;font-weight:700;line-height:1.3;font-family:'Tiro Devanagari Hindi',serif;}
     .cert-sign-block{text-align:center;}
     .cert-sign-block img{height:38px;}
@@ -102,6 +108,8 @@ function buildCertificateMarkup(data, certNo, date) {
 
   <div id="cert-render" class="cert">
     <div class="cert-wm"><img src="${LOGO_URL}" crossorigin="anonymous"></div>
+    <div class="cert-cow-wm">🐄</div>
+    <div class="cert-cow-wm2">🐄</div>
     <div class="cert-outer"></div><div class="cert-inner"></div>
     <div class="cert-corner cc-tl"></div><div class="cert-corner cc-tr"></div>
     <div class="cert-corner cc-bl"></div><div class="cert-corner cc-br"></div>
@@ -112,6 +120,7 @@ function buildCertificateMarkup(data, certNo, date) {
       <div class="cert-org">उन्नति स्वयं सहायता समिति</div>
       <div class="cert-org-en">Unnati Swayam Sahayata Samiti</div>
       <div class="cert-reg">NGO Darpan: UA/2016/0108273 &nbsp;|&nbsp; PAN: AAATU7133Q &nbsp;|&nbsp; Reg: UK0660892021006667</div>
+      <div class="cert-mission-band">🐄 गौ माता को राष्ट्रमाता का सम्मान — सेवा ही धर्म है</div>
       <div class="cert-divider"></div>
       <div class="cert-title">CERTIFICATE OF APPRECIATION</div>
       <div class="cert-title-hi">सामाजिक सेवा एवं अनुभव प्रमाण पत्र</div>
