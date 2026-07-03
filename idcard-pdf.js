@@ -8,41 +8,10 @@
 // दोनों शामिल हैं) पहले से लोड होना चाहिए। उदाहरण:
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 // ============================================================
-window.generateIDCardPDF = async function (data) {
+function buildIDCardMarkup(data) {
   function esc(str) {
     if (str === null || str === undefined) return "";
     return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  }
-
-  // Google Fonts (Tiro Devanagari Hindi + Poppins) load करें — पूरा wait करें ताकि
-  // html2canvas खाली/invisible टेक्स्ट का स्नैपशॉट न ले (FOIT bug)
-  await ensureFontsLoaded();
-  async function ensureFontsLoaded() {
-    if (!document.getElementById("idc-font-link")) {
-      await new Promise((resolve) => {
-        const link = document.createElement("link");
-        link.id = "idc-font-link";
-        link.rel = "stylesheet";
-        link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap";
-        link.onload = () => resolve();
-        link.onerror = () => resolve();
-        document.head.appendChild(link);
-        setTimeout(resolve, 2500);
-      });
-    }
-    if (document.fonts) {
-      try {
-        await Promise.all([
-          document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
-          document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
-          document.fonts.load('400 16px "Poppins"'),
-          document.fonts.load('700 16px "Poppins"'),
-          document.fonts.load('800 16px "Poppins"')
-        ]);
-        await document.fonts.ready;
-      } catch (e) {}
-    }
-    await new Promise(r => setTimeout(r, 500));
   }
 
   const LOGO_URL = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
@@ -66,11 +35,7 @@ window.generateIDCardPDF = async function (data) {
   const W = CARD_W_MM * PX_PER_MM;
   const H = CARD_H_MM * PX_PER_MM;
 
-  const wrap = document.createElement("div");
-  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
-  document.body.appendChild(wrap);
-
-  wrap.innerHTML = `
+  const html = `
   <style>
     .idc-card{width:${W}px;height:${H}px;position:relative;font-family:'Poppins',sans-serif;
       background:linear-gradient(135deg,#fffdf8,#fff6e0);overflow:hidden;border-radius:14px;}
@@ -180,6 +145,47 @@ window.generateIDCardPDF = async function (data) {
     <div class="idc-side idc-side-l"></div><div class="idc-side idc-side-r"></div>
   </div>
   `;
+  return html;
+}
+
+window.generateIDCardPDF = async function (data) {
+  // Google Fonts (Tiro Devanagari Hindi + Poppins) load करें — पूरा wait करें ताकि
+  // html2canvas खाली/invisible टेक्स्ट का स्नैपशॉट न ले (FOIT bug)
+  await ensureFontsLoaded();
+  async function ensureFontsLoaded() {
+    if (!document.getElementById("idc-font-link")) {
+      await new Promise((resolve) => {
+        const link = document.createElement("link");
+        link.id = "idc-font-link";
+        link.rel = "stylesheet";
+        link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap";
+        link.onload = () => resolve();
+        link.onerror = () => resolve();
+        document.head.appendChild(link);
+        setTimeout(resolve, 2500);
+      });
+    }
+    if (document.fonts) {
+      try {
+        await Promise.all([
+          document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
+          document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
+          document.fonts.load('400 16px "Poppins"'),
+          document.fonts.load('700 16px "Poppins"'),
+          document.fonts.load('800 16px "Poppins"')
+        ]);
+        await document.fonts.ready;
+      } catch (e) {}
+    }
+    await new Promise(r => setTimeout(r, 500));
+  }
+
+  const CARD_W_MM = 86, CARD_H_MM = 54;
+
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
+  document.body.appendChild(wrap);
+  wrap.innerHTML = buildIDCardMarkup(data);
 
   // इमेज (लोगो/फोटो/QR/हस्ताक्षर) लोड होने के लिए wait
   await new Promise(r => setTimeout(r, 400));
@@ -203,4 +209,48 @@ window.generateIDCardPDF = async function (data) {
   }
 
   pdf.save((data.name || "Member") + "-ID-Card.pdf");
+};
+
+// ── नए टैब में Preview खोलें (Print/Close बटन के साथ, front + back दोनों) ──
+window.previewIDCard = function (data) {
+  function esc(str) {
+    if (str === null || str === undefined) return "";
+    return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+  const markup = buildIDCardMarkup(data);
+
+  const win = window.open("", "_blank");
+  if (!win) { alert("⚠️ Popup ब्लॉक हो गया — कृपया popup की अनुमति दें।"); return; }
+
+  win.document.open();
+  win.document.write(`
+  <!DOCTYPE html>
+  <html lang="hi">
+  <head>
+    <meta charset="UTF-8">
+    <title>ID Card Preview — ${esc(data.name || "")}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body{background:#e9e9e9;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+      .toolbar{position:sticky;top:0;z-index:10;background:#4a0404;padding:12px 16px;display:flex;gap:10px;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+      .toolbar button{padding:10px 20px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9rem;}
+      .btn-print{background:#138808;color:#fff;}
+      .btn-close{background:#8B0000;color:#fff;}
+      .cards-wrap{max-width:900px;margin:24px auto 60px;padding:0 10px;display:flex;flex-wrap:wrap;gap:24px;justify-content:center;}
+      @media print{ .toolbar{display:none;} body{background:#fff;} .cards-wrap{margin:0;max-width:100%;} }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="btn-print">🖨️ प्रिंट करें</button>
+      <button class="btn-close">✕ बंद करें</button>
+    </div>
+    <div class="cards-wrap">${markup}</div>
+  </body>
+  </html>
+  `);
+  win.document.close();
+  win.document.querySelector(".btn-print").onclick = () => win.print();
+  win.document.querySelector(".btn-close").onclick = () => win.close();
 };

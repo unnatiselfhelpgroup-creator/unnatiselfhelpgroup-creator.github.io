@@ -156,6 +156,7 @@ html.auth-pending #appContent{display:none!important}
 <div class="tabs">
   <div class="tab active" onclick="showTab('app')">📋 Appointments</div>
   <div class="tab" onclick="showTab('id')">🪪 ID Cards</div>
+  <div class="tab" onclick="showTab('cert')">📜 Certificates</div>
   <div class="tab" onclick="showTab('stu')">🎓 Students</div>
 </div>
 
@@ -175,6 +176,16 @@ html.auth-pending #appContent{display:none!important}
     <table>
       <thead><tr><th>नाम</th><th>पद</th><th>मोबाइल</th><th>स्थिति</th><th>Action</th></tr></thead>
       <tbody id="bodyID"><tr><td colspan="5" class="loading">लोड हो रहा है…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Certificates Tab -->
+<div id="tab-cert" style="display:none">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>नाम</th><th>प्रकार</th><th>सर्टिफिकेट नं.</th><th>Action</th></tr></thead>
+      <tbody id="bodyCert"><tr><td colspan="4" class="loading">लोड हो रहा है…</td></tr></tbody>
     </table>
   </div>
 </div>
@@ -353,9 +364,11 @@ window.doAction=async function(col,id,status,name,email){
 window.showTab=function(t){
   document.querySelectorAll(".tab").forEach(el=>el.classList.remove("active"));
   event.target.classList.add("active");
-  document.getElementById("tab-app").style.display = t==="app" ? "block":"none";
-  document.getElementById("tab-id").style.display  = t==="id"  ? "block":"none";
-  document.getElementById("tab-stu").style.display = t==="stu" ? "block":"none";
+  document.getElementById("tab-app").style.display  = t==="app"  ? "block":"none";
+  document.getElementById("tab-id").style.display   = t==="id"   ? "block":"none";
+  document.getElementById("tab-cert").style.display = t==="cert" ? "block":"none";
+  document.getElementById("tab-stu").style.display  = t==="stu"  ? "block":"none";
+  if (t==="cert" && !window._certLoaded) { window._certLoaded = true; loadCertificates(); }
 };
 
 window._idData={};
@@ -369,13 +382,71 @@ async function loadIDCards(){
       const x=d.data(); window._idData[d.id]=x;
       const tr=document.createElement("tr");
       tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.designation)}</td><td>${esc(x['mobile number']||x.mobile)}</td><td>${badge(x.status)}</td>
-      <td><button class="btn idpdf" onclick="window.generateIDCardPDF(window._idData['${d.id}'])">🪪 ID Card PDF</button>
-      <button class="btn approve" onclick="doAction('IDcard','${d.id}','Approved')">✅</button>
-      <button class="btn reject" onclick="doAction('IDcard','${d.id}','Rejected')">❌</button></td>`;
+      <td><button class="btn pdf" onclick="openIDCard('${d.id}')">👁️ देखें</button></td>`;
       body.appendChild(tr);
     });
   }catch(e){body.innerHTML=`<tr><td colspan='5' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
 }
+
+window.openIDCard=function(id){
+  const x=window._idData[id]; if(!x) return;
+  document.getElementById("modalTitle").textContent="🪪 ID Card आवेदन विवरण";
+  document.getElementById("modalContent").innerHTML=`
+  <table class="detail-table">
+    <tr><td>पूरा नाम</td><td>${esc(x.name)}</td></tr>
+    <tr><td>पिता/पति का नाम</td><td>${esc(x.father_name||x.fatherName)}</td></tr>
+    <tr><td>पद</td><td>${esc(x.designation)}</td></tr>
+    <tr><td>मोबाइल</td><td>${esc(x['mobile number']||x.mobile)}</td></tr>
+    <tr><td>ईमेल</td><td>${esc(x.email)}</td></tr>
+    <tr><td>पता</td><td>${esc(x.address)}</td></tr>
+    <tr><td>Volunteer ID</td><td>${esc(x.volunteer_id||"— Approve करने पर बनेगी")}</td></tr>
+    <tr><td>सहयोग राशि</td><td><strong>${x.fee ? "₹"+esc(x.fee) : "—"}</strong></td></tr>
+    <tr><td>भुगतान स्थिति</td><td>${esc(x.paymentStatus)}</td></tr>
+    <tr><td>स्थिति</td><td>${badge(x.status)}</td></tr>
+  </table>`;
+  document.getElementById("modalBtns").innerHTML=`
+    <button class="btn approve" onclick="doAction('IDcard','${id}','Approved');closeModal()">✅ Approve करें</button>
+    <button class="btn reject" onclick="doAction('IDcard','${id}','Rejected');closeModal()">❌ Reject करें</button>
+    <button class="btn preview" onclick="window.previewIDCard(window._idData['${id}'])">👁️ ID Card Preview</button>
+    <button class="btn pdf" onclick="window.generateIDCardPDF(window._idData['${id}'])">📄 PDF Download</button>`;
+  document.getElementById("modalBg").classList.add("show");
+};
+
+window._certData={};
+async function loadCertificates(){
+  const body=document.getElementById("bodyCert");
+  try{
+    const snap=await getDocs(collection(db,"Certificates"));
+    if(snap.empty){body.innerHTML="<tr><td colspan='4' class='loading'>कोई सर्टिफिकेट नहीं।</td></tr>";return}
+    body.innerHTML="";
+    snap.forEach(d=>{
+      const x=d.data(); window._certData[d.id]=x;
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>${esc(x.name)}</td><td>${esc(x.certificate_type)}</td><td>${esc(x.certificate_no)}</td>
+      <td><button class="btn pdf" onclick="openCert('${d.id}')">👁️ देखें</button></td>`;
+      body.appendChild(tr);
+    });
+  }catch(e){body.innerHTML=`<tr><td colspan='4' class='loading'>त्रुटि: ${esc(e.message)}</td></tr>`}
+}
+
+window.openCert=function(id){
+  const x=window._certData[id]; if(!x) return;
+  document.getElementById("modalTitle").textContent="📜 सर्टिफिकेट विवरण";
+  document.getElementById("modalContent").innerHTML=`
+  <table class="detail-table">
+    <tr><td>पूरा नाम</td><td>${esc(x.name)}</td></tr>
+    <tr><td>पिता/पति का नाम</td><td>${esc(x.father_name)}</td></tr>
+    <tr><td>सर्टिफिकेट प्रकार</td><td>${esc(x.certificate_type)}</td></tr>
+    <tr><td>पद</td><td>${esc(x.designation)}</td></tr>
+    <tr><td>Volunteer ID</td><td>${esc(x.volunteer_id)}</td></tr>
+    <tr><td>सर्टिफिकेट नं.</td><td>${esc(x.certificate_no)}</td></tr>
+    <tr><td>अवधि</td><td>${esc(x.duration)}</td></tr>
+  </table>`;
+  document.getElementById("modalBtns").innerHTML=`
+    <button class="btn preview" onclick="window.previewCertificate(window._certData['${id}'])">👁️ सर्टिफिकेट Preview</button>
+    <button class="btn pdf" onclick="window.generateCertificatePDF(window._certData['${id}'])">📄 PDF Download</button>`;
+  document.getElementById("modalBg").classList.add("show");
+};
 
 async function loadStudents(){
   const body=document.getElementById("bodyStu");
