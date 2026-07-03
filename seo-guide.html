@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO गाइड — उन्नति स्वयं सहायता समिति</title>
+<style>
+  body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; margin: 0; padding: 20px; color: #1a1a2e; }
+  .container { max-width: 860px; margin: auto; }
+  .header { background: linear-gradient(135deg, #ff8b00, #e65c00); color: white; padding: 35px 30px; border-radius: 18px; text-align: center; margin-bottom: 25px; }
+  .header h1 { margin: 0 0 8px; font-size: 1.7rem; }
+  .header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+  .card { background: white; border-radius: 15px; padding: 28px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.07); border-left: 5px solid #ff8b00; }
+  .card.green { border-left-color: #27ae60; }
+  .card.blue { border-left-color: #2980b9; }
+  .card.purple { border-left-color: #8e44ad; }
+  .card.red { border-left-color: #e74c3c; }
+  h2 { margin: 0 0 15px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+  .step { background: #fff3e0; border-radius: 10px; padding: 15px 18px; margin: 10px 0; border: 1px solid #ffe0b2; }
+  .step strong { color: #e65c00; }
+  .done-tag { background: #27ae60; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; }
+  .todo-tag { background: #e74c3c; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; }
+  .keyword-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 15px; margin: 10px 0; }
+  .keyword-box span { display: inline-block; background: #e3f2fd; color: #1565c0; padding: 4px 12px; border-radius: 20px; margin: 4px; font-size: 0.85rem; }
+  .file-list { list-style: none; padding: 0; margin: 0; }
+  .file-list li { padding: 8px 0; border-bottom: 1px dashed #eee; font-size: 0.9rem; }
+  .file-list li:last-child { border: none; }
+  .file-list li::before { content: "✅ "; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: #1b2430; color: white; padding: 10px; text-align: left; }
+  td { padding: 9px 10px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  .url-box { background: #1b2430; color: #d4af37; padding: 12px 18px; border-radius: 10px; font-family: monospace; font-size: 0.9rem; margin: 10px 0; word-break: break-all; }
+  .highlight { background: #fff9c4; border: 1px solid #f9a825; border-radius: 8px; padding: 12px 15px; margin: 10px 0; font-size: 0.9rem; }
+  .code-box { background: #1b2430; color: #a5d6a7; padding: 18px; border-radius: 10px; font-family: monospace; font-size: 0.78rem; overflow-x: auto; white-space: pre; line-height: 1.5; }
+  .copy-btn { background: #d4af37; color: #1b2430; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>🔍 Google SEO गाइड</h1>
+    <p>उन्नति स्वयं सहायता समिति | CSR00102587 | हल्द्वानी, उत्तराखंड</p>
+  </div>
+
+  <!-- DONE FILES -->
+  <div class="card green">
+    <h2>✅ यह files तैयार हो गई हैं <span class="done-tag">DONE</span></h2>
+    <p style="color:#555; margin-bottom:12px;">नीचे दी गई सभी files डाउनलोड करके अपनी website में <strong>replace</strong> करें:</p>
+    <ul class="file-list">
+      <li><strong>sitemap.xml</strong> — Google को सभी pages की जानकारी</li>
+      <li><strong>robots.txt</strong> — Admin pages को hide करता है</li>
+      <li><strong>cowglory.html</strong> — गौ माता राष्ट्र माता page (SEO upgraded)</li>
+      <li><strong>certificate-verification.html</strong> — प्रमाणपत्र सत्यापन (SEO upgraded)</li>
+      <li><strong>appointment-application.html</strong> — नियुक्ति आवेदन (SEO upgraded)</li>
+      <li><strong>donation.html</strong> — दान नीति (SEO upgraded)</li>
+      <li><strong>disclaimer.html</strong> — अस्वीकरण (SEO upgraded)</li>
+      <li><strong>index.html के लिए meta tags code</strong> — अब इसी फाइल में नीचे मिलेगा (देखें "index.html Meta Tags Code" सेक्शन)</li>
+    </ul>
+    <div class="highlight">
+      ⚠️ <strong>index.html</strong> में भी SEO लगाना है — seo-meta-tags.html file खोलें और उसमें दिया code अपनी index.html के &lt;head&gt; में paste करें।
+    </div>
+  </div>
+
+  <!-- STEP 1 - GOOGLE SEARCH CONSOLE -->
+  <div class="card blue">
+    <h2>📋 Step 1 — Google Search Console में Submit करें <span class="todo-tag">अभी करें</span></h2>
+    <div class="step">
+      <strong>1.</strong> जाएं: <div class="url-box">https://search.google.com/search-console</div>
+    </div>
+    <div class="step">
+      <strong>2.</strong> "Add Property" पर click करें → URL prefix चुनें → यह URL डालें:<br>
+      <div class="url-box">https://unnatiselfhelpgroup-creator.github.io</div>
+    </div>
+    <div class="step">
+      <strong>3.</strong> Verify करें — "HTML file" method चुनें → file download करें → GitHub repository में upload करें
+    </div>
+    <div class="step">
+      <strong>4.</strong> Verify होने के बाद Sitemaps section में जाएं → यह URL submit करें:<br>
+      <div class="url-box">https://unnatiselfhelpgroup-creator.github.io/sitemap.xml</div>
+    </div>
+    <div class="highlight">🎯 यह सबसे जरूरी step है — इसके बिना Google आपकी site index नहीं करेगा!</div>
+  </div>
+
+  <!-- STEP 2 - GitHub Upload -->
+  <div class="card">
+    <h2>📁 Step 2 — GitHub में Files Upload करें <span class="todo-tag">अभी करें</span></h2>
+    <div class="step">
+      <strong>1.</strong> अपनी GitHub repository खोलें: <strong>unnatiselfhelpgroup-creator</strong>
+    </div>
+    <div class="step">
+      <strong>2.</strong> नीचे दी सभी files upload करें (पुरानी files को replace करें):<br><br>
+      sitemap.xml → robots.txt → cowglory.html → certificate-verification.html →
+      appointment-application.html → donation.html → disclaimer.html
+    </div>
+    <div class="step">
+      <strong>3.</strong> index.html में seo-meta-tags.html वाला code &lt;head&gt; में जोड़ें
+    </div>
+  </div>
+
+  <!-- STEP 3 - Keywords -->
+  <div class="card purple">
+    <h2>🔑 Step 3 — Target Keywords (इन्हें Google ढूंढेगा)</h2>
+    <p style="color:#555; margin-bottom:10px;"><strong>हिंदी Keywords:</strong></p>
+    <div class="keyword-box">
+      <span>उन्नति स्वयं सहायता समिति</span>
+      <span>गौ माता राष्ट्र माता</span>
+      <span>गौ संरक्षण NGO हल्द्वानी</span>
+      <span>स्वयंसेवी प्रमाणपत्र</span>
+      <span>हल्द्वानी NGO</span>
+      <span>उत्तराखंड सामाजिक संस्था</span>
+      <span>लालकुआं NGO</span>
+      <span>गौ रक्षा उत्तराखंड</span>
+    </div>
+    <p style="color:#555; margin: 15px 0 10px;"><strong>English Keywords:</strong></p>
+    <div class="keyword-box">
+      <span>Unnati Sawaye Sahayta Samiti</span>
+      <span>Unnati Self Help Group Haldwani</span>
+      <span>NGO Haldwani Uttarakhand</span>
+      <span>cow protection NGO India</span>
+      <span>volunteer certificate NGO</span>
+      <span>gau raksha NGO</span>
+      <span>CSR00102587</span>
+      <span>AAATU7133Q</span>
+      <span>80G NGO Uttarakhand</span>
+      <span>social work certificate Nainital</span>
+    </div>
+  </div>
+
+  <!-- STEP 4 - Google Business -->
+  <div class="card green">
+    <h2>📍 Step 4 — Google Business Profile <span class="todo-tag">बहुत जरूरी</span></h2>
+    <p style="color:#555; margin-bottom:12px;">आपका Google Business link मिला — यह बहुत अच्छा है! अब इसमें यह जानकारी पूरी करें:</p>
+    <table>
+      <tr><th>Field</th><th>क्या भरें</th></tr>
+      <tr><td>संस्था का नाम</td><td>उन्नति स्वयं सहायता समिति (Unnati Sawaye Sahayta Samiti)</td></tr>
+      <tr><td>Category</td><td>Non-profit Organization / NGO</td></tr>
+      <tr><td>Address</td><td>हल्धुचर दीना, लालकुआं, हल्द्वानी, नैनीताल — 263139</td></tr>
+      <tr><td>Phone</td><td>9410332400</td></tr>
+      <tr><td>Website</td><td>https://unnatiselfhelpgroup-creator.github.io</td></tr>
+      <tr><td>Description</td><td>गौ संरक्षण, राष्ट्र माता सेवा और सामाजिक कार्यों के लिए समर्पित पंजीकृत NGO। CSR00102587। 12A और 80G अनुमोदित।</td></tr>
+      <tr><td>Photos</td><td>संस्था का logo, कार्यक्रमों की photos upload करें</td></tr>
+      <tr><td>Posts</td><td>हर हफ्ते 1-2 post लिखें — Google इसे बहुत पसंद करता है</td></tr>
+    </table>
+    <div class="highlight">✅ Google Business में CSR Registration Number CSR00102587 और PAN AAATU7133Q जरूर mention करें — इससे trust और ranking दोनों बढ़ती है।</div>
+  </div>
+
+  <!-- STEP 5 - Extra tips -->
+  <div class="card red">
+    <h2>🚀 Step 5 — Ranking और तेज़ करने के उपाय</h2>
+    <div class="step">
+      <strong>1. Backlinks बनाएं:</strong> अपनी website का link इन जगहों पर submit करें —
+      <br>• <strong>NGO Darpan (NITI Aayog):</strong> ngodarpan.gov.in
+      <br>• <strong>GuideStar India:</strong> guidestarindia.org
+      <br>• <strong>India NGOs:</strong> indiangos.com
+      <br>• <strong>Give India:</strong> giveindia.org (NGO listing)
+    </div>
+    <div class="step">
+      <strong>2. Social Media से traffic:</strong>
+      <br>• WhatsApp Groups में website share करें
+      <br>• Facebook Page बनाएं — website link डालें
+      <br>• YouTube channel बनाएं — गौ सेवा के videos upload करें
+    </div>
+    <div class="step">
+      <strong>3. Custom Domain लें (Highly Recommended):</strong>
+      <br>• <strong>unnatisamiti.org.in</strong> या <strong>unnatiseva.org.in</strong> — ₹500-700/साल
+      <br>• .org.in domain NGO के लिए perfect है और ranking बहुत तेज होती है
+    </div>
+    <div class="step">
+      <strong>4. Content लिखते रहें:</strong>
+      <br>• हर महीने गौ सेवा, स्वयंसेवी कार्यक्रम, RTI update पर नए pages बनाएं
+      <br>• Google fresh content को ज्यादा rank करता है
+    </div>
+  </div>
+
+  <!-- META TAGS CODE (merged from seo-meta-tags.html) -->
+  <div class="card purple" id="meta-tags-section">
+    <h2>🧩 index.html के लिए Meta Tags Code</h2>
+    <p style="color:#555; margin-bottom:12px;">यह code अपनी <strong>index.html</strong> फाइल के <code>&lt;head&gt;</code> section में (title tag के नीचे, <code>&lt;/head&gt;</code> से पहले) paste करें:</p>
+    <button class="copy-btn" onclick="copyMetaCode()">📋 Code Copy करें</button>
+    <div class="code-box" id="meta-code">&lt;!--
+=================================================================
+  उन्नति स्वयं सहायता समिति — SEO META TAGS
+  यह code हर HTML page के &lt;head&gt;
+&lt;!-- Google tag (gtag.js) --&gt;
+&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=G-9R3TGZ7R8S&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag(&#x27;js&#x27;, new Date());
+  gtag(&#x27;config&#x27;, &#x27;G-9R3TGZ7R8S&#x27;);
+&lt;/script&gt;
+ section में जोड़ें
+  (title tag के नीचे, &lt;/head&gt; से पहले)
+=================================================================
+--&gt;
+
+&lt;!-- ===== index.html के लिए ===== --&gt;
+&lt;meta name=&quot;description&quot; content=&quot;उन्नति स्वयं सहायता समिति (Unnati Sawaye Sahayta Samiti) — हल्द्वानी, उत्तराखंड की पंजीकृत NGO। गौ संरक्षण, राष्ट्र माता गाय सेवा, स्वयंसेवी कार्यक्रम, CSR पंजीकरण संख्या CSR00102587।&quot;&gt;
+&lt;meta name=&quot;keywords&quot; content=&quot;उन्नति स्वयं सहायता समिति, Unnati Sawaye Sahayta Samiti, unnati self help group, गौ संरक्षण NGO, राष्ट्र माता, गाय सेवा, हल्द्वानी NGO, लालकुआं NGO, उत्तराखंड स्वयं सहायता समिति, volunteer certificate Haldwani, CSR00102587, AAATU7133Q, 12A 80G NGO Uttarakhand, gau mata rashtra mata, gau raksha NGO, cow protection India, social work Nainital, NGO Haldwani&quot;&gt;
+&lt;meta name=&quot;author&quot; content=&quot;उन्नति स्वयं सहायता समिति&quot;&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;index, follow&quot;&gt;
+&lt;meta name=&quot;googlebot&quot; content=&quot;index, follow&quot;&gt;
+&lt;meta name=&quot;language&quot; content=&quot;Hindi, English&quot;&gt;
+&lt;meta name=&quot;geo.region&quot; content=&quot;IN-UT&quot;&gt;
+&lt;meta name=&quot;geo.placename&quot; content=&quot;Haldwani, Nainital, Uttarakhand&quot;&gt;
+&lt;meta name=&quot;geo.position&quot; content=&quot;29.2183;79.5130&quot;&gt;
+&lt;meta name=&quot;ICBM&quot; content=&quot;29.2183, 79.5130&quot;&gt;
+
+&lt;!-- Open Graph (Facebook / WhatsApp में share होने पर दिखे) --&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;website&quot;&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;उन्नति स्वयं सहायता समिति&quot;&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;उन्नति स्वयं सहायता समिति | गौ सेवा | हल्द्वानी NGO&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;गौ संरक्षण, राष्ट्र माता सेवा, स्वयंसेवी कार्यक्रम और सामाजिक जनहित कार्यों के लिए समर्पित पंजीकृत संस्था। CSR00102587&quot;&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;https://unnatiselfhelpgroup-creator.github.io/&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://unnatiselfhelpgroup-creator.github.io/ngologo.png&quot;&gt;
+&lt;meta property=&quot;og:locale&quot; content=&quot;hi_IN&quot;&gt;
+
+&lt;!-- Twitter Card --&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot;&gt;
+&lt;meta name=&quot;twitter:title&quot; content=&quot;उन्नति स्वयं सहायता समिति | गौ सेवा NGO हल्द्वानी&quot;&gt;
+&lt;meta name=&quot;twitter:description&quot; content=&quot;गौ संरक्षण, राष्ट्र माता, स्वयंसेवी कार्यक्रम — उत्तराखंड की पंजीकृत NGO&quot;&gt;
+&lt;meta name=&quot;twitter:image&quot; content=&quot;https://unnatiselfhelpgroup-creator.github.io/ngologo.png&quot;&gt;
+
+&lt;!-- Canonical URL (index.html के लिए) --&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;https://unnatiselfhelpgroup-creator.github.io/index.html&quot;&gt;
+
+&lt;!-- Schema.org Structured Data — Google को पूरी NGO की जानकारी --&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@graph&quot;: [
+    {
+      &quot;@type&quot;: &quot;NGO&quot;,
+      &quot;@id&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io/#organization&quot;,
+      &quot;name&quot;: &quot;उन्नति स्वयं सहायता समिति&quot;,
+      &quot;alternateName&quot;: [
+        &quot;Unnati Sawaye Sahayta Samiti&quot;,
+        &quot;Unnati Self Help Group&quot;,
+        &quot;उन्नति सेल्फ हेल्प ग्रुप&quot;,
+        &quot;उन्नति स्वयं सहायता&quot;
+      ],
+      &quot;url&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io&quot;,
+      &quot;logo&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io/ngologo.png&quot;,
+      &quot;image&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io/ngologo.png&quot;,
+      &quot;description&quot;: &quot;उन्नति स्वयं सहायता समिति एक पंजीकृत सामाजिक संगठन है जो गौ संरक्षण, राष्ट्र माता गाय सेवा, पशु कल्याण, और सामाजिक जनहित कार्यों के लिए कार्यरत है। संस्था हल्द्वानी, उत्तराखंड में स्थित है।&quot;,
+      &quot;foundingDate&quot;: &quot;2020&quot;,
+      &quot;email&quot;: &quot;unnatiselfhelpgroup@gmail.com&quot;,
+      &quot;telephone&quot;: &quot;+91-9410332400&quot;,
+      &quot;taxID&quot;: &quot;AAATU7133Q&quot;,
+      &quot;identifier&quot;: [
+        {
+          &quot;@type&quot;: &quot;PropertyValue&quot;,
+          &quot;name&quot;: &quot;CSR Registration Number&quot;,
+          &quot;value&quot;: &quot;CSR00102587&quot;
+        },
+        {
+          &quot;@type&quot;: &quot;PropertyValue&quot;,
+          &quot;name&quot;: &quot;PAN&quot;,
+          &quot;value&quot;: &quot;AAATU7133Q&quot;
+        }
+      ],
+      &quot;address&quot;: {
+        &quot;@type&quot;: &quot;PostalAddress&quot;,
+        &quot;streetAddress&quot;: &quot;हल्धुचर दीना, लालकुआं&quot;,
+        &quot;addressLocality&quot;: &quot;हल्द्वानी&quot;,
+        &quot;addressRegion&quot;: &quot;उत्तराखंड&quot;,
+        &quot;postalCode&quot;: &quot;263139&quot;,
+        &quot;addressCountry&quot;: &quot;IN&quot;
+      },
+      &quot;areaServed&quot;: {
+        &quot;@type&quot;: &quot;Place&quot;,
+        &quot;name&quot;: &quot;Uttarakhand, India&quot;
+      },
+      &quot;knowsAbout&quot;: [
+        &quot;गौ संरक्षण&quot;,
+        &quot;राष्ट्र माता गाय सेवा&quot;,
+        &quot;पशु कल्याण&quot;,
+        &quot;सामाजिक जनहित&quot;,
+        &quot;स्वयंसेवी कार्यक्रम&quot;,
+        &quot;CSR Activities&quot;,
+        &quot;Gau Raksha&quot;,
+        &quot;Cow Protection&quot;
+      ],
+      &quot;sameAs&quot;: [
+        &quot;https://share.google/GPO01YXnme3xhYJCq&quot;
+      ],
+      &quot;hasCredential&quot;: {
+        &quot;@type&quot;: &quot;EducationalOccupationalCredential&quot;,
+        &quot;name&quot;: &quot;CSR Registration&quot;,
+        &quot;credentialCategory&quot;: &quot;Ministry of Corporate Affairs, Government of India&quot;,
+        &quot;identifier&quot;: &quot;CSR00102587&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;WebSite&quot;,
+      &quot;@id&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io/#website&quot;,
+      &quot;url&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io&quot;,
+      &quot;name&quot;: &quot;उन्नति स्वयं सहायता समिति&quot;,
+      &quot;description&quot;: &quot;गौ संरक्षण, राष्ट्र माता सेवा और सामाजिक कार्य — उत्तराखंड NGO&quot;,
+      &quot;publisher&quot;: {
+        &quot;@id&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io/#organization&quot;
+      },
+      &quot;inLanguage&quot;: [&quot;hi&quot;, &quot;en&quot;],
+      &quot;potentialAction&quot;: {
+        &quot;@type&quot;: &quot;SearchAction&quot;,
+        &quot;target&quot;: &quot;https://unnatiselfhelpgroup-creator.github.io/certificate-verification.html?cert={search_term_string}&quot;,
+        &quot;query-input&quot;: &quot;required name=search_term_string&quot;
+      }
+    }
+  ]
+}
+&lt;/script&gt;
+</div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card blue">
+    <h2>⏱️ कब तक दिखेगा Google पर?</h2>
+    <table>
+      <tr><th>समय</th><th>क्या होगा</th></tr>
+      <tr><td>1-3 दिन</td><td>Search Console verify हो जाएगा</td></tr>
+      <tr><td>1-2 हफ्ते</td><td>Google आपकी site index करना शुरू करेगा</td></tr>
+      <tr><td>1 महीना</td><td>संस्था का नाम search करने पर दिखने लगेगा</td></tr>
+      <tr><td>3 महीने</td><td>गौ माता, NGO Haldwani जैसे keywords पर ranking आएगी</td></tr>
+      <tr><td>6 महीने</td><td>Custom domain + backlinks से top 10 में आ सकते हैं</td></tr>
+    </table>
+  </div>
+
+  <div style="text-align:center; padding: 20px; color:#888; font-size:0.85rem;">
+    © 2026 उन्नति स्वयं सहायता समिति | CSR00102587 | हल्द्वानी, उत्तराखंड<br>
+    यह guide Claude AI द्वारा तैयार की गई है।
+  </div>
+
+</div>
+<script>
+function copyMetaCode(){
+  const el = document.getElementById('meta-code');
+  navigator.clipboard.writeText(el.innerText).then(()=>{
+    alert('✅ Code copy हो गया! अब index.html में paste कर दीजिए।');
+  }).catch(()=>{
+    alert('Copy नहीं हो पाया, कृपया text manually select करके copy करें।');
+  });
+}
+</script>
+</body>
+</html>
