@@ -69,7 +69,7 @@ function buildAppointmentMarkup(data) {
     return `
     <style>
       .apl-outer{border:4px solid #C8960C;padding:3px;position:relative;}
-      .apl-inner{border:1px solid #C8960C;padding:30px 34px 34px;position:relative;}
+      .apl-inner{border:1px solid #C8960C;padding:30px 34px 34px;position:relative;min-height:1080px;overflow:hidden;}
       .apl-tri{height:5px;display:flex;margin:-30px -34px 22px;}
       .apl-tri span{flex:1;} .apl-tri span:nth-child(1){background:#FF6B00;}
       .apl-tri span:nth-child(2){background:#fff;} .apl-tri span:nth-child(3){background:#138808;}
@@ -99,6 +99,11 @@ function buildAppointmentMarkup(data) {
           <div style="width:160px;height:2px;background:linear-gradient(90deg,transparent,#C8960C,transparent);margin:12px auto;"></div>
           <h2 style="font-family:'Cinzel',serif;color:#8B0000;font-size:19px;letter-spacing:3px;margin:0;font-weight:900;">APPOINTMENT LETTER</h2>
           <p style="font-family:'Tiro Devanagari Hindi',serif;color:#666;font-size:13px;margin-top:4px;">नियुक्ति पत्र</p>
+        </div>
+
+        <!-- मिशन बैनर -->
+        <div style="background:linear-gradient(135deg,#4a0404,#7a0808);border-radius:10px;padding:11px 18px;margin-bottom:18px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,0.15);">
+          <p style="font-family:'Tiro Devanagari Hindi',serif;color:#F2CE63;font-size:13.5px;font-weight:700;margin:0;letter-spacing:0.3px;">🐄 "गौ माता को राष्ट्रमाता का सम्मान" — इसी संकल्प के साथ हम आगे बढ़ रहे हैं</p>
         </div>
 
         <!-- पत्र संख्या और दिनांक -->
@@ -150,11 +155,16 @@ function buildAppointmentMarkup(data) {
         <div style="font-family:'Tiro Devanagari Hindi',serif;font-size:13px;line-height:1.9;color:#222;margin-bottom:18px;text-align:justify;">
           <p>महोदय/महोदया,</p>
           <br>
-          <p>उन्नति स्वयं सहायता समिति आपकी सामाजिक सेवा, गौ-संरक्षण एवं राष्ट्र निर्माण के प्रति समर्पण एवं निष्ठा का स्वागत करती है। आपके आवेदन एवं भुगतान के पश्चात, आपको संस्था के अंतर्गत <strong style="color:#4a0404;">${escapeHtml(designation)}</strong> पद पर तत्काल प्रभाव से नियुक्त किया जाता है।</p>
+          <p>उन्नति स्वयं सहायता समिति आपकी सामाजिक सेवा, गौ-संरक्षण एवं राष्ट्र निर्माण के प्रति समर्पण एवं निष्ठा का हार्दिक स्वागत करती है। आपके आवेदन एवं भुगतान के पश्चात, आपको संस्था के अंतर्गत <strong style="color:#4a0404;">${escapeHtml(designation)}</strong> पद पर तत्काल प्रभाव से नियुक्त किया जाता है।</p>
           <br>
-          <p>आप अपने क्षेत्र में गौ सेवा, घायल गोवंश सहायता, पर्यावरण संरक्षण, रक्तदान, जनजागरूकता एवं समाज सेवा के कार्यों में सक्रिय भूमिका निभाएंगे। गौ माता को राष्ट्रमाता एवं राज्यमाता का सम्मान दिलाने के संस्था के उद्देश्य में आपका सहयोग अपेक्षित है।</p>
+          <p>आप अपने क्षेत्र में गौ सेवा, घायल गोवंश सहायता, पर्यावरण संरक्षण, रक्तदान, जनजागरूकता एवं समाज सेवा के कार्यों में सक्रिय भूमिका निभाएंगे। साथ ही, आपसे अपेक्षा की जाती है कि आप <strong style="color:#4a0404;">इस पुण्य अभियान को अपने क्षेत्र में आगे बढ़ाएं</strong> — अधिक से अधिक लोगों को इस सेवा-कार्य से जोड़ें, नए स्वयंसेवकों को प्रेरित करें, और गौ माता को राष्ट्रमाता एवं राज्यमाता का सम्मान दिलाने के संस्था के उद्देश्य में एक सक्रिय सेतु की भूमिका निभाएं। आपके प्रयासों से यह अभियान गाँव-गाँव, घर-घर तक पहुँचेगा।</p>
           <br>
           <p><strong>महत्वपूर्ण:</strong> प्रशासनिक सहयोग राशि <strong>${escapeHtml(fee)}</strong> Non-Refundable है तथा ID Card, नियुक्ति पत्र एवं प्रशासनिक सेवाओं हेतु है। इस नियुक्ति पत्र का उपयोग केवल संस्था के सेवा कार्यों हेतु किया जाए। किसी से धन की मांग करना या संस्था के नाम पर अवैध कार्य करना दंडनीय अपराध होगा।</p>
+        </div>
+
+        <!-- संकल्प पंक्ति -->
+        <div style="text-align:center;margin-bottom:18px;">
+          <p style="font-family:'Tiro Devanagari Hindi',serif;font-size:12px;color:#8B0000;font-weight:700;font-style:italic;">"आइए, मिलकर अधिक से अधिक लोगों को इस पुण्य कार्य से जोड़ें और गौ माता के सम्मान की इस यात्रा को सफल बनाएं।"</p>
         </div>
 
         <!-- शर्तें एवं नियम -->
@@ -197,46 +207,22 @@ function buildAppointmentMarkup(data) {
 }
 
 // ── PDF जनरेट करें और डाउनलोड करें ──
-// नोट: पहले यह html2pdf().from(element).save() (auto pipeline) से बनता था, जो कभी-कभी
-// पेज को गलत जगह से काट देता था और हिंदी फॉन्ट ठीक से render होने से पहले ही स्नैपशॉट ले लेता था।
-// अब certificate-pdf.js और idcard-pdf.js की तरह ही manual html2canvas → jsPDF तरीका है,
-// जिसमें पूरा पत्र एक ही image की तरह capture होकर बिना कटे PDF में लगता है।
 window.generateAppointmentPDF = async function (data) {
     await ensureAppointmentFontsLoaded();
 
-    const wrap = document.createElement('div');
-    wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;width:794px;background:#FFFDF8;font-family:'Poppins',sans-serif;";
-    wrap.innerHTML = buildAppointmentMarkup(data);
-    document.body.appendChild(wrap);
+    const element = document.createElement('div');
+    element.style.cssText = "width:794px;padding:0;background:#FFFDF8;font-family:'Poppins',sans-serif;position:relative;";
+    element.innerHTML = buildAppointmentMarkup(data);
 
-    // इमेज (लोगो/हस्ताक्षर/QR) लोड होने के लिए wait
-    await new Promise(r => setTimeout(r, 400));
+    const opt = {
+        margin: 5,
+        filename: (data.name || "Appointment") + "-NiyuktiPatra.pdf",
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, allowTaint: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-    let pdf;
-    try {
-        const el = wrap.querySelector('.apl-outer');
-        const canvas = await html2canvas(el, { scale: 2.2, useCORS: true, backgroundColor: "#FFFDF8" });
-        const imgData = canvas.toDataURL("image/jpeg", 0.97);
-
-        const { jsPDF } = window.jspdf;
-        const pageWmm = 210; // A4 चौड़ाई
-        const imgWmm = pageWmm;
-        const imgHmm = (canvas.height * imgWmm) / canvas.width;
-
-        if (imgHmm <= 297) {
-            // सामान्य A4 पेज में पूरा पत्र समा जाता है
-            pdf = new jsPDF("portrait", "mm", "a4");
-            pdf.addImage(imgData, "JPEG", 0, 0, imgWmm, imgHmm);
-        } else {
-            // अगर content A4 से लंबा हो तो custom page size बनाएं ताकि कुछ भी कटे नहीं
-            pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: [imgWmm, imgHmm] });
-            pdf.addImage(imgData, "JPEG", 0, 0, imgWmm, imgHmm);
-        }
-    } finally {
-        document.body.removeChild(wrap);
-    }
-
-    pdf.save((data.name || "Appointment") + "-NiyuktiPatra.pdf");
+    await html2pdf().set(opt).from(element).save();
 };
 
 // ── नए टैब में Preview खोलें (Print/Download बटन के साथ) ──
@@ -275,4 +261,3 @@ window.previewAppointmentLetter = function (data) {
     `);
     win.document.close();
 };
-
