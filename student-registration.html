@@ -184,11 +184,19 @@ document.getElementById('studentForm').addEventListener('submit', async function
     // Redirect to payment regardless
   } catch(e) {}
 
-  sessionStorage.setItem('student', JSON.stringify({ name, mobile, email, college, duration, fee }));
+  sessionStorage.setItem('applicant', JSON.stringify({
+    name,
+    father_name: fatherName,
+    mobile,
+    email,
+    address: address + (college ? ` (कॉलेज: ${college})` : ''),
+    designation: `इंटर्नशिप स्वयंसेवक — ${course} (${duration} दिन)`,
+    fee
+  }));
   btn.innerHTML = 'भुगतान के लिए आगे बढ़ें →';
   btn.disabled = false;
 
-  window.location.href = `appointment-payment.html?name=${encodeURIComponent(name)}&fee=${encodeURIComponent(fee)}&cat=${encodeURIComponent('Internship '+duration)}`;
+  window.location.href = 'appointment-payment.html';
 });
 
 function showError(msg) {
