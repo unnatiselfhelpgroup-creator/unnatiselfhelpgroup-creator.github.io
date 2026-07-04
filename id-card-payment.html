@@ -72,44 +72,80 @@ import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/fir
 
 function esc(s){ if(!s) return ""; return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 
-function compressImage(dataUrl, maxW=800, quality=0.70) {
-  return new Promise((res,rej)=>{
+// किसी भी dataURL/blobURL को compress करने के लिए (applicant photo जैसे already-in-memory dataURL के लिए)
+function compressDataUrl(srcUrl, maxW = 800, quality = 0.70) {
+  return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
-      const canvas = document.createElement("canvas");
-      let w=img.width, h=img.height;
-      if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
-      canvas.width=w; canvas.height=h;
-      canvas.getContext("2d").drawImage(img,0,0,w,h);
-      let b64 = canvas.toDataURL("image/jpeg", quality);
-      if(b64.length*0.75 > 900*1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
-      res(b64);
+      try {
+        const canvas = document.createElement("canvas");
+        let w = img.width, h = img.height;
+        if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        let b64 = canvas.toDataURL("image/jpeg", quality);
+        if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
+        resolve(b64);
+      } catch (e) {
+        reject(new Error("Image process करने में त्रुटि: " + (e && e.message ? e.message : "अज्ञात त्रुटि")));
+      }
     };
-    img.onerror = ()=>rej(new Error("Image process error"));
-    img.src = dataUrl;
+    img.onerror = () => reject(new Error("Image process error"));
+    img.src = srcUrl;
   });
 }
 
 // paymentProof फ़ाइल को compress करने के लिए — पहले तेज़ Blob URL तरीका, फेल हो तो FileReader fallback
-function fileToBase64(file, maxW=800, quality=0.70) {
+// (यह पूरी तरह appointment-payment.html वाले proven working pattern जैसा है)
+function fileToBase64(file, maxW = 800, quality = 0.70) {
   function viaFileReader() {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = e => { compressImage(e.target.result, maxW, quality).then(res).catch(()=>rej(new Error("यह फ़ाइल किसी भी तरीके से लोड नहीं हो पाई। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"))); };
-      reader.onerror = () => rej(new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
+      reader.onload = (e) => {
+        compressDataUrl(e.target.result, maxW, quality).then(resolve).catch(() =>
+          reject(new Error("यह फ़ाइल किसी भी तरीके से लोड नहीं हो पाई। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"))
+        );
+      };
+      reader.onerror = () => reject(new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
       reader.readAsDataURL(file);
     });
   }
-  if (!file || !file.type || !file.type.startsWith("image/")) {
-    return Promise.reject(new Error("कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।"));
-  }
-  if (file.size > 20 * 1024 * 1024) {
-    return Promise.reject(new Error("फ़ाइल बहुत बड़ी है (20MB से ज़्यादा)। कृपया कम साइज़ का स्क्रीनशॉट/फोटो चुनें।"));
-  }
-  const objectUrl = URL.createObjectURL(file);
-  return compressImage(objectUrl, maxW, quality)
-    .then(b64 => { URL.revokeObjectURL(objectUrl); return b64; })
-    .catch(() => { URL.revokeObjectURL(objectUrl); return viaFileReader(); });
+
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type || !file.type.startsWith("image/")) {
+      reject(new Error("कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।"));
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      reject(new Error("फ़ाइल बहुत बड़ी है (20MB से ज़्यादा)। कृपया कम साइज़ का स्क्रीनशॉट/फोटो चुनें।"));
+      return;
+    }
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        let w = img.width, h = img.height;
+        if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        let b64 = canvas.toDataURL("image/jpeg", quality);
+        if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
+        URL.revokeObjectURL(objectUrl);
+        if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image compress करने के बाद भी बहुत बड़ी है। कृपया कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
+        else resolve(b64);
+      } catch (e) {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("Image process करने में त्रुटि हुई: " + (e && e.message ? e.message : "अज्ञात त्रुटि")));
+      }
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      // पहला तरीका fail हुआ, अब पुराने FileReader तरीके से दोबारा कोशिश करें
+      viaFileReader().then(resolve).catch(reject);
+    };
+    img.src = objectUrl;
+  });
 }
 
 let selectedImageDataUrl = null;
@@ -156,6 +192,7 @@ if (stored.name) {
       this.value = '';
       return;
     }
+    if (selectedImageDataUrl) URL.revokeObjectURL(selectedImageDataUrl);
     selectedImageDataUrl = URL.createObjectURL(file);
     const img = document.getElementById('previewImg');
     img.src = selectedImageDataUrl; img.style.display = 'block';
@@ -163,7 +200,8 @@ if (stored.name) {
   });
 
   document.getElementById('paidBtn').onclick = async () => {
-    if(!selectedImageDataUrl){ alert('⚠️ कृपया भुगतान स्क्रीनशॉट अपलोड करें!'); return; }
+    const fileInput = document.getElementById('paymentProof');
+    if(fileInput.files.length === 0){ alert('⚠️ कृपया भुगतान स्क्रीनशॉट अपलोड करें!'); return; }
     const btn = document.getElementById('paidBtn');
     btn.disabled = true; btn.innerText = 'प्रक्रिया जारी है...';
     document.getElementById('progressWrap').style.display = 'block';
@@ -171,13 +209,13 @@ if (stored.name) {
 
     try {
       // Compress payment screenshot
-      const payScreenshot = await fileToBase64(document.getElementById('paymentProof').files[0]);
+      const payScreenshot = await fileToBase64(fileInput.files[0]);
       setProgress(50, 'Firestore में save हो रहा है...');
 
       // Compress applicant photo if available
       let applicantPhoto = null;
       if(photoDataURL) {
-        try { applicantPhoto = await compressImage(photoDataURL, 400, 0.8); } catch(e){}
+        try { applicantPhoto = await compressDataUrl(photoDataURL, 400, 0.8); } catch(e){}
       }
 
       const data = {
@@ -261,7 +299,7 @@ if (stored.name) {
           </main>`;
         return;
       }
-      alert('❌ त्रुटि: ' + (err.message || 'दोबारा प्रयास करें।'));
+      alert('❌ त्रुटि: ' + (err && err.message ? err.message : 'दोबारा प्रयास करें। अगर समस्या बनी रहे तो कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।'));
       btn.disabled = false; btn.innerText = '✅ मैंने भुगतान कर दिया है';
       document.getElementById('progressWrap').style.display = 'none';
     }
