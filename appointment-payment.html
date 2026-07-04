@@ -104,9 +104,9 @@
           if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image बहुत बड़ी है।"));
           else resolve(b64);
         };
-        img.onerror = reject;
+        img.onerror = () => reject(new Error("Image लोड नहीं हो पाई। कृपया दूसरी फोटो चुनें।"));
       };
-      reader.onerror = reject;
+      reader.onerror = () => reject(new Error("फ़ाइल पढ़ने में त्रुटि हुई। कृपया दोबारा फ़ाइल चुनें।"));
     });
   }
 
@@ -226,7 +226,7 @@
         `;
       } catch (err) {
         console.error(err);
-        alert("❌ त्रुटि: " + err.message);
+        alert("❌ त्रुटि: " + (err && err.message ? err.message : "कुछ गड़बड़ हुई, कृपया दोबारा प्रयास करें। अगर समस्या बनी रहे तो कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
         btn.disabled = false; btn.innerText = "✅ मैंने भुगतान कर दिया है";
         document.getElementById("progressWrap").style.display = "none";
       }
