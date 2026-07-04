@@ -66,7 +66,10 @@
   NGO Darpan: UA/2016/0108273 | PAN: AAATU7133Q
 </footer>
 
-<script>
+<script type="module">
+import { db } from "./firebase-config.js";
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 function esc(s){ if(!s) return ""; return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 
 function compressImage(dataUrl, maxW=800, quality=0.70) {
@@ -145,11 +148,6 @@ if (stored.name) {
     setProgress(20, 'Image compress हो रही है...');
 
     try {
-      const [{db}, {collection, addDoc, serverTimestamp}] = await Promise.all([
-        import('./firebase-config.js'),
-        import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js')
-      ]);
-
       // Compress payment screenshot
       const payScreenshot = await compressImage(selectedImageDataUrl);
       setProgress(50, 'Firestore में save हो रहा है...');
