@@ -90,6 +90,28 @@ function compressImage(dataUrl, maxW=800, quality=0.70) {
   });
 }
 
+// paymentProof फ़ाइल को compress करने के लिए — पहले तेज़ Blob URL तरीका, फेल हो तो FileReader fallback
+function fileToBase64(file, maxW=800, quality=0.70) {
+  function viaFileReader() {
+    return new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.onload = e => { compressImage(e.target.result, maxW, quality).then(res).catch(()=>rej(new Error("यह फ़ाइल किसी भी तरीके से लोड नहीं हो पाई। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"))); };
+      reader.onerror = () => rej(new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
+      reader.readAsDataURL(file);
+    });
+  }
+  if (!file || !file.type || !file.type.startsWith("image/")) {
+    return Promise.reject(new Error("कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।"));
+  }
+  if (file.size > 20 * 1024 * 1024) {
+    return Promise.reject(new Error("फ़ाइल बहुत बड़ी है (20MB से ज़्यादा)। कृपया कम साइज़ का स्क्रीनशॉट/फोटो चुनें।"));
+  }
+  const objectUrl = URL.createObjectURL(file);
+  return compressImage(objectUrl, maxW, quality)
+    .then(b64 => { URL.revokeObjectURL(objectUrl); return b64; })
+    .catch(() => { URL.revokeObjectURL(objectUrl); return viaFileReader(); });
+}
+
 let selectedImageDataUrl = null;
 const stored = JSON.parse(sessionStorage.getItem('idCardApplicant') || '{}');
 const photoDataURL = sessionStorage.getItem('idCardPhoto') || null;
@@ -149,7 +171,7 @@ if (stored.name) {
 
     try {
       // Compress payment screenshot
-      const payScreenshot = await compressImage(selectedImageDataUrl);
+      const payScreenshot = await fileToBase64(document.getElementById('paymentProof').files[0]);
       setProgress(50, 'Firestore में save हो रहा है...');
 
       // Compress applicant photo if available
@@ -223,6 +245,22 @@ if (stored.name) {
         </main>`;
     } catch(err) {
       console.error(err);
+      if (err && err.code === 'already-exists') {
+        setProgress(100, 'सफल!');
+        sessionStorage.removeItem('idCardApplicant');
+        sessionStorage.removeItem('idCardPhoto');
+        document.body.innerHTML = `
+          <div class="tricolor-top"></div>
+          <main style="padding-top:60px;max-width:460px;margin:0 auto;padding:60px 16px 48px">
+            <div class="pay-card" style="text-align:center">
+              <div style="font-size:60px">✅</div>
+              <h3 style="color:var(--green);font-family:'Tiro Devanagari Hindi',serif;margin:12px 0">आवेदन सफलतापूर्वक जमा हो गया!</h3>
+              <p style="color:#555;font-size:0.9rem;line-height:1.7">भुगतान स्क्रीनशॉट सुरक्षित रूप से सेव हुआ।<br>एडमिन जांच के बाद ईमेल पर सूचित किया जाएगा।</p>
+              <a href="index.html" class="btn btn-pay" style="margin-top:20px;display:inline-block;width:auto;padding:13px 28px">🏠 होम पेज</a>
+            </div>
+          </main>`;
+        return;
+      }
       alert('❌ त्रुटि: ' + (err.message || 'दोबारा प्रयास करें।'));
       btn.disabled = false; btn.innerText = '✅ मैंने भुगतान कर दिया है';
       document.getElementById('progressWrap').style.display = 'none';

@@ -87,6 +87,31 @@
   }
 
   function imageToBase64(file, maxWidth = 800, quality = 0.70) {
+    function viaFileReader() {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            try {
+              const canvas = document.createElement("canvas");
+              let w = img.width, h = img.height;
+              if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+              canvas.width = w; canvas.height = h;
+              canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+              let b64 = canvas.toDataURL("image/jpeg", quality);
+              if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
+              resolve(b64);
+            } catch (e2) { reject(new Error("Image process करने में त्रुटि: " + (e2.message || "अज्ञात त्रुटि"))); }
+          };
+          img.onerror = () => reject(new Error("यह फ़ाइल किसी भी तरीके से लोड नहीं हो पाई। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
+          img.src = e.target.result;
+        };
+        reader.onerror = () => reject(new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
+        reader.readAsDataURL(file);
+      });
+    }
+
     return new Promise((resolve, reject) => {
       if (!file || !file.type || !file.type.startsWith("image/")) {
         reject(new Error("कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।"));
@@ -117,7 +142,8 @@
       };
       img.onerror = () => {
         URL.revokeObjectURL(objectUrl);
-        reject(new Error("यह फ़ाइल लोड नहीं हो पाई — शायद corrupted है या असमर्थित फॉर्मेट है। कृपया दूसरी फोटो/स्क्रीनशॉट चुनें।"));
+        // पहला तरीका fail हुआ, अब पुराने FileReader तरीके से दोबारा कोशिश करें
+        viaFileReader().then(resolve).catch(reject);
       };
       img.src = objectUrl;
     });
@@ -236,6 +262,20 @@
         `;
       } catch (err) {
         console.error(err);
+        if (err && err.code === "already-exists") {
+          // पिछला प्रयास असल में सफल हो चुका था, बस confirmation नहीं मिला — इसे success मानें
+          document.getElementById("progressFill").style.width = "100%";
+          sessionStorage.removeItem("applicant");
+          document.getElementById("pay-card").innerHTML = `
+            <div class="success-box">
+              <div class="icon">✅</div>
+              <h3>आवेदन सफलतापूर्वक जमा हो गया!</h3>
+              <p>भुगतान स्क्रीनशॉट सुरक्षित रूप से सेव हुआ।<br>संस्था द्वारा सत्यापन के बाद आपका नियुक्ति पत्र एवं ID Card जारी किया जाएगा।</p>
+              <a href="https://unnatiselfhelpgroup-creator.github.io/" class="btn" style="display:block;margin-top:16px;">🏠 होम पेज पर जाएँ</a>
+            </div>
+          `;
+          return;
+        }
         alert("❌ त्रुटि: " + (err && err.message ? err.message : "कुछ गड़बड़ हुई, कृपया दोबारा प्रयास करें। अगर समस्या बनी रहे तो कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
         btn.disabled = false; btn.innerText = "✅ मैंने भुगतान कर दिया है";
         document.getElementById("progressWrap").style.display = "none";
