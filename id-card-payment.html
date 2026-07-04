@@ -121,14 +121,20 @@ if (stored.name) {
   document.getElementById('paymentProof').addEventListener('change', function() {
     const file = this.files[0];
     if(!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      selectedImageDataUrl = e.target.result;
-      const img = document.getElementById('previewImg');
-      img.src = e.target.result; img.style.display = 'block';
-      document.getElementById('paidBtn').style.display = 'block';
-    };
-    reader.readAsDataURL(file);
+    if (!file.type || !file.type.startsWith('image/')) {
+      alert('⚠️ कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।');
+      this.value = '';
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      alert('⚠️ फ़ाइल बहुत बड़ी है (20MB से ज़्यादा)। कृपया कम साइज़ का स्क्रीनशॉट/फोटो चुनें।');
+      this.value = '';
+      return;
+    }
+    selectedImageDataUrl = URL.createObjectURL(file);
+    const img = document.getElementById('previewImg');
+    img.src = selectedImageDataUrl; img.style.display = 'block';
+    document.getElementById('paidBtn').style.display = 'block';
   });
 
   document.getElementById('paidBtn').onclick = async () => {
