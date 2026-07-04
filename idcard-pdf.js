@@ -8,11 +8,12 @@
 // दोनों शामिल हैं) पहले से लोड होना चाहिए। उदाहरण:
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 // ============================================================
-function buildIDCardMarkup(data) {
+function buildIDCardMarkup(data, forCapture) {
   function esc(str) {
     if (str === null || str === undefined) return "";
     return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
+  const CO = forCapture ? 'crossorigin="anonymous"' : ''; // capture (PDF) के लिए ज़रूरी, preview में हटाया ताकि image ज़रूर दिखे
 
   const LOGO_URL = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
   const SIGN_URL = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
@@ -39,9 +40,9 @@ function buildIDCardMarkup(data) {
   <style>
     .idc-card{width:${W}px;height:${H}px;position:relative;font-family:'Poppins',sans-serif;
       background:linear-gradient(160deg,#fffdf7,#fdf2d8 55%,#fbe9c4);overflow:hidden;border-radius:14px;
-      box-shadow:inset 0 0 0 1px rgba(200,150,12,0.15);}
-    .idc-border{position:absolute;inset:4px;border:2.5px solid #C8960C;border-radius:11px;}
-    .idc-border-inner{position:absolute;inset:8px;border:0.75px solid #C8960C;border-radius:9px;}
+      box-shadow:inset 0 0 0 1px rgba(200,150,12,0.15);display:flex;flex-direction:column;}
+    .idc-border{position:absolute;inset:4px;border:2.5px solid #C8960C;border-radius:11px;pointer-events:none;}
+    .idc-border-inner{position:absolute;inset:8px;border:0.75px solid #C8960C;border-radius:9px;pointer-events:none;}
     .idc-side{position:absolute;top:0;bottom:0;width:8px;}
     .idc-side-l{left:0;background:linear-gradient(#FF6B00,#FF9500);} .idc-side-r{right:0;background:linear-gradient(#138808,#1DA212);}
     .idc-corner{position:absolute;width:16px;height:16px;border-color:#C8960C;z-index:3;}
@@ -54,78 +55,79 @@ function buildIDCardMarkup(data) {
     .idc-watermark img{width:58%;}
     .idc-cow-wm{position:absolute;right:-6px;bottom:2px;font-size:${Math.round(H*0.9)}px;opacity:0.05;
       line-height:1;pointer-events:none;transform:rotate(-6deg);}
-    .idc-head{position:relative;background:linear-gradient(120deg,#3a0303 0%,#5c0808 45%,#7a1a08 75%,#a8420c 100%);
-      height:${Math.round(H * 0.25)}px;display:flex;align-items:center;gap:10px;padding:0 16px;overflow:hidden;}
+    .idc-head{position:relative;flex-shrink:0;background:linear-gradient(120deg,#3a0303 0%,#5c0808 45%,#7a1a08 75%,#a8420c 100%);
+      height:${Math.round(H * 0.24)}px;display:flex;align-items:center;gap:10px;padding:0 16px;overflow:hidden;}
     .idc-head::after{content:"";position:absolute;inset:0;
       background:radial-gradient(circle at 85% 20%,rgba(242,206,99,0.25),transparent 55%);}
-    .idc-head .logo-ring{position:relative;flex-shrink:0;height:${Math.round(H * 0.19)}px;width:${Math.round(H * 0.19)}px;
+    .idc-head .logo-ring{position:relative;flex-shrink:0;height:${Math.round(H * 0.18)}px;width:${Math.round(H * 0.18)}px;
       border-radius:50%;background:conic-gradient(from 0deg,#F2CE63,#C8960C,#F2CE63,#C8960C,#F2CE63);
       padding:2px;display:flex;align-items:center;justify-content:center;}
-    .idc-head img.logo{height:${Math.round(H * 0.16)}px;width:${Math.round(H * 0.16)}px;border-radius:50%;
+    .idc-head img.logo{height:${Math.round(H * 0.15)}px;width:${Math.round(H * 0.15)}px;border-radius:50%;
       border:1.5px solid #3a0303;object-fit:cover;display:block;}
     .idc-head .org{font-family:'Tiro Devanagari Hindi',serif;color:#F9DE8E;font-weight:700;font-size:15px;
       line-height:1.25;text-shadow:0 1px 2px rgba(0,0,0,0.4);position:relative;}
     .idc-head .sub{color:#FFB347;font-size:7.8px;letter-spacing:.3px;margin-top:2px;position:relative;
       display:flex;align-items:center;gap:3px;}
-    .idc-tri{height:4px;display:flex;}
+    .idc-tri{height:4px;display:flex;flex-shrink:0;}
     .idc-tri span{flex:1;}
     .idc-tri span:nth-child(1){background:#FF6B00;} .idc-tri span:nth-child(2){background:#fff;} .idc-tri span:nth-child(3){background:#138808;}
-    .idc-title{background:linear-gradient(90deg,#a8420c,#FF6B00 50%,#a8420c);text-align:center;padding:3px 6px;
+    .idc-title{flex-shrink:0;background:linear-gradient(90deg,#a8420c,#FF6B00 50%,#a8420c);text-align:center;padding:4px 6px;
       box-shadow:0 1px 3px rgba(0,0,0,0.15) inset;}
     .idc-title span{color:#fff;font-family:'Tiro Devanagari Hindi',serif;font-size:10.5px;font-weight:700;
       letter-spacing:.3px;text-shadow:0 1px 1px rgba(0,0,0,0.3);}
-    .idc-body{display:flex;gap:11px;padding:8px 16px 0;position:relative;}
-    .idc-photo{width:${Math.round(H * 0.34)}px;height:${Math.round(H * 0.44)}px;border-radius:6px;
+    .idc-body{flex:1;display:flex;gap:14px;padding:14px 16px;position:relative;min-height:0;}
+    .idc-photo{width:${Math.round(H * 0.38)}px;flex-shrink:0;border-radius:6px;
       border:2px solid #C8960C;box-shadow:0 0 0 1px #fff, 0 2px 5px rgba(0,0,0,0.15);
       overflow:hidden;background:#f0e8e0;display:flex;align-items:center;
-      justify-content:center;font-size:26px;flex-shrink:0;}
+      justify-content:center;font-size:30px;}
     .idc-photo img{width:100%;height:100%;object-fit:cover;}
-    .idc-info{flex:1;min-width:0;}
-    .idc-name{font-family:'Tiro Devanagari Hindi',serif;font-weight:700;color:#3a0303;font-size:14.5px;
-      line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .idc-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
+    .idc-name{font-family:'Tiro Devanagari Hindi',serif;font-weight:700;color:#3a0303;font-size:16px;
+      line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .idc-desig{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(120deg,#5c0808,#a8420c);
-      color:#F9DE8E;font-size:8.5px;font-weight:700;padding:2px 9px;border-radius:10px;margin:4px 0 6px;
-      box-shadow:0 1px 2px rgba(0,0,0,0.2);}
-    .idc-row{font-size:9px;color:#333;margin-bottom:2px;display:flex;gap:4px;}
-    .idc-row b{color:#7a1a08;font-weight:700;min-width:50px;flex-shrink:0;}
-    .idc-foot{position:absolute;bottom:0;left:0;right:0;padding:6px 16px 8px;display:flex;
-      justify-content:space-between;align-items:flex-end;background:linear-gradient(90deg,#fdf0d0,#fbe4b0);
+      color:#F9DE8E;font-size:9px;font-weight:700;padding:3px 10px;border-radius:10px;margin:6px 0 10px;
+      box-shadow:0 1px 2px rgba(0,0,0,0.2);width:fit-content;}
+    .idc-row{font-size:9.5px;color:#333;margin-bottom:5px;display:flex;gap:4px;}
+    .idc-row b{color:#7a1a08;font-weight:700;min-width:52px;flex-shrink:0;}
+    .idc-foot{flex-shrink:0;padding:8px 16px;display:flex;
+      justify-content:space-between;align-items:center;background:linear-gradient(90deg,#fdf0d0,#fbe4b0);
       border-top:1px solid #e8c878;}
     .idc-volid .lbl{font-size:6.8px;color:#8a6a20;text-transform:uppercase;letter-spacing:.6px;font-weight:600;}
-    .idc-volid .val{font-family:'Courier New',monospace;font-weight:800;color:#5c0808;font-size:11.5px;letter-spacing:.8px;}
+    .idc-volid .val{font-family:'Courier New',monospace;font-weight:800;color:#5c0808;font-size:12px;letter-spacing:.8px;}
     .idc-sign{text-align:center;}
-    .idc-sign img{height:20px;}
-    .idc-sign .lbl{font-size:6.3px;color:#5c0808;border-top:1px solid #C8960C;padding-top:2px;margin-top:1px;font-weight:700;}
+    .idc-sign img{height:26px;display:block;margin:0 auto;}
+    .idc-sign .lbl{font-size:6.5px;color:#5c0808;border-top:1px solid #C8960C;padding-top:2px;margin-top:2px;font-weight:700;}
 
     /* BACK SIDE */
-    .idc-back-head{position:relative;background:linear-gradient(120deg,#3a0303 0%,#5c0808 45%,#7a1a08 75%,#a8420c 100%);
+    .idc-back-head{position:relative;flex-shrink:0;background:linear-gradient(120deg,#3a0303 0%,#5c0808 45%,#7a1a08 75%,#a8420c 100%);
       height:${Math.round(H * 0.20)}px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
     .idc-back-head::after{content:"";position:absolute;inset:0;
       background:radial-gradient(circle at 15% 25%,rgba(242,206,99,0.22),transparent 55%);}
     .idc-back-head .o1{font-family:'Tiro Devanagari Hindi',serif;color:#F9DE8E;font-size:13px;font-weight:700;
       position:relative;text-shadow:0 1px 2px rgba(0,0,0,0.4);}
     .idc-back-head .o2{color:#FFB347;font-size:7.2px;margin-top:2px;letter-spacing:.5px;position:relative;}
-    .idc-idbox{margin:9px 16px 0;background:linear-gradient(135deg,#fdf0d0,#fbe4b0);border:1.5px solid #C8960C;
-      border-radius:8px;padding:6px 10px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06) inset;}
+    .idc-idbox{flex-shrink:0;margin:10px 16px 0;background:linear-gradient(135deg,#fdf0d0,#fbe4b0);border:1.5px solid #C8960C;
+      border-radius:8px;padding:7px 10px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06) inset;}
     .idc-idbox .lbl{font-family:'Tiro Devanagari Hindi',serif;font-size:8.5px;color:#5c0808;font-weight:700;}
     .idc-idbox .val{font-family:'Courier New',monospace;font-size:14px;font-weight:800;color:#8B0000;letter-spacing:1.5px;margin-top:2px;}
-    .idc-rules{padding:7px 16px 0;font-size:7.5px;color:#2a2a2a;line-height:1.5;position:relative;z-index:2;}
-    .idc-rules .rh{font-family:'Tiro Devanagari Hindi',serif;font-size:8.5px;color:#5c0808;font-weight:700;margin-bottom:2px;}
-    .idc-qr{position:absolute;right:14px;bottom:24px;width:${Math.round(H * 0.20)}px;height:${Math.round(H * 0.20)}px;
+    .idc-mid{flex:1;display:flex;gap:14px;padding:10px 16px;min-height:0;align-items:center;}
+    .idc-rules{flex:1;font-size:8px;color:#2a2a2a;line-height:1.7;}
+    .idc-rules .rh{font-family:'Tiro Devanagari Hindi',serif;font-size:9px;color:#5c0808;font-weight:700;margin-bottom:4px;}
+    .idc-qrbox{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px;}
+    .idc-qr{width:${Math.round(H * 0.24)}px;height:${Math.round(H * 0.24)}px;
       background:#fff;border:1.5px solid #C8960C;border-radius:5px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
     .idc-qr img{width:100%;height:100%;}
-    .idc-back-foot{position:absolute;bottom:0;left:0;right:0;padding:5px 12px;
+    .idc-motto{font-family:'Tiro Devanagari Hindi',serif;font-size:7.5px;color:#7a1a08;font-weight:700;font-style:italic;text-align:center;}
+    .idc-back-foot{flex-shrink:0;padding:6px 12px;
       background:linear-gradient(90deg,#fdf0d0,#fbe4b0);border-top:1px solid #e8c878;text-align:center;}
     .idc-back-foot span{font-size:7px;font-weight:700;color:#5c0808;}
-    .idc-motto{position:absolute;left:14px;bottom:24px;max-width:${Math.round(W*0.55)}px;font-family:'Tiro Devanagari Hindi',serif;
-      font-size:8px;color:#7a1a08;font-weight:700;font-style:italic;z-index:2;}
   </style>
 
   <div id="idc-front" class="idc-card">
     <div class="idc-cow-wm">🐄</div>
-    <div class="idc-watermark"><img src="${LOGO_URL}" crossorigin="anonymous"></div>
+    <div class="idc-watermark"><img src="${LOGO_URL}" ${CO}></div>
     <div class="idc-head">
-      <div class="logo-ring"><img class="logo" src="${LOGO_URL}" crossorigin="anonymous"></div>
+      <div class="logo-ring"><img class="logo" src="${LOGO_URL}" ${CO}></div>
       <div>
         <div class="org">उन्नति स्वयं सहायता समिति</div>
         <div class="sub">🐄 गौ माता • राष्ट्रमाता सेवा में समर्पित</div>
@@ -134,7 +136,7 @@ function buildIDCardMarkup(data) {
     <div class="idc-tri"><span></span><span></span><span></span></div>
     <div class="idc-title"><span>🪪 आधिकारिक सदस्यता पहचान पत्र</span></div>
     <div class="idc-body">
-      <div class="idc-photo">${photoURL ? `<img src="${photoURL}" crossorigin="anonymous">` : "👤"}</div>
+      <div class="idc-photo">${photoURL ? `<img src="${photoURL}" ${CO}>` : "👤"}</div>
       <div class="idc-info">
         <div class="idc-name">${name}</div>
         <span class="idc-desig">🐄 ${designation}</span>
@@ -145,7 +147,7 @@ function buildIDCardMarkup(data) {
     </div>
     <div class="idc-foot">
       <div class="idc-volid"><div class="lbl">Volunteer ID</div><div class="val">${volunteerId}</div></div>
-      <div class="idc-sign"><img src="${SIGN_URL}" crossorigin="anonymous"><div class="lbl">हस्ताक्षर</div></div>
+      <div class="idc-sign"><img src="${SIGN_URL}" ${CO}><div class="lbl">हस्ताक्षर</div></div>
     </div>
     <div class="idc-border"></div><div class="idc-border-inner"></div>
     <div class="idc-side idc-side-l"></div><div class="idc-side idc-side-r"></div>
@@ -155,7 +157,7 @@ function buildIDCardMarkup(data) {
 
   <div id="idc-back" class="idc-card">
     <div class="idc-cow-wm">🐄</div>
-    <div class="idc-watermark"><img src="${LOGO_URL}" crossorigin="anonymous"></div>
+    <div class="idc-watermark"><img src="${LOGO_URL}" ${CO}></div>
     <div class="idc-back-head">
       <div class="o1">उन्नति स्वयं सहायता समिति</div>
       <div class="o2">🐄 OFFICIAL MEMBER ID CARD · गौ सेवा अभियान</div>
@@ -164,15 +166,19 @@ function buildIDCardMarkup(data) {
       <div class="lbl">Volunteer ID</div>
       <div class="val">${volunteerId}</div>
     </div>
-    <div class="idc-rules">
-      <div class="rh">नियम एवं शर्तें</div>
-      • यह कार्ड हस्तांतरणीय नहीं है।<br>
-      • इस कार्ड का दुरुपयोग दंडनीय है।<br>
-      • खोने पर तुरंत संस्था को सूचित करें।<br>
-      • सभी गतिविधियाँ संविधान के दायरे में होंगी।
+    <div class="idc-mid">
+      <div class="idc-rules">
+        <div class="rh">नियम एवं शर्तें</div>
+        • यह कार्ड हस्तांतरणीय नहीं है।<br>
+        • इस कार्ड का दुरुपयोग दंडनीय है।<br>
+        • खोने पर तुरंत संस्था को सूचित करें।<br>
+        • सभी गतिविधियाँ संविधान के दायरे में होंगी।
+      </div>
+      <div class="idc-qrbox">
+        <div class="idc-qr"><img src="${qrURL}" ${CO}></div>
+        <div class="idc-motto">"गौ सेवा परमो धर्मः"</div>
+      </div>
     </div>
-    <div class="idc-motto">"गौ सेवा परमो धर्मः"</div>
-    <div class="idc-qr"><img src="${qrURL}" crossorigin="anonymous"></div>
     <div class="idc-back-foot"><span>📞 9410332400 &nbsp;|&nbsp; ✉️ unnatiselfhelpgroup@gmail.com</span></div>
     <div class="idc-border"></div><div class="idc-border-inner"></div>
     <div class="idc-side idc-side-l"></div><div class="idc-side idc-side-r"></div>
@@ -220,7 +226,7 @@ window.generateIDCardPDF = async function (data) {
   const wrap = document.createElement("div");
   wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
   document.body.appendChild(wrap);
-  wrap.innerHTML = buildIDCardMarkup(data);
+  wrap.innerHTML = buildIDCardMarkup(data, true);
 
   // इमेज (लोगो/फोटो/QR/हस्ताक्षर) लोड होने के लिए wait
   await new Promise(r => setTimeout(r, 400));
@@ -252,7 +258,7 @@ window.previewIDCard = function (data) {
     if (str === null || str === undefined) return "";
     return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
-  const markup = buildIDCardMarkup(data);
+  const markup = buildIDCardMarkup(data, false);
 
   const win = window.open("", "_blank");
   if (!win) { alert("⚠️ Popup ब्लॉक हो गया — कृपया popup की अनुमति दें।"); return; }
@@ -263,6 +269,7 @@ window.previewIDCard = function (data) {
   <html lang="hi">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ID Card Preview — ${esc(data.name || "")}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
