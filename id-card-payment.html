@@ -240,8 +240,14 @@ if (stored.name) {
     <a href="https://razorpay.me/@wwwunnatiselfhelpgroupcom" target="_blank" class="btn btn-pay" id="payLink">💳 Razorpay से भुगतान करें</a>
     <div class="step">2️⃣ भुगतान का स्क्रीनशॉट अपलोड करें (अनिवार्य):</div>
     <input type="file" id="paymentProof" accept="image/*" required>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button type="button" onclick="document.getElementById('paymentProof').click()" style="flex:1;padding:10px;border:1.5px solid var(--maroon);border-radius:8px;background:#fff;color:var(--maroon);font-weight:600;font-size:0.82rem;cursor:pointer;">🖼️ गैलरी से चुनें</button>
+      <button type="button" onclick="document.getElementById('paymentProofCamera').click()" style="flex:1;padding:10px;border:none;border-radius:8px;background:var(--maroon);color:#fff;font-weight:600;font-size:0.82rem;cursor:pointer;">📸 फोटो खींचें</button>
+    </div>
+    <input type="file" id="paymentProofCamera" accept="image/*" capture="environment" style="display:none">
     <img id="previewImg" alt="Screenshot Preview">
     <div id="proofStatus"></div>
+    <p style="font-size:0.72rem;color:#999;margin-top:6px;">सुझाव: अगर स्क्रीनशॉट चुनने पर "फ़ाइल पढ़ी नहीं जा सकी" वाली गलती बार-बार आए, तो <strong>"📸 फोटो खींचें"</strong> इस्तेमाल करें — भुगतान वाली स्क्रीन का सीधा फोटो खींच लें, यह हमेशा काम करता है।</p>
     <div class="step">3️⃣ भुगतान पूर्ण होने के बाद यह बटन दबाएं:</div>
     <button class="btn btn-submit" id="paidBtn">✅ मैंने भुगतान कर दिया है</button>
     <div id="progressWrap">
@@ -260,7 +266,7 @@ if (stored.name) {
     proofStatus.innerText = text;
   }
 
-  document.getElementById('paymentProof').addEventListener('change', async function() {
+  async function handleProofFileChange() {
     const file = this.files[0];
     if(!file) return;
     if (!file.type || !file.type.startsWith('image/')) {
@@ -297,8 +303,16 @@ if (stored.name) {
       console.error(err);
       paidBtn.innerText = '⚠️ दोबारा स्क्रीनशॉट चुनें';
       paidBtn.disabled = true;
-      setProofStatus('err', '❌ ' + (err && err.message ? err.message : 'स्क्रीनशॉट पढ़ने में त्रुटि हुई। कृपया दोबारा चुनें।'));
+      setProofStatus('err', '❌ ' + (err && err.message ? err.message : 'स्क्रीनशॉट पढ़ने में त्रुटि हुई।') + ' — कृपया "📸 फोटो खींचें" विकल्प आज़माएँ, वह हमेशा काम करता है।');
     }
+  }
+
+  document.getElementById('paymentProof').addEventListener('change', handleProofFileChange);
+  document.getElementById('paymentProofCamera').addEventListener('change', function() {
+    // कैमरे से खींची फ़ाइल को मुख्य input में भी दिखा दें ताकि submit के वक्त
+    // fileInput.files.length की जांच (paidBtn.onclick में) भी पास हो जाए
+    document.getElementById('paymentProof').files = this.files;
+    handleProofFileChange.call(this);
   });
 
   paidBtn.onclick = async () => {
