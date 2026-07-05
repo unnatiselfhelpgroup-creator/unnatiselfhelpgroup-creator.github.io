@@ -140,12 +140,47 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
     });
   }
 
-  // एक कोशिश = blob-URL तरीका, फेल हो तो तुरंत FileReader तरीका।
-  // Android पर content:// URI कभी-कभी selection के फ़ौरन बाद ready नहीं होती,
-  // इसलिए दोनों तरीके एक साथ fail हो सकते हैं — इसलिए थोड़े रुक कर कुल 3 बार
-  // कोशिश करते हैं ताकि यूज़र को गलती से भी error न दिखे।
+  // तरीका 3: बिल्कुल अलग रास्ता — कोई Image decode / FileReader नहीं, सीधे raw bytes
+  // (Blob.arrayBuffer) से base64 बनाएं। कोई compression नहीं होता इसलिए सिर्फ छोटी
+  // फ़ाइलों पर काम करता है, पर यह उन मामलों में भी चल जाता है जहाँ canvas/Image
+  // decode या पुराना FileReader API किसी वजह से बार-बार fail हो रहा हो।
+  function viaRawBytes() {
+    return new Promise((resolve, reject) => {
+      if (file.size > 900 * 1024) {
+        reject(new Error("फ़ाइल compress नहीं हो पाई और बिना compress किए भेजने के लिए भी बहुत बड़ी है।"));
+        return;
+      }
+      file.arrayBuffer().then(buf => {
+        try {
+          const bytes = new Uint8Array(buf);
+          let binary = "";
+          const chunk = 0x8000;
+          for (let i = 0; i < bytes.length; i += chunk) {
+            binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+          }
+          const b64 = "data:" + (file.type || "image/jpeg") + ";base64," + btoa(binary);
+          resolve(b64);
+        } catch (e) {
+          reject(new Error("raw bytes convert failed: " + (e && e.message ? e.message : "")));
+        }
+      }).catch(e => reject(new Error("arrayBuffer failed: " + (e && e.message ? e.message : ""))));
+    });
+  }
+
+  // एक कोशिश = blob-URL तरीका → फेल हो तो FileReader तरीका → फेल हो तो raw-bytes तरीका।
+  // असली error (जो सबसे आख़िर में आया) याद रखें ताकि पूरी तरह fail होने पर सही वजह दिखे।
   function oneAttempt() {
-    return viaBlobUrl().catch(() => viaFileReader());
+    let lastRealErr = null;
+    return viaBlobUrl().catch(e1 => {
+      lastRealErr = e1;
+      return viaFileReader().catch(e2 => {
+        lastRealErr = e2;
+        return viaRawBytes().catch(e3 => {
+          throw new Error((e3 && e3.message ? e3.message : "अज्ञात त्रुटि") +
+            " [debug: blob=" + (e1 && e1.message) + "]");
+        });
+      });
+    });
   }
 
   return new Promise((resolve, reject) => {
@@ -167,7 +202,11 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
         return;
       }
       setTimeout(() => {
-        oneAttempt().then(resolve).catch(err => { lastErr = err; tryAt(i + 1); });
+        oneAttempt().then(resolve).catch(err => {
+          console.error("fileToBase64 attempt " + (i + 1) + " failed:", err);
+          lastErr = new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।\n(" + (err && err.message ? err.message : "") + ")");
+          tryAt(i + 1);
+        });
       }, delays[i]);
     }
     tryAt(0);
