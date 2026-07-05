@@ -106,7 +106,7 @@ main{max-width:520px;margin:0 auto;padding:28px 16px 48px;}
 .id-card-footer{padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border-top:1px solid #f0e0c0;}
 .vol-id-label{font-size:0.62rem;color:#888;text-transform:uppercase;}
 .vol-id{font-family:'Courier New',monospace;font-weight:700;color:var(--maroon);font-size:0.9rem;letter-spacing:1.5px;}
-.verified-stamp{background:var(--green);color:#fff;font-size:0.68rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.3px;}
+.verified-stamp{background:var(--green);color:#fff;font-size:0.68rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.3px;white-space:nowrap;}
 
 /* SIGNATURE */
 .id-card-signature{border-top:1px dashed #e0c89a;padding:10px 18px 14px;display:flex;justify-content:flex-end;align-items:flex-end;flex-direction:column;background:linear-gradient(90deg,#fff,#fff8e7);}
@@ -208,30 +208,27 @@ window.verifyID = async function() {
   try {
     let found = false, data = null;
 
-    // Search in IDcard collection
-    const q1 = query(collection(db, 'IDcard'), where('volunteer-id', '==', input));
+    // ── सही field name: volunteer_id (underscore) — admin-dashboard.html इसी नाम से
+    // Approve करते वक़्त ID असाइन करता है। पुराना कोड "volunteer-id" (हाइफ़न) खोज रहा था
+    // जो कभी match नहीं होता था, इसलिए हमेशा गलत/खाली collection में जा गिरता था।
+
+    // 1) IDcard collection
+    const q1 = query(collection(db, 'IDcard'), where('volunteer_id', '==', input));
     const s1 = await getDocs(q1);
     if (!s1.empty) { data = s1.docs[0].data(); found = true; }
 
-    // Search in Volunteers collection
+    // 2) Appointments collection (नियुक्ति पत्र वाले भी उसी field से Approve होते हैं)
     if (!found) {
-      const q2 = query(collection(db, 'Volunteers'), where('volunteer_id', '==', input));
+      const q2 = query(collection(db, 'Appointments'), where('volunteer_id', '==', input));
       const s2 = await getDocs(q2);
       if (!s2.empty) { data = s2.docs[0].data(); found = true; }
     }
 
-    // Search in AppointmentLetter collection
+    // 3) Volunteers collection (अलग से रजिस्टर्ड वॉलंटियर, अगर हो)
     if (!found) {
-      const q3 = query(collection(db, 'AppointmentLetter'), where('volunteer_id', '==', input));
+      const q3 = query(collection(db, 'Volunteers'), where('volunteer_id', '==', input));
       const s3 = await getDocs(q3);
       if (!s3.empty) { data = s3.docs[0].data(); found = true; }
-    }
-
-    // Search in Appointments collection
-    if (!found) {
-      const q4 = query(collection(db, 'Appointments'), where('appointment_no', '==', input));
-      const s4 = await getDocs(q4);
-      if (!s4.empty) { data = s4.docs[0].data(); found = true; }
     }
 
     statusMsg.innerHTML = '';
@@ -241,17 +238,35 @@ window.verifyID = async function() {
       const name = data.name || data.volunteer_name || '—';
       const fatherName = data.father_name || '—';
       const designation = data.designation || 'Volunteer';
-      const mobile = data['mobile number'] || data.mobile || data['mobile_number'] || '—';
+      const mobile = data.mobile || data['mobile number'] || data['mobile_number'] || '—';
       const email = data.email || '—';
-      const address = data.address || '—';
       const district = data.district || '—';
       const state = data.state || 'Uttarakhand';
-      const volId = data['volunteer-id'] || data.volunteer_id || data.appointment_no || input;
-      const idNumber = data['id-number'] || data['id_number'] || data['id-numder'] || '—';
-      const status = data.status || 'verified';
-      const appointDate = data.appointment_date || data.created_at || '—';
-      const photo = data.photo || '';
-      const statusText = status === 'verified' ? '✅ सत्यापित' : '⏳ प्रक्रियाधीन';
+      const address = data.address ||
+        [data.village, data.district, data.state].filter(Boolean).join(', ') || '—';
+      const volId = data.volunteer_id || input;
+
+      // सही status field: "Approved" / "Rejected" / "Pending" (admin-dashboard.html के मुताबिक)
+      const status = data.status || 'Pending';
+      const isApproved = status === 'Approved';
+      const isRejected = status === 'Rejected';
+      const statusText = isApproved ? '✅ सत्यापित' : (isRejected ? '❌ अस्वीकृत' : '⏳ प्रक्रियाधीन');
+      const stampHTML = isApproved
+        ? `<span class="verified-stamp">✅ VERIFIED</span>`
+        : isRejected
+          ? `<span class="verified-stamp" style="background:#c0392b">❌ REJECTED</span>`
+          : `<span class="verified-stamp" style="background:#f39c12">⏳ PENDING</span>`;
+
+      // सही तारीख़ field: createdAt (Firestore Timestamp), fallback submittedAt (ISO string)
+      let appointDate = '—';
+      if (data.createdAt && typeof data.createdAt.toDate === 'function') {
+        appointDate = data.createdAt.toDate().toLocaleDateString('hi-IN');
+      } else if (data.submittedAt) {
+        try { appointDate = new Date(data.submittedAt).toLocaleDateString('hi-IN'); } catch(e){}
+      }
+
+      // सही फोटो field: photoBase64 (id-card-payment.html इसी नाम से सेव करता है)
+      const photo = data.photoBase64 || data.photoURL || data.photo || '';
       const photoHtml = (photo && photo !== 'https://your-photo-link')
         ? `<img src="${escapeHtml(photo)}" alt="photo" onerror="this.parentElement.innerHTML='👤'">`
         : '👤';
@@ -297,20 +312,13 @@ window.verifyID = async function() {
             </div>
           </div>
 
-          <!-- ID NUMBER -->
-          ${idNumber !== '—' ? `
-          <div class="id-number-bar">
-            <div class="id-num-label">ID Number</div>
-            <div class="id-num-value">${escapeHtml(idNumber)}</div>
-          </div>` : ''}
-
-          <!-- VOLUNTEER ID + VERIFIED -->
+          <!-- VOLUNTEER ID + असली STATUS बैज (हमेशा VERIFIED हार्डकोड नहीं) -->
           <div class="id-card-footer">
             <div>
               <div class="vol-id-label">Volunteer ID</div>
               <div class="vol-id">${escapeHtml(volId)}</div>
             </div>
-            <div class="verified-stamp">✅ VERIFIED</div>
+            ${stampHTML}
           </div>
 
           <!-- DIGITAL SIGNATURE — always shown, falls back gracefully -->
@@ -328,7 +336,7 @@ window.verifyID = async function() {
           <h4>✅ ID सत्यापन सफल — अतिरिक्त जानकारी</h4>
           <div class="extra-grid">
             <div class="extra-item">
-              <div class="lbl">नियुक्ति दिनांक</div>
+              <div class="lbl">आवेदन दिनांक</div>
               <div class="val">${escapeHtml(appointDate)}</div>
             </div>
             <div class="extra-item">
@@ -357,7 +365,7 @@ window.verifyID = async function() {
       statusMsg.innerHTML = `
         <div class="msg-error">
           ❌ <strong>${escapeHtml(input)}</strong> — यह ID हमारे रिकॉर्ड में नहीं मिली।<br>
-          <small>कृपया सही ID दर्ज करें या संस्था से संपर्क करें: 9410332400</small>
+          <small>ध्यान दें: सिर्फ़ <strong>Approved</strong> आवेदनों को ही Volunteer ID मिलती है। कृपया सही ID दर्ज करें या संस्था से संपर्क करें: 9410332400</small>
         </div>`;
     }
 
