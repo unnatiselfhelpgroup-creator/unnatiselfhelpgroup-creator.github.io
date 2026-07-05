@@ -196,7 +196,7 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
       return;
     }
 
-    const delays = [0, 400, 900]; // कुल 3 कोशिशें: तुरंत, फिर 400ms बाद, फिर 900ms बाद
+    const delays = [0, 800, 2000, 4000]; // कुल 4 कोशिशें ~7 सेकंड में फैली — cloud-photo को डाउनलोड होने का पूरा मौका देने के लिए
     let lastErr = null;
 
     function tryAt(i) {
@@ -273,7 +273,7 @@ if (stored.name) {
     const btn = document.getElementById('paidBtn');
     btn.disabled = true; btn.innerText = 'प्रक्रिया जारी है...';
     document.getElementById('progressWrap').style.display = 'block';
-    setProgress(20, 'Image compress हो रही है...');
+    setProgress(20, 'Image compress हो रही है... (cloud फोटो हो तो कुछ सेकंड लग सकते हैं)');
 
     try {
       // Compress payment screenshot
