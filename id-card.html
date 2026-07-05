@@ -233,7 +233,7 @@
     // Android पर content:// URI select होने के तुरंत बाद कभी-कभी ready नहीं होती,
     // इसलिए थोड़े रुक कर कुल 3 बार कोशिश करें ताकि यूज़र को गलती से भी फेल न दिखे।
     return new Promise((resolve, reject) => {
-      const delays = [0, 400, 900];
+      const delays = [0, 800, 2000, 4000]; // कुल 4 कोशिशें ~7 सेकंड में फैली — cloud-photo को डाउनलोड होने का पूरा मौका देने के लिए
       let lastErr = null;
       function tryAt(i) {
         if (i >= delays.length) { reject(lastErr || new Error("फ़ोटो पढ़ी नहीं जा सकी")); return; }
@@ -256,7 +256,7 @@
     if (file.size > 2 * 1024 * 1024) { alert("फोटो 2MB से बड़ी नहीं होनी चाहिए।"); input.value = ""; return; }
 
     document.getElementById("photoPlaceholder").style.display = "block";
-    document.getElementById("photoPlaceholder").innerHTML = "⏳ फोटो लोड हो रही है...";
+    document.getElementById("photoPlaceholder").innerHTML = "⏳ फोटो लोड हो रही है... (cloud फोटो हो तो 5-7 सेकंड लग सकते हैं, कृपया प्रतीक्षा करें)";
 
     readPhotoFile(file).then(dataUrl => {
       photoDataURL = dataUrl;
