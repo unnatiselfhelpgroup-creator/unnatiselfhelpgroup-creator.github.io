@@ -8,6 +8,58 @@
 // दोनों शामिल हैं) पहले से लोड होना चाहिए। उदाहरण:
 // <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 // ============================================================
+// ── PDF लाइब्रेरी लोडर — html2canvas / jsPDF कभी-कभी मोबाइल नेटवर्क
+// (जैसे Jio का data-compression) की वजह से लोड होते वक़्त टूट जाती हैं।
+// यह फ़ंक्शन जाँचता है कि दोनों लाइब्रेरी उपलब्ध हैं या नहीं, और अगर
+// नहीं हैं तो बिना SRI hash के एक वैकल्पिक CDN से दोबारा लोड करने की
+// कोशिश करता है, ताकि "html2canvas is not defined" जैसी गलती की वजह
+// से PDF जनरेशन पूरी तरह फेल न हो।
+function _loadScriptOnce(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("script load failed: " + src));
+    document.head.appendChild(s);
+  });
+}
+async function ensurePdfLibsReady(need) {
+  // need: { canvas: true/false, jspdf: true/false, html2pdf: true/false }
+  need = need || { canvas: true, jspdf: true, html2pdf: false };
+  function missing() {
+    const m = [];
+    if (need.canvas && typeof window.html2canvas === "undefined") m.push("canvas");
+    if (need.jspdf && (typeof window.jspdf === "undefined" || typeof window.jspdf.jsPDF === "undefined")) m.push("jspdf");
+    if (need.html2pdf && typeof window.html2pdf === "undefined") m.push("html2pdf");
+    return m;
+  }
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let m = missing();
+    if (m.length === 0) return true;
+    if (attempt === 0) {
+      await new Promise(r => setTimeout(r, 800));
+      continue;
+    }
+    m = missing();
+    try {
+      if (m.includes("html2pdf")) {
+        await _loadScriptOnce("https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js");
+      }
+      if (m.includes("canvas")) {
+        await _loadScriptOnce("https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js");
+      }
+      if (m.includes("jspdf")) {
+        await _loadScriptOnce("https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js");
+      }
+    } catch (e) { /* अगले attempt में फिर कोशिश होगी */ }
+    await new Promise(r => setTimeout(r, 500));
+  }
+  if (missing().length > 0) {
+    throw new Error("PDF लाइब्रेरी लोड नहीं हो पाई। कृपया अपना इंटरनेट/नेटवर्क जाँचें (Wi-Fi या दूसरा नेटवर्क आज़माएँ) और फिर से कोशिश करें, या ऊपर 'Preview' खोलकर वहाँ से 'प्रिंट करें → Save as PDF' इस्तेमाल करें।");
+  }
+  return true;
+}
+
 function buildIDCardMarkup(data, forCapture) {
   function esc(str) {
     if (str === null || str === undefined) return "";
@@ -190,6 +242,7 @@ function buildIDCardMarkup(data, forCapture) {
 }
 
 window.generateIDCardPDF = async function (data) {
+  await ensurePdfLibsReady({ canvas: true, jspdf: true });
   // Google Fonts (Tiro Devanagari Hindi + Poppins) load करें — पूरा wait करें ताकि
   // html2canvas खाली/invisible टेक्स्ट का स्नैपशॉट न ले (FOIT bug)
   await ensureFontsLoaded();
@@ -224,7 +277,9 @@ window.generateIDCardPDF = async function (data) {
   const CARD_W_MM = 86, CARD_H_MM = 54;
 
   const wrap = document.createElement("div");
-  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
+  // color:#222 explicitly सेट करें ताकि admin-dashboard.html के body{color:#fff} से
+  // सफ़ेद रंग inherit होकर कार्ड के आगे/पीछे के नाम आदि अदृश्य न हो जाएँ।
+  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;color:#222222;";
   document.body.appendChild(wrap);
   wrap.innerHTML = buildIDCardMarkup(data, true);
 
