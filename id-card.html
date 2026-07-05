@@ -149,20 +149,89 @@
 
   let photoDataURL = null;
 
+  function readPhotoFile(file) {
+    // तरीका 1: blob URL से Image लोड (तेज़)
+    function viaBlobUrl() {
+      return new Promise((resolve, reject) => {
+        const objectUrl = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => { resolve(objectUrl); }; // सफल — objectUrl ही सीधे preview/स्टोर के लिए इस्तेमाल होगा नहीं, हम इसे dataURL में बदलेंगे नीचे
+        img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error("blob load failed")); };
+        img.src = objectUrl;
+      }).then(objectUrl => {
+        return new Promise((resolve, reject) => {
+          // canvas से असली dataURL बनाएं ताकि sessionStorage में स्टोर हो सके (blob URL persist नहीं होता)
+          const img2 = new Image();
+          img2.onload = () => {
+            try {
+              const canvas = document.createElement("canvas");
+              canvas.width = img2.width; canvas.height = img2.height;
+              canvas.getContext("2d").drawImage(img2, 0, 0);
+              const dataUrl = canvas.toDataURL(file.type && file.type.includes("png") ? "image/png" : "image/jpeg", 0.9);
+              URL.revokeObjectURL(objectUrl);
+              resolve(dataUrl);
+            } catch (e) { URL.revokeObjectURL(objectUrl); reject(e); }
+          };
+          img2.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error("canvas convert failed")); };
+          img2.src = objectUrl;
+        });
+      });
+    }
+
+    // तरीका 2: पुराना सीधा FileReader तरीका (fallback)
+    function viaFileReader() {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = () => reject(new Error("FileReader failed"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function oneAttempt() {
+      return viaBlobUrl().catch(() => viaFileReader());
+    }
+
+    // Android पर content:// URI select होने के तुरंत बाद कभी-कभी ready नहीं होती,
+    // इसलिए थोड़े रुक कर कुल 3 बार कोशिश करें ताकि यूज़र को गलती से भी फेल न दिखे।
+    return new Promise((resolve, reject) => {
+      const delays = [0, 400, 900];
+      let lastErr = null;
+      function tryAt(i) {
+        if (i >= delays.length) { reject(lastErr || new Error("फ़ोटो पढ़ी नहीं जा सकी")); return; }
+        setTimeout(() => {
+          oneAttempt().then(resolve).catch(err => { lastErr = err; tryAt(i + 1); });
+        }, delays[i]);
+      }
+      tryAt(0);
+    });
+  }
+
   function previewPhoto(input) {
     const file = input.files[0];
     if (!file) return;
+    if (!file.type || !file.type.startsWith('image/')) {
+      alert("⚠️ कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।");
+      input.value = "";
+      return;
+    }
     if (file.size > 2 * 1024 * 1024) { alert("फोटो 2MB से बड़ी नहीं होनी चाहिए।"); input.value = ""; return; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      photoDataURL = e.target.result;
+
+    document.getElementById("photoPlaceholder").style.display = "block";
+    document.getElementById("photoPlaceholder").innerHTML = "⏳ फोटो लोड हो रही है...";
+
+    readPhotoFile(file).then(dataUrl => {
+      photoDataURL = dataUrl;
       document.getElementById("photoPreview").src = photoDataURL;
       document.getElementById("photoPreview").style.display = "block";
       document.getElementById("photoPlaceholder").style.display = "none";
       document.getElementById("photoError").style.display = "none";
       document.getElementById("photoBox").style.borderColor = "#27ae60";
-    };
-    reader.readAsDataURL(file);
+    }).catch(err => {
+      document.getElementById("photoPlaceholder").innerHTML = "📷 फोटो अपलोड करने के लिए यहाँ क्लिक करें<br/><small>(JPG/PNG, अधिकतम 2MB)</small>";
+      alert("❌ यह फोटो लोड नहीं हो पाई। कृपया कोई और फोटो आज़माएँ या दोबारा कोशिश करें।\n\nवजह: " + (err && err.message ? err.message : "अज्ञात त्रुटि"));
+      input.value = "";
+    });
   }
 
   function onCategoryChange() {
