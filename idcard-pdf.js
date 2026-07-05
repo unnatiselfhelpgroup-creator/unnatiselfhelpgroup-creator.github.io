@@ -364,7 +364,9 @@ window.previewIDCard = function (data) {
     (function(){
       var CARD_W = ${W}, CARD_H = ${H};
       function fitCards(){
-        var maxW = Math.min(window.innerWidth - 32, 420);
+        // स्क्रीन जितनी चौड़ी होगी, कार्ड उतना बड़ा (असली साइज़ तक) दिखेगा —
+        // मोबाइल पर छोटी स्क्रीन में सिकुड़ेगा, लैपटॉप पर पूरी/असली साइज़ में दिखेगा।
+        var maxW = window.innerWidth - 32;
         var scale = Math.min(1, maxW / CARD_W);
         document.querySelectorAll('.idc-card').forEach(function(card){
           var frame = card.parentElement;
