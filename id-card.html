@@ -1,59 +1,36 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ID Card आवेदन | उन्नति स्वयं सहायता समिति</title>
-  <!-- अपनी पुरानी स्टाइलिंग यहाँ रखें, यहाँ सिर्फ स्क्रिप्ट बदलें -->
-  <style>/* ... अपनी पुरानी स्टाइलिंग जस की तस रहने दें ... */</style>
-</head>
-<body>
-<!-- ... आपका फॉर्म HTML वैसा ही रहने दें ... -->
-
-<script>
-  // पूरी तरह से नया और सुरक्षित फोटो प्रोसेसिंग लॉजिक
-  async function previewPhoto(input) {
+async function previewPhoto(input) {
     const file = input.files[0];
     if (!file) return;
 
     const photoPlaceholder = document.getElementById("photoPlaceholder");
     photoPlaceholder.innerHTML = "⏳ प्रोसेसिंग...";
 
-    // सीधे फाइल को DataURL में बदलकर मेमोरी में स्टोर करें (सबसे सुरक्षित तरीका)
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.onload = function() {
+    try {
+        // 1. फाइल को सीधे बिटमैप में बदलें (यह सबसे सुरक्षित तरीका है)
+        const bitmap = await createImageBitmap(file);
+        
+        // 2. कैनवास पर ड्रा करें
         const canvas = document.createElement("canvas");
         const MAX_WIDTH = 500;
-        const scale = MAX_WIDTH / img.width;
+        const scale = MAX_WIDTH / bitmap.width;
         canvas.width = MAX_WIDTH;
-        canvas.height = img.height * scale;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.height = bitmap.height * scale;
         
-        // फोटो को कंप्रेस करके सेव करें
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        
+        // 3. डेटा सुरक्षित करें
         window.photoDataURL = canvas.toDataURL("image/jpeg", 0.7);
         
         document.getElementById("photoPreview").src = window.photoDataURL;
         document.getElementById("photoPreview").style.display = "block";
         photoPlaceholder.style.display = "none";
-      };
-      img.src = e.target.result;
-    };
-    reader.onerror = () => { alert("फाइल पढ़ने में त्रुटि हुई। कृपया दूसरी फाइल चुनें।"); };
-    reader.readAsDataURL(file);
-  }
-
-  function submitForm() {
-    // ... अपना पुराना फॉर्म वैलिडेशन यहाँ रखें ...
-    
-    // सुरक्षित तरीके से फोटो को Session Storage में डालें
-    if (!window.photoDataURL) { alert("फोटो अपलोड करना अनिवार्य है।"); return; }
-    sessionStorage.setItem('idCardPhoto', window.photoDataURL);
-    
-    // ... बाकी सबमिट लॉजिक ...
-  }
-</script>
-</body>
-</html>
+        
+        // मेमोरी खाली करें
+        bitmap.close();
+    } catch (err) {
+        console.error("Error:", err);
+        alert("फ़ाइल लोड नहीं हो सकी। कृपया किसी अन्य गैलरी या इमेज का उपयोग करें।");
+        photoPlaceholder.innerHTML = "📷 फोटो अपलोड करने के लिए यहाँ क्लिक करें";
+    }
+}
