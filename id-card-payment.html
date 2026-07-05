@@ -2,65 +2,76 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>ID Card भुगतान | उन्नति स्वयं सहायता समिति</title>
-  <script type="module">
-    import { db } from "./firebase-config.js";
-    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const stored = JSON.parse(sessionStorage.getItem('idCardApplicant') || '{}');
-    const photoDataURL = sessionStorage.getItem('idCardPhoto');
-    const infoDiv = document.getElementById('applicantInfo');
-
-    if (stored.name) {
-      infoDiv.innerHTML = `
-        <div class="info-box">
-          <p>आवेदक: ${stored.name}</p>
-          <p>मोबाइल: ${stored.mobile}</p>
-        </div>
-        <input type="file" id="paymentProof" accept="image/*">
-        <button id="paidBtn" class="btn">✅ मैंने भुगतान कर दिया है</button>
-      `;
-
-      document.getElementById('paidBtn').onclick = async () => {
-        const file = document.getElementById('paymentProof').files[0];
-        if (!file) { alert("कृपया भुगतान स्क्रीनशॉट अपलोड करें!"); return; }
-        
-        const btn = document.getElementById('paidBtn');
-        btn.disabled = true;
-        btn.innerText = "प्रक्रिया जारी है...";
-
-        try {
-          // सबसे सुरक्षित तरीका: इमेज को बिटमैप में बदलें
-          const bitmap = await createImageBitmap(file);
-          const canvas = document.createElement("canvas");
-          canvas.width = 600; 
-          canvas.height = bitmap.height * (600 / bitmap.width);
-          canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-          const payScreenshot = canvas.toDataURL("image/jpeg", 0.7);
-          bitmap.close();
-
-          const data = {
-            ...stored,
-            photoBase64: photoDataURL,
-            paymentScreenshotBase64: payScreenshot,
-            status: 'Pending',
-            createdAt: serverTimestamp()
-          };
-          
-          await addDoc(collection(db, 'IDcard'), data);
-          alert("आवेदन सफलतापूर्वक जमा हो गया!");
-          window.location.href = 'index.html';
-        } catch(e) {
-          console.error(e);
-          alert("❌ त्रुटि: फाइल लोड नहीं हो सकी। कृपया गैलरी से फोटो चुनें या दोबारा कोशिश करें।");
-          btn.disabled = false;
-          btn.innerText = "✅ मैंने भुगतान कर दिया है";
-        }
-      };
-    }
-  </script>
+  <title>भुगतान | उन्नति स्वयं सहायता समिति</title>
+  <style>
+    body { font-family: sans-serif; background: #f8f4ef; padding: 20px; }
+    .container { max-width: 500px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .success-box { text-align: center; padding: 40px 20px; }
+    .success-tick { font-size: 60px; color: #2ecc71; margin-bottom: 20px; }
+    .success-msg { font-size: 1.5rem; font-weight: bold; color: #2ecc71; margin-bottom: 15px; }
+    .btn { width: 100%; padding: 15px; background: #4a0404; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+  </style>
 </head>
 <body>
+<div class="container" id="mainDiv">
+  <h3>💳 ID Card शुल्क भुगतान</h3>
   <div id="applicantInfo"></div>
+</div>
+
+<script type="module">
+  import { db } from "./firebase-config.js";
+  import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const stored = JSON.parse(sessionStorage.getItem('idCardApplicant') || '{}');
+  const photoDataURL = sessionStorage.getItem('idCardPhoto');
+  const infoDiv = document.getElementById('applicantInfo');
+
+  if (stored.name) {
+    infoDiv.innerHTML = `
+      <p>आवेदक: <b>${stored.name}</b></p>
+      <input type="file" id="paymentProof" accept="image/*" style="margin: 15px 0; display:block;">
+      <button id="paidBtn" class="btn">✅ मैंने भुगतान कर दिया है</button>
+    `;
+
+    document.getElementById('paidBtn').onclick = async () => {
+      const file = document.getElementById('paymentProof').files[0];
+      if (!file) { alert("कृपया पेमेंट स्क्रीनशॉट अपलोड करें!"); return; }
+      const btn = document.getElementById('paidBtn');
+      btn.disabled = true;
+      btn.innerText = "प्रक्रिया जारी है...";
+
+      try {
+        const bitmap = await createImageBitmap(file);
+        const canvas = document.createElement("canvas");
+        canvas.width = 600; canvas.height = bitmap.height * (600 / bitmap.width);
+        canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        const payScreenshot = canvas.toDataURL("image/jpeg", 0.7);
+
+        await addDoc(collection(db, 'IDcard'), {
+          ...stored,
+          photoBase64: photoDataURL,
+          paymentScreenshotBase64: payScreenshot,
+          status: 'Pending',
+          createdAt: serverTimestamp()
+        });
+
+        // सफलता वाला बड़ा डिज़ाइन स्क्रीन पर दिखाएं
+        document.getElementById('mainDiv').innerHTML = `
+          <div class="success-box">
+            <div class="success-tick">✅</div>
+            <div class="success-msg">आपका आवेदन सफल हो गया है!</div>
+            <p>आपका ID Card आवेदन संस्था द्वारा प्राप्त हो गया है। जल्द ही आपको ईमेल द्वारा अपडेट किया जाएगा।</p>
+            <a href="index.html" class="btn" style="text-decoration:none; display:inline-block; margin-top:20px;">होम पेज पर जाएं</a>
+          </div>
+        `;
+      } catch(e) {
+        alert("त्रुटि: " + e.message);
+        btn.disabled = false;
+      }
+    };
+  } else {
+    infoDiv.innerHTML = '<p>जानकारी नहीं मिली।</p>';
+  }
+</script>
 </body>
 </html>
