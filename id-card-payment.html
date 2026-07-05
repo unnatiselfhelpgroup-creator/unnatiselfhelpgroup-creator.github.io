@@ -3,73 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <title>ID Card भुगतान | उन्नति स्वयं सहायता समिति</title>
-  <!-- अपनी पुरानी CSS यहाँ रखें -->
   <script type="module">
     import { db } from "./firebase-config.js";
     import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    // सभी पुराने फंक्शन्स जो आपने पहले दिए थे
-    function esc(s){ return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-
-    async function fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const img = new Image();
-                img.src = reader.result;
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 600;
-                    const scale = MAX_WIDTH / img.width;
-                    canvas.width = MAX_WIDTH;
-                    canvas.height = img.height * scale;
-                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-                    resolve(canvas.toDataURL('image/jpeg', 0.7));
-                };
-            };
-            reader.onerror = error => reject(error);
-        });
-    }
 
     const stored = JSON.parse(sessionStorage.getItem('idCardApplicant') || '{}');
     const photoDataURL = sessionStorage.getItem('idCardPhoto');
     const infoDiv = document.getElementById('applicantInfo');
 
     if (stored.name) {
-        infoDiv.innerHTML = `
-            <div>नाम: ${esc(stored.name)}</div>
-            <div>मोबाइल: ${esc(stored.mobile)}</div>
-            <input type="file" id="paymentProof" accept="image/*">
-            <button id="paidBtn" class="btn">✅ मैंने भुगतान कर दिया है</button>
-        `;
+      infoDiv.innerHTML = `
+        <div class="info-box">
+          <p>आवेदक: ${stored.name}</p>
+          <p>मोबाइल: ${stored.mobile}</p>
+        </div>
+        <input type="file" id="paymentProof" accept="image/*">
+        <button id="paidBtn" class="btn">✅ मैंने भुगतान कर दिया है</button>
+      `;
 
-        document.getElementById('paidBtn').onclick = async () => {
-            const file = document.getElementById('paymentProof').files[0];
-            if (!file) { alert("स्क्रीनशॉट चुनें!"); return; }
-            
-            const btn = document.getElementById('paidBtn');
-            btn.disabled = true;
-            btn.innerText = "प्रक्रिया जारी है...";
+      document.getElementById('paidBtn').onclick = async () => {
+        const file = document.getElementById('paymentProof').files[0];
+        if (!file) { alert("कृपया भुगतान स्क्रीनशॉट अपलोड करें!"); return; }
+        
+        const btn = document.getElementById('paidBtn');
+        btn.disabled = true;
+        btn.innerText = "प्रक्रिया जारी है...";
 
-            try {
-                const payScreenshot = await fileToBase64(file);
-                const data = {
-                    ...stored,
-                    photoBase64: photoDataURL,
-                    paymentScreenshotBase64: payScreenshot,
-                    status: 'Pending',
-                    createdAt: serverTimestamp()
-                };
-                
-                await addDoc(collection(db, 'IDcard'), data);
-                alert("आवेदन सफल!");
-                window.location.href = 'index.html';
-            } catch(e) {
-                alert("त्रुटि: " + e.message);
-                btn.disabled = false;
-            }
-        };
+        try {
+          // सबसे सुरक्षित तरीका: इमेज को बिटमैप में बदलें
+          const bitmap = await createImageBitmap(file);
+          const canvas = document.createElement("canvas");
+          canvas.width = 600; 
+          canvas.height = bitmap.height * (600 / bitmap.width);
+          canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+          const payScreenshot = canvas.toDataURL("image/jpeg", 0.7);
+          bitmap.close();
+
+          const data = {
+            ...stored,
+            photoBase64: photoDataURL,
+            paymentScreenshotBase64: payScreenshot,
+            status: 'Pending',
+            createdAt: serverTimestamp()
+          };
+          
+          await addDoc(collection(db, 'IDcard'), data);
+          alert("आवेदन सफलतापूर्वक जमा हो गया!");
+          window.location.href = 'index.html';
+        } catch(e) {
+          console.error(e);
+          alert("❌ त्रुटि: फाइल लोड नहीं हो सकी। कृपया गैलरी से फोटो चुनें या दोबारा कोशिश करें।");
+          btn.disabled = false;
+          btn.innerText = "✅ मैंने भुगतान कर दिया है";
+        }
+      };
     }
   </script>
 </head>
