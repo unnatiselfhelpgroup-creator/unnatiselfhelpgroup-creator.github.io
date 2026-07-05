@@ -73,7 +73,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/f
 // ══ EmailJS CONFIG ══ (बाकी साइट में इस्तेमाल हो रही असली values, taaki applicant को notification जाए)
 emailjs.init("AvD_f76bB4qJYnGb0");
 const EJS_SERVICE   = "service_63pefgf";
-const EJS_TEMPLATE  = "template_wvzbj7p"; // applicant को जाने वाला template — EmailJS dashboard में यह टेम्पलेट मौजूद होना ज़रूरी है
+const EJS_TEMPLATE  = "template_xq7uilj"; // applicant को जाने वाला status-update template (to_email/status/doc_type वेरिएबल वाला) — पहले गलती से एडमिन-नोटिफिकेशन वाला template_wvzbj7p इस्तेमाल हो रहा था, जिसकी "To Email" फ़ील्ड हार्डकोडेड admin gmail पर थी, इसलिए applicant को कभी mail नहीं जाती थी
 
 // ══ URL PARAMS ══
 const params = new URLSearchParams(window.location.search);

@@ -111,6 +111,43 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
     });
   }
 
+  function viaBlobUrl() {
+    return new Promise((resolve, reject) => {
+      const objectUrl = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          let w = img.width, h = img.height;
+          if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          let b64 = canvas.toDataURL("image/jpeg", quality);
+          if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
+          URL.revokeObjectURL(objectUrl);
+          if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image compress करने के बाद भी बहुत बड़ी है। कृपया कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
+          else resolve(b64);
+        } catch (e) {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error("Image process करने में त्रुटि हुई: " + (e && e.message ? e.message : "अज्ञात त्रुटि")));
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("blob url load failed"));
+      };
+      img.src = objectUrl;
+    });
+  }
+
+  // एक कोशिश = blob-URL तरीका, फेल हो तो तुरंत FileReader तरीका।
+  // Android पर content:// URI कभी-कभी selection के फ़ौरन बाद ready नहीं होती,
+  // इसलिए दोनों तरीके एक साथ fail हो सकते हैं — इसलिए थोड़े रुक कर कुल 3 बार
+  // कोशिश करते हैं ताकि यूज़र को गलती से भी error न दिखे।
+  function oneAttempt() {
+    return viaBlobUrl().catch(() => viaFileReader());
+  }
+
   return new Promise((resolve, reject) => {
     if (!file || !file.type || !file.type.startsWith("image/")) {
       reject(new Error("कृपया एक वैध फोटो फ़ाइल चुनें (JPG/PNG)।"));
@@ -120,31 +157,20 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
       reject(new Error("फ़ाइल बहुत बड़ी है (20MB से ज़्यादा)। कृपया कम साइज़ का स्क्रीनशॉट/फोटो चुनें।"));
       return;
     }
-    const objectUrl = URL.createObjectURL(file);
-    const img = new Image();
-    img.onload = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        let w = img.width, h = img.height;
-        if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
-        canvas.width = w; canvas.height = h;
-        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-        let b64 = canvas.toDataURL("image/jpeg", quality);
-        if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
-        URL.revokeObjectURL(objectUrl);
-        if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image compress करने के बाद भी बहुत बड़ी है। कृपया कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
-        else resolve(b64);
-      } catch (e) {
-        URL.revokeObjectURL(objectUrl);
-        reject(new Error("Image process करने में त्रुटि हुई: " + (e && e.message ? e.message : "अज्ञात त्रुटि")));
+
+    const delays = [0, 400, 900]; // कुल 3 कोशिशें: तुरंत, फिर 400ms बाद, फिर 900ms बाद
+    let lastErr = null;
+
+    function tryAt(i) {
+      if (i >= delays.length) {
+        reject(lastErr || new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
+        return;
       }
-    };
-    img.onerror = () => {
-      URL.revokeObjectURL(objectUrl);
-      // पहला तरीका fail हुआ, अब पुराने FileReader तरीके से दोबारा कोशिश करें
-      viaFileReader().then(resolve).catch(reject);
-    };
-    img.src = objectUrl;
+      setTimeout(() => {
+        oneAttempt().then(resolve).catch(err => { lastErr = err; tryAt(i + 1); });
+      }, delays[i]);
+    }
+    tryAt(0);
   });
 }
 
