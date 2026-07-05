@@ -106,83 +106,8 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
           reject(new Error("यह फ़ाइल किसी भी तरीके से लोड नहीं हो पाई। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"))
         );
       };
-      reader.onerror = () => {
-        const real = reader.error;
-        reject(new Error("FileReader: " + (real && real.name ? real.name + " — " + (real.message || "") : "unknown")));
-      };
+      reader.onerror = () => reject(new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
       reader.readAsDataURL(file);
-    });
-  }
-
-  function viaBlobUrl() {
-    return new Promise((resolve, reject) => {
-      const objectUrl = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        try {
-          const canvas = document.createElement("canvas");
-          let w = img.width, h = img.height;
-          if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
-          canvas.width = w; canvas.height = h;
-          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          let b64 = canvas.toDataURL("image/jpeg", quality);
-          if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
-          URL.revokeObjectURL(objectUrl);
-          if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image compress करने के बाद भी बहुत बड़ी है। कृपया कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
-          else resolve(b64);
-        } catch (e) {
-          URL.revokeObjectURL(objectUrl);
-          reject(new Error("Image process करने में त्रुटि हुई: " + (e && e.message ? e.message : "अज्ञात त्रुटि")));
-        }
-      };
-      img.onerror = () => {
-        URL.revokeObjectURL(objectUrl);
-        reject(new Error("blob url load failed"));
-      };
-      img.src = objectUrl;
-    });
-  }
-
-  // तरीका 3: बिल्कुल अलग रास्ता — कोई Image decode / FileReader नहीं, सीधे raw bytes
-  // (Blob.arrayBuffer) से base64 बनाएं। कोई compression नहीं होता इसलिए सिर्फ छोटी
-  // फ़ाइलों पर काम करता है, पर यह उन मामलों में भी चल जाता है जहाँ canvas/Image
-  // decode या पुराना FileReader API किसी वजह से बार-बार fail हो रहा हो।
-  function viaRawBytes() {
-    return new Promise((resolve, reject) => {
-      if (file.size > 900 * 1024) {
-        reject(new Error("फ़ाइल compress नहीं हो पाई और बिना compress किए भेजने के लिए भी बहुत बड़ी है।"));
-        return;
-      }
-      file.arrayBuffer().then(buf => {
-        try {
-          const bytes = new Uint8Array(buf);
-          let binary = "";
-          const chunk = 0x8000;
-          for (let i = 0; i < bytes.length; i += chunk) {
-            binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
-          }
-          const b64 = "data:" + (file.type || "image/jpeg") + ";base64," + btoa(binary);
-          resolve(b64);
-        } catch (e) {
-          reject(new Error("raw bytes convert failed: " + (e && e.message ? e.message : "")));
-        }
-      }).catch(e => reject(new Error("arrayBuffer failed: " + (e && e.message ? e.message : ""))));
-    });
-  }
-
-  // एक कोशिश = blob-URL तरीका → फेल हो तो FileReader तरीका → फेल हो तो raw-bytes तरीका।
-  // असली error (जो सबसे आख़िर में आया) याद रखें ताकि पूरी तरह fail होने पर सही वजह दिखे।
-  function oneAttempt() {
-    let lastRealErr = null;
-    return viaBlobUrl().catch(e1 => {
-      lastRealErr = e1;
-      return viaFileReader().catch(e2 => {
-        lastRealErr = e2;
-        return viaRawBytes().catch(e3 => {
-          throw new Error((e3 && e3.message ? e3.message : "अज्ञात त्रुटि") +
-            " [debug: blob=" + (e1 && e1.message) + "]");
-        });
-      });
     });
   }
 
@@ -195,24 +120,31 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
       reject(new Error("फ़ाइल बहुत बड़ी है (20MB से ज़्यादा)। कृपया कम साइज़ का स्क्रीनशॉट/फोटो चुनें।"));
       return;
     }
-
-    const delays = [0, 400, 900]; // कुल 3 कोशिशें: तुरंत, फिर 400ms बाद, फिर 900ms बाद
-    let lastErr = null;
-
-    function tryAt(i) {
-      if (i >= delays.length) {
-        reject(lastErr || new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
-        return;
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        let w = img.width, h = img.height;
+        if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        let b64 = canvas.toDataURL("image/jpeg", quality);
+        if (b64.length * 0.75 > 900 * 1024) b64 = canvas.toDataURL("image/jpeg", 0.45);
+        URL.revokeObjectURL(objectUrl);
+        if (b64.length * 0.75 > 900 * 1024) reject(new Error("Image compress करने के बाद भी बहुत बड़ी है। कृपया कम रेज़ोल्यूशन वाला स्क्रीनशॉट इस्तेमाल करें।"));
+        else resolve(b64);
+      } catch (e) {
+        URL.revokeObjectURL(objectUrl);
+        reject(new Error("Image process करने में त्रुटि हुई: " + (e && e.message ? e.message : "अज्ञात त्रुटि")));
       }
-      setTimeout(() => {
-        oneAttempt().then(resolve).catch(err => {
-          console.error("fileToBase64 attempt " + (i + 1) + " failed:", err);
-          lastErr = new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।\n(" + (err && err.message ? err.message : "") + ")");
-          tryAt(i + 1);
-        });
-      }, delays[i]);
-    }
-    tryAt(0);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      // पहला तरीका fail हुआ, अब पुराने FileReader तरीके से दोबारा कोशिश करें
+      viaFileReader().then(resolve).catch(reject);
+    };
+    img.src = objectUrl;
   });
 }
 
@@ -247,6 +179,9 @@ if (stored.name) {
     <p class="note">भुगतान के बाद आपका ID Card संस्था द्वारा सत्यापन के पश्चात जारी किया जाएगा।</p>
   `;
 
+  let compressedScreenshot = null;   // फ़ोटो चुनते ही तुरंत compress करके यहाँ रख देंगे
+  let screenshotReady = null;        // उस compress ऑपरेशन का Promise (ताकि क्लिक पर उसका इंतज़ार कर सकें)
+
   document.getElementById('paymentProof').addEventListener('change', function() {
     const file = this.files[0];
     if(!file) return;
@@ -265,19 +200,35 @@ if (stored.name) {
     const img = document.getElementById('previewImg');
     img.src = selectedImageDataUrl; img.style.display = 'block';
     document.getElementById('paidBtn').style.display = 'block';
+
+    // ── ज़रूरी फ़िक्स ──
+    // फ़ोटो चुनते ही तुरंत compress/base64 कर लेते हैं। Android पर file के
+    // reference को कुछ देर बाद (जैसे Razorpay ऐप खोलकर वापस आने पर) पढ़ने की
+    // अनुमति (permission) expire हो जाती है — इसलिए submit बटन दबाने तक
+        // इंतज़ार करने पर "NotReadableError / file could not be read" आता था।
+    compressedScreenshot = null;
+    screenshotReady = fileToBase64(file).then(b64 => {
+      compressedScreenshot = b64;
+      return b64;
+    }).catch(err => {
+      // यहाँ फेल होने पर बटन दबाने पर दोबारा साफ़ error दिखाएँगे
+      compressedScreenshot = null;
+      return Promise.reject(err);
+    });
   });
 
   document.getElementById('paidBtn').onclick = async () => {
     const fileInput = document.getElementById('paymentProof');
-    if(fileInput.files.length === 0){ alert('⚠️ कृपया भुगतान स्क्रीनशॉट अपलोड करें!'); return; }
+    if(fileInput.files.length === 0 || !screenshotReady){ alert('⚠️ कृपया भुगतान स्क्रीनशॉट अपलोड करें!'); return; }
     const btn = document.getElementById('paidBtn');
     btn.disabled = true; btn.innerText = 'प्रक्रिया जारी है...';
     document.getElementById('progressWrap').style.display = 'block';
-    setProgress(20, 'Image compress हो रही है...');
+    setProgress(20, 'Image तैयार हो रही है...');
 
     try {
-      // Compress payment screenshot
-      const payScreenshot = await fileToBase64(fileInput.files[0]);
+      // फ़ोटो चुनते ही जो compress शुरू हुआ था, उसका नतीजा यहाँ इस्तेमाल करें
+      // (अगर वो अभी तक पूरा नहीं हुआ तो यहीं पूरा होने का इंतज़ार करेगा)
+      const payScreenshot = compressedScreenshot || await screenshotReady;
       setProgress(50, 'Firestore में save हो रहा है...');
 
       // Compress applicant photo if available
