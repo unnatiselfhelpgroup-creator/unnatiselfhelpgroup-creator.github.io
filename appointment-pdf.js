@@ -88,8 +88,27 @@ async function ensureAppointmentFontsLoaded() {
     await new Promise(r => setTimeout(r, 500));
 }
 
+// QR कोड बाहरी डोमेन (api.qrserver.com) से आता है — अगर वह CORS सपोर्ट न करे तो
+// html2canvas का canvas "tainted" हो सकता है। इसे base64 में बदलने की कोशिश करते
+// हैं; फेल हो तो चुपचाप असली URL पर वापस आ जाते हैं।
+async function urlToDataURLSafe(url) {
+  try {
+    const res = await fetch(url, { mode: "cors" });
+    const blob = await res.blob();
+    return await new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(r.result);
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
+  } catch (e) {
+    console.warn("QR को base64 में बदलना फेल हुआ, असली URL इस्तेमाल होगा:", e);
+    return url;
+  }
+}
+
 // पत्र का पूरा markup (style सहित) बनाता है — PDF और Preview दोनों इसे इस्तेमाल करते हैं
-function buildAppointmentMarkup(data) {
+function buildAppointmentMarkup(data, qrOverrideURL) {
     const volunteerId = escapeHtml(data.volunteer_id || data.volunteerId || "-");
     const now = new Date();
     const dateStr = now.toLocaleDateString("hi-IN", {day:"2-digit", month:"long", year:"numeric"});
@@ -116,7 +135,7 @@ function buildAppointmentMarkup(data) {
     const qrData = encodeURIComponent(
         `https://unnatiselfhelpgroup-creator.github.io/idverification.html?id=${data.volunteer_id || data.volunteerId || ""}`
     );
-    const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${qrData}`;
+    const qrURL = qrOverrideURL || `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${qrData}`;
 
     return `
     <style>
@@ -267,12 +286,25 @@ window.generateAppointmentPDF = async function (data) {
     await ensurePdfLibsReady({ canvas: false, jspdf: false, html2pdf: true });
     await ensureAppointmentFontsLoaded();
 
+    // QR को पहले base64 बना लें (CORS/tainted-canvas का खतरा कम करने के लिए)
+    const qrData = encodeURIComponent(
+        `https://unnatiselfhelpgroup-creator.github.io/idverification.html?id=${data.volunteer_id || data.volunteerId || ""}`
+    );
+    const qrURLOriginal = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${qrData}`;
+    let qrDataURL = null;
+    try { qrDataURL = await urlToDataURLSafe(qrURLOriginal); } catch (e) { qrDataURL = null; }
+
     const element = document.createElement('div');
-    // ज़रूरी: color:#222 explicitly सेट करें — वरना यह element जिस पेज (जैसे admin-dashboard.html,
-    // जिसका body{color:#fff} है) में जनरेट हो रहा है, उसी का सफ़ेद रंग नाम/पता/मोबाइल जैसे
-    // फ़ील्ड्स पर inherit हो जाता है और वे PDF में लगभग अदृश्य (हल्के/धुंधले) दिखते हैं।
-    element.style.cssText = "width:794px;padding:0;background:#FFFDF8;font-family:'Poppins',sans-serif;position:relative;color:#222222;";
-    element.innerHTML = buildAppointmentMarkup(data);
+    // ✅ मुख्य फिक्स: यह element पहले कभी document में जोड़ा ही नहीं जाता था,
+    // इसलिए ब्राउज़र इसका लेआउट/रेंडर तैयार ही नहीं करता था और html2canvas
+    // बिल्कुल खाली canvas बना देता था — PDF "बन" तो जाती थी पर अंदर कुछ नहीं होता।
+    // अब इसे पेज में जोड़ते हैं, बस स्क्रीन पर दिखे बिना (z-index पीछे रखकर)।
+    element.style.cssText = "width:794px;padding:0;background:#FFFDF8;font-family:'Poppins',sans-serif;position:fixed;top:0;left:0;z-index:-9999;color:#222222;";
+    element.innerHTML = buildAppointmentMarkup(data, qrDataURL);
+    document.body.appendChild(element);
+
+    // इमेज/फॉन्ट पेंट होने के लिए थोड़ा समय दें
+    await new Promise(r => setTimeout(r, 400));
 
     const opt = {
         margin: 5,
@@ -282,7 +314,24 @@ window.generateAppointmentPDF = async function (data) {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    await html2pdf().set(opt).from(element).save();
+    // ✅ अगर capture किसी वजह से अटक जाए तो बटन हमेशा के लिए "बन रहा है..." पर
+    // न रुके — 35 सेकंड बाद साफ़ एरर देकर बाहर आ जाएं।
+    function withTimeout(promise, ms, msg) {
+        return Promise.race([
+            promise,
+            new Promise((_, reject) => setTimeout(() => reject(new Error(msg)), ms))
+        ]);
+    }
+
+    try {
+        await withTimeout(
+            html2pdf().set(opt).from(element).save(),
+            35000,
+            "PDF बनाने में बहुत समय लग रहा है। कृपया दोबारा कोशिश करें, या ऊपर 'Preview' खोलकर वहाँ से 'प्रिंट करें → Save as PDF' इस्तेमाल करें।"
+        );
+    } finally {
+        document.body.removeChild(element);
+    }
 };
 
 // ── नए टैब में Preview खोलें (Print/Download बटन के साथ) ──
