@@ -336,8 +336,21 @@ window.previewIDCard = function (data) {
       .btn-print{background:#138808;color:#fff;}
       .btn-close{background:#8B0000;color:#fff;}
       .cards-wrap{max-width:900px;margin:24px auto 60px;padding:0 10px;display:flex;flex-wrap:wrap;gap:24px;justify-content:center;}
+      /* हर कार्ड को उसके असली साइज़ (86mm x 54mm, यहाँ px में) के हिसाब से एक
+         frame में रखते हैं, ताकि JS से उसे मोबाइल स्क्रीन में सही अनुपात में
+         scale किया जा सके — बिना scale के, पूरा 1032px चौड़ा कार्ड फ़ोन की
+         ~380px स्क्रीन में सिर्फ़ आधा-अधूरा (ज़्यादातर सिर्फ़ फ़ोटो) दिखता था। */
+      .card-frame{position:relative;margin:0 auto;}
+      .card-frame .idc-card{position:absolute;top:0;left:0;transform-origin:top left;}
       @page{margin:8mm;}
-      @media print{ .toolbar{display:none;} body{background:#fff;} .cards-wrap{margin:0;max-width:100%;gap:10mm;} }
+      @media print{
+        .toolbar{display:none;}
+        body{background:#fff;}
+        .cards-wrap{margin:0;max-width:100%;gap:10mm;}
+        /* प्रिंट में असली साइज़ (86mm x 54mm) पर वापस, कोई scale नहीं */
+        .card-frame{width:auto !important;height:auto !important;}
+        .card-frame .idc-card{position:static !important;transform:none !important;}
+      }
     </style>
   </head>
   <body>
@@ -347,6 +360,29 @@ window.previewIDCard = function (data) {
     </div>
     <div class="cards-wrap">${markup}</div>
   </body>
+  <script>
+    (function(){
+      var CARD_W = ${W}, CARD_H = ${H};
+      function fitCards(){
+        var maxW = Math.min(window.innerWidth - 32, 420);
+        var scale = Math.min(1, maxW / CARD_W);
+        document.querySelectorAll('.idc-card').forEach(function(card){
+          var frame = card.parentElement;
+          if(!frame.classList.contains('card-frame')){
+            frame = document.createElement('div');
+            frame.className = 'card-frame';
+            card.parentNode.insertBefore(frame, card);
+            frame.appendChild(card);
+          }
+          frame.style.width = (CARD_W * scale) + 'px';
+          frame.style.height = (CARD_H * scale) + 'px';
+          card.style.transform = 'scale(' + scale + ')';
+        });
+      }
+      fitCards();
+      window.addEventListener('resize', fitCards);
+    })();
+  </script>
   </html>
   `);
   win.document.close();
