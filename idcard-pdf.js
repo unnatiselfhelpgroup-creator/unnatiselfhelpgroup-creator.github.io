@@ -184,7 +184,7 @@ function buildIDCardMarkup(data, forCapture) {
       <div>
         <div class="org">उन्नति स्वयं सहायता समिति</div>
         <div class="sub">🐄 गौ माता • राष्ट्रमाता सेवा में समर्पित</div>
-        <div class="idc-reginfo">NGO Darpan: ${NGO_DARPAN} | PAN: ${NGO_PAN}</div>
+        <div class="idc-reginfo">NGO Darpan: ${NGO_DARPAN}</div>
       </div>
     </div>
     <div class="idc-tri"><span></span><span></span><span></span></div>
@@ -218,7 +218,7 @@ function buildIDCardMarkup(data, forCapture) {
     <div class="idc-back-head">
       <div class="o1">उन्नति स्वयं सहायता समिति</div>
       <div class="o2">🐄 OFFICIAL MEMBER ID CARD · गौ सेवा अभियान</div>
-      <div class="idc-reginfo">NGO Darpan: ${NGO_DARPAN} | PAN: ${NGO_PAN} | Reg: ${NGO_REG}</div>
+      <div class="idc-reginfo">NGO Darpan: ${NGO_DARPAN} | Reg: ${NGO_REG}</div>
     </div>
     <div class="idc-idbox">
       <div class="lbl">Volunteer ID</div>
@@ -285,28 +285,120 @@ window.generateIDCardPDF = async function (data) {
 
   const CARD_W_MM = 86, CARD_H_MM = 54;
 
-  const wrap = document.createElement("div");
-  wrap.style.cssText = "position:fixed;left:-9999px;top:0;z-index:-1;";
-  document.body.appendChild(wrap);
-  wrap.innerHTML = buildIDCardMarkup(data, true);
+  // ✅ FIX: html2canvas किसी element के CSS "object-fit: cover" को सही से सपोर्ट
+  // नहीं करता — इसलिए फोटो अपने असली (uncropped) आकार में रेंडर हो जाती थी,
+  // जिससे फोटो बहुत बड़ी दिखती और बाकी कार्ड खाली/ढका हुआ लगता था। अब फोटो को
+  // बॉक्स के असली नाप के हिसाब से पहले ही canvas पर crop करके data URL बना
+  // लेते हैं, ताकि html2canvas को कोई object-fit समझने की ज़रूरत ही न पड़े।
+  function cropCover(srcDataUrl, targetW, targetH) {
+    return new Promise((resolve, reject) => {
+      if (!srcDataUrl) { reject(new Error("no image")); return; }
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = targetW; canvas.height = targetH;
+          const ctx = canvas.getContext("2d");
+          const srcRatio = img.width / img.height;
+          const dstRatio = targetW / targetH;
+          let sx, sy, sw, sh;
+          if (srcRatio > dstRatio) { sh = img.height; sw = sh * dstRatio; sx = (img.width - sw) / 2; sy = 0; }
+          else { sw = img.width; sh = sw / dstRatio; sx = 0; sy = (img.height - sh) / 2; }
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
+          resolve(canvas.toDataURL("image/jpeg", 0.92));
+        } catch (e) { reject(e); }
+      };
+      img.onerror = () => reject(new Error("photo crop के लिए लोड नहीं हो पाई"));
+      img.src = srcDataUrl;
+    });
+  }
 
-  // इमेज (लोगो/फोटो/QR/हस्ताक्षर) लोड होने के लिए wait
-  await new Promise(r => setTimeout(r, 400));
+  // QR कोड बाहरी डोमेन (api.qrserver.com) से आता है — अगर वह CORS सपोर्ट न करे तो
+  // html2canvas का canvas "tainted" हो सकता है और पूरी capture ही fail/blank हो
+  // सकती है। इसलिए इसे पहले base64 में बदलने की कोशिश करते हैं; फेल हो तो चुपचाप
+  // असली URL पर वापस आ जाते हैं (सिर्फ QR प्रभावित होगा, पूरा कार्ड नहीं)।
+  async function urlToDataURLSafe(url) {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      const blob = await res.blob();
+      return await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.onerror = reject;
+        r.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn("QR को base64 में बदलना फेल हुआ, असली URL इस्तेमाल होगा:", e);
+      return url;
+    }
+  }
+
+  // ✅ FIX: पहले element को left:-9999px पर बहुत दूर पोज़िशन करते थे, जिससे कुछ
+  // मोबाइल Chrome वर्ज़न पर html2canvas पूरी तरह खाली canvas बना देता था।
+  // अब इसे viewport के अंदर (0,0) पर रखते हैं पर पीछे (z-index -9999) छुपा देते
+  // हैं, ताकि रेंडरिंग हमेशा सही से हो और यूज़र को दिखे भी नहीं।
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "position:fixed;top:0;left:0;width:0;height:0;overflow:visible;z-index:-9999;opacity:1;pointer-events:none;";
+  document.body.appendChild(wrap);
+
+  let qrDataURL;
+  try { qrDataURL = await urlToDataURLSafe(
+    `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${encodeURIComponent(
+      `https://unnatiselfhelpgroup-creator.github.io/idverification.html?id=${data.volunteer_id || data.volunteerId || ""}`
+    )}`
+  ); } catch (e) { qrDataURL = null; }
+
+  const dataForCapture = qrDataURL ? Object.assign({}, data, { __qrOverride: qrDataURL }) : data;
+  wrap.innerHTML = buildIDCardMarkup(dataForCapture, true);
+  if (qrDataURL) {
+    wrap.querySelectorAll(".idc-qr img").forEach(img => { img.src = qrDataURL; });
+  }
+
+  // इमेज (लोगो/QR/हस्ताक्षर) लोड होने के लिए थोड़ा wait
+  await new Promise(r => setTimeout(r, 300));
+
+  // फोटो को उसके असली रेंडर हो चुके बॉक्स के नाप में crop करें (मुख्य फिक्स)
+  try {
+    const photoBox = wrap.querySelector("#idc-front .idc-photo");
+    const photoImg = photoBox ? photoBox.querySelector("img") : null;
+    if (photoImg && data.photoBase64) {
+      const rect = photoBox.getBoundingClientRect();
+      const targetW = Math.max(1, Math.round(rect.width));
+      const targetH = Math.max(1, Math.round(rect.height));
+      const cropped = await cropCover(data.photoBase64, targetW * 2, targetH * 2); // 2x for sharpness
+      await new Promise((resolve) => {
+        photoImg.onload = resolve;
+        photoImg.onerror = resolve; // फेल हो तो भी आगे बढ़ें, बाकी कार्ड सही बनेगा
+        photoImg.src = cropped;
+      });
+    }
+  } catch (e) {
+    console.warn("Photo crop फेल हुआ, मूल फोटो के साथ आगे बढ़ रहे हैं:", e);
+  }
 
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: [CARD_H_MM, CARD_W_MM] });
 
   async function captureToPDF(elId, isFirst) {
-    const el = document.getElementById(elId);
-    const canvas = await html2canvas(el, { scale: 3, useCORS: true, backgroundColor: "#ffffff" });
+    const el = wrap.querySelector("#" + elId);
+    const canvas = await html2canvas(el, { scale: 3, useCORS: true, allowTaint: false, backgroundColor: "#ffffff" });
     const img = canvas.toDataURL("image/jpeg", 0.96);
     if (!isFirst) pdf.addPage([CARD_H_MM, CARD_W_MM], "landscape");
     pdf.addImage(img, "JPEG", 0, 0, CARD_W_MM, CARD_H_MM);
   }
 
+  // ✅ FIX: अगर किसी वजह से capture अटक जाए, तो बटन हमेशा के लिए "बन रहा है..."
+  // पर न रुका रह जाए — 30 सेकंड बाद साफ़ एरर देकर बाहर आ जाएं।
+  function withTimeout(promise, ms, msg) {
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error(msg)), ms))
+    ]);
+  }
+
   try {
-    await captureToPDF("idc-front", true);
-    await captureToPDF("idc-back", false);
+    await withTimeout(captureToPDF("idc-front", true), 30000, "PDF बनाने में बहुत समय लग रहा है (फ्रंट साइड)। कृपया दोबारा कोशिश करें।");
+    await withTimeout(captureToPDF("idc-back", false), 30000, "PDF बनाने में बहुत समय लग रहा है (बैक साइड)। कृपया दोबारा कोशिश करें।");
   } finally {
     document.body.removeChild(wrap);
   }
