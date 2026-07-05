@@ -106,7 +106,10 @@ function fileToBase64(file, maxW = 800, quality = 0.70) {
           reject(new Error("यह फ़ाइल किसी भी तरीके से लोड नहीं हो पाई। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"))
         );
       };
-      reader.onerror = () => reject(new Error("यह फ़ाइल किसी भी तरीके से पढ़ी नहीं जा सकी। कृपया कोई और फोटो/स्क्रीनशॉट आज़माएँ।"));
+      reader.onerror = () => {
+        const real = reader.error;
+        reject(new Error("FileReader: " + (real && real.name ? real.name + " — " + (real.message || "") : "unknown")));
+      };
       reader.readAsDataURL(file);
     });
   }

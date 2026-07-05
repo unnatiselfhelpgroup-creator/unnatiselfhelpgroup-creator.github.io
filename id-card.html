@@ -178,18 +178,56 @@
       });
     }
 
-    // तरीका 2: पुराना सीधा FileReader तरीका (fallback)
+    // तरीका 2: पुराना सीधा FileReader तरीका (fallback) — असली browser error (reader.error) भी capture करें
     function viaFileReader() {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = e => resolve(e.target.result);
-        reader.onerror = () => reject(new Error("FileReader failed"));
+        reader.onerror = () => {
+          const real = reader.error;
+          reject(new Error("FileReader: " + (real && real.name ? real.name + " — " + (real.message || "") : "unknown")));
+        };
         reader.readAsDataURL(file);
       });
     }
 
+    // तरीका 3: बिल्कुल अलग रास्ता — कोई Image decode / FileReader नहीं, सीधे raw bytes
+    // (Blob.arrayBuffer) से data URL बनाएं। कोई compression नहीं होती, इसलिए सिर्फ
+    // छोटी फ़ाइलों पर काम करता है, पर वहाँ भी चल जाता है जहाँ ऊपर के दोनों तरीके
+    // किसी permission/storage-provider गड़बड़ी की वजह से बार-बार fail हो रहे हों।
+    function viaRawBytes() {
+      return new Promise((resolve, reject) => {
+        if (file.size > 2 * 1024 * 1024) {
+          reject(new Error("फ़ाइल raw तरीके के लिए भी बहुत बड़ी है।"));
+          return;
+        }
+        file.arrayBuffer().then(buf => {
+          try {
+            const bytes = new Uint8Array(buf);
+            let binary = "";
+            const chunk = 0x8000;
+            for (let i = 0; i < bytes.length; i += chunk) {
+              binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+            }
+            resolve("data:" + (file.type || "image/jpeg") + ";base64," + btoa(binary));
+          } catch (e) {
+            reject(new Error("raw bytes convert failed: " + (e && e.message ? e.message : "")));
+          }
+        }).catch(e => reject(new Error("arrayBuffer failed: " + (e && e.message ? e.message : ""))));
+      });
+    }
+
     function oneAttempt() {
-      return viaBlobUrl().catch(() => viaFileReader());
+      let e1msg = "";
+      return viaBlobUrl().catch(err1 => {
+        e1msg = err1 && err1.message ? err1.message : "";
+        return viaFileReader().catch(err2 => {
+          return viaRawBytes().catch(err3 => {
+            throw new Error((err3 && err3.message ? err3.message : "") +
+              " [blob: " + e1msg + "] [reader: " + (err2 && err2.message ? err2.message : "") + "]");
+          });
+        });
+      });
     }
 
     // Android पर content:// URI select होने के तुरंत बाद कभी-कभी ready नहीं होती,
