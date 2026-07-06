@@ -16,15 +16,14 @@
 <meta name="description" content="उन्नति स्वयं सहायता समिति — Volunteer ID Card online verification. Verify member identity instantly.">
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cinzel:wght@700;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --saffron:#FF6B00;--saffron-light:#FF9500;
   --green:#138808;--green-light:#1AA310;
   --gold:#C8960C;--gold-light:#F2CE63;
-  --navy:#071b34;--navy2:#0d2545;
-  --maroon:#4a0404;--maroon2:#8B0000;
+  --maroon:#4a0404;--maroon2:#8B0000;--maroon-deep:#3a0303;
   --dark:#1a0a00;
   --shadow:0 4px 24px rgba(255,107,0,0.10);
 }
@@ -64,54 +63,69 @@ main{max-width:520px;margin:0 auto;padding:28px 16px 48px;}
 #result-box{display:none;animation:fadeUp 0.4s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* ═══ ID CARD — Tricolor themed, matches pdf-generator design ═══ */
-.id-card{background:linear-gradient(135deg,#fff8e7,#fff3d0);border:3px solid var(--gold);border-radius:18px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.25);margin-bottom:16px;position:relative;}
-.id-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:6px;background:var(--saffron);}
-.id-card::after{content:'';position:absolute;top:0;right:0;bottom:0;width:6px;background:var(--green);}
+/* ═══════════════════════════════════════════════════════════
+   ID CARD — "Sacred India" Premium थीम, मुख्य ID Card जैसा ही
+   (गोल्ड डबल-बॉर्डर, कॉर्नर ब्रैकेट, वॉटरमार्क, गहरा मरून हेडर)
+   ═══════════════════════════════════════════════════════════ */
+.id-card{position:relative;background:linear-gradient(160deg,#fffdf7,#fdf2d8 55%,#fbe9c4);
+  border:2.5px solid var(--gold);border-radius:16px;overflow:hidden;
+  box-shadow:0 10px 32px rgba(0,0,0,0.22);margin-bottom:16px;}
+.id-card-border-inner{position:absolute;inset:6px;border:0.75px solid var(--gold);border-radius:12px;pointer-events:none;z-index:4;}
+.id-card-side{position:absolute;top:0;bottom:0;width:7px;z-index:2;}
+.id-card-side-l{left:0;background:linear-gradient(var(--saffron),var(--saffron-light));}
+.id-card-side-r{right:0;background:linear-gradient(var(--green),var(--green-light));}
+.id-card-corner{position:absolute;width:16px;height:16px;border-color:var(--gold);z-index:4;}
+.id-card-cc-tl{top:9px;left:14px;border-top:2px solid;border-left:2px solid;border-radius:4px 0 0 0;}
+.id-card-cc-tr{top:9px;right:14px;border-top:2px solid;border-right:2px solid;border-radius:0 4px 0 0;}
+.id-card-cc-bl{bottom:9px;left:14px;border-bottom:2px solid;border-left:2px solid;border-radius:0 0 0 4px;}
+.id-card-cc-br{bottom:9px;right:14px;border-bottom:2px solid;border-right:2px solid;border-radius:0 0 4px 0;}
+.id-card-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0.055;transform:rotate(-8deg);pointer-events:none;z-index:1;}
+.id-card-watermark img{width:58%;}
 
-/* HEADER: Navy bg with logo */
-.id-card-top{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:14px 18px 12px;display:flex;align-items:center;gap:12px;}
-.id-card-top img{height:50px;width:50px;border-radius:50%;border:2px solid var(--gold-light);object-fit:cover;flex-shrink:0;}
-.id-card-top .org-name{font-family:'Tiro Devanagari Hindi',serif;font-size:0.95rem;color:var(--gold-light);font-weight:700;line-height:1.3;}
-.id-card-top .org-sub{font-size:0.62rem;color:var(--saffron-light);margin-top:2px;letter-spacing:0.5px;}
+/* HEADER: गहरा मरून-भगवा gradient, मुख्य logo के साथ */
+.id-card-top{position:relative;z-index:2;background:linear-gradient(120deg,var(--maroon-deep) 0%,var(--maroon2) 45%,#a8420c 100%);
+  padding:16px 18px 13px 20px;display:flex;align-items:center;gap:12px;}
+.id-card-top::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(242,206,99,0.22),transparent 55%);}
+.id-card-top img{position:relative;height:52px;width:52px;border-radius:50%;border:2px solid var(--gold-light);object-fit:cover;flex-shrink:0;}
+.id-card-top .org-name{position:relative;font-family:'Tiro Devanagari Hindi',serif;font-size:1rem;color:var(--gold-light);font-weight:700;line-height:1.3;text-shadow:0 1px 2px rgba(0,0,0,0.4);}
+.id-card-top .org-sub{position:relative;font-size:0.64rem;color:var(--saffron-light);margin-top:3px;letter-spacing:0.4px;display:flex;align-items:center;gap:3px;}
 
 /* Tricolor thin divider */
-.id-card-tricolor{height:4px;display:flex;}
+.id-card-tricolor{height:4px;display:flex;position:relative;z-index:2;}
 .id-card-tricolor span{flex:1;}
 .id-card-tricolor span:nth-child(1){background:var(--saffron);}
 .id-card-tricolor span:nth-child(2){background:#fff;}
 .id-card-tricolor span:nth-child(3){background:var(--green);}
 
 /* TITLE BAR */
-.id-card-header{background:var(--saffron);padding:7px 16px;text-align:center;}
-.id-card-header h4{color:#fff;font-size:0.78rem;font-family:'Tiro Devanagari Hindi',serif;letter-spacing:0.3px;}
+.id-card-header{position:relative;z-index:2;background:linear-gradient(90deg,#a8420c,var(--saffron) 50%,#a8420c);
+  padding:7px 16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.15) inset;}
+.id-card-header h4{color:#fff;font-size:0.78rem;font-family:'Tiro Devanagari Hindi',serif;letter-spacing:0.3px;text-shadow:0 1px 1px rgba(0,0,0,0.3);}
 
 /* BODY: photo + details */
-.id-card-body{padding:16px 18px;display:flex;gap:14px;align-items:flex-start;background:#fff;}
-.member-photo{width:78px;height:90px;border-radius:8px;border:2px solid var(--gold);flex-shrink:0;background:#f0e8e0;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.id-card-body{position:relative;z-index:2;padding:17px 19px;display:flex;gap:15px;align-items:flex-start;}
+.member-photo{width:80px;height:92px;border-radius:8px;border:2px solid var(--gold);flex-shrink:0;background:#f0e8e0;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;box-shadow:0 0 0 1px #fff,0 2px 8px rgba(0,0,0,0.15);}
 .member-photo img{width:100%;height:100%;object-fit:cover;}
-.member-details{flex:1;padding-top:2px;}
-.member-name{font-size:1.05rem;font-weight:700;color:var(--navy);font-family:'Tiro Devanagari Hindi',serif;margin-bottom:4px;}
-.member-designation{display:inline-block;background:var(--saffron);color:#fff;font-size:0.7rem;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:9px;}
-.detail-row{display:flex;gap:6px;margin-bottom:4px;font-size:0.76rem;align-items:flex-start;}
-.detail-row .dl{color:var(--maroon);min-width:64px;flex-shrink:0;font-weight:700;}
-.detail-row .dv{color:var(--dark);font-weight:500;}
+.member-details{flex:1;padding-top:2px;min-width:0;}
+.member-name{font-size:1.08rem;font-weight:700;color:var(--maroon-deep);font-family:'Tiro Devanagari Hindi',serif;margin-bottom:5px;}
+.member-designation{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(120deg,var(--maroon-deep),#a8420c);color:var(--gold-light);font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+.detail-row{display:flex;gap:6px;margin-bottom:5px;font-size:0.78rem;align-items:flex-start;}
+.detail-row .dl{color:#7a1a08;min-width:64px;flex-shrink:0;font-weight:700;}
+.detail-row .dv{color:#333;font-weight:500;}
 
-/* ID NUMBER bar */
-.id-number-bar{background:linear-gradient(90deg,#fff8e7,#fff3d0);padding:9px 18px;border-top:1px solid #f0e0c0;}
-.id-num-label{font-size:0.62rem;color:#888;text-transform:uppercase;letter-spacing:0.5px;}
-.id-num-value{font-family:'Courier New',monospace;font-weight:700;color:var(--maroon);font-size:0.88rem;letter-spacing:1px;}
-
-/* FOOTER: vol-id + verified stamp */
-.id-card-footer{padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border-top:1px solid #f0e0c0;}
-.vol-id-label{font-size:0.62rem;color:#888;text-transform:uppercase;}
-.vol-id{font-family:'Courier New',monospace;font-weight:700;color:var(--maroon);font-size:0.9rem;letter-spacing:1.5px;}
-.verified-stamp{background:var(--green);color:#fff;font-size:0.68rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.3px;white-space:nowrap;}
+/* VOLUNTEER ID + STATUS FOOTER */
+.id-card-footer{position:relative;z-index:2;padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;
+  background:linear-gradient(90deg,#fdf0d0,#fbe4b0);border-top:1px solid #e8c878;}
+.vol-id-label{font-size:0.62rem;color:#8a6a20;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.vol-id{font-family:'Courier New',monospace;font-weight:800;color:var(--maroon2);font-size:0.92rem;letter-spacing:1.5px;}
+.verified-stamp{background:var(--green);color:#fff;font-size:0.68rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:0.3px;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
 
 /* SIGNATURE */
-.id-card-signature{border-top:1px dashed #e0c89a;padding:10px 18px 14px;display:flex;justify-content:flex-end;align-items:flex-end;flex-direction:column;background:linear-gradient(90deg,#fff,#fff8e7);}
+.id-card-signature{position:relative;z-index:2;border-top:1px dashed #e0c89a;padding:11px 18px 15px;display:flex;justify-content:flex-end;align-items:flex-end;flex-direction:column;
+  background:linear-gradient(90deg,#fdf0d0,#fbe4b0);}
 .id-card-signature img{height:38px;opacity:0.92;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.1));}
-.sig-label{font-size:0.62rem;color:var(--maroon);margin-top:4px;text-align:center;border-top:1px solid #C8960C;padding-top:3px;width:120px;font-weight:600;}
+.sig-label{font-size:0.62rem;color:var(--maroon2);margin-top:4px;text-align:center;border-top:1px solid var(--gold);padding-top:3px;width:120px;font-weight:700;}
 
 /* EXTRA INFO */
 .extra-info{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--shadow);border:1px solid rgba(19,136,8,0.12);position:relative;overflow:hidden;}
@@ -273,13 +287,14 @@ window.verifyID = async function() {
 
       resultBox.innerHTML = `
         <div class="id-card">
+          <div class="id-card-watermark"><img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt=""></div>
 
-          <!-- TOP: NGO LOGO + NAME (navy header) -->
+          <!-- TOP: NGO LOGO + NAME (Sacred India माहौल वाला मरून-भगवा हेडर) -->
           <div class="id-card-top">
             <img src="https://unnatiselfhelpgroup-creator.github.io/ngologo.png" alt="NGO Logo">
             <div>
               <div class="org-name">उन्नति स्वयं सहायता समिति</div>
-              <div class="org-sub">NGO Darpan: UA/2016/0108273 | Lalkuan, Uttarakhand</div>
+              <div class="org-sub">🐄 गौ माता • राष्ट्रमाता सेवा में समर्पित</div>
             </div>
           </div>
 
@@ -296,7 +311,7 @@ window.verifyID = async function() {
             <div class="member-photo">${photoHtml}</div>
             <div class="member-details">
               <div class="member-name">${escapeHtml(name)}</div>
-              <span class="member-designation">${escapeHtml(designation)}</span>
+              <span class="member-designation">🐄 ${escapeHtml(designation)}</span>
               <div class="detail-row">
                 <span class="dl">पिता/पति:</span>
                 <span class="dv">${escapeHtml(fatherName)}</span>
@@ -329,6 +344,13 @@ window.verifyID = async function() {
             <div class="sig-label">अधिकृत हस्ताक्षर</div>
           </div>
 
+          <div class="id-card-border-inner"></div>
+          <div class="id-card-side id-card-side-l"></div>
+          <div class="id-card-side id-card-side-r"></div>
+          <div class="id-card-corner id-card-cc-tl"></div>
+          <div class="id-card-corner id-card-cc-tr"></div>
+          <div class="id-card-corner id-card-cc-bl"></div>
+          <div class="id-card-corner id-card-cc-br"></div>
         </div>
 
         <!-- EXTRA INFO -->
