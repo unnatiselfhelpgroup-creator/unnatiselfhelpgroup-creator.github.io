@@ -163,17 +163,21 @@ function buildIDCardMarkup(data, forCapture) {
       border-radius:8px;padding:7px 10px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06) inset;}
     .idc-idbox .lbl{font-family:'Tiro Devanagari Hindi',serif;font-size:8.5px;color:#5c0808;font-weight:700;}
     .idc-idbox .val{font-family:'Courier New',monospace;font-size:14px;font-weight:800;color:#8B0000;letter-spacing:1.5px;margin-top:2px;}
-    .idc-mid{flex:1;display:flex;gap:14px;padding:10px 16px;min-height:0;align-items:center;}
-    .idc-rules{flex:1;font-size:8px;color:#2a2a2a;line-height:1.7;}
-    .idc-rules .rh{font-family:'Tiro Devanagari Hindi',serif;font-size:9px;color:#5c0808;font-weight:700;margin-bottom:4px;}
-    .idc-qrbox{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px;}
-    .idc-qr{width:${Math.round(H * 0.24)}px;height:${Math.round(H * 0.24)}px;
-      background:#fff;border:1.5px solid #C8960C;border-radius:5px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
+    .idc-mid{flex:1;display:flex;gap:16px;padding:14px 18px;min-height:0;align-items:center;}
+    .idc-rules{flex:1;font-size:9.5px;color:#2a2a2a;line-height:2;}
+    .idc-rules .rh{font-family:'Tiro Devanagari Hindi',serif;font-size:11px;color:#5c0808;font-weight:700;margin-bottom:8px;}
+    .idc-seal{margin-top:14px;width:52px;height:52px;border-radius:50%;border:2px double #8B0000;
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#5c0808,#a8420c);
+      transform:rotate(-8deg);box-shadow:0 2px 5px rgba(0,0,0,0.15);}
+    .idc-seal span{font-family:'Tiro Devanagari Hindi',serif;font-size:6px;font-weight:700;color:#F9DE8E;line-height:1.2;text-align:center;}
+    .idc-qrbox{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:9px;}
+    .idc-qr{width:${Math.round(H * 0.34)}px;height:${Math.round(H * 0.34)}px;
+      background:#fff;border:1.5px solid #C8960C;border-radius:6px;padding:3px;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
     .idc-qr img{width:100%;height:100%;}
-    .idc-motto{font-family:'Tiro Devanagari Hindi',serif;font-size:7.5px;color:#7a1a08;font-weight:700;font-style:italic;text-align:center;}
-    .idc-back-foot{flex-shrink:0;padding:6px 12px;
+    .idc-motto{font-family:'Tiro Devanagari Hindi',serif;font-size:9px;color:#7a1a08;font-weight:700;font-style:italic;text-align:center;}
+    .idc-back-foot{flex-shrink:0;padding:9px 12px;
       background:linear-gradient(90deg,#fdf0d0,#fbe4b0);border-top:1px solid #e8c878;text-align:center;}
-    .idc-back-foot span{font-size:7px;font-weight:700;color:#5c0808;}
+    .idc-back-foot span{font-size:8px;font-weight:700;color:#5c0808;}
   </style>
 
   ${forCapture ? `
@@ -192,6 +196,7 @@ function buildIDCardMarkup(data, forCapture) {
     .idc-foot, .idc-idbox, .idc-back-foot{background:#fbe4b0 !important;}
     .idc-side-l{background:#FF8A00 !important;}
     .idc-side-r{background:#1DA212 !important;}
+    .idc-seal{background:#7a1a08 !important;}
   </style>
   ` : ""}
 
@@ -250,6 +255,7 @@ function buildIDCardMarkup(data, forCapture) {
         • इस कार्ड का दुरुपयोग दंडनीय है।<br>
         • खोने पर तुरंत संस्था को सूचित करें।<br>
         • सभी गतिविधियाँ संविधान के दायरे में होंगी।
+        <div class="idc-seal"><span>उन्नति<br>स्वयं सहायता<br>समिति</span></div>
       </div>
       <div class="idc-qrbox">
         <div class="idc-qr"><img src="${qrURL}" ${CO}></div>
