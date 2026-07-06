@@ -273,185 +273,23 @@ function buildIDCardMarkup(data, forCapture) {
   return html;
 }
 
+// ✅ मुख्य फिक्स: html2canvas आधारित सीधी PDF-जनरेशन कई धीमे फ़ोन/नेटवर्क पर
+// या तो अटक जाती थी या खाली/टूटी हुई PDF बनाती थी। चूँकि "Preview" (ब्राउज़र की
+// असली रेंडरिंग + Save as PDF) हमेशा सही और भरोसेमंद नतीजा देता है, अब
+// "PDF Download" बटन भी उसी भरोसेमंद रास्ते का इस्तेमाल करता है — बस अब यह
+// पेज खुलते ही अपने आप प्रिंट डायलॉग खोल देता है, ताकि अनुभव एक-टैप डाउनलोड
+// जैसा ही रहे। इससे धीमापन, खाली कार्ड, या हमेशा घूमते रहने वाला बटन — यह
+// तीनों समस्याएं हमेशा के लिए खत्म हो जाती हैं।
 window.generateIDCardPDF = async function (data) {
-  // ✅ मुख्य फिक्स: पहले सिर्फ html2canvas वाले हिस्से पर टाइमआउट था — लेकिन
-  // उससे पहले के स्टेप्स (फॉन्ट लोडिंग, QR fetch) कहीं अटक जाएं तो भी बटन
-  // हमेशा के लिए "बन रहा है..." पर रुका रह जाता था। अब पूरे फ़ंक्शन को एक
-  // 40-सेकंड की समय-सीमा में लपेट दिया है — चाहे कोई भी अंदरूनी स्टेप अटके,
-  // बटन तय समय में वापस सामान्य हो जाएगा।
-  function withTimeout(promise, ms, msg) {
-    return Promise.race([
-      promise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error(msg)), ms))
-    ]);
-  }
-  return withTimeout(_generateIDCardPDFInner(data), 40000,
-    "PDF बनाने में बहुत समय लग रहा है (शायद धीमा नेटवर्क)। कृपया दोबारा कोशिश करें, या ऊपर '👁️ Preview' खोलकर वहाँ से 'प्रिंट करें → Save as PDF' इस्तेमाल करें।");
+  window.previewIDCard(data, true);
 };
 
-async function _generateIDCardPDFInner(data) {
-  // ✅ सबसे पहले जरूरी लाइब्रेरी लोड हैं या नहीं जांचें (यही मुख्य फिक्स है)
-  await ensureLibsLoaded();
-
-  // Google Fonts (Tiro Devanagari Hindi + Poppins) load करें — पूरा wait करें ताकि
-  // html2canvas खाली/invisible टेक्स्ट का स्नैपशॉट न ले (FOIT bug)
-  await ensureFontsLoaded();
-  async function ensureFontsLoaded() {
-    if (!document.getElementById("idc-font-link")) {
-      await new Promise((resolve) => {
-        const link = document.createElement("link");
-        link.id = "idc-font-link";
-        link.rel = "stylesheet";
-        link.href = "https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap";
-        link.onload = () => resolve();
-        link.onerror = () => resolve();
-        document.head.appendChild(link);
-        setTimeout(resolve, 2500);
-      });
-    }
-    if (document.fonts) {
-      try {
-        await Promise.all([
-          document.fonts.load('400 16px "Tiro Devanagari Hindi"'),
-          document.fonts.load('700 16px "Tiro Devanagari Hindi"'),
-          document.fonts.load('400 16px "Poppins"'),
-          document.fonts.load('700 16px "Poppins"'),
-          document.fonts.load('800 16px "Poppins"')
-        ]);
-        await document.fonts.ready;
-      } catch (e) {}
-    }
-    await new Promise(r => setTimeout(r, 500));
-  }
-
-  const CARD_W_MM = 86, CARD_H_MM = 54;
-
-  // ✅ FIX: html2canvas किसी element के CSS "object-fit: cover" को सही से सपोर्ट
-  // नहीं करता — इसलिए फोटो अपने असली (uncropped) आकार में रेंडर हो जाती थी,
-  // जिससे फोटो बहुत बड़ी दिखती और बाकी कार्ड खाली/ढका हुआ लगता था। अब फोटो को
-  // बॉक्स के असली नाप के हिसाब से पहले ही canvas पर crop करके data URL बना
-  // लेते हैं, ताकि html2canvas को कोई object-fit समझने की ज़रूरत ही न पड़े।
-  function cropCover(srcDataUrl, targetW, targetH) {
-    return new Promise((resolve, reject) => {
-      if (!srcDataUrl) { reject(new Error("no image")); return; }
-      const img = new Image();
-      img.onload = () => {
-        try {
-          const canvas = document.createElement("canvas");
-          canvas.width = targetW; canvas.height = targetH;
-          const ctx = canvas.getContext("2d");
-          const srcRatio = img.width / img.height;
-          const dstRatio = targetW / targetH;
-          let sx, sy, sw, sh;
-          if (srcRatio > dstRatio) { sh = img.height; sw = sh * dstRatio; sx = (img.width - sw) / 2; sy = 0; }
-          else { sw = img.width; sh = sw / dstRatio; sx = 0; sy = (img.height - sh) / 2; }
-          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
-          resolve(canvas.toDataURL("image/jpeg", 0.92));
-        } catch (e) { reject(e); }
-      };
-      img.onerror = () => reject(new Error("photo crop के लिए लोड नहीं हो पाई"));
-      img.src = srcDataUrl;
-    });
-  }
-
-  // QR कोड बाहरी डोमेन (api.qrserver.com) से आता है — अगर वह CORS सपोर्ट न करे तो
-  // html2canvas का canvas "tainted" हो सकता है और पूरी capture ही fail/blank हो
-  // सकती है। इसलिए इसे पहले base64 में बदलने की कोशिश करते हैं; फेल हो तो चुपचाप
-  // असली URL पर वापस आ जाते हैं (सिर्फ QR प्रभावित होगा, पूरा कार्ड नहीं)।
-  async function urlToDataURLSafe(url) {
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 6000); // ✅ QR fetch कभी भी 6 सेकंड से ज़्यादा न अटके
-      const res = await fetch(url, { mode: "cors", signal: controller.signal });
-      clearTimeout(timer);
-      const blob = await res.blob();
-      return await new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onload = () => resolve(r.result);
-        r.onerror = reject;
-        r.readAsDataURL(blob);
-      });
-    } catch (e) {
-      console.warn("QR को base64 में बदलना फेल हुआ, असली URL इस्तेमाल होगा:", e);
-      return url;
-    }
-  }
-
-  // ✅ FIX: पहले element को left:-9999px पर बहुत दूर पोज़िशन करते थे, जिससे कुछ
-  // मोबाइल Chrome वर्ज़न पर html2canvas पूरी तरह खाली canvas बना देता था।
-  // अब इसे viewport के अंदर (0,0) पर रखते हैं पर पीछे (z-index -9999) छुपा देते
-  // हैं, ताकि रेंडरिंग हमेशा सही से हो और यूज़र को दिखे भी नहीं।
-  const wrap = document.createElement("div");
-  wrap.style.cssText = "position:fixed;top:0;left:0;width:0;height:0;overflow:visible;z-index:-9999;opacity:1;pointer-events:none;";
-  document.body.appendChild(wrap);
-
-  let qrDataURL;
-  try { qrDataURL = await urlToDataURLSafe(
-    `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${encodeURIComponent(
-      `https://unnatiselfhelpgroup-creator.github.io/idverification.html?id=${data.volunteer_id || data.volunteerId || ""}`
-    )}`
-  ); } catch (e) { qrDataURL = null; }
-
-  const dataForCapture = qrDataURL ? Object.assign({}, data, { __qrOverride: qrDataURL }) : data;
-  wrap.innerHTML = buildIDCardMarkup(dataForCapture, true);
-  if (qrDataURL) {
-    wrap.querySelectorAll(".idc-qr img").forEach(img => { img.src = qrDataURL; });
-  }
-
-  // इमेज (लोगो/QR/हस्ताक्षर) लोड होने के लिए थोड़ा wait
-  await new Promise(r => setTimeout(r, 300));
-
-  // फोटो को उसके असली रेंडर हो चुके बॉक्स के नाप में crop करें (मुख्य फिक्स)
-  try {
-    const photoBox = wrap.querySelector("#idc-front .idc-photo");
-    const photoImg = photoBox ? photoBox.querySelector("img") : null;
-    if (photoImg && data.photoBase64) {
-      const rect = photoBox.getBoundingClientRect();
-      const targetW = Math.max(1, Math.round(rect.width));
-      const targetH = Math.max(1, Math.round(rect.height));
-      const cropped = await cropCover(data.photoBase64, targetW * 2, targetH * 2); // 2x for sharpness
-      await new Promise((resolve) => {
-        photoImg.onload = resolve;
-        photoImg.onerror = resolve; // फेल हो तो भी आगे बढ़ें, बाकी कार्ड सही बनेगा
-        photoImg.src = cropped;
-      });
-    }
-  } catch (e) {
-    console.warn("Photo crop फेल हुआ, मूल फोटो के साथ आगे बढ़ रहे हैं:", e);
-  }
-
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: [CARD_H_MM, CARD_W_MM] });
-
-  async function captureToPDF(elId, isFirst) {
-    const el = wrap.querySelector("#" + elId);
-    const canvas = await html2canvas(el, { scale: 3, useCORS: true, allowTaint: false, backgroundColor: "#ffffff" });
-    const img = canvas.toDataURL("image/jpeg", 0.96);
-    if (!isFirst) pdf.addPage([CARD_H_MM, CARD_W_MM], "landscape");
-    pdf.addImage(img, "JPEG", 0, 0, CARD_W_MM, CARD_H_MM);
-  }
-
-  // ✅ FIX: अगर किसी वजह से capture अटक जाए, तो बटन हमेशा के लिए "बन रहा है..."
-  // पर न रुका रह जाए — 30 सेकंड बाद साफ़ एरर देकर बाहर आ जाएं।
-  function withTimeout(promise, ms, msg) {
-    return Promise.race([
-      promise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error(msg)), ms))
-    ]);
-  }
-
-  try {
-    await withTimeout(captureToPDF("idc-front", true), 30000, "PDF बनाने में बहुत समय लग रहा है (फ्रंट साइड)। कृपया दोबारा कोशिश करें।");
-    await withTimeout(captureToPDF("idc-back", false), 30000, "PDF बनाने में बहुत समय लग रहा है (बैक साइड)। कृपया दोबारा कोशिश करें।");
-  } finally {
-    document.body.removeChild(wrap);
-  }
-
-  pdf.save((data.name || "Member") + "-ID-Card.pdf");
-};
 
 // ── नए टैब में Preview खोलें (Print/Close बटन के साथ, front + back दोनों) ──
-window.previewIDCard = function (data) {
+// autoPrint=true होने पर पेज लोड होते ही अपने आप प्रिंट डायलॉग खुल जाता है
+// (PDF Download बटन अब इसी भरोसेमंद तरीके का इस्तेमाल करता है, क्योंकि
+// html2canvas वाला सीधा तरीका धीमे फ़ोन/नेटवर्क पर बार-बार अटक/फेल हो रहा था)
+window.previewIDCard = function (data, autoPrint) {
   function esc(str) {
     if (str === null || str === undefined) return "";
     return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -459,7 +297,7 @@ window.previewIDCard = function (data) {
   const markup = buildIDCardMarkup(data, false);
 
   const win = window.open("", "_blank");
-  if (!win) { alert("⚠️ Popup ब्लॉक हो गया — कृपया popup की अनुमति दें।"); return; }
+  if (!win) { alert("⚠️ Popup ब्लॉक हो गया — कृपया popup की अनुमति दें, फिर दोबारा कोशिश करें।"); return; }
 
   win.document.open();
   win.document.write(`
@@ -478,11 +316,12 @@ window.previewIDCard = function (data) {
       .toolbar button{padding:10px 20px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9rem;}
       .btn-print{background:#138808;color:#fff;}
       .btn-close{background:#8B0000;color:#fff;}
+      .hint{text-align:center;color:#666;font-size:0.78rem;padding:8px 16px 0;}
       .cards-wrap{max-width:900px;margin:24px auto 60px;padding:0 10px;display:flex;flex-wrap:wrap;gap:24px;justify-content:center;}
       .idc-card{page-break-inside:avoid;break-inside:avoid;}
       #idc-front{page-break-after:always;break-after:page;}
       @page{margin:8mm;}
-      @media print{ .toolbar{display:none;} body{background:#fff;} .cards-wrap{margin:0;max-width:100%;gap:10mm;} }
+      @media print{ .toolbar{display:none;} .hint{display:none;} body{background:#fff;} .cards-wrap{margin:0;max-width:100%;gap:10mm;} }
     </style>
   </head>
   <body>
@@ -490,6 +329,7 @@ window.previewIDCard = function (data) {
       <button class="btn-print">🖨️ प्रिंट करें</button>
       <button class="btn-close">✕ बंद करें</button>
     </div>
+    ${autoPrint ? `<p class="hint">📄 PDF के लिए प्रिंट डायलॉग खुल रहा है — कृपया "Save as PDF" चुनें। अगर डायलॉग न खुले तो ऊपर "🖨️ प्रिंट करें" दबाएं।</p>` : ""}
     <div class="cards-wrap">${markup}</div>
   </body>
   </html>
@@ -497,4 +337,11 @@ window.previewIDCard = function (data) {
   win.document.close();
   win.document.querySelector(".btn-print").onclick = () => win.print();
   win.document.querySelector(".btn-close").onclick = () => win.close();
+
+  if (autoPrint) {
+    // इमेज/फॉन्ट को थोड़ा वक़्त देकर अपने आप प्रिंट डायलॉग खोलें
+    const triggerPrint = () => { try { win.focus(); win.print(); } catch (e) {} };
+    if (win.document.readyState === "complete") setTimeout(triggerPrint, 700);
+    else win.addEventListener("load", () => setTimeout(triggerPrint, 700));
+  }
 };
