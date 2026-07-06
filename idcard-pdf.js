@@ -274,6 +274,22 @@ function buildIDCardMarkup(data, forCapture) {
 }
 
 window.generateIDCardPDF = async function (data) {
+  // ✅ मुख्य फिक्स: पहले सिर्फ html2canvas वाले हिस्से पर टाइमआउट था — लेकिन
+  // उससे पहले के स्टेप्स (फॉन्ट लोडिंग, QR fetch) कहीं अटक जाएं तो भी बटन
+  // हमेशा के लिए "बन रहा है..." पर रुका रह जाता था। अब पूरे फ़ंक्शन को एक
+  // 40-सेकंड की समय-सीमा में लपेट दिया है — चाहे कोई भी अंदरूनी स्टेप अटके,
+  // बटन तय समय में वापस सामान्य हो जाएगा।
+  function withTimeout(promise, ms, msg) {
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error(msg)), ms))
+    ]);
+  }
+  return withTimeout(_generateIDCardPDFInner(data), 40000,
+    "PDF बनाने में बहुत समय लग रहा है (शायद धीमा नेटवर्क)। कृपया दोबारा कोशिश करें, या ऊपर '👁️ Preview' खोलकर वहाँ से 'प्रिंट करें → Save as PDF' इस्तेमाल करें।");
+};
+
+async function _generateIDCardPDFInner(data) {
   // ✅ सबसे पहले जरूरी लाइब्रेरी लोड हैं या नहीं जांचें (यही मुख्य फिक्स है)
   await ensureLibsLoaded();
 
@@ -344,7 +360,10 @@ window.generateIDCardPDF = async function (data) {
   // असली URL पर वापस आ जाते हैं (सिर्फ QR प्रभावित होगा, पूरा कार्ड नहीं)।
   async function urlToDataURLSafe(url) {
     try {
-      const res = await fetch(url, { mode: "cors" });
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 6000); // ✅ QR fetch कभी भी 6 सेकंड से ज़्यादा न अटके
+      const res = await fetch(url, { mode: "cors", signal: controller.signal });
+      clearTimeout(timer);
       const blob = await res.blob();
       return await new Promise((resolve, reject) => {
         const r = new FileReader();
