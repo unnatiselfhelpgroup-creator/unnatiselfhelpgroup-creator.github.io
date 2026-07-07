@@ -126,21 +126,21 @@ function buildIDCardMarkup(data, forCapture) {
       box-shadow:0 1px 3px rgba(0,0,0,0.15) inset;}
     .idc-title span{color:#fff;font-family:'Tiro Devanagari Hindi',serif;font-size:10.5px;font-weight:700;
       letter-spacing:.3px;text-shadow:0 1px 1px rgba(0,0,0,0.3);}
-    .idc-body{flex:1;display:flex;gap:14px;padding:14px 16px;position:relative;min-height:0;}
-    .idc-photo{width:${Math.round(H * 0.38)}px;flex-shrink:0;border-radius:6px;
+    .idc-body{flex:1;display:flex;gap:16px;padding:14px 18px;position:relative;min-height:0;}
+    .idc-photo{width:${Math.round(H * 0.44)}px;flex-shrink:0;border-radius:6px;
       border:2px solid #C8960C;box-shadow:0 0 0 1px #fff, 0 2px 5px rgba(0,0,0,0.15);
       overflow:hidden;background:#f0e8e0;display:flex;align-items:center;
       justify-content:center;font-size:30px;}
     .idc-photo img{width:100%;height:100%;object-fit:cover;}
     .idc-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
-    .idc-name{font-family:'Tiro Devanagari Hindi',serif;font-weight:700;color:#3a0303;font-size:18px;
+    .idc-name{font-family:'Tiro Devanagari Hindi',serif;font-weight:700;color:#3a0303;font-size:21px;
       line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .idc-desig{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(120deg,#5c0808,#a8420c);
-      color:#F9DE8E;font-size:9.5px;font-weight:700;padding:4px 12px;border-radius:10px;margin:8px 0 12px;
+      color:#F9DE8E;font-size:10.5px;font-weight:700;padding:5px 13px;border-radius:11px;margin:9px 0 13px;
       box-shadow:0 1px 2px rgba(0,0,0,0.2);width:fit-content;}
-    .idc-row{font-size:10.5px;color:#333;margin-bottom:7px;display:flex;gap:5px;line-height:1.4;}
-    .idc-row b{color:#7a1a08;font-weight:700;min-width:58px;flex-shrink:0;}
-    .idc-website{margin-top:4px;padding-top:7px;border-top:1px dashed #d8b878;font-size:9.5px;color:#5c0808;
+    .idc-row{font-size:12px;color:#333;margin-bottom:8px;display:flex;gap:6px;line-height:1.4;}
+    .idc-row b{color:#7a1a08;font-weight:700;min-width:66px;flex-shrink:0;}
+    .idc-website{margin-top:6px;padding-top:8px;border-top:1px dashed #d8b878;font-size:10.5px;color:#5c0808;
       font-weight:700;display:flex;align-items:center;gap:4px;}
     .idc-foot{flex-shrink:0;padding:8px 16px;display:flex;
       justify-content:space-between;align-items:center;background:linear-gradient(90deg,#fdf0d0,#fbe4b0);
@@ -321,7 +321,11 @@ window.previewIDCard = function (data, autoPrint) {
       .idc-card{page-break-inside:avoid;break-inside:avoid;}
       #idc-front{page-break-after:always;break-after:page;}
       @page{margin:8mm;}
-      @media print{ .toolbar{display:none;} .hint{display:none;} body{background:#fff;} .cards-wrap{margin:0;max-width:100%;gap:10mm;} }
+      @media print{
+        .toolbar{display:none;} .hint{display:none;} body{background:#fff;}
+        .cards-wrap{margin:0;max-width:100%;gap:0;padding-top:32mm;align-items:flex-start;}
+        .idc-card{transform:scale(1.35);transform-origin:top center;}
+      }
     </style>
   </head>
   <body>
