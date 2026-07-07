@@ -1,1 +1,383 @@
+// ============================================================
+// idcard-pdf.js — उन्नति स्वयं सहायता समिति
+// Premium "Sacred India" थीम — Front + Back ID Card PDF
+// HTML/CSS + html2canvas से render होता है ताकि हिंदी (Devanagari)
+// सही दिखे — jsPDF के default फॉन्ट्स में हिंदी सपोर्ट नहीं होता।
+//
+// ✅ FIX (जुलाई 2026): पहले यह फ़ाइल मान लेती थी कि jsPDF और html2canvas
+// पहले से पेज पर लोड हैं। अगर होस्ट पेज (जैसे admin-dashboard.html) में
+// सही स्क्रिप्ट टैग नहीं थे या लोड होने से पहले बटन दब गया, तो
+// "Cannot destructure property 'jsPDF' of 'window.jspdf'" वाली एरर आती थी।
+// अब generateIDCardPDF() खुद जांचता है कि jsPDF/html2canvas लोड हैं या नहीं,
+// और अगर नहीं हैं तो पहले उन्हें CDN से लोड करता है — इसलिए यह किसी भी पेज
+// पर बिना किसी अतिरिक्त <script> टैग के भी काम करेगा।
+//
+// ✅ FIX (जुलाई 2026, दूसरा): PDF/प्रिंट में कार्ड बुरी तरह कटा हुआ आ रहा था
+// (फोटो, पता, मोबाइल, फुटर/हस्ताक्षर, दाईं ओर की बॉर्डर-डिज़ाइन — सब गायब)।
+// वजह: कार्ड को स्क्रीन पर बड़ा व साफ़ दिखाने के लिए PX_PER_MM=12 रखा गया है,
+// जिससे कार्ड असल में 1032×648 CSS px का बनता है — प्रिंट में यह अपने आप
+// ~273mm×171mm के बराबर छपता है, जो Letter पेज (करीब 200mm चौड़ा) से भी
+// ज़्यादा चौड़ा है। पुराने कोड में `transform:scale(1.35)` जोड़कर इसे और भी
+// बड़ा (~369mm चौड़ा) कर दिया गया था — इसीलिए कार्ड पेज की सीमा से बाहर जाकर
+// बुरी तरह कट रहा था। अब सही अनुपात में नीचे स्केल किया गया है ताकि पूरा
+// कार्ड (फोटो, सारे फ़ील्ड, फुटर, बॉर्डर) हमेशा पूरी तरह पेज के अंदर दिखे।
+// ============================================================
 
+function loadScriptOnce(src) {
+  return new Promise((resolve, reject) => {
+    // अगर यह स्क्रिप्ट पहले से पेज में मौजूद है तो दोबारा न जोड़ें
+    const existing = document.querySelector(`script[src="${src}"]`);
+    if (existing) {
+      if (existing.dataset.loaded === "true") return resolve();
+      existing.addEventListener("load", () => resolve());
+      existing.addEventListener("error", () => reject(new Error("स्क्रिप्ट लोड नहीं हुई: " + src)));
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = () => { s.dataset.loaded = "true"; resolve(); };
+    s.onerror = () => reject(new Error("स्क्रिप्ट लोड नहीं हुई: " + src));
+    document.head.appendChild(s);
+  });
+}
+
+async function ensureLibsLoaded() {
+  const jobs = [];
+  if (!window.jspdf || typeof window.jspdf.jsPDF !== "function") {
+    jobs.push(loadScriptOnce("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"));
+  }
+  if (typeof window.html2canvas !== "function") {
+    jobs.push(loadScriptOnce("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"));
+  }
+  if (jobs.length) await Promise.all(jobs);
+
+  // दोबारा पक्का जांच लें — अगर CDN ब्लॉक/धीमा हो तो साफ़ एरर दें
+  if (!window.jspdf || typeof window.jspdf.jsPDF !== "function") {
+    throw new Error("jsPDF लाइब्रेरी लोड नहीं हो पाई। कृपया इंटरनेट कनेक्शन जांचें और दोबारा कोशिश करें।");
+  }
+  if (typeof window.html2canvas !== "function") {
+    throw new Error("html2canvas लाइब्रेरी लोड नहीं हो पाई। कृपया इंटरनेट कनेक्शन जांचें और दोबारा कोशिश करें।");
+  }
+}
+
+function buildIDCardMarkup(data, forCapture) {
+  function esc(str) {
+    if (str === null || str === undefined) return "";
+    return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+  const CO = forCapture ? 'crossorigin="anonymous"' : ''; // capture (PDF) के लिए ज़रूरी, preview में हटाया ताकि image ज़रूर दिखे
+
+  const LOGO_URL = "https://unnatiselfhelpgroup-creator.github.io/ngologo.png";
+  const SIGN_URL = "https://unnatiselfhelpgroup-creator.github.io/signature.png";
+  const NGO_DARPAN = "UA/2016/0108273";
+  const NGO_PAN = "AAATU7133Q";
+  const NGO_REG = "UK0660892021006667";
+
+  const volunteerId = esc(data.volunteer_id || data.volunteerId || data["volunteer-id"] || "USS-XXXX-XXXX");
+  const name = esc(data.name || "—");
+  const fatherName = esc(data.fatherName || data.father_name || "—");
+  const designation = esc(data.designation || "Volunteer");
+  const mobile = esc(data.mobile || data["mobile number"] || data["mobile_number"] || "—");
+  const address = esc(String(data.address || "—")).substring(0, 45);
+  const bloodGroup = esc(data.bloodGroup || data.blood_group || "");
+  const WEBSITE = "unnatiselfhelpgroup-creator.github.io";
+  const photoURL = data.photoBase64 || data.photoURL || data.photo || "";
+
+  const qrData = encodeURIComponent(
+    `https://unnatiselfhelpgroup-creator.github.io/idverification.html?id=${data.volunteer_id || data.volunteerId || ""}`
+  );
+  const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${qrData}`;
+
+  const CARD_W_MM = 86, CARD_H_MM = 54;
+  const PX_PER_MM = 12; // sharpness के लिए render scale
+  const W = CARD_W_MM * PX_PER_MM;
+  const H = CARD_H_MM * PX_PER_MM;
+
+  const html = `
+  <style>
+    .idc-card{width:${W}px;height:${H}px;position:relative;font-family:'Poppins',sans-serif;
+      background:repeating-linear-gradient(45deg, rgba(200,150,12,0.045) 0 2px, transparent 2px 14px),
+        linear-gradient(160deg,#fffdf7,#fdf2d8 55%,#fbe9c4);
+      overflow:hidden;border-radius:14px;
+      box-shadow:inset 0 0 0 1px rgba(200,150,12,0.15);display:flex;flex-direction:column;}
+    .idc-gloss{position:absolute;inset:0;z-index:5;pointer-events:none;
+      background:linear-gradient(115deg,rgba(255,255,255,0.35) 0%,rgba(255,255,255,0.08) 18%,rgba(255,255,255,0) 32%,
+      rgba(255,255,255,0) 68%,rgba(255,255,255,0.12) 82%,rgba(255,255,255,0.02) 100%);}
+    .idc-reginfo{font-size:6.2px;color:#FFD98E;letter-spacing:.2px;margin-top:1px;position:relative;opacity:0.9;}
+    .idc-border-hair{position:absolute;inset:2px;border:0.75px solid rgba(200,150,12,0.55);border-radius:13px;pointer-events:none;}
+    .idc-border{position:absolute;inset:5px;border:1.75px solid #C8960C;border-radius:12px;pointer-events:none;
+      box-shadow:0 0 0 0.5px rgba(255,255,255,0.5) inset;}
+    .idc-border-inner{position:absolute;inset:9.5px;border:1.1px solid #C8960C;border-radius:9px;pointer-events:none;opacity:0.85;}
+    .idc-orn{position:absolute;width:7px;height:7px;background:linear-gradient(135deg,#F2CE63,#C8960C);
+      transform:rotate(45deg);z-index:3;box-shadow:0 0 0 1px #fffdf7;}
+    .idc-orn-top{top:1.5px;left:50%;margin-left:-3.5px;}
+    .idc-orn-bottom{bottom:1.5px;left:50%;margin-left:-3.5px;}
+    .idc-orn-left{left:1.5px;top:50%;margin-top:-3.5px;}
+    .idc-orn-right{right:1.5px;top:50%;margin-top:-3.5px;}
+    .idc-side{position:absolute;top:0;bottom:0;width:8px;}
+    .idc-side-l{left:0;background:linear-gradient(#FF6B00,#FF9500);} .idc-side-r{right:0;background:linear-gradient(#138808,#1DA212);}
+    .idc-corner{position:absolute;width:16px;height:16px;border-color:#C8960C;z-index:3;}
+    .idc-corner-tl{top:6px;left:12px;border-top:2px solid;border-left:2px solid;border-radius:4px 0 0 0;}
+    .idc-corner-tr{top:6px;right:12px;border-top:2px solid;border-right:2px solid;border-radius:0 4px 0 0;}
+    .idc-corner-bl{bottom:6px;left:12px;border-bottom:2px solid;border-left:2px solid;border-radius:0 0 0 4px;}
+    .idc-corner-br{bottom:6px;right:12px;border-bottom:2px solid;border-right:2px solid;border-radius:0 0 4px 0;}
+    .idc-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.06;
+      transform:rotate(-8deg);pointer-events:none;}
+    .idc-watermark img{width:58%;}
+    .idc-cow-wm{position:absolute;right:-6px;bottom:2px;font-size:${Math.round(H*0.9)}px;opacity:0.05;
+      line-height:1;pointer-events:none;transform:rotate(-6deg);}
+    .idc-head{position:relative;flex-shrink:0;background:linear-gradient(120deg,#3a0303 0%,#5c0808 45%,#7a1a08 75%,#a8420c 100%);
+      height:${Math.round(H * 0.24)}px;display:flex;align-items:center;gap:10px;padding:0 16px;overflow:hidden;}
+    .idc-head::after{content:"";position:absolute;inset:0;
+      background:radial-gradient(circle at 85% 20%,rgba(242,206,99,0.25),transparent 55%);}
+    .idc-head .logo-ring{position:relative;flex-shrink:0;height:${Math.round(H * 0.18)}px;width:${Math.round(H * 0.18)}px;
+      border-radius:50%;background:conic-gradient(from 0deg,#F2CE63,#C8960C,#F2CE63,#C8960C,#F2CE63);
+      padding:2px;display:flex;align-items:center;justify-content:center;}
+    .idc-head img.logo{height:${Math.round(H * 0.15)}px;width:${Math.round(H * 0.15)}px;border-radius:50%;
+      border:1.5px solid #3a0303;object-fit:cover;display:block;}
+    .idc-head .org{font-family:'Tiro Devanagari Hindi',serif;color:#F9DE8E;font-weight:700;font-size:15px;
+      line-height:1.25;text-shadow:0 1px 2px rgba(0,0,0,0.4);position:relative;}
+    .idc-head .sub{color:#FFB347;font-size:7.8px;letter-spacing:.3px;margin-top:2px;position:relative;
+      display:flex;align-items:center;gap:3px;}
+    .idc-tri{height:4px;display:flex;flex-shrink:0;}
+    .idc-tri span{flex:1;}
+    .idc-tri span:nth-child(1){background:#FF6B00;} .idc-tri span:nth-child(2){background:#fff;} .idc-tri span:nth-child(3){background:#138808;}
+    .idc-title{flex-shrink:0;background:linear-gradient(90deg,#a8420c,#FF6B00 50%,#a8420c);text-align:center;padding:4px 6px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.15) inset;}
+    .idc-title span{color:#fff;font-family:'Tiro Devanagari Hindi',serif;font-size:10.5px;font-weight:700;
+      letter-spacing:.3px;text-shadow:0 1px 1px rgba(0,0,0,0.3);}
+    .idc-body{flex:1;display:flex;gap:14px;padding:14px 16px;position:relative;min-height:0;}
+    .idc-photo{width:${Math.round(H * 0.38)}px;flex-shrink:0;border-radius:6px;
+      border:2px solid #C8960C;box-shadow:0 0 0 1px #fff, 0 2px 5px rgba(0,0,0,0.15);
+      overflow:hidden;background:#f0e8e0;display:flex;align-items:center;
+      justify-content:center;font-size:30px;}
+    .idc-photo img{width:100%;height:100%;object-fit:cover;}
+    .idc-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
+    .idc-name{font-family:'Tiro Devanagari Hindi',serif;font-weight:700;color:#3a0303;font-size:18px;
+      line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .idc-desig{display:inline-flex;align-items:center;gap:3px;background:linear-gradient(120deg,#5c0808,#a8420c);
+      color:#F9DE8E;font-size:9.5px;font-weight:700;padding:4px 12px;border-radius:10px;margin:8px 0 12px;
+      box-shadow:0 1px 2px rgba(0,0,0,0.2);width:fit-content;}
+    .idc-row{font-size:10.5px;color:#333;margin-bottom:7px;display:flex;gap:5px;line-height:1.4;}
+    .idc-row b{color:#7a1a08;font-weight:700;min-width:58px;flex-shrink:0;}
+    .idc-website{margin-top:4px;padding-top:7px;border-top:1px dashed #d8b878;font-size:9.5px;color:#5c0808;
+      font-weight:700;display:flex;align-items:center;gap:4px;}
+    .idc-foot{flex-shrink:0;padding:8px 16px;display:flex;
+      justify-content:space-between;align-items:center;background:linear-gradient(90deg,#fdf0d0,#fbe4b0);
+      border-top:1px solid #e8c878;}
+    .idc-volid .lbl{font-size:6.8px;color:#8a6a20;text-transform:uppercase;letter-spacing:.6px;font-weight:600;}
+    .idc-volid .val{font-family:'Courier New',monospace;font-weight:800;color:#5c0808;font-size:12px;letter-spacing:.8px;}
+    .idc-sign{text-align:center;}
+    .idc-sign img{height:26px;display:block;margin:0 auto;}
+    .idc-sign .lbl{font-size:6.5px;color:#5c0808;border-top:1px solid #C8960C;padding-top:2px;margin-top:2px;font-weight:700;}
+
+    /* BACK SIDE */
+    .idc-back-head{position:relative;flex-shrink:0;background:linear-gradient(120deg,#3a0303 0%,#5c0808 45%,#7a1a08 75%,#a8420c 100%);
+      height:${Math.round(H * 0.20)}px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+    .idc-back-head::after{content:"";position:absolute;inset:0;
+      background:radial-gradient(circle at 15% 25%,rgba(242,206,99,0.22),transparent 55%);}
+    .idc-back-head .o1{font-family:'Tiro Devanagari Hindi',serif;color:#F9DE8E;font-size:13px;font-weight:700;
+      position:relative;text-shadow:0 1px 2px rgba(0,0,0,0.4);}
+    .idc-back-head .o2{color:#FFB347;font-size:7.2px;margin-top:2px;letter-spacing:.5px;position:relative;}
+    .idc-idbox{flex-shrink:0;margin:10px 16px 0;background:linear-gradient(135deg,#fdf0d0,#fbe4b0);border:1.5px solid #C8960C;
+      border-radius:8px;padding:7px 10px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06) inset;}
+    .idc-idbox .lbl{font-family:'Tiro Devanagari Hindi',serif;font-size:8.5px;color:#5c0808;font-weight:700;}
+    .idc-idbox .val{font-family:'Courier New',monospace;font-size:14px;font-weight:800;color:#8B0000;letter-spacing:1.5px;margin-top:2px;}
+    .idc-mid{flex:1;display:flex;gap:14px;padding:10px 18px;min-height:0;align-items:center;}
+    .idc-rules{flex:1;font-size:8.5px;color:#2a2a2a;line-height:1.75;}
+    .idc-rules .rh{font-family:'Tiro Devanagari Hindi',serif;font-size:10px;color:#5c0808;font-weight:700;margin-bottom:6px;}
+    .idc-seal{margin-top:10px;width:38px;height:38px;border-radius:50%;border:2px double #8B0000;
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#5c0808,#a8420c);
+      transform:rotate(-8deg);box-shadow:0 2px 5px rgba(0,0,0,0.15);}
+    .idc-seal span{font-family:'Tiro Devanagari Hindi',serif;font-size:4.6px;font-weight:700;color:#F9DE8E;line-height:1.15;text-align:center;}
+    .idc-qrbox{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .idc-qr{width:${Math.round(H * 0.28)}px;height:${Math.round(H * 0.28)}px;
+      background:#fff;border:1.5px solid #C8960C;border-radius:6px;padding:3px;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
+    .idc-qr img{width:100%;height:100%;}
+    .idc-motto{font-family:'Tiro Devanagari Hindi',serif;font-size:8px;color:#7a1a08;font-weight:700;font-style:italic;text-align:center;}
+    .idc-back-foot{flex-shrink:0;padding:7px 12px;
+      background:linear-gradient(90deg,#fdf0d0,#fbe4b0);border-top:1px solid #e8c878;text-align:center;}
+    .idc-back-foot span{font-size:7.5px;font-weight:700;color:#5c0808;}
+  </style>
+
+  ${forCapture ? `
+  <style>
+    /* ✅ मुख्य फिक्स: html2canvas अक्सर CSS gradient (linear/radial/conic) को
+       सही से नहीं बना पाता, जिससे PDF में कार्ड लगभग खाली दिखता है और सिर्फ
+       टेक्स्ट बचता है। यह सिर्फ PDF capture के लिए हर gradient को ठोस रंग से
+       बदल देता है — स्क्रीन पर दिखने वाला Preview अछूता रहता है। */
+    .idc-card{background:#fdf2d8 !important;}
+    .idc-gloss{display:none !important;}
+    .idc-head, .idc-back-head{background:#5c0808 !important;}
+    .idc-head::after, .idc-back-head::after{display:none !important;}
+    .logo-ring{background:#C8960C !important;}
+    .idc-title{background:#FF6B00 !important;}
+    .idc-desig{background:#7a1a08 !important;}
+    .idc-foot, .idc-idbox, .idc-back-foot{background:#fbe4b0 !important;}
+    .idc-side-l{background:#FF8A00 !important;}
+    .idc-side-r{background:#1DA212 !important;}
+    .idc-seal{background:#7a1a08 !important;}
+    .idc-orn{background:#C8960C !important;}
+    .idc-card{background:repeating-linear-gradient(45deg, rgba(200,150,12,0.045) 0 2px, transparent 2px 14px), #fdf2d8 !important;}
+  </style>
+  ` : ""}
+
+  <div id="idc-front" class="idc-card">
+    <div class="idc-cow-wm">🐄</div>
+    <div class="idc-watermark"><img src="${LOGO_URL}" ${CO}></div>
+    <div class="idc-head">
+      <div class="logo-ring"><img class="logo" src="${LOGO_URL}" ${CO}></div>
+      <div>
+        <div class="org">उन्नति स्वयं सहायता समिति</div>
+        <div class="sub">🐄 गौ माता • राष्ट्रमाता सेवा में समर्पित</div>
+        <div class="idc-reginfo">NGO Darpan: ${NGO_DARPAN}</div>
+      </div>
+    </div>
+    <div class="idc-tri"><span></span><span></span><span></span></div>
+    <div class="idc-title"><span>🪪 आधिकारिक सदस्यता पहचान पत्र</span></div>
+    <div class="idc-body">
+      <div class="idc-photo">${photoURL ? `<img src="${photoURL}" ${CO}>` : "👤"}</div>
+      <div class="idc-info">
+        <div class="idc-name">${name}</div>
+        <span class="idc-desig">🐄 ${designation}</span>
+        <div class="idc-row"><b>पिता/पति:</b><span>${fatherName}</span></div>
+        <div class="idc-row"><b>मोबाइल:</b><span>${mobile}</span></div>
+        <div class="idc-row"><b>क्षेत्र:</b><span>${address}</span></div>
+        ${bloodGroup ? `<div class="idc-row"><b>ब्लड ग्रुप:</b><span>${bloodGroup}</span></div>` : ""}
+        <div class="idc-website">🌐 <span>${WEBSITE}</span></div>
+      </div>
+    </div>
+    <div class="idc-foot">
+      <div class="idc-volid"><div class="lbl">Volunteer ID</div><div class="val">${volunteerId}</div></div>
+      <div class="idc-sign"><img src="${SIGN_URL}" ${CO}><div class="lbl">हस्ताक्षर</div></div>
+    </div>
+    <div class="idc-border-hair"></div><div class="idc-border"></div><div class="idc-border-inner"></div>
+    <div class="idc-orn idc-orn-top"></div><div class="idc-orn idc-orn-bottom"></div><div class="idc-orn idc-orn-left"></div><div class="idc-orn idc-orn-right"></div>
+    <div class="idc-side idc-side-l"></div><div class="idc-side idc-side-r"></div>
+    <div class="idc-corner idc-corner-tl"></div><div class="idc-corner idc-corner-tr"></div>
+    <div class="idc-corner idc-corner-bl"></div><div class="idc-corner idc-corner-br"></div>
+    <div class="idc-gloss"></div>
+  </div>
+
+  <div id="idc-back" class="idc-card">
+    <div class="idc-cow-wm">🐄</div>
+    <div class="idc-watermark"><img src="${LOGO_URL}" ${CO}></div>
+    <div class="idc-back-head">
+      <div class="o1">उन्नति स्वयं सहायता समिति</div>
+      <div class="o2">🐄 OFFICIAL MEMBER ID CARD · गौ सेवा अभियान</div>
+      <div class="idc-reginfo">NGO Darpan: ${NGO_DARPAN} | Reg: ${NGO_REG}</div>
+    </div>
+    <div class="idc-idbox">
+      <div class="lbl">Volunteer ID</div>
+      <div class="val">${volunteerId}</div>
+    </div>
+    <div class="idc-mid">
+      <div class="idc-rules">
+        <div class="rh">नियम एवं शर्तें</div>
+        • यह कार्ड हस्तांतरणीय नहीं है।<br>
+        • इस कार्ड का दुरुपयोग दंडनीय है।<br>
+        • खोने पर तुरंत संस्था को सूचित करें।<br>
+        • सभी गतिविधियाँ संविधान के दायरे में होंगी।
+        <div class="idc-seal"><span>उन्नति<br>स्वयं सहायता<br>समिति</span></div>
+      </div>
+      <div class="idc-qrbox">
+        <div class="idc-qr"><img src="${qrURL}" ${CO}></div>
+        <div class="idc-motto">"गौ सेवा परमो धर्मः"</div>
+      </div>
+    </div>
+    <div class="idc-back-foot"><span>📞 9410332400 &nbsp;|&nbsp; ✉️ unnatiselfhelpgroup@gmail.com</span></div>
+    <div class="idc-border-hair"></div><div class="idc-border"></div><div class="idc-border-inner"></div>
+    <div class="idc-orn idc-orn-top"></div><div class="idc-orn idc-orn-bottom"></div><div class="idc-orn idc-orn-left"></div><div class="idc-orn idc-orn-right"></div>
+    <div class="idc-side idc-side-l"></div><div class="idc-side idc-side-r"></div>
+    <div class="idc-corner idc-corner-tl"></div><div class="idc-corner idc-corner-tr"></div>
+    <div class="idc-corner idc-corner-bl"></div><div class="idc-corner idc-corner-br"></div>
+    <div class="idc-gloss"></div>
+  </div>
+  `;
+  return html;
+}
+
+// ✅ मुख्य फिक्स: html2canvas आधारित सीधी PDF-जनरेशन कई धीमे फ़ोन/नेटवर्क पर
+// या तो अटक जाती थी या खाली/टूटी हुई PDF बनाती थी। चूँकि "Preview" (ब्राउज़र की
+// असली रेंडरिंग + Save as PDF) हमेशा सही और भरोसेमंद नतीजा देता है, अब
+// "PDF Download" बटन भी उसी भरोसेमंद रास्ते का इस्तेमाल करता है — बस अब यह
+// पेज खुलते ही अपने आप प्रिंट डायलॉग खोल देता है, ताकि अनुभव एक-टैप डाउनलोड
+// जैसा ही रहे। इससे धीमापन, खाली कार्ड, या हमेशा घूमते रहने वाला बटन — यह
+// तीनों समस्याएं हमेशा के लिए खत्म हो जाती हैं।
+window.generateIDCardPDF = async function (data) {
+  window.previewIDCard(data, true);
+};
+
+
+// ── नए टैब में Preview खोलें (Print/Close बटन के साथ, front + back दोनों) ──
+// autoPrint=true होने पर पेज लोड होते ही अपने आप प्रिंट डायलॉग खुल जाता है
+// (PDF Download बटन अब इसी भरोसेमंद तरीके का इस्तेमाल करता है, क्योंकि
+// html2canvas वाला सीधा तरीका धीमे फ़ोन/नेटवर्क पर बार-बार अटक/फेल हो रहा था)
+window.previewIDCard = function (data, autoPrint) {
+  function esc(str) {
+    if (str === null || str === undefined) return "";
+    return String(str).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+  const markup = buildIDCardMarkup(data, false);
+
+  const win = window.open("", "_blank");
+  if (!win) { alert("⚠️ Popup ब्लॉक हो गया — कृपया popup की अनुमति दें, फिर दोबारा कोशिश करें।"); return; }
+
+  win.document.open();
+  win.document.write(`
+  <!DOCTYPE html>
+  <html lang="hi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card Preview — ${esc(data.name || "")}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body{background:#e9e9e9;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+      *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}
+      .toolbar{position:sticky;top:0;z-index:10;background:#4a0404;padding:12px 16px;display:flex;gap:10px;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+      .toolbar button{padding:10px 20px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9rem;}
+      .btn-print{background:#138808;color:#fff;}
+      .btn-close{background:#8B0000;color:#fff;}
+      .hint{text-align:center;color:#666;font-size:0.78rem;padding:8px 16px 0;}
+      .cards-wrap{max-width:900px;margin:24px auto 60px;padding:0 10px;display:flex;flex-wrap:wrap;gap:24px;justify-content:center;}
+      .idc-card{page-break-inside:avoid;break-inside:avoid;}
+      #idc-front{page-break-after:always;break-after:page;}
+      @page{margin:8mm;}
+      @media print{
+        .toolbar{display:none;} .hint{display:none;} body{background:#fff;}
+        /* ✅ FIX: कार्ड 1032×648 CSS px का बना है, जो बिना स्केल किए ही
+           ~273mm चौड़ा छपता है — Letter पेज (~200mm उपयोग-योग्य चौड़ाई) से भी
+           ज़्यादा। पहले transform:scale(1.35) से इसे और बड़ा (~369mm) कर दिया
+           जाता था, जिससे कार्ड पेज से बाहर जाकर बुरी तरह कट जाता था
+           (फोटो, पता, फुटर/हस्ताक्षर, दायाँ बॉर्डर — सब गायब हो जाते थे)।
+           अब कार्ड को घटाकर ~131mm चौड़ा (आराम से पेज के अंदर) किया गया है,
+           ताकि पूरा कार्ड — बॉर्डर, फोटो, सभी फ़ील्ड और फुटर — हमेशा पूरी
+           तरह और साफ़ दिखे। */
+        .cards-wrap{margin:0;max-width:100%;gap:0;padding-top:12mm;align-items:flex-start;}
+        .idc-card{transform:scale(0.48);transform-origin:top center;}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="btn-print">🖨️ प्रिंट करें</button>
+      <button class="btn-close">✕ बंद करें</button>
+    </div>
+    ${autoPrint ? `<p class="hint">📄 PDF के लिए प्रिंट डायलॉग खुल रहा है — कृपया "Save as PDF" चुनें। अगर डायलॉग न खुले तो ऊपर "🖨️ प्रिंट करें" दबाएं।</p>` : ""}
+    <div class="cards-wrap">${markup}</div>
+  </body>
+  </html>
+  `);
+  win.document.close();
+  win.document.querySelector(".btn-print").onclick = () => win.print();
+  win.document.querySelector(".btn-close").onclick = () => win.close();
+
+  if (autoPrint) {
+    // इमेज/फॉन्ट को थोड़ा वक़्त देकर अपने आप प्रिंट डायलॉग खोलें
+    const triggerPrint = () => { try { win.focus(); win.print(); } catch (e) {} };
+    if (win.document.readyState === "complete") setTimeout(triggerPrint, 700);
+    else win.addEventListener("load", () => setTimeout(triggerPrint, 700));
+  }
+};
