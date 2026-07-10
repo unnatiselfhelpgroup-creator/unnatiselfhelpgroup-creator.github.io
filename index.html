@@ -1426,6 +1426,15 @@ async function doLogin() {
   errEl.style.display = 'none';
   if (!email || !pass) { errEl.textContent = 'Email और Password दर्ज करें।'; errEl.style.display = 'block'; return; }
   loadEl.style.display = 'block';
+
+  // Open a blank tab IMMEDIATELY (still inside the click event) so mobile
+  // browsers don't block it as a popup. We fill in the real URL only after
+  // login succeeds.
+  let newTab = null;
+  if (pendingDoc && pendingDoc !== 'balance' && docUrls[pendingDoc]) {
+    newTab = window.open('', '_blank');
+  }
+
   try {
     await auth.signInWithEmailAndPassword(email, pass);
     loadEl.style.display = 'none';
@@ -1433,10 +1442,14 @@ async function doLogin() {
       showBalanceSheetPicker();
     } else {
       closeAuthModal();
-      if (pendingDoc && docUrls[pendingDoc]) window.open(docUrls[pendingDoc], '_blank');
+      if (pendingDoc && docUrls[pendingDoc]) {
+        if (newTab) { newTab.location.href = docUrls[pendingDoc]; }
+        else { window.open(docUrls[pendingDoc], '_blank'); }
+      }
     }
   } catch(e) {
     loadEl.style.display = 'none';
+    if (newTab) { newTab.close(); }
     errEl.textContent = 'Login विफल। Email/Password जाँचें।';
     errEl.style.display = 'block';
   }
