@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>गौ माता 'राज्य माता' दर्जा अभियान — RTI पड़ताल | उन्नति स्वयं सहायता समिति</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#6a1220;
+    --maroon-deep:#4a0c16;
+    --saffron:#e8912e;
+    --saffron-light:#f4b860;
+    --cream:#faf3e4;
+    --parchment:#f2e8d3;
+    --ink:#2c1a12;
+    --green:#0c5c40;
+    --gold:#b8933f;
+    --line:#d8c49a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans Devanagari', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.8;
+  }
+  h1,h2,h3,.serif{ font-family:'Tiro Devanagari Hindi', serif; }
+
+  .tricolor-strip{ height:6px; background:linear-gradient(90deg,#ff9933 0 33%, #ffffff 33% 66%, #138808 66% 100%); }
+
+  header.hero{
+    position:relative;
+    background:
+      radial-gradient(ellipse at top left, rgba(232,145,46,0.25), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(184,147,63,0.2), transparent 55%),
+      linear-gradient(160deg, var(--maroon) 0%, var(--maroon-deep) 65%, #35080f 100%);
+    color:var(--cream);
+    padding:64px 24px 56px;
+    text-align:center;
+    overflow:hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 22px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-block;
+    letter-spacing:.14em;
+    font-size:.78rem;
+    color:var(--saffron-light);
+    border:1px solid rgba(244,184,96,0.5);
+    padding:5px 16px;
+    border-radius:999px;
+    margin-bottom:22px;
+    text-transform:uppercase;
+  }
+  header.hero h1{
+    font-size:clamp(1.9rem, 4.2vw, 3.1rem);
+    font-weight:400;
+    max-width:780px;
+    margin:0 auto 18px;
+    line-height:1.35;
+  }
+  header.hero p.sub{
+    max-width:640px;
+    margin:0 auto;
+    color:#eaded0;
+    font-size:1.05rem;
+  }
+  .org-tag{
+    margin-top:30px;
+    font-size:.92rem;
+    color:var(--saffron-light);
+    letter-spacing:.03em;
+  }
+
+  main{ max-width:900px; margin:0 auto; padding:0 20px; }
+
+  section{ padding:56px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  .section-label{
+    font-size:.8rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--maroon);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  section h2{
+    font-size:clamp(1.5rem, 3vw, 2rem);
+    color:var(--maroon-deep);
+    margin-bottom:20px;
+    font-weight:400;
+  }
+  section > p.lede{ font-size:1.08rem; max-width:70ch; color:#4a3324; }
+
+  /* ---- Timeline (the "yatra" thread) ---- */
+  .timeline{
+    position:relative;
+    margin-top:40px;
+    padding-left:34px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:9px; top:6px; bottom:6px;
+    width:3px;
+    background:linear-gradient(180deg, var(--saffron) 0%, var(--gold) 45%, var(--green) 100%);
+    border-radius:3px;
+  }
+  .t-item{
+    position:relative;
+    padding-bottom:38px;
+  }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-dot{
+    position:absolute;
+    left:-34px; top:2px;
+    width:20px; height:20px;
+    border-radius:50%;
+    background:var(--cream);
+    border:3px solid var(--maroon);
+    box-shadow:0 0 0 4px var(--cream);
+  }
+  .t-item.milestone .t-dot{ background:var(--saffron); border-color:var(--maroon-deep); }
+  .t-date{
+    font-weight:700;
+    color:var(--maroon);
+    font-size:.98rem;
+    letter-spacing:.02em;
+    margin-bottom:4px;
+  }
+  .t-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--saffron);
+    border-radius:6px;
+    padding:16px 20px;
+  }
+  .t-card h3{ font-size:1.08rem; color:var(--ink); font-weight:600; margin-bottom:6px; font-family:'Noto Sans Devanagari',sans-serif;}
+  .t-card p{ font-size:.96rem; color:#5a4535; }
+  .t-ref{
+    display:inline-block;
+    margin-top:8px;
+    font-size:.82rem;
+    color:var(--green);
+    background:#eef6f1;
+    padding:3px 10px;
+    border-radius:4px;
+  }
+
+  /* ---- ask box ---- */
+  .ask-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:14px;
+    margin-top:24px;
+  }
+  .ask-card{
+    background:var(--parchment);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 18px;
+  }
+  .ask-card .num{
+    font-family:'Tiro Devanagari Hindi',serif;
+    font-size:1.4rem;
+    color:var(--saffron);
+    margin-bottom:6px;
+  }
+  .ask-card p{ font-size:.93rem; color:#4a3324; }
+
+  /* ---- status box ---- */
+  .status-box{
+    background:linear-gradient(135deg, var(--maroon) 0%, var(--maroon-deep) 100%);
+    color:var(--cream);
+    border-radius:10px;
+    padding:26px 26px;
+    margin-top:20px;
+  }
+  .status-box h3{ font-family:'Tiro Devanagari Hindi',serif; font-weight:400; font-size:1.25rem; color:var(--saffron-light); margin-bottom:14px;}
+  .status-row{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:10px 0;
+    border-bottom:1px dashed rgba(250,243,228,0.25);
+    font-size:.95rem;
+  }
+  .status-row:last-child{ border-bottom:none; }
+  .status-row .lbl{ color:#e8ded0; }
+  .status-row .val{ color:var(--saffron-light); font-weight:600; text-align:right; }
+  .note{ font-size:.82rem; color:#d8c8b3; margin-top:14px; }
+
+  /* ---- document gallery ---- */
+  .doc-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:18px;
+    margin-top:24px;
+  }
+  .doc-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+    text-decoration:none;
+    color:inherit;
+    display:block;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .doc-card:hover{ transform:translateY(-3px); box-shadow:0 10px 22px rgba(74,12,22,0.15); }
+  .doc-card img{ width:100%; display:block; aspect-ratio:3/4; object-fit:cover; border-bottom:3px solid var(--saffron); }
+  .doc-card .cap{ padding:10px 12px; font-size:.85rem; color:var(--maroon-deep); font-weight:600; }
+  .doc-card .cap span{ display:block; font-weight:400; color:#6b5847; font-size:.78rem; margin-top:2px; }
+
+  footer{
+    background:var(--maroon-deep);
+    color:#d8c8b3;
+    text-align:center;
+    padding:36px 20px 30px;
+    font-size:.88rem;
+  }
+  footer strong{ color:var(--saffron-light); display:block; margin-bottom:6px; font-size:1rem; }
+  footer .regno{ margin-top:8px; font-size:.78rem; color:#b8a68f; }
+
+  @media (max-width:520px){
+    .status-row{ flex-direction:column; gap:2px; }
+    .status-row .val{ text-align:left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="tricolor-strip"></div>
+
+<header class="hero">
+  <span class="eyebrow">पारदर्शिता रिपोर्ट</span>
+  <h1>गौ माता को "राज्य माता" का दर्जा — अभियान की RTI पड़ताल</h1>
+  <p class="sub">दंडवत संकल्प यात्रा से लेकर सूचना के अधिकार अधिनियम के तहत दाखिल आवेदनों तक — जनप्रतिनिधियों तक पहुँची इस मांग की अब तक की पूरी, प्रमाणित यात्रा।</p>
+  <div class="org-tag">उन्नति स्वयं सहायता समिति · हल्द्वानी / लालकुआं, नैनीताल, उत्तराखंड · NGO Darpan: UA/2016/0108273</div>
+  <div style="margin-top:22px;"><a href="gau-samman.html" style="color:#f4b860; font-size:.88rem; border-bottom:1px solid rgba(244,184,96,0.5); padding-bottom:2px;">← पूरा आंदोलन देखें (यात्रा, समर्थन व अन्य दस्तावेज़)</a></div>
+</header>
+
+<main>
+
+  <section id="parichay">
+    <div class="section-label">पृष्ठभूमि</div>
+    <h2>यह अभियान क्या है</h2>
+    <p class="lede">देवभूमि उत्तराखंड में गौ माता को संवैधानिक/विधायी रूप से "राज्य माता" का दर्जा दिलाए जाने की मांग को लेकर उन्नति स्वयं सहायता समिति के सचिव श्री विनोद चंद्र भट्ट लगातार जनप्रतिनिधियों, शासन और विधानसभा सचिवालय से पत्राचार कर रहे हैं। नीचे इस मांग की अब तक की पूरी समयरेखा, इस पर सरकार की ओर से मिली प्रतिक्रिया, और अब पारदर्शिता के लिए दाखिल किए गए RTI आवेदनों का पूरा ब्यौरा दिया गया है — साथ में मूल दस्तावेज़ों की प्रमाणित प्रतियां भी।</p>
+  </section>
+
+  <section id="yatra">
+    <div class="section-label">समयरेखा</div>
+    <h2>ज्ञापन से RTI तक — पूरी यात्रा</h2>
+
+    <div class="timeline">
+
+      <div class="t-item milestone">
+        <div class="t-dot"></div>
+        <div class="t-date">20 दिसंबर 2025</div>
+        <div class="t-card">
+          <h3>दंडवत संकल्प यात्रा ज्ञापन — मुख्यमंत्री कार्यालय को अग्रसारित</h3>
+          <p>जिला मजिस्ट्रेट कार्यालय, देहरादून द्वारा अपर सचिव, माननीय मुख्यमंत्री जी को गौ माता संरक्षण दंडवत संकल्प यात्रा से जुड़ा ज्ञापन आगे भेजा गया।</p>
+          <span class="t-ref">पत्र संख्या 1340/जेए-ज्ञापन/2025</span>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">22 जनवरी 2026</div>
+        <div class="t-card">
+          <h3>पशुपालन मंत्री का पत्र मुख्यमंत्री जी को</h3>
+          <p>माननीय पशुपालन मंत्री, उत्तराखंड सरकार द्वारा माननीय मुख्यमंत्री जी को इस विषय पर पत्र प्रेषित किया गया।</p>
+          <span class="t-ref">पत्र संख्या VIP-577/2025-26 · 1905 पोर्टल संदर्भ</span>
+        </div>
+      </div>
+
+      <div class="t-item milestone">
+        <div class="t-dot"></div>
+        <div class="t-date">13 फरवरी 2026</div>
+        <div class="t-card">
+          <h3>मुख्य ज्ञापन सीधे मुख्यमंत्री जी व विधानसभा सचिवालय में प्रस्तुत</h3>
+          <p>"उत्तराखंड में गौ माता को राज्य माता का दर्जा प्रदान करने हेतु आगामी विधानसभा सत्र में सरकारी प्रस्ताव लाए जाने" विषयक संयुक्त हस्ताक्षरित ज्ञापन माननीय मुख्यमंत्री जी व उत्तराखंड विधानसभा सचिवालय दोनों जगह प्रस्तुत किया गया, साथ ही जनप्रतिनिधियों के समर्थन पत्रों की प्रतियां भी संलग्न की गईं।</p>
+          <span class="t-ref">गेट पास सं. 24561 · डायरी सं. 217/1</span>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-date">23 जून 2026</div>
+        <div class="t-card">
+          <h3>निदेशक, पशुपालन विभाग, उत्तराखंड का जवाबी पत्र</h3>
+          <p>निदेशक कार्यालय, पशुपालन विभाग, देहरादून ने सूचित किया कि यह प्रकरण पूर्व में ही सचिव, पशुपालन अनुभाग-1 को गौ-प्रेमियों व जनभावना के दृष्टिगत विचार हेतु प्रेषित किया जा चुका है, और उत्तराखण्ड गो सेवा आयोग को भी सूचनार्थ भेजा गया है।</p>
+          <span class="t-ref">पत्रांक 1432 / पशुधन-तीन / गौ सेवा आ0 / 2026-27</span>
+        </div>
+      </div>
+
+      <div class="t-item milestone">
+        <div class="t-dot"></div>
+        <div class="t-date">03 जुलाई 2026</div>
+        <div class="t-card">
+          <h3>RTI आवेदन — उत्तराखंड विधानसभा सचिवालय</h3>
+          <p>लोक सूचना अधिकारी, संसदीय अनुभाग, उत्तराखंड विधानसभा सचिवालय को सूचना का अधिकार अधिनियम, 2005 के तहत आवेदन देकर 13.02.2026 के ज्ञापन पर हुई संपूर्ण कार्रवाई, नोटशीट, फाइल मूवमेंट व वर्तमान स्थिति मांगी गई।</p>
+          <span class="t-ref">IPO संख्या 73F68720</span>
+        </div>
+      </div>
+
+      <div class="t-item milestone">
+        <div class="t-dot"></div>
+        <div class="t-date">06 जुलाई 2026</div>
+        <div class="t-card">
+          <h3>विधानसभा सचिवालय RTI — स्पीड पोस्ट डिलीवर</h3>
+          <p>हल्द्वानी प्रधान डाकघर से 03 जुलाई को बुक हुआ आवेदन रुद्रपुर व देहरादून होते हुए देहरादून GPO पहुंचा और वहीं से डिलीवर हुआ। इसी तिथि से सांविधिक 30-दिन की उत्तर अवधि की गणना शुरू होती है।</p>
+          <span class="t-ref">EV976804841IN · बुकिंग: हल्द्वानी HO, 03-07-2026 · डिलीवरी: देहरादून GPO, 06-07-2026, 18:21</span>
+        </div>
+      </div>
+
+      <div class="t-item milestone">
+        <div class="t-dot"></div>
+        <div class="t-date">11 जुलाई 2026</div>
+        <div class="t-card">
+          <h3>RTI आवेदन — मुख्यमंत्री कार्यालय (CMO)</h3>
+          <p>लोक सूचना अधिकारी, मुख्यमंत्री कार्यालय, उत्तराखंड शासन को RTI आवेदन देकर तीनों पत्रों/ज्ञापनों (जिला मजिस्ट्रेट पत्र, पशुपालन मंत्री पत्र व 13.02.2026 का मुख्य ज्ञापन) पर हुई कार्रवाई, फाइल नोटिंग, कैबिनेट में प्रस्तुति की स्थिति और लंबित होने का कारण मांगा गया। कठघरिया डाकघर से स्पीड पोस्ट द्वारा प्रेषित — डिलीवरी आराघर SO, देहरादून के माध्यम से होगी।</p>
+          <span class="t-ref">IPO संख्या 73F132929 · ट्रैकिंग EV854849980IN</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="mangi-suchna">
+    <div class="section-label">RTI आवेदन में क्या मांगा गया</div>
+    <h2>पारदर्शिता के लिए पूछे गए सवाल</h2>
+    <p class="lede">दोनों RTI आवेदनों के माध्यम से निम्न जानकारियां सूचना के अधिकार अधिनियम, 2005 की धारा 6 व 7 के अंतर्गत मांगी गई हैं:</p>
+    <div class="ask-grid">
+      <div class="ask-card"><div class="num">०१</div><p>ज्ञापन पर अब तक की गई संपूर्ण Action Taken Report (ATR) की प्रमाणित प्रति</p></div>
+      <div class="ask-card"><div class="num">०२</div><p>संबंधित फाइल की File Noting / नोटशीट व Movement Register की प्रति</p></div>
+      <div class="ask-card"><div class="num">०३</div><p>फाइल वर्तमान में किस अधिकारी/शाखा के पास है, इसकी स्थिति</p></div>
+      <div class="ask-card"><div class="num">०४</div><p>क्या विषय मंत्रिमंडल (कैबिनेट) की बैठक में रखा गया या रखा जाना प्रस्तावित है</p></div>
+      <div class="ask-card"><div class="num">०५</div><p>यदि अंतिम निर्णय नहीं हुआ, तो विलंब के दर्ज कारणों की प्रमाणित प्रति</p></div>
+      <div class="ask-card"><div class="num">०६</div><p>प्रकरण के निस्तारण हेतु उत्तरदायी अधिकारी का नाम, पदनाम व कार्यालय पता</p></div>
+    </div>
+  </section>
+
+  <section id="sthiti">
+    <div class="section-label">वर्तमान स्थिति</div>
+    <h2>अब आगे क्या</h2>
+    <div class="status-box">
+      <h3>दोनों RTI आवेदन विचाराधीन हैं</h3>
+      <div class="status-row"><span class="lbl">विधानसभा सचिवालय — बुकिंग</span><span class="val">03 जुलाई 2026, हल्द्वानी HO</span></div>
+      <div class="status-row"><span class="lbl">विधानसभा सचिवालय — डिलीवरी</span><span class="val">06 जुलाई 2026, 18:21, देहरादून GPO ✅</span></div>
+      <div class="status-row"><span class="lbl">विधानसभा सचिवालय — अपेक्षित उत्तर तिथि</span><span class="val">लगभग 05 अगस्त 2026 तक</span></div>
+      <div class="status-row"><span class="lbl">मुख्यमंत्री कार्यालय (CMO) — बुकिंग</span><span class="val">11 जुलाई 2026, कठघरिया SO</span></div>
+      <div class="status-row"><span class="lbl">मुख्यमंत्री कार्यालय (CMO) — डिलीवरी</span><span class="val">मार्ग में — डिलीवरी कार्यालय: आराघर SO, देहरादून</span></div>
+      <div class="status-row"><span class="lbl">सांविधिक समय-सीमा</span><span class="val">30 दिन, प्राप्ति तिथि से (धारा 7, RTI अधिनियम 2005)</span></div>
+      <p class="note">* भारतीय डाक (indiapost.gov.in) की आधिकारिक ट्रैकिंग रिपोर्ट के अनुसार अद्यतन (13 जुलाई 2026 तक)। CMO कार्यालय में डिलीवरी की पुष्टि होते ही उसकी 30-दिन की समय-सीमा भी यहां जोड़ दी जाएगी।</p>
+    </div>
+  </section>
+
+  <section id="dastavez">
+    <div class="section-label">मूल दस्तावेज़</div>
+    <h2>प्रमाणित प्रतियां (स्कैन कॉपी)</h2>
+    <p class="lede">पारदर्शिता हेतु सभी मूल पत्रों व RTI आवेदनों की स्कैन प्रतियां नीचे उपलब्ध हैं — बड़ा देखने के लिए किसी भी चित्र पर क्लिक करें।</p>
+    <div class="doc-grid">
+      <a class="doc-card" href="doc-01-nideshak-patra.jpg" target="_blank">
+        <img src="doc-01-nideshak-patra.jpg" alt="निदेशक पशुपालन विभाग का पत्र, 23 जून 2026">
+        <div class="cap">निदेशक, पशुपालन विभाग का पत्र <span>23 जून 2026 · पत्रांक 1432</span></div>
+      </a>
+      <a class="doc-card" href="doc-02-vidhansabha-rti-p1.jpg" target="_blank">
+        <img src="doc-02-vidhansabha-rti-p1.jpg" alt="विधानसभा सचिवालय RTI आवेदन पृष्ठ 1">
+        <div class="cap">विधानसभा सचिवालय — RTI आवेदन <span>पृष्ठ 1</span></div>
+      </a>
+      <a class="doc-card" href="doc-03-vidhansabha-rti-p2.jpg" target="_blank">
+        <img src="doc-03-vidhansabha-rti-p2.jpg" alt="विधानसभा सचिवालय RTI आवेदन पृष्ठ 2">
+        <div class="cap">विधानसभा सचिवालय — RTI आवेदन <span>पृष्ठ 2 · IPO 73F68720</span></div>
+      </a>
+      <a class="doc-card" href="doc-04-cmo-rti-p1.jpg" target="_blank">
+        <img src="doc-04-cmo-rti-p1.jpg" alt="मुख्यमंत्री कार्यालय RTI आवेदन पृष्ठ 1">
+        <div class="cap">मुख्यमंत्री कार्यालय — RTI आवेदन <span>पृष्ठ 1</span></div>
+      </a>
+      <a class="doc-card" href="doc-05-cmo-rti-p2.jpg" target="_blank">
+        <img src="doc-05-cmo-rti-p2.jpg" alt="मुख्यमंत्री कार्यालय RTI आवेदन पृष्ठ 2">
+        <div class="cap">मुख्यमंत्री कार्यालय — RTI आवेदन <span>पृष्ठ 2 · IPO 73F132929</span></div>
+      </a>
+      <a class="doc-card" href="doc-06-cmo-speedpost-receipt.jpg" target="_blank">
+        <img src="doc-06-cmo-speedpost-receipt.jpg" alt="मुख्यमंत्री कार्यालय RTI स्पीड पोस्ट रसीद">
+        <div class="cap">CMO RTI — स्पीड पोस्ट रसीद <span>EV854849980IN · 11 जुलाई 2026</span></div>
+      </a>
+      <a class="doc-card" href="doc-08-vidhansabha-tracking-p1.jpg" target="_blank">
+        <img src="doc-08-vidhansabha-tracking-p1.jpg" alt="विधानसभा RTI इंडिया पोस्ट ट्रैकिंग रिपोर्ट पृष्ठ 1">
+        <div class="cap">इंडिया पोस्ट ट्रैकिंग रिपोर्ट <span>विधानसभा RTI · पृष्ठ 1</span></div>
+      </a>
+      <a class="doc-card" href="doc-09-vidhansabha-tracking-p2.jpg" target="_blank">
+        <img src="doc-09-vidhansabha-tracking-p2.jpg" alt="विधानसभा RTI इंडिया पोस्ट ट्रैकिंग रिपोर्ट पृष्ठ 2 - डिलीवर्ड">
+        <div class="cap">इंडिया पोस्ट ट्रैकिंग रिपोर्ट <span>विधानसभा RTI · पृष्ठ 2 · डिलीवर्ड ✅</span></div>
+      </a>
+      <a class="doc-card" href="doc-07-cmo-tracking.jpg" target="_blank">
+        <img src="doc-07-cmo-tracking.jpg" alt="CMO RTI इंडिया पोस्ट ट्रैकिंग रिपोर्ट">
+        <div class="cap">इंडिया पोस्ट ट्रैकिंग रिपोर्ट <span>CMO RTI · मार्ग में</span></div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>उन्नति स्वयं सहायता समिति</strong>
+  गौ सेवा · पर्यावरण संरक्षण · सामाजिक कल्याण<br>
+  हल्द्वानी / लालकुआं, जिला नैनीताल, उत्तराखंड
+  <div class="regno">NGO Darpan ID: UA/2016/0108273 · Registration: UK0660892021006667 · PAN: AAATU7133Q</div>
+</footer>
+
+</body>
+</html>
