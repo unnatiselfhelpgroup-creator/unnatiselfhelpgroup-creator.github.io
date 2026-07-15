@@ -119,10 +119,6 @@ body{margin:0;background:#0d0500;color:#FFF5E0;}
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;}
 </style>
 
-<!-- Firebase (deferred: not needed for initial paint, only for admin login) -->
-<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
 <style>
 :root {
   --saffron: #FF6B00;
@@ -1370,7 +1366,10 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<script defer>
+<!-- Firebase: loaded here (end of body) so it no longer blocks initial page paint -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
 // Firebase init
 const firebaseConfig = {
   apiKey: "AIzaSyDU6uqfPXJmMSXhZJhM4sgePHgcZkTx_e8",
